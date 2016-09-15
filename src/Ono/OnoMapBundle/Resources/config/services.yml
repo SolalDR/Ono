@@ -1,0 +1,4 @@
+services:
+#    ono_ono_map.example:
+#        class: Ono\OnoMapBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

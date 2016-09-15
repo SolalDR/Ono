@@ -1,0 +1,7 @@
+ono_ono_map:
+    resource: "@OnoOnoMapBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
