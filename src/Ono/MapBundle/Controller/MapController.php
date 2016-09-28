@@ -8,6 +8,6 @@ class MapController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('OnoMapBundle:Default:index.html.twig');
+        return $this->render('OnoMapBundle:Map:index.html.twig');
     }
 }

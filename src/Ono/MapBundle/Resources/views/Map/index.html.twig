@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    {% stylesheets  filter='cssrewrite'
+      'bundles/onomap/css/main.css' %}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+
+  </head>
+  <body>
+    <p>
+      hello world;
+    </p>
+  </body>
+
+  {% javascripts 'bundles/onomap/js/main.js' %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+  {% endjavascripts %}
+
+</html>
