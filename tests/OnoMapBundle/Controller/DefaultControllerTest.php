@@ -1,6 +1,6 @@
 <?php
 
-namespace Ono\OnoMapBundle\Tests\Controller;
+namespace Ono\MapBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

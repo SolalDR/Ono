@@ -1,0 +1,4 @@
+ono_map_homepage:
+    path:     /
+    defaults:
+        _controller: OnoMapBundle:Map:index

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ono\OnoMapBundle\Controller;
+namespace Ono\MapBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -8,6 +8,6 @@ class MapController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('OnoOnoMapBundle:Default:index.html.twig');
+        return $this->render('OnoMapBundle:Default:index.html.twig');
     }
 }
