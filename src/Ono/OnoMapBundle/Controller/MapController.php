@@ -4,7 +4,7 @@ namespace Ono\OnoMapBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class MapController extends Controller
 {
     public function indexAction()
     {

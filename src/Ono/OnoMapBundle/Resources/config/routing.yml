@@ -1,3 +1,3 @@
 ono_ono_map_homepage:
     path:     /
-    defaults: { _controller: OnoOnoMapBundle:Default:index }
+    defaults: { _controller: OnoOnoMapBundle:Map:index }
