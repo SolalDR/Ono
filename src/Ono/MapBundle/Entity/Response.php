@@ -162,4 +162,28 @@ class Response
     {
         return $this->published;
     }
+
+    /**
+     * Set question
+     *
+     * @param \Ono\MapBundle\Entity\Question $question
+     *
+     * @return Response
+     */
+    public function setQuestion(\Ono\MapBundle\Entity\Question $question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \Ono\MapBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
 }

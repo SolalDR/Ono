@@ -8,9 +8,11 @@ ono_map_homepage:
 #  RESPONSE
 ############
 ono_map_response_add:
-    path:     /response/add
+    path:     /response/add/{id}
     defaults:
         _controller: OnoMapBundle:Map:addResponse
+    requirements:
+        id: \d+
 
 
 ono_map_response_view:

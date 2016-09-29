@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>{{ response.question.libQuestion }}</h1>
+    <p>
+      Le {{ response.dtcreation|date("j/m/y") }} par {{ response.author }}
+    </p>
+    <p>
+      Contenu :
+      {{response.content}}
+    </p>
+    <a href="{{ path("ono_map_homepage") }}">Retour à l'accueil</a>
+  </body>
+</html>

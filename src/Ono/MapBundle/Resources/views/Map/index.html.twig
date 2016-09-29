@@ -16,7 +16,12 @@
       <h2>Liste des questions</h2>
       <ul>
         {% for question in questions %}
-        <li>{{ question.libQuestion }}</li>
+        <li>
+        {{ question.libQuestion }}<br>
+        <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a>
+        || 
+        <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br>
+        </li>
         {% endfor %}
       </ul>
 
