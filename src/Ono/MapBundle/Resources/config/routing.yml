@@ -2,3 +2,70 @@ ono_map_homepage:
     path:     /
     defaults:
         _controller: OnoMapBundle:Map:index
+
+
+############
+#  RESPONSE
+############
+ono_map_response_add:
+    path:     /response/add
+    defaults:
+        _controller: OnoMapBundle:Map:addResponse
+
+
+ono_map_response_view:
+    path:     /response/view/{id}
+    defaults:
+        _controller: OnoMapBundle:Map:viewResponse
+    requirements:
+        id: \d+
+
+
+ono_map_response_edit:
+    path:     /response/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Map:editResponse
+    requirements:
+        id: \d+
+
+
+ono_map_response_delete:
+    path:     /response/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Map:deleteResponse
+    requirements:
+        id: \d+
+
+
+
+############
+#  QUESTION
+############
+ono_map_question_add:
+    path:     /question/add
+    defaults:
+        _controller: OnoMapBundle:Map:addQuestion
+
+
+ono_map_question_view:
+    path:     /question/view/{id}
+    defaults:
+        _controller: OnoMapBundle:Map:viewQuestion
+    requirements:
+        id: \d+
+
+
+ono_map_question_edit:
+    path:     /question/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Map:editQuestion
+    requirements:
+        id: \d+
+
+
+ono_map_question_delete:
+    path:     /question/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Map:deleteQuestion
+    requirements:
+        id: \d+

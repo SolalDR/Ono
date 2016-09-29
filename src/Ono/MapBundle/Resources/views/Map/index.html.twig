@@ -13,6 +13,13 @@
   <body>
     <p>
       hello world;
+      <h2>Liste des questions</h2>
+      <ul>
+        {% for question in questions %}
+        <li>{{ question.libQuestion }}</li>
+        {% endfor %}
+      </ul>
+
     </p>
   </body>
 
