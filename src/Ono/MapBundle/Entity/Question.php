@@ -3,6 +3,8 @@
 namespace Ono\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Question
@@ -28,6 +30,10 @@ class Question
      */
     private $libQuestion;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Ono\MapBundle\Entity\Response", mappedBy="question")
+    */
+    private $responses;
 
     /**
      * Get id

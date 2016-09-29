@@ -3,6 +3,8 @@
 namespace Ono\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Response
@@ -47,9 +49,14 @@ class Response
      *
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published;
+    private $published = false;
 
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Question", inversedBy="responses")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $question;
     /**
      * Get id
      *
