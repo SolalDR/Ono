@@ -57,6 +57,13 @@ class Response
     * @ORM\JoinColumn(nullable=false)
     */
     private $question;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Country")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $country;
+
     /**
      * Get id
      *
@@ -185,5 +192,29 @@ class Response
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \Ono\MapBundle\Entity\Country $country
+     *
+     * @return Response
+     */
+    public function setCountry(\Ono\MapBundle\Entity\Country $country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \Ono\MapBundle\Entity\Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

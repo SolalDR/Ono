@@ -91,6 +91,7 @@ class MapController extends Controller
     {
       $em = $this->getDoctrine()->getManager();
       $question = $em->getRepository("OnoMapBundle:Question")->find($id);
+      $country = $em->getRepository("OnoMapBundle:Country")->findOneBy(array("libCountry"=>"FRANCE"));
 
       //Si il n'y a pas de réponse
       if($question === null){
@@ -102,6 +103,7 @@ class MapController extends Controller
       $response->setAuthor("Admin");
       $response->setDtcreation(new \DateTime);
       $response->setContent("Ceci est la réponse à la question : ".$question->getLibQuestion());
+      $response->setCountry($country);
 
       $em->persist($response);
       $em->flush();
