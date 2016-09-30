@@ -11,25 +11,69 @@
 
   </head>
   <body>
-    <p>
-      hello world;
-      <h2>Liste des questions</h2>
-      <ul>
-        {% for question in questions %}
-        <li>
-        {{ question.libQuestion }}<br>
-        <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a>
-        || 
-        <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br>
-        </li>
-        {% endfor %}
-      </ul>
+    <div id="sidebar" class="sidebar sidebar-close">
+      <div class="burger-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav>
+        <img class="logo sidebar-img" src="" alt="" />
+        <h2></h2>
+        <ul>
+          <li></li>
+        </ul>
+        <p>
+          hello world;
+          <h2>Liste des questions</h2>
+          <ul>
+            {% for question in questions %}
+            <li>
+            {{ question.libQuestion }}<br>
+            <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a>
+            || 
+            <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br>
+            </li>
+            {% endfor %}
+          </ul>
+        </p>
+      </nav>
+    </div>
+    <div class="devEnv">
+      <p>
+        hello world;
+        <h2>Liste des questions</h2>
+        <ul>
+          {% for question in questions %}
+          <li>
+          {{ question.libQuestion }}<br>
+          <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a>
+          || 
+          <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br>
+          </li>
+          {% endfor %}
+        </ul>
+      </p>
+    </div>
+    <section class="map">
+      <div id="map"></div>
+    </section>
 
-    </p>
   </body>
+  <script type="text/javascript">
 
-  {% javascripts 'bundles/onomap/js/main.js' %}
+
+
+ </script>
+
+  {% javascripts
+  'bundles/onomap/js/main.js'
+  'bundles/onomap/js/mapping.js'
+  "bundles/onomap/js/loader.js"
+   %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
   {% endjavascripts %}
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtSVI5vGIdfE-WzDNMGS3-xE_FfmKp8_o&callback=initMap" type="text/javascript"></script>
 
 </html>

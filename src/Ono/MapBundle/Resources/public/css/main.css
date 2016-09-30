@@ -1,3 +1,97 @@
+html, body {
+  height: 100%; margin: 0; padding: 0;
+}
+
+#map {
+  min-height: 500px;
+}
+
+.devEnv {
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  color: white;
+  opacity: 0;
+  display: none;
+}
+
 p {
   font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+/*//////////////////////*/
+/*       BURGER         */
+/*//////////////////////*/
+
+.sidebar.sidebar-open {
+  left: 0;
+}
+.sidebar.sidebar-close {
+  left: -250px;
+}
+.sidebar.sidebar.sidebar-close .burger-button {
+  left: 280px;
+  background-color: rgba(0,0,0, .5);
+  border-radius: 5px;
+}
+.sidebar {
+  display: block;
+  z-index: 999;
+  position: absolute;
+  width: 250px;
+  height: 1300px;
+  background-color: rgba(0,0,0, .7);
+  -webkit-transition: .4s ease-in;
+  -o-transition: .4s ease-in;
+  transition: .4s ease-in;
+  color: white;
+  text-decoration: none;
+}
+.sidebar .burger-button {
+  width: 30px;
+  height: 20px;
+  background-color: transparent;
+  padding: 10px;
+  position: relative;
+  left: 185px;
+  top: 10px;
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s;
+  cursor: pointer;
+}
+.sidebar .burger-button span {
+  height: 2px;
+  width: 100%;
+  background-color: white;
+  display: block;
+}
+.sidebar .burger-button span:first-child {
+
+}
+.sidebar .burger-button span:last-child {
+  margin-top: 7px;
+}
+.sidebar .burger-button span:nth-child(2) {
+  margin-top: 7px;
+}
+.sidebar nav {
+
+}
+.sidebar nav img {
+
+}
+.sidebar nav h2 {
+
+}
+.sidebar nav ul {
+
+}
+.sidebar nav li {
+
 }
