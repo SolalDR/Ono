@@ -68,4 +68,45 @@ class Question
     {
         return $this->libQuestion;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->responses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add response
+     *
+     * @param \Ono\MapBundle\Entity\Response $response
+     *
+     * @return Question
+     */
+    public function addResponse(\Ono\MapBundle\Entity\Response $response)
+    {
+        $this->responses[] = $response;
+
+        return $this;
+    }
+
+    /**
+     * Remove response
+     *
+     * @param \Ono\MapBundle\Entity\Response $response
+     */
+    public function removeResponse(\Ono\MapBundle\Entity\Response $response)
+    {
+        $this->responses->removeElement($response);
+    }
+
+    /**
+     * Get responses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponses()
+    {
+        return $this->responses;
+    }
 }

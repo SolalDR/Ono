@@ -1,4 +1,6 @@
 
 document.body.onload = function(){
-  mapGestion.ajustZoom();
+  setTimeout(function(){
+    mapGestion.createAllMarkers();
+  }, 1000)
 }

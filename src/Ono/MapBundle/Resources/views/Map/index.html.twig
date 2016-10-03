@@ -58,14 +58,8 @@
     <section class="map">
       <div id="map"></div>
     </section>
-
   </body>
-  <script type="text/javascript">
 
-
-
- </script>
- 
   {% javascripts
   'bundles/onomap/js/main.js'
   'bundles/onomap/js/mapping.js'
@@ -76,4 +70,8 @@
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtSVI5vGIdfE-WzDNMGS3-xE_FfmKp8_o&callback=initMap" type="text/javascript"></script>
 
+  <script type="text/javascript">
+  console.log({{ json|raw }});
+    mapGestion.addQuestions({{ json|raw }});
+  </script>
 </html>

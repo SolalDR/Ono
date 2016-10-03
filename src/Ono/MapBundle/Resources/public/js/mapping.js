@@ -3,23 +3,54 @@ function initMap() {
     center: {lat: 30, lng: 2.4},//Centre sur la france
     // center: {lat: -26, lng: 28},//Centre sur la france
 
-    zoom: 2,
+    zoom: 3,
     mapTypeControlOptions: {
       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
     },
     scrollwheel:false,
     draggable: false,
-    disableDefaultUI: true
+    // disableDefaultUI: true
   });
   mapGestion.init();
 }
 
 mapGestion = {
   mapEl : document.getElementById("map"),
-  zoom : 2.6,
-  ajustZoom: function(){
-    mapGestion.map.setZoom(mapGestion.zoom);
+  zoom : 3,
+  markers: [],
+  questions:[],
+
+  //Rajoute les question ainsi que leurs réponse dans le tableau questions
+  addQuestions: function(json){
+    for(i=0; i<json.length; i++){
+      mapGestion.questions.push(json[i]);
+    }
   },
+
+  //Parcour les réponses et rajoutes les markers
+  createAllMarkers:function(){
+    console.log(mapGestion.questions.length);
+    for(i=0; i<mapGestion.questions.length; i++){
+      for(j=0; j<mapGestion.questions[i].responses.length; j++){
+        mapGestion.addMarkerFromResonse(mapGestion.questions[i].responses[j]);
+      }
+    }
+  },
+
+  //Rajoute un marker depuis une réponse
+  addMarkerFromResonse: function(response){
+    mapGestion.markers.push(new google.maps.Marker({
+      position: {lat: response.country.lat, lng: response.country.ln},
+      map: mapGestion.map,
+      title: response.question.libQuestion,
+      id: response.id
+    }));
+  },
+
+  deleteAllMarkers : function(){
+
+  },
+
   initSizeMap: function(){
     setToWindowHeight(mapGestion.mapEl);
     window.addEventListener("resize", function(){

@@ -14,6 +14,12 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
+
 
 class MapController extends Controller
 {
@@ -21,12 +27,28 @@ class MapController extends Controller
     {
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
+      $responseRepo = $em->getRepository("OnoMapBundle:Response");
+      $serializer = $this->get('serializer');
+
 
       $questions = $questionRepo->findAll();
+      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
 
-        return $this->render('OnoMapBundle:Map:index.html.twig', array(
-          "questions" => $questions
-        ));
+
+      $encoder = new JsonEncoder();
+      $normalizer = new ObjectNormalizer();
+
+      $normalizer->setCircularReferenceHandler(function ($responses) {
+          return $responses->getId();
+      });
+      $serializer = new Serializer(array($normalizer), array($encoder));
+      $json = $serializer->serialize($questions, 'json');
+
+
+      return $this->render('OnoMapBundle:Map:index.html.twig', array(
+        "questions" => $questions,
+        "json" =>$json
+      ));
     }
 
 
