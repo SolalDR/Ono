@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Panneau d'administration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {% stylesheets  filter='cssrewrite'
+      'bundles/onomap/css/adminPannel.css' %}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#tabs" ).tabs();
+    } );
+
+    $( function() {
+      $( "#menu" ).menu();
+    } );
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <section class="row">
+        <div class="col-sm-3 sidebar" >
+          <a href="{{ path("ono_admin_home") }}"><img src="{{ asset("asset/img/logo.png") }}" id="logo" alt="logo" /></a>
+          <ul id="menu">
+            <!-- <li class="ui-state-disabled"><div>Toys (n/a)</div></li> -->
+            <li class="title">Thèmes</li>
+            <a href="{{ path('ono_admin_add_theme') }}"><li>Ajouter</li></a>
+            <a href="{{ path('ono_admin_list_theme') }}"><li>Liste des thèmes</li></a>
+            <li class="title">Questions</li>
+            <a href="{{ path('ono_admin_add_question') }}"><li>Ajouter</li></a>
+            <a href="{{ path('ono_admin_list_question') }}"><li>Listes des questions</li></a>
+            <li class="title">Utilisateurs</li>
+            <a href="{{ path('ono_admin_add_user') }}"><li>Ajouter</li></a>
+            <a href="{{ path('ono_admin_list_user') }}"><li>Tout les utilisateurs</li></a>
+            <li class="title">Réponses</li>
+            <a href="{{ path('ono_admin_add_response') }}"><li>Ajouter une réponse</li></a>
+            <a href="{{ path('ono_admin_list_response') }}"><li>Liste des réponses</li></a>
+            <!-- <a href=""><li>Réponses à modérer</li></a> -->
+
+            <!-- <li class="ui-state-disabled"><div>Specials (n/a)</div></li> -->
+          </ul>
+        </div>
+        <div class="col-sm-9">
+          {% block body %}
+          {% endblock %}
+        </div>
+      </section>
+    </div>
+    {% javascripts
+    'bundles/onomap/js/admin-main.js'
+     %}
+      <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+  </body>
+</html>

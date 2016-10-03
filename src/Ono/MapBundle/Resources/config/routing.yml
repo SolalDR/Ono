@@ -39,7 +39,6 @@ ono_map_response_delete:
         id: \d+
 
 
-
 ############
 #  QUESTION
 ############
@@ -71,3 +70,84 @@ ono_map_question_delete:
         _controller: OnoMapBundle:Map:deleteQuestion
     requirements:
         id: \d+
+
+
+
+
+###############################################################
+#                            ADMIN
+###############################################################
+
+ono_admin_home:
+    path:   /admin
+    defaults:
+        _controller: OnoMapBundle:Admin:index
+
+
+#################
+#  ADMIN THEME
+#################
+
+#ajout thème
+ono_admin_add_theme:
+    path:   /admin/theme/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addTheme
+
+#list thème
+ono_admin_list_theme:
+    path:   /admin/theme/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listTheme
+
+
+##################
+#  ADMIN Question
+##################
+
+#ajout question
+ono_admin_add_question:
+    path:   /admin/question/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addQuestion
+
+#list questions
+ono_admin_list_question:
+    path:   /admin/question/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listQuestion
+
+
+#####################
+#  ADMIN UTILISATEURS
+#####################
+
+#ajouter utilisateurs
+ono_admin_add_user:
+    path:   /admin/user/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addUser
+
+
+#list utilisateurs
+ono_admin_list_user:
+    path:   /admin/user/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listUser
+
+#####################
+#  ADMIN RESPONSE
+#####################
+
+#ajouter réponse
+ono_admin_add_response:
+    path:   /admin/response/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addResponse
+
+
+#list réponse
+ono_admin_list_response:
+    path:   /admin/response/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listResponse
