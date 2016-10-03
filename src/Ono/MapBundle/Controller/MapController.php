@@ -13,6 +13,7 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 //Response already use;
 use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
+use Ono\MapBundle\Entity\Theme;
 use Ono\MapBundle\Form\ResponseType;
 
 use Symfony\Component\Serializer\Serializer;
@@ -29,10 +30,12 @@ class MapController extends Controller
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
       $responseRepo = $em->getRepository("OnoMapBundle:Response");
+      $themesRepo = $em->getRepository("OnoMapBundle:Theme");
       $serializer = $this->get('serializer');
 
 
       $questions = $questionRepo->findAll();
+      $themes = $themesRepo->findAll();
       $responses= $responseRepo->findBy(array("question"=>$questions[0]));
 
 
@@ -48,6 +51,7 @@ class MapController extends Controller
 
       return $this->render('OnoMapBundle:Map:index.html.twig', array(
         "questions" => $questions,
+        "themes" => $themes,
         "json" =>$json
       ));
     }
@@ -132,8 +136,6 @@ class MapController extends Controller
       //On crée le formulaire
       $form = $this->get('form.factory')->create(ResponseType::class, $response);
 
-
-
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
         $em = $this->getDoctrine()->getManager();
 
@@ -146,7 +148,6 @@ class MapController extends Controller
         //On enregistre
         $em->flush();
 
-
         $request->getSession()->getFlashBag()->add('notice', 'Réponse bien enregistrée.');
 
         return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
@@ -156,7 +157,6 @@ class MapController extends Controller
         'form' => $form->createView(),
         'question' =>$question
       ));
-
 
       $em->persist($response);
       $em->flush();

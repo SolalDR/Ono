@@ -27,4 +27,20 @@ burgerGestion = {
   }
 }
 
+displayToolDev = {
+  button : document.getElementById("display-dev"),
+  el : document.getElementsByClassName("devEnv")[0],
+  init:function(){
+    displayToolDev.button.addEventListener("click", function(){
+      if(displayToolDev.el.className.match("visible")){
+        displayToolDev.el.className = displayToolDev.el.className.replace("true-visible", "true-hidden");
+      } else {
+        displayToolDev.el.className = displayToolDev.el.className.replace("true-hidden", "true-visible");
+      }
+    }, false)
+  }
+}
+
+
 burgerGestion.init("#sidebar")
+displayToolDev.init();

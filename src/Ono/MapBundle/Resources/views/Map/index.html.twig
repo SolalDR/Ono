@@ -19,30 +19,18 @@
       </div>
       <nav>
         <img class="logo sidebar-img" src="" alt="" />
-        <h2></h2>
-        <ul>
-          <li></li>
+        <h2>Thèmes</h2>
+        <ul class="theme-list">
+          {% for theme in themes %}
+          <li>{{ theme.libTheme|upper }}</li>
+          {% endfor %}
         </ul>
-        <p>
-          hello world;
-          <h2>Liste des questions</h2>
-          <ul>
-            {% for question in questions %}
-            <li>
-            {{ question.libQuestion }}<br>
-            <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a>
-            || 
-            <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br>
-            </li>
-            {% endfor %}
-          </ul>
-        </p>
       </nav>
     </div>
-    <div class="devEnv">
+    <span id="display-dev" class="button-style">Afficher Environnement dev</span>
+    <div class="devEnv true-hidden">
       <p>
-        hello world;
-        <h2>Liste des questions</h2>
+        <h2>Liste des questions chargé</h2>
         <ul>
           {% for question in questions %}
           <li>

@@ -36,6 +36,20 @@ class Question
     private $responses;
 
     /**
+    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Theme", cascade={"persist"})
+    */
+    private $themes;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->responses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -68,13 +82,7 @@ class Question
     {
         return $this->libQuestion;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->responses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Add response
@@ -108,5 +116,39 @@ class Question
     public function getResponses()
     {
         return $this->responses;
+    }
+
+    /**
+     * Add theme
+     *
+     * @param \Ono\MapBundle\Entity\Theme $theme
+     *
+     * @return Question
+     */
+    public function addTheme(\Ono\MapBundle\Entity\Theme $theme)
+    {
+        $this->themes[] = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Remove theme
+     *
+     * @param \Ono\MapBundle\Entity\Theme $theme
+     */
+    public function removeTheme(\Ono\MapBundle\Entity\Theme $theme)
+    {
+        $this->themes->removeElement($theme);
+    }
+
+    /**
+     * Get themes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getThemes()
+    {
+        return $this->themes;
     }
 }
