@@ -4,9 +4,37 @@
 {% block body %}
 
 <div class="mainContent">
-<p>
-  Ici liste de tout les thème avec des fonctions de suppressions, modification et un lien vers l'ajout
-</p>
+  <h1>Liste des thèmes</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Id
+        </th>
+        <th>
+          Nom du thèmes
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for theme in themes %}
+      <tr>
+        <td>
+          {{ theme.id }}
+        </td>
+        <td>
+          {{ theme.libTheme }}
+        </td>
+        <td>
+          {{ theme.description }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 {% endblock %}

@@ -121,4 +121,27 @@ table {
 .mainContent {
   margin: 30px 20px;
   width: calc(100% - 40px);
+	font-family: sans-serif;
+}
+
+.mainContent h1 {
+	font-size: 30px;
+	font-weight: 100;
+	text-transform: uppercase;
+	margin-bottom: 40px;
+}
+
+table tr th {
+	font-weight: bold;
+}
+table tr th:first-child {
+	width: 40px;
+	max-width: 40px;
+}
+table tr td:first-child {
+	width: 40px;
+	max-width: 40px;
+}
+table tr td:nth-child(2) {
+	width: 20%;
 }

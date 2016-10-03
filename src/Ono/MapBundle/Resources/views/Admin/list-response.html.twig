@@ -4,9 +4,66 @@
 {% block body %}
 
 <div class="mainContent">
-<p>
-  Ici code pour ajouter des réponses
-</p>
+  <h1>Liste des Réponses</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Id
+        </th>
+        <th>
+          Question
+        </th>
+        <th>
+          Contenu
+        </th>
+        <th>
+          Author
+        </th>
+        <th>
+          Date naissance
+        </th>
+        <th>
+          Date création
+        </th>
+        <th>
+          Publié
+        </th>
+        <th>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for response in responses %}
+        <tr>
+          <td>
+            {{ response.id }}
+          </td>
+          <td>
+            {{ response.question.libQuestion }}
+          </td>
+          <td>
+            {{ response.content }}
+          </td>
+          <td>
+            {{ response.author }}
+          </td>
+          <td>
+            {{ response.dtnaissance|date("d/m/Y") }}
+          </td>
+          <td>
+            {{ response.dtcreation|date("d/m/Y") }}
+          </td>
+          <td>
+            {{ response.published }}
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_home") }}">View</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 {% endblock %}

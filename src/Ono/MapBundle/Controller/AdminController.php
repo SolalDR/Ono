@@ -65,7 +65,12 @@ class AdminController extends Controller
     }
 
     public function listThemeAction(){
-      return $this->render('OnoMapBundle:Admin:list-theme.html.twig', array());
+      $em = $this->getDoctrine()->getManager();
+      $themes = $em->getRepository("OnoMapBundle:Theme")->findAll();
+
+      return $this->render('OnoMapBundle:Admin:list-theme.html.twig', array(
+        "themes" => $themes
+      ));
     }
 
     ////////////////////////////////////
@@ -76,7 +81,12 @@ class AdminController extends Controller
     }
 
     public function listQuestionAction(){
-      return $this->render('OnoMapBundle:Admin:list-question.html.twig', array());
+      $em = $this->getDoctrine()->getManager();
+      $questions = $em->getRepository("OnoMapBundle:Question")->findAll();
+
+      return $this->render('OnoMapBundle:Admin:list-question.html.twig', array(
+        "questions" => $questions
+      ));
     }
 
     ////////////////////////////////////
@@ -98,7 +108,12 @@ class AdminController extends Controller
     }
 
     public function listResponseAction(){
-      return $this->render('OnoMapBundle:Admin:list-response.html.twig', array());
+      $em = $this->getDoctrine()->getManager();
+      $responses = $em->getRepository("OnoMapBundle:Response")->findAll();
+
+      return $this->render('OnoMapBundle:Admin:list-response.html.twig', array(
+        "responses" => $responses
+      ));
     }
 
 }
