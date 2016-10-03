@@ -17,6 +17,11 @@ use Ono\MapBundle\Entity\Theme;
 use Ono\MapBundle\Entity\Country;
 
 use Ono\MapBundle\Form\CountryType;
+use Ono\MapBundle\Form\ResponseType;
+use Ono\MapBundle\Form\ResponseAdminType;
+use Ono\MapBundle\Form\QuestionType;
+use Ono\MapBundle\Form\ThemeType;
+
 
 
 use Symfony\Component\Serializer\Serializer;
@@ -62,8 +67,22 @@ class AdminController extends Controller
     ////////////////////////////////////
     //        Thèmes
     ///////////////////////////////////
-    public function addThemeAction(){
-      return $this->render('OnoMapBundle:Admin:add-theme.html.twig', array());
+    public function addThemeAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $theme = new Theme;
+
+      $form = $this->get('form.factory')->create(ThemeType::class, $theme);
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $em->persist($theme);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Thème bien enregistrée.');
+
+        return $this->redirectToRoute("ono_admin_list_theme");
+      }
+      return $this->render('OnoMapBundle:Admin:add-theme.html.twig', array(
+        "form" => $form->createView()
+      ));
     }
 
     public function listThemeAction(){
@@ -78,8 +97,22 @@ class AdminController extends Controller
     ////////////////////////////////////
     //        Questions
     ///////////////////////////////////
-    public function addQuestionAction(){
-      return $this->render('OnoMapBundle:Admin:add-question.html.twig', array());
+    public function addQuestionAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $question = new Question;
+
+      $form = $this->get('form.factory')->create(QuestionType::class, $question);
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $em->persist($question);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Question bien enregistrée.');
+
+        return $this->redirectToRoute("ono_admin_list_question");
+      }
+      return $this->render('OnoMapBundle:Admin:add-question.html.twig', array(
+        "form" => $form->createView()
+      ));
     }
 
     public function listQuestionAction(){
@@ -92,20 +125,24 @@ class AdminController extends Controller
     }
 
     ////////////////////////////////////
-    //        Users
-    ///////////////////////////////////
-    public function addUserAction(){
-      return $this->render('OnoMapBundle:Admin:add-user.html.twig', array());
-    }
-
-    public function listUserAction(){
-      return $this->render('OnoMapBundle:Admin:list-user.html.twig', array());
-    }
-
-    ////////////////////////////////////
     //        Response
     ///////////////////////////////////
-    public function addResponseAction(){
+    public function addResponseAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $response = new ResponseQ;
+
+      $form = $this->get('form.factory')->create(ResponseAdminType::class, $response);
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $em->persist($response);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Réponse bien enregistrée.');
+
+        return $this->redirectToRoute("ono_admin_list_response");
+      }
+      return $this->render('OnoMapBundle:Admin:add-response.html.twig', array(
+        "form" => $form->createView()
+      ));
       return $this->render('OnoMapBundle:Admin:add-response.html.twig', array());
     }
 
@@ -146,5 +183,17 @@ class AdminController extends Controller
       return $this->render('OnoMapBundle:Admin:list-country.html.twig', array(
         "countries" => $countries
       ));
+    }
+
+
+    ////////////////////////////////////
+    //        Users
+    ///////////////////////////////////
+    public function addUserAction(){
+      return $this->render('OnoMapBundle:Admin:add-user.html.twig', array());
+    }
+
+    public function listUserAction(){
+      return $this->render('OnoMapBundle:Admin:list-user.html.twig', array());
     }
 }
