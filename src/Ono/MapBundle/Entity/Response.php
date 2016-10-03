@@ -38,11 +38,19 @@ class Response
     private $dtcreation;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dtnaissance", type="datetime")
+     */
+    private $dtnaissance;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
      */
     private $author;
+
 
     /**
      * @var bool
@@ -216,5 +224,29 @@ class Response
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set dtnaissance
+     *
+     * @param \DateTime $dtnaissance
+     *
+     * @return Response
+     */
+    public function setDtnaissance($dtnaissance)
+    {
+        $this->dtnaissance = $dtnaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dtnaissance
+     *
+     * @return \DateTime
+     */
+    public function getDtnaissance()
+    {
+        return $this->dtnaissance;
     }
 }

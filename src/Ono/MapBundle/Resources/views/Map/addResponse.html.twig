@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Réponse question</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+  </head>
+  <body>
+    <h1>{{ question.libQuestion }}</h1>
+
+    {# src/OC/PlatformBundle/Resources/views/Advert/form.html.twig #}
+
+    <h3>Formulaire de réponse</h3>
+
+    <div class="well">
+      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+      {# Les erreurs générales du formulaire. #}
+      {{ form_errors(form) }}
+
+
+      {{ form_row(form.author) }}
+
+      {{ form_row(form.dtnaissance) }}
+
+      {# Génération manuelle et éclatée : #}
+      <div class="form-group">
+        {# Génération du label. #}
+        {{ form_label(form.content, "Votre réponses", {'label_attr': {'class': 'control-label'}}) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.content) }}
+
+        <div class="">
+          {# Génération de l'input. #}
+          {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+        </div>
+      </div>
+
+      {{ form_row(form.country) }}
+
+      {{ form_row(form.published) }}
+
+
+      {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+      {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+      {# Génération automatique des champs pas encore écrits.
+         Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+         et tous les champs cachés (type « hidden »). #}
+      {{ form_rest(form) }}
+
+      {# Fermeture de la balise <form> du formulaire HTML #}
+      {{ form_end(form) }}
+    </div>
+  </body>
+</html>
