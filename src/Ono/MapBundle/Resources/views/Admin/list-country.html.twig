@@ -1,0 +1,58 @@
+
+{% extends "OnoMapBundle:Admin:layout.html.twig" %}
+
+{% block body %}
+
+<div class="mainContent">
+  <h1>Liste des Pays</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Id
+        </th>
+        <th>
+          Pays
+        </th>
+        <th>
+          Capitale
+        </th>
+        <th>
+          Latitude
+        </th>
+        <th>
+          Longitude
+        </th>
+        <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for country in countries %}
+        <tr>
+          <td>
+            {{ country.id }}
+          </td>
+          <td>
+            {{ country.libCountry }}
+          </td>
+          <td>
+            {{ country.libCapital }}
+          </td>
+          <td>
+            {{ country.lat }}
+          </td>
+          <td>
+            {{ country.ln }}
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_home") }}">View</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

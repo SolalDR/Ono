@@ -16,6 +16,8 @@ use Ono\MapBundle\Entity\Question;
 use Ono\MapBundle\Entity\Theme;
 use Ono\MapBundle\Entity\Country;
 
+use Ono\MapBundle\Form\CountryType;
+
 
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -116,4 +118,33 @@ class AdminController extends Controller
       ));
     }
 
+    ////////////////////////////////////
+    //        Country
+    ///////////////////////////////////
+    public function addCountryAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $country = new Country;
+
+      $form = $this->get('form.factory')->create(CountryType::class, $country);
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $em->persist($country);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Pays bien enregistrée.');
+
+        return $this->redirectToRoute("ono_admin_list_country");
+      }
+      return $this->render('OnoMapBundle:Admin:add-country.html.twig', array(
+        "form" => $form->createView()
+      ));
+    }
+
+    public function listCountryAction(){
+      $em = $this->getDoctrine()->getManager();
+      $countries = $em->getRepository("OnoMapBundle:Country")->findAll();
+
+      return $this->render('OnoMapBundle:Admin:list-country.html.twig', array(
+        "countries" => $countries
+      ));
+    }
 }

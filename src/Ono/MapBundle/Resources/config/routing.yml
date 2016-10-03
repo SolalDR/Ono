@@ -151,3 +151,20 @@ ono_admin_list_response:
     path:   /admin/response/list
     defaults:
         _controller: OnoMapBundle:Admin:listResponse
+
+
+#####################
+#  ADMIN COUNTRY
+#####################
+
+#ajouter pays
+ono_admin_add_country:
+    path:   /admin/country/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addCountry
+
+#list des pays
+ono_admin_list_country:
+    path:   /admin/country/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listCountry
