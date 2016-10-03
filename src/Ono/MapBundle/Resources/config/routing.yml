@@ -42,11 +42,6 @@ ono_map_response_delete:
 ############
 #  QUESTION
 ############
-ono_map_question_add:
-    path:     /question/add
-    defaults:
-        _controller: OnoMapBundle:Map:addQuestion
-
 
 ono_map_question_view:
     path:     /question/view/{id}
@@ -54,24 +49,6 @@ ono_map_question_view:
         _controller: OnoMapBundle:Map:viewQuestion
     requirements:
         id: \d+
-
-
-ono_map_question_edit:
-    path:     /question/edit/{id}
-    defaults:
-        _controller: OnoMapBundle:Map:editQuestion
-    requirements:
-        id: \d+
-
-
-ono_map_question_delete:
-    path:     /question/delete/{id}
-    defaults:
-        _controller: OnoMapBundle:Map:deleteQuestion
-    requirements:
-        id: \d+
-
-
 
 
 ###############################################################
@@ -100,6 +77,22 @@ ono_admin_list_theme:
     defaults:
         _controller: OnoMapBundle:Admin:listTheme
 
+#edit thème
+ono_admin_edit_theme:
+    path:   /admin/theme/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editTheme
+    requirements:
+        id: \d+
+
+
+#delete thème
+ono_admin_delete_theme:
+    path:   /admin/theme/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteTheme
+    requirements:
+        id: \d+
 
 ##################
 #  ADMIN Question
@@ -117,6 +110,22 @@ ono_admin_list_question:
     defaults:
         _controller: OnoMapBundle:Admin:listQuestion
 
+#edit question
+ono_admin_edit_question:
+    path:   /admin/question/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editQuestion
+    requirements:
+        id: \d+
+
+
+#delete question
+ono_admin_delete_question:
+    path:   /admin/question/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteQuestion
+    requirements:
+        id: \d+
 
 #####################
 #  ADMIN UTILISATEURS
@@ -135,6 +144,22 @@ ono_admin_list_user:
     defaults:
         _controller: OnoMapBundle:Admin:listUser
 
+#edit user
+ono_admin_edit_user:
+    path:   /admin/user/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editUser
+    requirements:
+        id: \d+
+
+#delete user
+ono_admin_delete_user:
+    path:   /admin/user/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteUser
+    requirements:
+        id: \d+
+
 #####################
 #  ADMIN RESPONSE
 #####################
@@ -152,6 +177,21 @@ ono_admin_list_response:
     defaults:
         _controller: OnoMapBundle:Admin:listResponse
 
+#edit response
+ono_admin_edit_response:
+    path:   /admin/response/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editResponse
+    requirements:
+        id: \d+
+
+#delete response
+ono_admin_delete_response:
+    path:   /admin/response/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteResponse
+    requirements:
+        id: \d+
 
 #####################
 #  ADMIN COUNTRY
@@ -168,3 +208,19 @@ ono_admin_list_country:
     path:   /admin/country/list
     defaults:
         _controller: OnoMapBundle:Admin:listCountry
+
+#edit country
+ono_admin_edit_country:
+    path:   /admin/country/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editCountry
+    requirements:
+        id: \d+
+
+#delete country
+ono_admin_delete_country:
+    path:   /admin/country/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteCountry
+    requirements:
+        id: \d+

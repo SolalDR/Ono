@@ -94,6 +94,59 @@ class AdminController extends Controller
       ));
     }
 
+    public function editThemeAction(Request $request, $id){
+      $em = $this->getDoctrine()->getManager();
+      $theme = $em->getRepository("OnoMapBundle:Theme")->find($id);
+
+      $form = $this->get('form.factory')->create(ThemeType::class, $theme);
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $em->persist($theme);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Thème bien modifié.');
+
+        return $this->redirectToRoute("ono_admin_list_theme");
+      }
+
+      return $this->render('OnoMapBundle:Admin:edit-theme.html.twig', array(
+        "form" => $form->createView(),
+        "theme" => $theme
+      ));
+    }
+
+    public function deleteThemeAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // On récupère l'annonce $id
+        $theme = $em->getRepository('OnoMapBundle:Theme')->find($id);
+
+        if (null === $theme) {
+          throw new NotFoundHttpException("Le thème d'id ".$id." n'existe pas.");
+        }
+
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'annonce contre cette faille
+        $form = $this->createFormBuilder()->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+          $em->remove($theme);
+          $em->flush();
+
+          $request->getSession()->getFlashBag()->add('info', "Le thème a bien été supprimée.");
+
+          return $this->redirect($this->generateUrl('ono_admin_list_theme'));
+        }
+
+        // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+        return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+          'object' => $theme,
+          'title' => $theme->getLibTheme(),
+          'pathDelete' => "ono_admin_delete_theme",
+          'form'   => $form->createView()
+        ));
+    }
+
     ////////////////////////////////////
     //        Questions
     ///////////////////////////////////
@@ -123,6 +176,60 @@ class AdminController extends Controller
         "questions" => $questions
       ));
     }
+
+
+      public function editQuestionAction(Request $request, $id){
+          $em = $this->getDoctrine()->getManager();
+          $question = $em->getRepository("OnoMapBundle:Question")->find($id);
+
+          $form = $this->get('form.factory')->create(QuestionType::class, $question);
+          if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em->persist($question);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Question bien modifié.');
+
+            return $this->redirectToRoute("ono_admin_list_question");
+          }
+
+          return $this->render('OnoMapBundle:Admin:edit-question.html.twig', array(
+            "form" => $form->createView(),
+            "question" => $question
+          ));
+        }
+
+        public function deleteQuestionAction(Request $request, $id)
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            // On récupère l'annonce $id
+            $question = $em->getRepository('OnoMapBundle:Question')->find($id);
+
+            if (null === $question) {
+              throw new NotFoundHttpException("La question d'id ".$id." n'existe pas.");
+            }
+
+            // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+            // Cela permet de protéger la suppression d'annonce contre cette faille
+            $form = $this->createFormBuilder()->getForm();
+
+            if ($form->handleRequest($request)->isValid()) {
+              $em->remove($question);
+              $em->flush();
+
+              $request->getSession()->getFlashBag()->add('info', "La question a bien été supprimée.");
+
+              return $this->redirect($this->generateUrl('ono_admin_list_question'));
+            }
+
+            // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+            return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+              'object' => $question,
+              'title' => $question->getLibQuestion(),
+              'pathDelete' => "ono_admin_delete_question",
+              'form'   => $form->createView()
+            ));
+        }
 
     ////////////////////////////////////
     //        Response
@@ -155,6 +262,59 @@ class AdminController extends Controller
       ));
     }
 
+    public function editResponseAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $response = $em->getRepository("OnoMapBundle:Response")->find($id);
+
+        $form = $this->get('form.factory')->create(ResponseType::class, $response);
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $em->persist($response);
+          $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Réponse bien modifié.');
+
+          return $this->redirectToRoute("ono_admin_list_response");
+        }
+
+        return $this->render('OnoMapBundle:Admin:edit-response.html.twig', array(
+          "form" => $form->createView(),
+          "response" => $response
+        ));
+      }
+
+      public function deleteResponseAction(Request $request, $id)
+      {
+          $em = $this->getDoctrine()->getManager();
+
+          // On récupère l'annonce $id
+          $response = $em->getRepository('OnoMapBundle:Response')->find($id);
+
+          if (null === $response) {
+            throw new NotFoundHttpException("La réponse d'id ".$id." n'existe pas.");
+          }
+
+          // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+          // Cela permet de protéger la suppression d'annonce contre cette faille
+          $form = $this->createFormBuilder()->getForm();
+
+          if ($form->handleRequest($request)->isValid()) {
+            $em->remove($response);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', "La réponse a bien été supprimée.");
+
+            return $this->redirect($this->generateUrl('ono_admin_list_response'));
+          }
+
+          // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+          return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+            'object' => $response,
+            'title' => $response->getQuestion()->getLibQuestion(),
+            'pathDelete' => "ono_admin_delete_response",
+            'form'   => $form->createView()
+          ));
+      }
+
     ////////////////////////////////////
     //        Country
     ///////////////////////////////////
@@ -184,6 +344,58 @@ class AdminController extends Controller
         "countries" => $countries
       ));
     }
+    public function editCountryAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $country = $em->getRepository("OnoMapBundle:Country")->find($id);
+
+        $form = $this->get('form.factory')->create(CountryType::class, $country);
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $em->persist($country);
+          $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Pays bien modifié.');
+
+          return $this->redirectToRoute("ono_admin_list_country");
+        }
+
+        return $this->render('OnoMapBundle:Admin:edit-country.html.twig', array(
+          "form" => $form->createView(),
+          "country" => $country
+        ));
+      }
+
+      public function deleteCountryAction(Request $request, $id)
+      {
+          $em = $this->getDoctrine()->getManager();
+
+          // On récupère l'annonce $id
+          $country = $em->getRepository('OnoMapBundle:Country')->find($id);
+
+          if (null === $country) {
+            throw new NotFoundHttpException("Le pays d'id ".$id." n'existe pas.");
+          }
+
+          // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+          // Cela permet de protéger la suppression d'annonce contre cette faille
+          $form = $this->createFormBuilder()->getForm();
+
+          if ($form->handleRequest($request)->isValid()) {
+            $em->remove($country);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info', "Le pays a bien été supprimée.");
+
+            return $this->redirect($this->generateUrl('ono_admin_list_country'));
+          }
+
+          // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+          return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+            'object' => $country,
+            'title' => $country->getLibCountry(),
+            'pathDelete' => "ono_admin_delete_country",
+            'form'   => $form->createView()
+          ));
+      }
 
 
     ////////////////////////////////////

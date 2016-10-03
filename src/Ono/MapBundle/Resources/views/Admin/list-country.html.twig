@@ -47,7 +47,10 @@
             {{ country.ln }}
           </td>
           <td>
-            <a href="{{ path("ono_admin_home") }}">View</a>
+            <a href="{{ path("ono_admin_edit_country", {"id": country.id}) }}">Edit</a>
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_delete_country", {"id": country.id}) }}">Supprimer</a>
           </td>
         </tr>
       {% endfor %}

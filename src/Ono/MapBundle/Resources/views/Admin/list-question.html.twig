@@ -31,7 +31,10 @@
             {{ question.libQuestion }}
           </td>
           <td>
-            <a href="{{ path("ono_admin_home") }}">View</a>
+            <a href="{{ path("ono_admin_edit_question", {"id" : question.id}) }}">Edit</a>
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_delete_question", {"id" : question.id}) }}">Supprimer</a>
           </td>
         </tr>
       {% endfor %}

@@ -131,6 +131,10 @@ table {
 	margin-bottom: 40px;
 }
 
+.confirm {
+	margin-bottom: 20px;
+}
+
 table tr th {
 	font-weight: bold;
 }

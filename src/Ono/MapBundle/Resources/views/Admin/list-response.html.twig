@@ -58,7 +58,10 @@
             {{ response.published }}
           </td>
           <td>
-            <a href="{{ path("ono_admin_home") }}">View</a>
+            <a href="{{ path("ono_admin_edit_response", {"id": response.id }) }}">Edit</a>
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_delete_response", {"id": response.id }) }}">Delete</a>
           </td>
         </tr>
       {% endfor %}

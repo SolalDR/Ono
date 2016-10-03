@@ -31,6 +31,12 @@
         <td>
           {{ theme.description }}
         </td>
+        <td>
+          <a href="{{ path("ono_admin_edit_theme", {"id" : theme.id}) }}">Editer</a>
+        </td>
+        <td>
+          <a href="{{ path("ono_admin_delete_theme", {"id" : theme.id}) }}">Supprimer</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

@@ -1,0 +1,11 @@
+
+{% extends "OnoMapBundle:Admin:layout.html.twig" %}
+
+{% block body %}
+
+<div class="mainContent">
+  <h1>Editer réponse à : {{ response.question.libQuestion }}</h1>
+  {{ form(form) }}
+</div>
+
+{% endblock %}
