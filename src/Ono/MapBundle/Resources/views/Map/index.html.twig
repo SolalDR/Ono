@@ -5,11 +5,15 @@
     <title></title>
 
     {% stylesheets  filter='cssrewrite'
+      'bundles/onomap/css/loader.css'
       'bundles/onomap/css/main.css'
       'bundles/onomap/css/form.css' %}
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
-
+    {% javascripts
+     %}
+      <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
   </head>
   <body>
     <noscript>
@@ -17,7 +21,19 @@
       <p>Afin de pouvoir utiliser Google Maps, JavaScript doit être activé.</p>
       <p>Or, il semble que JavaScript est désactivé ou qu'il ne soit pas supporté par votre navigateur.</p>
       <p>Pour afficher Google Maps, activez JavaScript en modifiant les options de votre navigateur, puis essayez à nouveau.</p>
+      <style media="screen">
+        #loaderContent { display: none;}
+      </style>
     </noscript>
+    <div id="loaderContent">
+      <div id="loader" data-animationDuration="3000">
+        <span id="antenne" class="skew"></span>
+        <span id="interieur" class="skew"></span>
+        <span id="exterieur" class="skew"></span>
+        <span id="oeil" class="skew"></span>
+      </div>
+      <p class="loader-notice">Chargement</p>
+    </div>
     <div id="sidebar" class="sidebar sidebar-close">
       <div class="burger-button">
         <span></span>
@@ -61,6 +77,7 @@
   </body>
 
   {% javascripts
+  'bundles/onomap/js/loaderManage.js'
   'bundles/onomap/js/main.js'
   'bundles/onomap/js/mapping.js'
   "bundles/onomap/js/loader.js"
