@@ -2,6 +2,41 @@ function setToWindowHeight(el){
   el.style.height = window.innerHeight+'px';
 }
 
+///////////////////////////////////////////////////////
+//
+//          Capte Philter
+//
+///////////////////////////////////////////////////////
+
+filter = {
+  filterActive : [],
+  addClickEvent:function(el, rank){
+    el.addEventListener("click", function(){
+      if(el.className.match("active")){
+        el.className = el.className.replace("active", "");
+      } else {
+        el.className+= " active";
+      }
+    }, false)
+  },
+  initEvent: function(){
+    for(i=0; i<filter.themes.length; i++){
+      filter.addClickEvent(filter.themes[i], i);
+    }
+  },
+  init: function(){
+    filter.themes = document.getElementsByClassName("filter-theme");
+    filter.initEvent();
+  }
+}
+
+
+
+///////////////////////////////////////////////////////
+//
+//          Gestion du menu burger
+//
+///////////////////////////////////////////////////////
 
 burgerGestion = {
   initEvent:function(){
@@ -27,6 +62,12 @@ burgerGestion = {
   }
 }
 
+///////////////////////////////////////////////////////
+//
+//          Afficher les outils de développement
+//
+///////////////////////////////////////////////////////
+
 displayToolDev = {
   button : document.getElementById("display-dev"),
   el : document.getElementsByClassName("devEnv")[0],
@@ -36,6 +77,7 @@ displayToolDev = {
         displayToolDev.el.className = displayToolDev.el.className.replace("true-visible", "true-hidden");
       } else {
         displayToolDev.el.className = displayToolDev.el.className.replace("true-hidden", "true-visible");
+
       }
     }, false)
   }
@@ -44,3 +86,4 @@ displayToolDev = {
 
 burgerGestion.init("#sidebar")
 displayToolDev.init();
+filter.init();

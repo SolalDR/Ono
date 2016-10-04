@@ -1,9 +1,108 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+
+/*///////////////////////////////////////////////////////////*/
+/*                        Style générique                    */
+/*///////////////////////////////////////////////////////////*/
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
 html, body {
   height: 100%; margin: 0; padding: 0;
 }
 
-#map {
-  min-height: 500px;
+p {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+
+.true-hidden {
+  display: none;
+}
+.true-visible {
+  display: block;
+}
+
+.button-style {
+  display: block;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(0,0,0, .6);
+  border : 2px solid grey;
+  border-radius: 5px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.layout-scroll{
+  padding: 20px 0;
+  height: 500px;
+  overflow: scroll;
+  border-top: 1px solid rgb(71, 71, 71);
+}
+
+/*//////////////////////*/
+/*   Dev environment    */
+/*//////////////////////*/
+
+#display-dev {
+  position: absolute;
+  z-index: 999;
+  top: 15px;
+  right: 15px;
 }
 
 .devEnv {
@@ -24,58 +123,28 @@ html, body {
   margin-top: 15px;
 }
 
-p {
-  font-family: sans-serif;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
-
-.true-hidden {
-  display: none;
-}
-.true-visible {
-  display: block;
-}
 
 /*//////////////////////*/
-/*   Dev environment    */
+/*   Element distinct   */
 /*//////////////////////*/
 
-#display-dev {
-  position: absolute;
-  z-index: 999;
-  top: 15px;
-  right: 15px;
+#map {
+  min-height: 500px;
 }
 
-.button-style {
-  display: block;
-  padding: 10px 15px;
-  color: white;
-  font-weight: bold;
-  background-color: rgba(0,0,0, .6);
-  border : 2px solid grey;
-  border-radius: 5px;
-  font-family: sans-serif;
-  cursor: pointer;
-}
 
 /*//////////////////////*/
-/*       BURGER         */
+/*       Menu           */
 /*//////////////////////*/
 
 .sidebar.sidebar-open {
   left: 0;
 }
 .sidebar.sidebar-close {
-  left: -250px;
+  left: -300px;
 }
 .sidebar.sidebar.sidebar-close .burger-button {
-  left: 280px;
+  left: 330px;
   background-color: rgba(0,0,0, .5);
   border-radius: 5px;
 }
@@ -83,7 +152,7 @@ a {
   display: block;
   z-index: 999;
   position: absolute;
-  width: 250px;
+  width: 300px;
   height: 1300px;
   background-color: rgba(0,0,0, .7);
   -webkit-transition: .4s ease-in;
@@ -98,7 +167,7 @@ a {
   background-color: transparent;
   padding: 10px;
   position: relative;
-  left: 185px;
+  left: 235px;
   top: 10px;
   -webkit-transition: .4s;
   -o-transition: .4s;
@@ -107,19 +176,64 @@ a {
 }
 .sidebar .burger-button span {
   height: 2px;
-  width: 100%;
+  width: 35px;
   background-color: white;
   display: block;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+  opacity: 1;
+  position: absolute;
+  left: 8px;
 }
+
+/*Menu Fermé*/
 .sidebar .burger-button span:first-child {
 
 }
 .sidebar .burger-button span:last-child {
-  margin-top: 7px;
+  top: 30px;
 }
 .sidebar .burger-button span:nth-child(2) {
-  margin-top: 7px;
+  top: 20px;
 }
+
+/*Menu ouvert*/
+.sidebar.sidebar-open .burger-button span:first-child {
+  transform: rotate(45deg);
+  position: absolute;
+  top: 16px;
+}
+.sidebar.sidebar-open .burger-button span:nth-child(2) {
+  opacity: 0;
+}
+.sidebar.sidebar-open .burger-button span:last-child {
+  position: absolute;
+  transform: rotate(-45deg);
+  top: 16px;
+}
+
+/*Menu fermé hover*/
+.sidebar.sidebar-close .burger-button:hover span:first-child {
+  transform: rotate(35deg);
+  width: 20px;
+  left: 27px;
+  top: 15px;
+}
+.sidebar.sidebar-close .burger-button:hover span:nth-child(2) {
+
+}
+.sidebar.sidebar-close .burger-button:hover span:last-child {
+  transform: rotate(-35deg);
+  width: 20px;
+  top: 25px;
+  left: 27px;
+}
+
 .sidebar nav {
 
 }
@@ -128,18 +242,40 @@ a {
 }
 .sidebar nav h2 {
   font-family: sans-serif;
-  font-weight: 100;
-  text-align: center;
-  margin-bottom: 30px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 25px;
+  margin-left: 20px;
 }
 .sidebar nav ul {
-  padding: 10px 20px;
+  padding: 10px 0px;
+
 }
-.sidebar nav li {
+.sidebar nav li.filter-theme {
   font-size: 14px;
   font-weight: 100;
   font-family: sans-serif;
   list-style: none;
-  margin: 15px 0;
+  padding: 10px 20px;
   letter-spacing: 1px;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+}
+
+
+.sidebar nav li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.sidebar nav li.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+.sidebar .sidebar-img {
+  width: 50%;
+  display: block;
+  margin: 30px auto;
 }
