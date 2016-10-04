@@ -2,6 +2,38 @@ function setToWindowHeight(el){
   el.style.height = window.innerHeight+'px';
 }
 
+// Envoie la XHR
+function callScript (scriptName, args){
+	var xhr_object = null;
+
+	// ### Construction de l’objet XMLHttpRequest selon le type de navigateur
+	if(window.XMLHttpRequest){
+    xhr_object = new XMLHttpRequest();
+  }	else if(window.ActiveXObject) {
+	  	 xhr_object = new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+                // XMLHttpRequest non supporté par le navigateur
+	   	alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
+    		 return;
+	}
+
+	xhr_object.open("POST", scriptName, true);
+
+	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
+	xhr_object.onreadystatechange = function() {
+	  if(this.readyState == 4 && this.status === 200) {
+      console.log(xhr_object.responseText);
+    }
+
+		return xhr_object.readyState;
+	}
+	xhr_object.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  console.log("json="+JSON.stringify(args));
+  xhr_object.send("json="+JSON.stringify(args)+"&xhr=true");
+
+}
+
 ///////////////////////////////////////////////////////
 //
 //          Capte Philter
@@ -9,23 +41,65 @@ function setToWindowHeight(el){
 ///////////////////////////////////////////////////////
 
 filter = {
-  filterActive : [],
+  filterThemeActive : [],
+  filterTab : {
+    themes : [],
+    age : null
+  },
+
+  sendModification:function(){
+    console.log(filter.filterTab);
+    callScript("http://localhost:8888/Ono/web/app_dev.php/", filter.filterTab)
+  },
+
   addClickEvent:function(el, rank){
     el.addEventListener("click", function(){
       if(el.className.match("active")){
         el.className = el.className.replace("active", "");
+        filter.filterThemeActive[parseInt(el.getAttribute("data-id"))] = false
       } else {
         el.className+= " active";
+        filter.filterThemeActive[parseInt(el.getAttribute("data-id"))] = true;
       }
+      filter.updateFilterTheme();
     }, false)
+  },
+  clearFilterTab: function(){
+    filter.filterTab.themes =  [];
+  },
+  updateFilterTheme:function(){
+    filter.clearFilterTab();
+    for(i=0; i<filter.filterThemeActive.length; i++){
+      if(filter.filterThemeActive[i]){
+        filter.filterTab.themes.push(i);
+      }
+    }
+    console.log(filter.filterTab.themes);
+    filter.sendModification();
   },
   initEvent: function(){
     for(i=0; i<filter.themes.length; i++){
       filter.addClickEvent(filter.themes[i], i);
     }
+    filter.age.addEventListener("change", function(){
+      if(filter.ageControl.checked){
+        filter.filterTab.age = this.value;
+        filter.sendModification();
+      }
+    }, false)
+    filter.ageControl.addEventListener("change", function(){
+      if(this.checked){
+        filter.filterTab.age = filter.age.value;
+      } else {
+        filter.filterTab.age = null;
+      }
+      filter.sendModification();
+    }, false)
   },
   init: function(){
     filter.themes = document.getElementsByClassName("filter-theme");
+    filter.age = document.getElementById("rangeAge");
+    filter.ageControl = document.getElementById("rangeAgeActive");
     filter.initEvent();
   }
 }
@@ -77,7 +151,6 @@ displayToolDev = {
         displayToolDev.el.className = displayToolDev.el.className.replace("true-visible", "true-hidden");
       } else {
         displayToolDev.el.className = displayToolDev.el.className.replace("true-hidden", "true-visible");
-
       }
     }, false)
   }

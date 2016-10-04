@@ -6,7 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\sfWebRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
@@ -25,18 +27,32 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class MapController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
+
+
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
       $responseRepo = $em->getRepository("OnoMapBundle:Response");
       $themesRepo = $em->getRepository("OnoMapBundle:Theme");
       $serializer = $this->get('serializer');
 
+      if($request->request->get("xhr")){
+        $filters = (array) json_decode($request->request->get("json"));
 
-      $questions = $questionRepo->findAll();
+        return new JsonResponse($filters);
+      };
+
+      //A rajouter quand les requête du repository seront faites 
+      // if(isset($filters)){
+      //   $questions = $questionRepo->findByFilters($filters["themes"]);
+      //   $responses = $responseRepo->findByFilters($filters["age"]);
+      // } else {
+        $questions = $questionRepo->findAll();
+        $responses= $responseRepo->findBy(array("question"=>$questions[0]));
+      // }
       $themes = $themesRepo->findAll();
-      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
 
 
       $encoder = new JsonEncoder();
