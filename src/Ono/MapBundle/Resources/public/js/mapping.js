@@ -8,10 +8,19 @@ function initMap() {
       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
     },
     scrollwheel:false,
-    draggable: false,
-    // disableDefaultUI: true
+    draggable: true,
+    disableDefaultUI: true
   });
   mapGestion.init();
+}
+
+function createElement(type, classname, attributes){
+  var el = document.createElement(type);
+  el.className+=classname;
+  for(attribute in attributes){
+    el.setAttribute(attribute, attributes[attribute]);
+  }
+  return el;
 }
 
 mapGestion = {
@@ -27,24 +36,70 @@ mapGestion = {
     }
   },
 
+
+
+  generateHtmlInfoBulle:function(responseObj, questionObj){
+    console.log(questionObj);
+    var container = createElement("div", "container-info", {"data-responseId": responseObj.id});
+    var question = createElement("p", "question");
+    var response = createElement("p", "content");
+    var author = createElement("p", "author");
+    var date = createElement("p", "date");
+
+    // console.log(questionObj.themes)
+
+    var themes = [];
+    var themesContainer = createElement("ul", "thematic-contain");
+    for(var j=0; j<questionObj.themes.length; j++){
+      themes.push(createElement("li", "themeItem"));
+      themes[j].innerHTML = questionObj.themes[j].libTheme;
+      themesContainer.appendChild(themes[j])
+    }
+
+
+
+    question.innerHTML = questionObj.libQuestion;
+    response.innerHTML = responseObj.content;
+    author.innerHTML = responseObj.author;
+    date.innerHTML = responseObj.dtcreation.timestamp;
+
+    container.appendChild(themesContainer);
+    container.appendChild(question);
+    container.appendChild(author);
+    container.appendChild(date);
+    container.appendChild(response);
+
+
+    return container.outerHTML;
+  },
+
   //Parcour les réponses et rajoutes les markers
   createAllMarkers:function(){
-    console.log(mapGestion.questions.length);
+    console.log(mapGestion.questions);
+    // console.log(mapGestion.questions.length);
     for(i=0; i<mapGestion.questions.length; i++){
       for(j=0; j<mapGestion.questions[i].responses.length; j++){
-        mapGestion.addMarkerFromResonse(mapGestion.questions[i].responses[j]);
+        mapGestion.addMarkerFromResonse(mapGestion.questions[i].responses[j], mapGestion.questions[i]);
       }
     }
   },
 
   //Rajoute un marker depuis une réponse
-  addMarkerFromResonse: function(response){
+  addMarkerFromResonse: function(response, question){
     mapGestion.markers.push(new google.maps.Marker({
       position: {lat: response.country.lat, lng: response.country.ln},
       map: mapGestion.map,
       title: response.question.libQuestion,
-      id: response.id
+      id: response.id,
+      infoBulle : new google.maps.InfoWindow({
+      	content: mapGestion.generateHtmlInfoBulle(response, question)
+      })
+      // parentNode : document.querySelector("*[data-responseid='"+response.id+"']").parentNode.parentNode.parentNode.parentNode
     }));
+    var actualRank = mapGestion.markers.length-1;
+    google.maps.event.addListener(mapGestion.markers[actualRank], 'click', function() {
+      mapGestion.markers[actualRank].infoBulle.open(mapGestion.map, mapGestion.markers[actualRank]);
+    });
   },
 
   deleteAllMarkers : function(){
