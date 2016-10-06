@@ -224,3 +224,35 @@ ono_admin_delete_country:
         _controller: OnoMapBundle:Admin:deleteCountry
     requirements:
         id: \d+
+
+#####################
+#  ADMIN LANGUAGE
+#####################
+
+#ajouter langue
+ono_admin_add_language:
+    path:   /admin/language/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addLanguage
+
+#list des langues
+ono_admin_list_language:
+    path:   /admin/language/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listLanguage
+
+#edit langue
+ono_admin_edit_language:
+    path:   /admin/language/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editLanguage
+    requirements:
+        id: \d+
+
+#delete langue
+ono_admin_delete_language:
+    path:   /admin/language/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteLanguage
+    requirements:
+        id: \d+

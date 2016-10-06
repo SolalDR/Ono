@@ -1,0 +1,55 @@
+
+{% extends "OnoMapBundle:Admin:layout.html.twig" %}
+
+{% block body %}
+
+<div class="mainContent">
+  <h1>Liste des Langues</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Id
+        </th>
+        <th>
+          Code Langue
+        </th>
+        <th>
+          Langue (FR)
+        </th>
+        <th>
+          Langue (EN)
+        </th>
+        <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for language in languages %}
+        <tr>
+          <td>
+            {{ language.id }}
+          </td>
+          <td>
+            {{ language.cdLanguage }}
+          </td>
+          <td>
+            {{ language.libLanguageFr }}
+          </td>
+          <td>
+            {{ language.libLanguageEn }}
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_edit_language", {"id": language.id}) }}">Edit</a>
+          </td>
+          <td>
+            <a href="{{ path("ono_admin_delete_language", {"id": language.id}) }}">Supprimer</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

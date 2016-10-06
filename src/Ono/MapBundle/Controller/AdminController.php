@@ -15,12 +15,14 @@ use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
 use Ono\MapBundle\Entity\Theme;
 use Ono\MapBundle\Entity\Country;
+use Ono\MapBundle\Entity\Language;
 
 use Ono\MapBundle\Form\CountryType;
 use Ono\MapBundle\Form\ResponseType;
 use Ono\MapBundle\Form\ResponseAdminType;
 use Ono\MapBundle\Form\QuestionType;
 use Ono\MapBundle\Form\ThemeType;
+use Ono\MapBundle\Form\LanguageType;
 
 
 
@@ -397,6 +399,87 @@ class AdminController extends Controller
           ));
       }
 
+      ////////////////////////////////////
+      //        Language
+      ///////////////////////////////////
+      public function addLanguageAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $language = new Language;
+
+        $form = $this->get('form.factory')->create(LanguageType::class, $language);
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $em->persist($language);
+          $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Langue bien enregistrée.');
+
+          return $this->redirectToRoute("ono_admin_list_language");
+        }
+        return $this->render('OnoMapBundle:Admin:add-language.html.twig', array(
+          "form" => $form->createView()
+        ));
+      }
+
+      public function listLanguageAction(){
+        $em = $this->getDoctrine()->getManager();
+        $languages = $em->getRepository("OnoMapBundle:Language")->findAll();
+
+        return $this->render('OnoMapBundle:Admin:list-language.html.twig', array(
+          "languages" => $languages
+        ));
+      }
+      public function editLanguageAction(Request $request, $id){
+          $em = $this->getDoctrine()->getManager();
+          $language = $em->getRepository("OnoMapBundle:Language")->find($id);
+
+          $form = $this->get('form.factory')->create(LanguageType::class, $language);
+          if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em->persist($language);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Langue bien modifiée.');
+
+            return $this->redirectToRoute("ono_admin_list_language");
+          }
+
+          return $this->render('OnoMapBundle:Admin:edit-language.html.twig', array(
+            "form" => $form->createView(),
+            "language" => $language
+          ));
+        }
+
+        public function deleteLanguageAction(Request $request, $id)
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            // On récupère l'annonce $id
+            $language = $em->getRepository('OnoMapBundle:Language')->find($id);
+
+            if (null === $language) {
+              throw new NotFoundHttpException("La langue d'id ".$id." n'existe pas.");
+            }
+
+            // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+            // Cela permet de protéger la suppression d'annonce contre cette faille
+            $form = $this->createFormBuilder()->getForm();
+
+            if ($form->handleRequest($request)->isValid()) {
+              $em->remove($language);
+              $em->flush();
+
+              $request->getSession()->getFlashBag()->add('info', "La langue a bien été supprimée.");
+
+              return $this->redirect($this->generateUrl('ono_admin_list_language'));
+            }
+
+            // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+            return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+              'object' => $language,
+              'title' => $language->getLibLanguageFr(),
+              'pathDelete' => "ono_admin_delete_language",
+              'form'   => $form->createView()
+            ));
+        }
 
     ////////////////////////////////////
     //        Users
