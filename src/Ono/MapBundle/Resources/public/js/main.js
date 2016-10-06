@@ -81,8 +81,8 @@ filter = {
     filter.age.addEventListener("change", function(){
       if(filter.ageControl.checked){
         filter.filterTab.age = this.value;
-        filter.sendModification();
       }
+      filter.sendModification();
     }, false)
     filter.ageControl.addEventListener("change", function(){
       if(this.checked){

@@ -14,6 +14,16 @@ function initMap() {
   mapGestion.init();
 }
 
+function getAgeResponse(date){
+  date*=1000;
+  var actualDate = Date.now();
+  var diff = actualDate-date;
+  //Miliseconde
+
+  diff = Math.floor(diff/1000/60/60/24/365);
+  return diff;
+}
+
 function createElement(type, classname, attributes){
   var el = document.createElement(type);
   el.className+=classname;
@@ -39,8 +49,23 @@ mapGestion = {
 
   updateQuestionFromJson: function(json){
     var questions = JSON.parse(json);
+    var age;
+
     mapGestion.previousQuestion = mapGestion.questions;
     mapGestion.questions = questions;
+
+    if(filter.filterTab.age !== null){
+      for(i=0; i<mapGestion.questions.length; i++){
+        var responses = [];
+        for(j=0; j<mapGestion.questions[i].responses.length; j++){
+          age = getAgeResponse(mapGestion.questions[i].responses[j].dtnaissance.timestamp);
+          if(age<filter.filterTab.age){
+            responses.push(mapGestion.questions[i].responses[j]);
+          }
+        }
+        mapGestion.questions[i].responses = responses;
+      }
+    }
 
     mapGestion.deleteAllMarkers();
     mapGestion.createAllMarkers();
@@ -64,8 +89,6 @@ mapGestion = {
       themesContainer.appendChild(themes[j])
     }
 
-
-
     question.innerHTML = questionObj.libQuestion;
     response.innerHTML = responseObj.content;
     author.innerHTML = responseObj.author;
@@ -76,7 +99,6 @@ mapGestion = {
     container.appendChild(author);
     container.appendChild(date);
     container.appendChild(response);
-
 
     return container.outerHTML;
   },
