@@ -38,20 +38,41 @@ class MapController extends Controller
       $themesRepo = $em->getRepository("OnoMapBundle:Theme");
       $serializer = $this->get('serializer');
 
+
       if($request->request->get("xhr")){
         $filters = (array) json_decode($request->request->get("json"));
 
-        return new JsonResponse($filters);
+        if(count($filters["themes"])>0){
+          $questions = $questionRepo->getQuestionsWithThemes($filters["themes"]);
+        } else {
+          $questions = $questionRepo->findAll();
+        }
+        $responses= $responseRepo->findAll();
+
+        for($i=0; $i<count($questions); $i++){
+          if(count($questions[$i]->getResponses())<1){
+            array_splice($questions, $i, 1);
+          }
+        }
+
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        //
+        $normalizer->setCircularReferenceHandler(function ($responses) {
+            return $responses->getId();
+        });
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $json = $serializer->serialize($questions, 'json');
+
+
+        return new Response($json);
       };
 
-      //A rajouter quand les requête du repository seront faites 
-      // if(isset($filters)){
-      //   $questions = $questionRepo->findByFilters($filters["themes"]);
-      //   $responses = $responseRepo->findByFilters($filters["age"]);
-      // } else {
-        $questions = $questionRepo->findAll();
-        $responses= $responseRepo->findBy(array("question"=>$questions[0]));
-      // }
+
+      $questions = $questionRepo->findAll();
+      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
+
       $themes = $themesRepo->findAll();
 
 

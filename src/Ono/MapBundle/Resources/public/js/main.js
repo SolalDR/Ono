@@ -29,7 +29,6 @@ function callScript (scriptName, args){
 	}
 	xhr_object.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  console.log("json="+JSON.stringify(args));
   xhr_object.send("json="+JSON.stringify(args)+"&xhr=true");
 
 }

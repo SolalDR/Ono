@@ -10,4 +10,24 @@ namespace Ono\MapBundle\Repository;
  */
 class QuestionRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getQuestionsWithThemes(array $themesId)
+  {
+    $qb = $this->createQueryBuilder('q');
+
+    // On fait une jointure avec l'entité Category avec pour alias « c »
+    $qb
+      ->innerJoin('q.themes', 't')
+      ->addSelect('t')
+    ;
+
+    // Puis on filtre sur le nom des catégories à l'aide d'un IN
+    $qb->where($qb->expr()->in('t.id', $themesId));
+    // La syntaxe du IN et d'autres expressions se trouve dans la documentation Doctrine
+
+    // Enfin, on retourne le résultat
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
 }
