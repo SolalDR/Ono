@@ -28,6 +28,7 @@ mapGestion = {
   zoom : 3,
   markers: [],
   questions:[],
+  previousQuestion: [],
 
   //Rajoute les question ainsi que leurs réponse dans le tableau questions
   addQuestions: function(json){
@@ -36,7 +37,14 @@ mapGestion = {
     }
   },
 
+  updateQuestionFromJson: function(json){
+    var questions = JSON.parse(json);
+    mapGestion.previousQuestion = mapGestion.questions;
+    mapGestion.questions = questions;
 
+    mapGestion.deleteAllMarkers();
+    mapGestion.createAllMarkers();
+  },
 
   generateHtmlInfoBulle:function(responseObj, questionObj){
     console.log(questionObj);
@@ -75,12 +83,16 @@ mapGestion = {
 
   //Parcour les réponses et rajoutes les markers
   createAllMarkers:function(){
-    console.log(mapGestion.questions);
-    // console.log(mapGestion.questions.length);
     for(i=0; i<mapGestion.questions.length; i++){
       for(j=0; j<mapGestion.questions[i].responses.length; j++){
         mapGestion.addMarkerFromResonse(mapGestion.questions[i].responses[j], mapGestion.questions[i]);
       }
+    }
+  },
+
+  deleteAllMarkers : function(){
+    for(i=0; i<mapGestion.markers.length; i++){
+      mapGestion.markers[i].setMap(null);
     }
   },
 
@@ -102,9 +114,7 @@ mapGestion = {
     });
   },
 
-  deleteAllMarkers : function(){
 
-  },
 
   initSizeMap: function(){
     setToWindowHeight(mapGestion.mapEl);

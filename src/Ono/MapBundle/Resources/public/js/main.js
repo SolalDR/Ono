@@ -22,7 +22,7 @@ function callScript (scriptName, args){
 	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
 	xhr_object.onreadystatechange = function() {
 	  if(this.readyState == 4 && this.status === 200) {
-      console.log(xhr_object.responseText);
+      mapGestion.updateQuestionFromJson(xhr_object.responseText);
     }
 
 		return xhr_object.readyState;
@@ -47,7 +47,6 @@ filter = {
   },
 
   sendModification:function(){
-    console.log(filter.filterTab);
     callScript("http://localhost:8888/Ono/web/app_dev.php/", filter.filterTab)
   },
 
@@ -73,7 +72,6 @@ filter = {
         filter.filterTab.themes.push(i);
       }
     }
-    console.log(filter.filterTab.themes);
     filter.sendModification();
   },
   initEvent: function(){
