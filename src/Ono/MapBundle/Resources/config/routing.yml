@@ -3,6 +3,12 @@ ono_map_homepage:
     defaults:
         _controller: OnoMapBundle:Map:index
 
+ono_map_changelanguage:
+    path:     /changeLanguage/{cdLang}
+    defaults:
+        _controller: OnoMapBundle:Map:changeLanguage
+    requirements:
+        cdLang: \w{2,6}
 
 ############
 #  RESPONSE

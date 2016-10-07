@@ -27,18 +27,19 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class MapController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $ids = null)
     {
 
-
-
+      //Initialisation
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
       $responseRepo = $em->getRepository("OnoMapBundle:Response");
       $themesRepo = $em->getRepository("OnoMapBundle:Theme");
       $serializer = $this->get('serializer');
+      $encoder = new JsonEncoder();
+      $normalizer = new ObjectNormalizer();
 
-
+      //Test requête XHR
       if($request->request->get("xhr")){
         $filters = (array) json_decode($request->request->get("json"));
 
@@ -55,29 +56,24 @@ class MapController extends Controller
           }
         }
 
-
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        //
+        //Stop circular reference to serialize
         $normalizer->setCircularReferenceHandler(function ($responses) {
             return $responses->getId();
         });
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($questions, 'json');
 
-
         return new Response($json);
       };
 
-
+      //Action idnex
       $questions = $questionRepo->findAll();
       $responses= $responseRepo->findBy(array("question"=>$questions[0]));
-
       $themes = $themesRepo->findAll();
 
 
-      $encoder = new JsonEncoder();
-      $normalizer = new ObjectNormalizer();
+      //$encoder = new JsonEncoder();
+      //$normalizer = new ObjectNormalizer();
 
       $normalizer->setCircularReferenceHandler(function ($responses) {
           return $responses->getId();
@@ -115,21 +111,6 @@ class MapController extends Controller
         "question" => $question,
         "responses" =>  $responses
       ));
-    }
-
-    public function addQuestionAction()
-    {
-      return;
-    }
-
-    public function editQuestionAction($id)
-    {
-      return;
-    }
-
-    public function deleteQuestionAction($id)
-    {
-      return;
     }
 
     /////////////////////////////////
@@ -204,14 +185,14 @@ class MapController extends Controller
 
     }
 
-    public function editResponseAction($id)
-    {
-      return;
-    }
+    /////////////////////////////////
+    //          LANGUAGE
+    /////////////////////////////////
 
-    public function deleteResponseAction($id)
+    public function changeLanguageAction($cdLang)
     {
-      return;
+      return $his->redirectToRoute('ono_map_homepage', array(
+        "ids" => $ids
+      ));
     }
-
 }

@@ -30,4 +30,20 @@ class QuestionRepository extends \Doctrine\ORM\EntityRepository
       ->getResult()
     ;
   }
+
+  public function getQuestionsWithIds(array $ids)
+  {
+    $qb = $this->createQueryBuilder('q');
+
+    // Puis on filtre sur le nom des catégories à l'aide d'un IN
+    $qb->where($qb->expr()->in('q.id', $ids));
+    // La syntaxe du IN et d'autres expressions se trouve dans la documentation Doctrine
+
+    // Enfin, on retourne le résultat
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
+
 }
