@@ -29,7 +29,6 @@ class MapController extends Controller
 {
     public function indexAction(Request $request, $ids = null)
     {
-
       //Initialisation
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
@@ -39,8 +38,33 @@ class MapController extends Controller
       $encoder = new JsonEncoder();
       $normalizer = new ObjectNormalizer();
 
-      //Test requête XHR
+      //On récupère les objets
+      $questions = $questionRepo->findAll();
+      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
+      $themes = $themesRepo->findAll();
+
+      //On prépare le json
+      $normalizer->setCircularReferenceHandler(function ($responses) {
+          return $responses->getId();
+      });
+      $serializer = new Serializer(array($normalizer), array($encoder));
+      $json = $serializer->serialize($questions, 'json');
+
+      //On retourne le tout
+      return $this->render('OnoMapBundle:Map:index.html.twig', array(
+        "themes" => $themes,
+        "json" =>$json
+      ));
+    }
+
+    public function updateAction(Request $request)
+    {
       if($request->request->get("xhr")){
+        //Initialisation
+        $em = $this->getDoctrine()->getManager();
+        $questionRepo = $em->getRepository("OnoMapBundle:Question");
+        $responseRepo = $em->getRepository("OnoMapBundle:Response");
+
         $filters = (array) json_decode($request->request->get("json"));
 
         if(count($filters["themes"])>0){
@@ -56,37 +80,22 @@ class MapController extends Controller
           }
         }
 
-        //Stop circular reference to serialize
+        //Prepare json
+        $serializer = $this->get('serializer');
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceHandler(function ($responses) {
             return $responses->getId();
         });
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($questions, 'json');
 
+        //Return response
         return new Response($json);
-      };
 
-      //Action idnex
-      $questions = $questionRepo->findAll();
-      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
-      $themes = $themesRepo->findAll();
-
-
-      //$encoder = new JsonEncoder();
-      //$normalizer = new ObjectNormalizer();
-
-      $normalizer->setCircularReferenceHandler(function ($responses) {
-          return $responses->getId();
-      });
-      $serializer = new Serializer(array($normalizer), array($encoder));
-      $json = $serializer->serialize($questions, 'json');
-
-
-      return $this->render('OnoMapBundle:Map:index.html.twig', array(
-        "questions" => $questions,
-        "themes" => $themes,
-        "json" =>$json
-      ));
+      } else {
+        return new Response("Error");
+      }
     }
 
 

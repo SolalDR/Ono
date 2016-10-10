@@ -3,6 +3,11 @@ ono_map_homepage:
     defaults:
         _controller: OnoMapBundle:Map:index
 
+ono_map_update_homepage:
+    path:     /update
+    defaults:
+        _controller: OnoMapBundle:Map:update
+
 ono_map_changelanguage:
     path:     /changeLanguage/{cdLang}
     defaults:

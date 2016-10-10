@@ -55,7 +55,7 @@
         </div>
       </nav>
     </div>
-    <div id="sidebarRight" class="sidebar-right sidebar-open">
+    <div id="sidebarRight" class="sidebar-right sidebar-close">
       <div class="burger-button slide-button"></div>
       <div id="sidebarContent" class="state-fixe">
         <div class="themes no-marge">
@@ -79,19 +79,20 @@
     </div>
     <span id="display-dev" class="button-style">Afficher Environnement dev</span>
     <div class="devEnv true-hidden">
+    <!--
       <p>
         <h2>Liste des questions chargé</h2>
         <ul>
-          {% for question in questions %}
+          {# {% for question in questions %} #}
           <li>
-          {{ question.libQuestion }}<br>
-          <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a>
+          {# {{ question.libQuestion }}<br> #}
+          {# <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a> #}
           || 
-          <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br>
+          {# <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br> #}
           </li>
-          {% endfor %}
+          {# {% endfor %} #}
         </ul>
-      </p>
+      </p> -->
     </div>
     <section class="map">
       <div id="map"></div>
@@ -99,6 +100,7 @@
   </body>
 
   {% javascripts
+  'bundles/onomap/js/config.js'
   'bundles/onomap/js/loaderManage.js'
   'bundles/onomap/js/main.js'
   'bundles/onomap/js/mapping.js'
@@ -107,10 +109,11 @@
     <script src="{{ asset_url }}" type="text/javascript"></script>
   {% endjavascripts %}
 
+
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtSVI5vGIdfE-WzDNMGS3-xE_FfmKp8_o&callback=initMap" type="text/javascript"></script>
 
   <script type="text/javascript">
-  console.log({{ json|raw }});
     mapGestion.addQuestions({{ json|raw }});
+    config.rootPath = "{{ absolute_url(path("ono_map_homepage")) }}";
   </script>
 </html>

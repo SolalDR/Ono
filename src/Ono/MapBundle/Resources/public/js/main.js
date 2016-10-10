@@ -47,7 +47,7 @@ filter = {
   },
 
   sendModification:function(){
-    callScript("http://localhost:8888/Ono/web/app_dev.php/", filter.filterTab)
+    callScript(config.rootPath+"update", filter.filterTab)
   },
 
   addClickEvent:function(el, rank){
