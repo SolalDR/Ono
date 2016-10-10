@@ -141,12 +141,19 @@ mapGestion = {
       // parentNode : document.querySelector("*[data-responseid='"+response.id+"']").parentNode.parentNode.parentNode.parentNode
     }));
 
+    // mapGestion.map.addListener('center_changed', function() {
+    // // 3 seconds after the center of the map has changed, pan back to the
+    // // marker.
+    //   window.setTimeout(function() {
+    //     mapGestion.map.panTo(mapGestion.markers[actualRank].getPosition());
+    //   }, 3000);
+    // });
+
+
     var actualRank = mapGestion.markers.length-1;
     google.maps.event.addListener(mapGestion.markers[actualRank], 'click', function() {
       if(mapGestion.testSidebarOpen()){
-        console.log("Open");
         mapGestion.closeSideBar();
-        console.log("Close");
         setTimeout(function(){
           mapGestion.updateSidebarContent(response, question);
           mapGestion.openSideBar();
@@ -155,6 +162,8 @@ mapGestion = {
         mapGestion.updateSidebarContent(response, question);
         mapGestion.openSideBar();
       }
+      mapGestion.map.panTo(mapGestion.markers[actualRank].getPosition());
+
     })
   },
 
