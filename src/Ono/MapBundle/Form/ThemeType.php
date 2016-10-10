@@ -20,8 +20,9 @@ class ThemeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libTheme',     TextType::class)
+            ->add('libTheme',     TextType::class, array("label"=>"Libellé Thème"))
             ->add('description',  TextareaType::class)
+            ->add('cdTheme',      TextType::class, array("label"=>"Code thème"))
             ->add('save',         SubmitType::class)
         ;
     }

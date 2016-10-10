@@ -35,6 +35,13 @@ class Theme
      */
     private $description;
 
+    //Utile notamment pour les picto associé
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cdTheme", type="string", length=255, unique=false, nullable=true)
+     */
+    private $cdTheme;
 
     /**
      * Get id
@@ -92,5 +99,29 @@ class Theme
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set cdTheme
+     *
+     * @param string $cdTheme
+     *
+     * @return Theme
+     */
+    public function setCdTheme($cdTheme)
+    {
+        $this->cdTheme = $cdTheme;
+
+        return $this;
+    }
+
+    /**
+     * Get cdTheme
+     *
+     * @return string
+     */
+    public function getCdTheme()
+    {
+        return $this->cdTheme;
     }
 }
