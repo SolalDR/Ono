@@ -133,6 +133,31 @@ burgerGestion = {
   }
 }
 
+
+sidebarGestion = {
+  initEvent:function(){
+    sidebarGestion.burger.addEventListener("click", function(){
+      if(sidebarGestion.container.className.match("sidebar-open")){
+        sidebarGestion.container.className = sidebarGestion.container.className.replace("sidebar-open", "sidebar-close")
+      } else if(sidebarGestion.container.className.match("sidebar-close")){
+        sidebarGestion.container.className = sidebarGestion.container.className.replace("sidebar-close", "sidebar-open")
+      }
+    }, false)
+  },
+  initSidebarSize: function(){
+    setToWindowHeight(sidebarGestion.container);
+    window.addEventListener("resize", function(){
+      setToWindowHeight(sidebarGestion.container);
+    }, false)
+  },
+  init:function(query){
+    sidebarGestion.container = document.querySelector(query);
+    sidebarGestion.burger = sidebarGestion.container.getElementsByClassName("burger-button")[0];
+    sidebarGestion.initSidebarSize();
+    sidebarGestion.initEvent();
+  }
+}
+
 ///////////////////////////////////////////////////////
 //
 //          Afficher les outils de développement
@@ -154,6 +179,8 @@ displayToolDev = {
 }
 
 
-burgerGestion.init("#sidebar")
+burgerGestion.init("#sidebarLeft")
+sidebarGestion.init("#sidebarRight")
+
 displayToolDev.init();
 filter.init();

@@ -36,6 +36,15 @@ function createElement(type, classname, attributes){
 mapGestion = {
   mapEl : document.getElementById("map"),
   zoom : 3,
+  sidebar : document.getElementById("sidebarRight"),
+  elements: {
+    question : document.getElementById("response-title"),
+    author : document.getElementById("response-author"),
+    dtcreation : document.getElementById("response-date-creation"),
+    dtnaissance : document.getElementById("response-date-naissance"),
+    content : document.getElementById("response-content"),
+    country : document.getElementById("response-country")
+  },
   markers: [],
   questions:[],
   previousQuestion: [],
@@ -71,37 +80,37 @@ mapGestion = {
     mapGestion.createAllMarkers();
   },
 
-  generateHtmlInfoBulle:function(responseObj, questionObj){
-    console.log(questionObj);
-    var container = createElement("div", "container-info", {"data-responseId": responseObj.id});
-    var question = createElement("p", "question");
-    var response = createElement("p", "content");
-    var author = createElement("p", "author");
-    var date = createElement("p", "date");
-
-    // console.log(questionObj.themes)
-
-    var themes = [];
-    var themesContainer = createElement("ul", "thematic-contain");
-    for(var j=0; j<questionObj.themes.length; j++){
-      themes.push(createElement("li", "themeItem"));
-      themes[j].innerHTML = questionObj.themes[j].libTheme;
-      themesContainer.appendChild(themes[j])
-    }
-
-    question.innerHTML = questionObj.libQuestion;
-    response.innerHTML = responseObj.content;
-    author.innerHTML = responseObj.author;
-    date.innerHTML = responseObj.dtcreation.timestamp;
-
-    container.appendChild(themesContainer);
-    container.appendChild(question);
-    container.appendChild(author);
-    container.appendChild(date);
-    container.appendChild(response);
-
-    return container.outerHTML;
-  },
+  // generateHtmlInfoBulle:function(responseObj, questionObj){
+  //   console.log(questionObj);
+  //   var container = createElement("div", "container-info", {"data-responseId": responseObj.id});
+  //   var question = createElement("p", "question");
+  //   var response = createElement("p", "content");
+  //   var author = createElement("p", "author");
+  //   var date = createElement("p", "date");
+  //
+  //   // console.log(questionObj.themes)
+  //
+  //   var themes = [];
+  //   var themesContainer = createElement("ul", "thematic-contain");
+  //   for(var j=0; j<questionObj.themes.length; j++){
+  //     themes.push(createElement("li", "themeItem"));
+  //     themes[j].innerHTML = questionObj.themes[j].libTheme;
+  //     themesContainer.appendChild(themes[j])
+  //   }
+  //
+  //   question.innerHTML = questionObj.libQuestion;
+  //   response.innerHTML = responseObj.content;
+  //   author.innerHTML = responseObj.author;
+  //   date.innerHTML = responseObj.dtcreation.timestamp;
+  //
+  //   container.appendChild(themesContainer);
+  //   container.appendChild(question);
+  //   container.appendChild(author);
+  //   container.appendChild(date);
+  //   container.appendChild(response);
+  //
+  //   return container.outerHTML;
+  // },
 
   //Parcour les réponses et rajoutes les markers
   createAllMarkers:function(){
@@ -120,23 +129,67 @@ mapGestion = {
 
   //Rajoute un marker depuis une réponse
   addMarkerFromResonse: function(response, question){
+
     mapGestion.markers.push(new google.maps.Marker({
       position: {lat: response.country.lat, lng: response.country.ln},
       map: mapGestion.map,
       title: response.question.libQuestion,
-      id: response.id,
-      infoBulle : new google.maps.InfoWindow({
-      	content: mapGestion.generateHtmlInfoBulle(response, question)
-      })
+      id: response.id
+      // infoBulle : new google.maps.InfoWindow({
+      // 	content: mapGestion.generateHtmlInfoBulle(response, question)
+      // })
       // parentNode : document.querySelector("*[data-responseid='"+response.id+"']").parentNode.parentNode.parentNode.parentNode
     }));
+
     var actualRank = mapGestion.markers.length-1;
     google.maps.event.addListener(mapGestion.markers[actualRank], 'click', function() {
-      mapGestion.markers[actualRank].infoBulle.open(mapGestion.map, mapGestion.markers[actualRank]);
-    });
+      if(mapGestion.testSidebarOpen()){
+        console.log("Open");
+        mapGestion.closeSideBar();
+        console.log("Close");
+        setTimeout(function(){
+          mapGestion.updateSidebarContent(response, question);
+          mapGestion.openSideBar();
+        }, 1000);
+      } else {
+        mapGestion.updateSidebarContent(response, question);
+        mapGestion.openSideBar();
+      }
+    })
   },
 
+  //Gere la sidebar sur le côté.
+  updateSidebarContent:function(response, question){
+    // question : document.getElementById("response-title"),
+    // author : document.getElementById("response-author"),
+    // dtcreation : document.getElementById("response-date-creation"),
+    // dtnaissance : document.getElementById("response-date-naissance"),
+    // content : document.getElementById("response-content"),
+    // country : document.getElementById("response-country")
+      mapGestion.elements.question.innerHTML = question.libQuestion;
+      mapGestion.elements.author.innerHTML = response.author;
+      mapGestion.elements.country.innerHTML = response.country.libCountry;
+      mapGestion.elements.dtcreation.innerHTML = response.dtcreation.timestamp;
+      mapGestion.elements.dtnaissance.innerHTML = response.dtnaissance.timestamp;
+      mapGestion.elements.content.innerHTML = response.content;
 
+  },
+
+  testSidebarOpen: function(){
+    if(mapGestion.sidebar.className.match("sidebar-open")){
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  closeSideBar:function(){
+    mapGestion.sidebar.className = mapGestion.sidebar.className.replace("sidebar-open", "sidebar-close");
+  },
+
+  openSideBar:function(){
+    mapGestion.sidebar.className = mapGestion.sidebar.className.replace("sidebar-close", "sidebar-open");
+  },
 
   initSizeMap: function(){
     setToWindowHeight(mapGestion.mapEl);

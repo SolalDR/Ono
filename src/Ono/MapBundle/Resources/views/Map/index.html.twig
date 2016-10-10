@@ -15,7 +15,7 @@
       <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
   </head>
-  <body>
+  <body id="mapBody">
     <noscript>
       <p>Attention : </p>
       <p>Afin de pouvoir utiliser Google Maps, JavaScript doit être activé.</p>
@@ -34,7 +34,7 @@
       </div>
       <p class="loader-notice">Chargement</p>
     </div>
-    <div id="sidebar" class="sidebar sidebar-close">
+    <div id="sidebarLeft" class="sidebar-left sidebar-close">
       <div class="burger-button">
         <span></span>
         <span></span>
@@ -54,6 +54,26 @@
           <input id="rangeAge" type="range" name="name" value="">
         </div>
       </nav>
+    </div>
+    <div id="sidebarRight" class="sidebar-right sidebar-open">
+      <div class="burger-button slide-button"></div>
+      <div class="themes no-marge">
+        <ul id="response-list-themes-container">
+          <li>Thème1</li>
+          <li>Thème2</li>
+          <li>Thème3</li>
+        </ul>
+      </div>
+      <div class="article marge">
+        <h2 id="response-title">Title</h2>
+        <p id="response-author">Solal Dussout-Revel</p>
+        <p id="response-date-creation">07/11/2021</p>
+        <p id="response-date-naissance">07/11/2021</p>
+        <p id="response-country">Pays</p>
+        <p id="response-content">Contenu</p>
+        <p id=""></p>
+      </div>
+
     </div>
     <span id="display-dev" class="button-style">Afficher Environnement dev</span>
     <div class="devEnv true-hidden">
