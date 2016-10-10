@@ -327,20 +327,20 @@ a {
 /*Transition du contenu lors de la mise à jour des question*/
 .sidebar-right .state-fixe {
 	opacity: 1;
-	filter: blur(0px) invert(0);
+	/*filter: blur(0px);
 	position: relative;
 	left: 0;
-	transform: rotateX(0deg);
+	transform: rotateX(0deg);*/
 	-webkit-transition: .5s;
 	-o-transition: .5s;
 	transition: .5s;
 }
 .sidebar-right .state-transition {
 	opacity: 0;
-	filter: blur(10px);
+	/*filter: blur(10px);
 	position: relative;
 	left: 500px;
-	transform: rotateX(90deg);
+	transform: rotateX(90deg);*/
 	-webkit-transition: .5s;
 	-o-transition: .5s;
 	transition: .5s;

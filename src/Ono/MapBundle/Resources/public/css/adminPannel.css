@@ -47,6 +47,33 @@ table {
 	border-spacing: 0;
 }
 
+/*Style basique*/
+.no-marge {
+	margin: 0;
+}
+.bg-green {
+	background-color: rgba(0, 161, 13, 0.6);
+}
+
+.bg-red {
+	background-color: rgb(255, 95, 89);
+}
+
+/*Style d'un bouton par défault*/
+.button-style {
+  display: inline-block;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+a.button-style {
+	text-decoration: none;
+	color: white;
+	margin-bottom: 25px;
+}
 
 #menu {
   background-color: transparent;
@@ -88,8 +115,8 @@ table {
   margin:4px;
 }
 #menu a li:hover {
-	background-color: rgb(24, 118, 155);
-  border: 1px solid transparent;
+	/*background-color: rgb(24, 118, 155);
+  border: 1px solid transparent;*/
 }
 
 
@@ -109,11 +136,10 @@ table {
 }
 
 #menu li.title {
-  cursor: default;
+  cursor: pointer;
   text-transform: uppercase;
   padding-top: 15px;
-  margin: 15px 0;
-  margin-left: 30px;
+	margin: 0;
   font-size: 17px;
   border-top: 1px solid #CCC;
 }
@@ -148,4 +174,8 @@ table tr td:first-child {
 }
 table tr td:nth-child(2) {
 	width: 20%;
+}
+
+table td .button-style {
+	margin-bottom: 0;
 }

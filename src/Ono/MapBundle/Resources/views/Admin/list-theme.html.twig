@@ -5,6 +5,8 @@
 
 <div class="mainContent">
   <h1>Liste des thèmes</h1>
+  <a class="button-style" href="{{ path('ono_admin_add_theme') }}">Ajouter un thème</a>
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -32,10 +34,10 @@
           {{ theme.description }}
         </td>
         <td>
-          <a href="{{ path("ono_admin_edit_theme", {"id" : theme.id}) }}">Editer</a>
+          <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_theme", {"id" : theme.id}) }}">Editer</a>
         </td>
         <td>
-          <a href="{{ path("ono_admin_delete_theme", {"id" : theme.id}) }}">Supprimer</a>
+          <a class="button-style bg-red no-marge" href="{{ path("ono_admin_delete_theme", {"id" : theme.id}) }}">Supprimer</a>
         </td>
       </tr>
       {% endfor %}

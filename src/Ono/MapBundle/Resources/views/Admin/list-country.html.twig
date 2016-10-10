@@ -5,6 +5,7 @@
 
 <div class="mainContent">
   <h1>Liste des Pays</h1>
+  <a class="button-style" href="{{ path('ono_admin_add_country') }}">Ajouter un pays</a>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -47,10 +48,10 @@
             {{ country.ln }}
           </td>
           <td>
-            <a href="{{ path("ono_admin_edit_country", {"id": country.id}) }}">Edit</a>
+            <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_country", {"id": country.id}) }}">Edit</a>
           </td>
           <td>
-            <a href="{{ path("ono_admin_delete_country", {"id": country.id}) }}">Supprimer</a>
+            <a class="button-style bg-red no-marge" href="{{ path("ono_admin_delete_country", {"id": country.id}) }}">Supprimer</a>
           </td>
         </tr>
       {% endfor %}
