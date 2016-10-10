@@ -26,7 +26,9 @@ function getAgeResponse(date){
 
 function createElement(type, classname, attributes){
   var el = document.createElement(type);
-  el.className+=classname;
+  if(classname){
+    el.className+=classname;
+  }
   for(attribute in attributes){
     el.setAttribute(attribute, attributes[attribute]);
   }
@@ -44,7 +46,8 @@ mapGestion = {
     dtcreation : document.getElementById("response-date-creation"),
     dtnaissance : document.getElementById("response-date-naissance"),
     content : document.getElementById("response-content"),
-    country : document.getElementById("response-country")
+    country : document.getElementById("response-country"),
+    themeContainer : document.getElementById("response-list-themes-container")
   },
   markers: [],
   questions:[],
@@ -144,6 +147,22 @@ mapGestion = {
       mapGestion.elements.dtcreation.innerHTML = response.dtcreation.timestamp;
       mapGestion.elements.dtnaissance.innerHTML = response.dtnaissance.timestamp;
       mapGestion.elements.content.innerHTML = response.content;
+
+      // var themes = mapGestion.elements.themeContainer.getElementsByTagName("li");
+      // console.log(themes);
+      // for(i=0; i<themes.length; i++){
+      //   var actual = themes[i];
+      //   mapGestion.elements.themeContainer.removeChild(actual);
+      // }
+      mapGestion.elements.themeContainer.innerHTML = "";
+
+      var themesCreate = [];
+      for(i=0; i<question.themes.length; i++){
+        themesCreate.push(createElement("li"));
+        themesCreate[i].innerHTML = question.themes[i].libTheme;
+        mapGestion.elements.themeContainer.appendChild(themesCreate[i]);
+      }
+      
   },
 
   testSidebarOpen: function(){
