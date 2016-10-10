@@ -72,7 +72,7 @@ a {
 }
 
 
-
+/*Gère l'affichage du panneau de développement*/
 .true-hidden {
   display: none;
 }
@@ -80,6 +80,7 @@ a {
   display: block;
 }
 
+/*Style d'un bouton par défault*/
 .button-style {
   display: block;
   padding: 10px 15px;
@@ -130,7 +131,7 @@ a {
 
 
 /*//////////////////////*/
-/*   Element distinct   */
+/*  			 Map   				*/
 /*//////////////////////*/
 
 #map {
@@ -289,7 +290,7 @@ a {
 
 
 /*//////////////////////*/
-/*    Rightslider       */
+/*   Panneau de réponse */
 /*//////////////////////*/
 
 .sidebar-right {
@@ -307,6 +308,7 @@ a {
 	-o-transition: .5s;
 	transition: .5s;
 }
+
 .sidebar-right .marge {
 	margin: 0 25px;
 }
@@ -314,6 +316,7 @@ a {
 	margin: 0;
 }
 
+/*Gère la position du panneau en fonction des évenements js*/
 .sidebar-right.sidebar-open {
 	right: 0;
 }
@@ -321,7 +324,30 @@ a {
 	right: -500px;
 }
 
+/*Transition du contenu lors de la mise à jour des question*/
+.sidebar-right .state-fixe {
+	opacity: 1;
+	filter: blur(0px) invert(0);
+	position: relative;
+	left: 0;
+	transform: rotateX(0deg);
+	-webkit-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
+.sidebar-right .state-transition {
+	opacity: 0;
+	filter: blur(10px);
+	position: relative;
+	left: 500px;
+	transform: rotateX(90deg);
+	-webkit-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+}
 
+
+/*Contenu */
 .sidebar-right h2 {
 	font-size: 30px;
 	margin: 20px 0px 20px 10px;

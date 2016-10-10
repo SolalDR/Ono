@@ -37,6 +37,7 @@ mapGestion = {
   mapEl : document.getElementById("map"),
   zoom : 3,
   sidebar : document.getElementById("sidebarRight"),
+  sidebarContent : document.getElementById("sidebarContent"),
   elements: {
     question : document.getElementById("response-title"),
     author : document.getElementById("response-author"),
@@ -80,38 +81,6 @@ mapGestion = {
     mapGestion.createAllMarkers();
   },
 
-  // generateHtmlInfoBulle:function(responseObj, questionObj){
-  //   console.log(questionObj);
-  //   var container = createElement("div", "container-info", {"data-responseId": responseObj.id});
-  //   var question = createElement("p", "question");
-  //   var response = createElement("p", "content");
-  //   var author = createElement("p", "author");
-  //   var date = createElement("p", "date");
-  //
-  //   // console.log(questionObj.themes)
-  //
-  //   var themes = [];
-  //   var themesContainer = createElement("ul", "thematic-contain");
-  //   for(var j=0; j<questionObj.themes.length; j++){
-  //     themes.push(createElement("li", "themeItem"));
-  //     themes[j].innerHTML = questionObj.themes[j].libTheme;
-  //     themesContainer.appendChild(themes[j])
-  //   }
-  //
-  //   question.innerHTML = questionObj.libQuestion;
-  //   response.innerHTML = responseObj.content;
-  //   author.innerHTML = responseObj.author;
-  //   date.innerHTML = responseObj.dtcreation.timestamp;
-  //
-  //   container.appendChild(themesContainer);
-  //   container.appendChild(question);
-  //   container.appendChild(author);
-  //   container.appendChild(date);
-  //   container.appendChild(response);
-  //
-  //   return container.outerHTML;
-  // },
-
   //Parcour les réponses et rajoutes les markers
   createAllMarkers:function(){
     for(i=0; i<mapGestion.questions.length; i++){
@@ -141,47 +110,40 @@ mapGestion = {
       // parentNode : document.querySelector("*[data-responseid='"+response.id+"']").parentNode.parentNode.parentNode.parentNode
     }));
 
-    // mapGestion.map.addListener('center_changed', function() {
-    // // 3 seconds after the center of the map has changed, pan back to the
-    // // marker.
-    //   window.setTimeout(function() {
-    //     mapGestion.map.panTo(mapGestion.markers[actualRank].getPosition());
-    //   }, 3000);
-    // });
 
 
     var actualRank = mapGestion.markers.length-1;
     google.maps.event.addListener(mapGestion.markers[actualRank], 'click', function() {
       if(mapGestion.testSidebarOpen()){
-        mapGestion.closeSideBar();
+        // mapGestion.closeSideBar();
+        mapGestion.updateSidebarTransitionState();
         setTimeout(function(){
           mapGestion.updateSidebarContent(response, question);
-          mapGestion.openSideBar();
-        }, 1000);
+          // mapGestion.openSideBar();
+        }, 500);
       } else {
         mapGestion.updateSidebarContent(response, question);
         mapGestion.openSideBar();
       }
       mapGestion.map.panTo(mapGestion.markers[actualRank].getPosition());
-
     })
+  },
+
+  updateSidebarTransitionState: function(){
+    mapGestion.sidebarContent.className = mapGestion.sidebarContent.className.replace("state-fixe", "state-transition");
+    setTimeout(function(){
+      mapGestion.sidebarContent.className = mapGestion.sidebarContent.className.replace("state-transition", "state-fixe");
+    }, 500);
   },
 
   //Gere la sidebar sur le côté.
   updateSidebarContent:function(response, question){
-    // question : document.getElementById("response-title"),
-    // author : document.getElementById("response-author"),
-    // dtcreation : document.getElementById("response-date-creation"),
-    // dtnaissance : document.getElementById("response-date-naissance"),
-    // content : document.getElementById("response-content"),
-    // country : document.getElementById("response-country")
       mapGestion.elements.question.innerHTML = question.libQuestion;
       mapGestion.elements.author.innerHTML = response.author;
       mapGestion.elements.country.innerHTML = response.country.libCountry;
       mapGestion.elements.dtcreation.innerHTML = response.dtcreation.timestamp;
       mapGestion.elements.dtnaissance.innerHTML = response.dtnaissance.timestamp;
       mapGestion.elements.content.innerHTML = response.content;
-
   },
 
   testSidebarOpen: function(){
