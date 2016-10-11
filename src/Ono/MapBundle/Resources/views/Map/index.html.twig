@@ -3,13 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+  </head>
+  <body>
 
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
     {% stylesheets  filter='cssrewrite'
       'bundles/onomap/css/loader.css'
       'bundles/onomap/css/main.css'
       'bundles/onomap/css/form.css' %}
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+
     {% javascripts
      %}
       <script src="{{ asset_url }}" type="text/javascript"></script>
@@ -25,6 +37,7 @@
         #loaderContent { display: none;}
       </style>
     </noscript>
+    <div id='alerts-container'></div>
     <div id="loaderContent">
       <div id="loader" data-animationDuration="3000">
         <span id="antenne" class="skew"></span>
@@ -73,6 +86,14 @@
           <p id="response-country">Pays</p>
           <p id="response-content">Contenu</p>
           <p id=""></p>
+        </div>
+        <div id="formContainer" class="form-add marge">
+          {{ form_start(form, { 'attr': {
+            'action': absolute_url(path("ono_map_homepage")) ~ "response/add/0",
+            "data-xhrpost" : "true"
+          }} ) }}
+
+          {{ form_rest(form) }}
         </div>
       </div>
 

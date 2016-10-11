@@ -386,16 +386,16 @@ a {
 
 
 .sidebar-right .slide-button {
-	width: 30px;
+	width: 40px;
 	min-height: 600px;
 	height: 100%;
 	background-color: rgba(248, 192, 0, 0.87);
 	padding: 10px;
 	position: absolute;
-	left: -50px;
+	left: -40px;
 	top: 0px;
 	cursor: pointer;
-	background-image: url(../img/logo/arrow.png);
+	background-image: url(../../onomap/img/logo/arrow.png);
 	background-position: center;
 	background-size: 70%;
 	background-repeat: no-repeat;
@@ -450,4 +450,62 @@ a {
 	background-color: rgb(255, 231, 148);
 	border: 0;
 	display: inline-block;
+}
+
+/*//////////////////////*/
+/*  Alerts container	  */
+/*//////////////////////*/
+
+#alerts-container {
+	position: absolute;
+	bottom: 5px;
+	width: 500px;
+	z-index: 9999;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+#alerts-container .alert-container {
+	position: relative;
+	width: 500px;
+	padding: 20px;
+	margin: 5px auto;
+	display: block;
+	z-index: 9999;
+	border-radius: 5px;
+	border: 2px solid #145600;
+	text-align: center;
+	cursor: pointer; 
+}
+#alerts-container .alert-container .alert-title {
+	text-transform: uppercase;
+	color: white;
+	font-size: 15px;
+	font-weight: 100;
+	letter-spacing: 3px;
+	margin-bottom: 0;
+}
+#alerts-container .alert-container .alert-content {
+
+}
+#alerts-container .alert-container.alert-status-notice {
+	background-color: rgba(83, 177, 84, 0.9);
+}
+#alerts-container .alert-container.alert-status-warning {
+	background-color: rgb(223, 161, 0);
+}
+#alerts-container .alert-container.alert-status-error {
+	background-color: rgb(208, 62, 62);
+}
+
+
+
+/*//////////////////////*/
+/*  		FORM ADD 				*/
+/*//////////////////////*/
+
+.form-add form {
+	margin-top: 25px;
 }

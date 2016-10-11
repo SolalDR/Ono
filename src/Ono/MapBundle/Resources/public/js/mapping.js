@@ -47,7 +47,8 @@ mapGestion = {
     dtnaissance : document.getElementById("response-date-naissance"),
     content : document.getElementById("response-content"),
     country : document.getElementById("response-country"),
-    themeContainer : document.getElementById("response-list-themes-container")
+    themeContainer : document.getElementById("response-list-themes-container"),
+    form : document.getElementById("formContainer").getElementsByTagName("form")[0]
   },
   markers: [],
   questions:[],
@@ -147,14 +148,9 @@ mapGestion = {
       mapGestion.elements.dtcreation.innerHTML = response.dtcreation.timestamp;
       mapGestion.elements.dtnaissance.innerHTML = response.dtnaissance.timestamp;
       mapGestion.elements.content.innerHTML = response.content;
-
-      // var themes = mapGestion.elements.themeContainer.getElementsByTagName("li");
-      // console.log(themes);
-      // for(i=0; i<themes.length; i++){
-      //   var actual = themes[i];
-      //   mapGestion.elements.themeContainer.removeChild(actual);
-      // }
       mapGestion.elements.themeContainer.innerHTML = "";
+
+      mapGestion.elements.form.action = mapGestion.elements.form.action.replace(/\d+$/, question.id);
 
       var themesCreate = [];
       for(i=0; i<question.themes.length; i++){
@@ -162,7 +158,7 @@ mapGestion = {
         themesCreate[i].innerHTML = question.themes[i].libTheme;
         mapGestion.elements.themeContainer.appendChild(themesCreate[i]);
       }
-      
+
   },
 
   testSidebarOpen: function(){
