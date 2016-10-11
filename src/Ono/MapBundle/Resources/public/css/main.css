@@ -185,8 +185,8 @@ a {
   text-decoration: none;
 }
 .sidebar-left .burger-button {
-  width: 30px;
-  height: 20px;
+	width: 50px;
+	height: 40px;
   background-color: transparent;
   padding: 10px;
   position: relative;
@@ -293,6 +293,33 @@ a {
 /*   Panneau de réponse */
 /*//////////////////////*/
 
+#sidebarQuestionsList {
+	padding-top: 25px;
+}
+#sidebarRight .title {
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+#sidebarQuestionsList li {
+	margin-bottom: 10px;
+	font-size: 17px;
+	cursor: pointer;
+	padding-left: 10px;
+	border-left: 3px solid tranparent;
+}
+#sidebarQuestionsList li:hover {
+	border-left: 3px solid white;
+}
+
+#sidebarQuestionView .button-style {
+	display: inline-block;
+}
+
+#comebackQuestionView {
+	margin-bottom: 20px;
+}
+
 .sidebar-right {
 	width: 450px;
 	position: absolute;
@@ -307,6 +334,55 @@ a {
 	-webkit-transition: .5s;
 	-o-transition: .5s;
 	transition: .5s;
+}
+
+.sidebar-right .button-style {
+	border-radius: 0;
+	border: 2px solid white;
+	background-color: white;
+	-webkit-transition: .4s;
+	-o-transition: .4s;
+	transition: .4s;
+	color: black;
+	font-weight: 100;
+	font-size: 15px;
+	letter-spacing: 2px;
+	padding: 7px 10px;
+	text-transform: uppercase;
+	margin: 15px 5px;
+}
+.sidebar-right .button-style.no-marge {
+	margin: 0;
+	margin-bottom: 15px;
+}
+
+.sidebar-right .button-style:hover {
+	background-color: transparent;
+	color: white;
+}
+
+.sidebar-right .sidebar-content {
+	overflow: hidden;
+	min-height: 1080px;
+	position: relative;
+}
+
+.sidebar-right .sidebar-content .sidebar-panel {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	-webkit-transition: .4s;
+	-o-transition: .4s;
+	transition: .4s;
+}
+.sidebar-right .sidebar-content .sidebar-panel.sidebar-panel-position-left {
+	left: -100%;
+}
+.sidebar-right .sidebar-content .sidebar-panel.sidebar-panel-position-center {
+	left: 0%;
+}
+.sidebar-right .sidebar-content .sidebar-panel.sidebar-panel-position-right{
+	left: 100%;
 }
 
 .sidebar-right .marge {
@@ -362,7 +438,7 @@ a {
 .sidebar-right .themes li {
 	padding-top: 15px;
 	line-height: 10px;
-	height: 30px;
+	height: 40px;
 	display: inline-block;
 	flex: auto;
 	text-align: center;
@@ -383,7 +459,9 @@ a {
 	color: black;
 }
 
-
+.sidebar-right .other-responses .title {
+	margin-top: 20px;
+}
 
 .sidebar-right .slide-button {
 	width: 40px;
@@ -477,7 +555,7 @@ a {
 	border-radius: 5px;
 	border: 2px solid #145600;
 	text-align: center;
-	cursor: pointer; 
+	cursor: pointer;
 }
 #alerts-container .alert-container .alert-title {
 	text-transform: uppercase;

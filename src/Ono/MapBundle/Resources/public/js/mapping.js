@@ -36,31 +36,50 @@ function createElement(type, classname, attributes){
 }
 
 mapGestion = {
+  //Elements
   mapEl : document.getElementById("map"),
-  zoom : 3,
   sidebar : document.getElementById("sidebarRight"),
-  sidebarContent : document.getElementById("sidebarContent"),
-  elements: {
+  //Sidebar de droite
+  sidebarQuestionsList : document.getElementById("sidebarQuestionsList"),
+  sidebarQuestionView : document.getElementById("sidebarQuestionView"),
+
+  questionViewEls: {
     question : document.getElementById("response-title"),
+    questionForm : document.getElementById("response-title-form"),
     author : document.getElementById("response-author"),
     dtcreation : document.getElementById("response-date-creation"),
     dtnaissance : document.getElementById("response-date-naissance"),
     content : document.getElementById("response-content"),
     country : document.getElementById("response-country"),
     themeContainer : document.getElementById("response-list-themes-container"),
-    form : document.getElementById("formContainer").getElementsByTagName("form")[0]
+    otherResponseContainer : document.getElementsByClassName("other-responses")[0],
+    otherResponse : document.getElementsByClassName("other-responses")[0].getElementsByTagName("ul")[0]
   },
+  sidebarFormContainer : document.getElementById("sidebarFormContainer"),
+  sidebarForm : document.getElementById("sidebarFormContainer").getElementsByTagName("form")[0],
+
+  comebackQuestionView : document.getElementById("comebackQuestionView"),
+  comebackQuestionsList : document.getElementById("comebackQuestionsList"),
+  goFormView : document.getElementById("goFormView"),
+  //Config
+  zoom : 3,
   markers: [],
   questions:[],
   previousQuestion: [],
 
-  //Rajoute les question ainsi que leurs réponse dans le tableau questions
+
+  //////////////////////////////////////////////////
+  //        Markers et gestions des questions     //
+  //////////////////////////////////////////////////
+
+    //Rajoute les question ainsi que leurs réponse dans le tableau questions
   addQuestions: function(json){
     for(i=0; i<json.length; i++){
       mapGestion.questions.push(json[i]);
     }
   },
 
+  // Met à jour les markeurs de la cartes au changement de filtres
   updateQuestionFromJson: function(json){
     var questions = JSON.parse(json);
     var age;
@@ -94,6 +113,7 @@ mapGestion = {
     }
   },
 
+  //Supprimer tout les markers
   deleteAllMarkers : function(){
     for(i=0; i<mapGestion.markers.length; i++){
       mapGestion.markers[i].setMap(null);
@@ -102,63 +122,150 @@ mapGestion = {
 
   //Rajoute un marker depuis une réponse
   addMarkerFromResonse: function(response, question){
-
     mapGestion.markers.push(new google.maps.Marker({
       position: {lat: response.country.lat, lng: response.country.ln},
       map: mapGestion.map,
       title: response.question.libQuestion,
       id: response.id
-      // infoBulle : new google.maps.InfoWindow({
-      // 	content: mapGestion.generateHtmlInfoBulle(response, question)
-      // })
-      // parentNode : document.querySelector("*[data-responseid='"+response.id+"']").parentNode.parentNode.parentNode.parentNode
     }));
-
-
 
     var actualRank = mapGestion.markers.length-1;
     google.maps.event.addListener(mapGestion.markers[actualRank], 'click', function() {
-      if(mapGestion.testSidebarOpen()){
-        // mapGestion.closeSideBar();
-        mapGestion.updateSidebarTransitionState();
-        setTimeout(function(){
-          mapGestion.updateSidebarContent(response, question);
-          // mapGestion.openSideBar();
-        }, 500);
+
+      //On stocke l'id du pays
+      var idCountry = response.country.id;
+
+      //On doit tester si il y a plusieurs markers correspondant à ces coordonnées
+      var questionsFromPays = mapGestion.getQuestionsFromPays(idCountry);
+      
+      //Si il y a plusieurs questions :
+      if(questionsFromPays.length>1){
+        //On affiche la liste
+        mapGestion.displayPanelQuestions();
+        mapGestion.updateQuestionsOnSidebar(questionsFromPays, idCountry);
+        mapGestion.comebackQuestionsList.style.display = "inline-block";
       } else {
-        mapGestion.updateSidebarContent(response, question);
+        //Sinon on affiche la question
+        var responses = mapGestion.getResponseViewFromQuestion(questionsFromPays[0], idCountry);
+        mapGestion.updateSidebarResponsesView(responses, questionsFromPays[0]);
+        mapGestion.displayPanelResponses();
+        mapGestion.comebackQuestionsList.style.display = "none";
+      }
+      if(!mapGestion.testSidebarOpen()){
         mapGestion.openSideBar();
       }
       mapGestion.map.panTo(mapGestion.markers[actualRank].getPosition());
     })
   },
 
+  getResponseViewFromQuestion :function(question, idCountry){
+    var responseTab = [];
+    for(i=0; i<question.responses.length; i++){
+      if(question.responses[i].country.id === idCountry){
+        responseTab.push(question.responses[i]);
+      }
+    }
+    return responseTab;
+  },
+
+  //Récupère la liste des questions intervenant pour un pays donnée
+  getQuestionsFromPays: function(id){
+    var questionReturn = [];
+    for(test = false, i=0; i<mapGestion.questions.length; i++, test=false){
+      for(j=0; j<mapGestion.questions[i].responses.length; j++){
+        if(mapGestion.questions[i].responses[j].country.id === id && test=== false){
+          questionReturn.push(mapGestion.questions[i]);
+          test=true;
+        }
+      }
+    }
+    return questionReturn;
+  },
+
+  initQuestionClickInSidebar :function(el, question, idCountry){
+    var responses = mapGestion.getResponseViewFromQuestion(question, idCountry);
+    el.addEventListener("click", function(){
+      mapGestion.updateSidebarResponsesView(responses, question);
+      mapGestion.displayPanelResponses();
+    }, false)
+  },
+  //Met à jour la liste des questions clickable depuis des objets questions
+  updateQuestionsOnSidebar:function(questions, idCountry){
+    var listContainer = mapGestion.sidebarQuestionsList.getElementsByTagName("ul")[0];
+    listContainer.innerHTML = "";
+    console.log("List des questions :", listContainer);
+    var questionsEl = [];
+
+    for(var i=0; i<questions.length; i++){
+      var length = questionsEl.push(createElement("li"));
+      questionsEl[i].innerHTML = questions[i].libQuestion;
+      listContainer.appendChild(questionsEl[i]);
+    }
+
+    for(var i=0; i<questionsEl.length; i++){
+      mapGestion.initQuestionClickInSidebar(questionsEl[i], questions[i], idCountry);
+    }
+  },
+
   updateSidebarTransitionState: function(){
-    mapGestion.sidebarContent.className = mapGestion.sidebarContent.className.replace("state-fixe", "state-transition");
+    mapGestion.sidebarQuestionView.className = mapGestion.sidebarQuestionView.className.replace("state-fixe", "state-transition");
     setTimeout(function(){
-      mapGestion.sidebarContent.className = mapGestion.sidebarContent.className.replace("state-transition", "state-fixe");
+      mapGestion.sidebarQuestionView.className = mapGestion.sidebarQuestionView.className.replace("state-transition", "state-fixe");
     }, 500);
   },
 
-  //Gere la sidebar sur le côté.
-  updateSidebarContent:function(response, question){
-      mapGestion.elements.question.innerHTML = question.libQuestion;
-      mapGestion.elements.author.innerHTML = response.author;
-      mapGestion.elements.country.innerHTML = response.country.libCountry;
-      mapGestion.elements.dtcreation.innerHTML = response.dtcreation.timestamp;
-      mapGestion.elements.dtnaissance.innerHTML = response.dtnaissance.timestamp;
-      mapGestion.elements.content.innerHTML = response.content;
-      mapGestion.elements.themeContainer.innerHTML = "";
+  initEventClickOtherResponse:function(el, responses, question, idEl){
+    el.addEventListener("click", function(){
+      mapGestion.updateSidebarResponsesView(responses, question, idEl);
+    }, false)
+  },
 
-      mapGestion.elements.form.action = mapGestion.elements.form.action.replace(/\d+$/, question.id);
+  //Met à jour le contenu d'une réponse
+  updateSidebarResponsesView:function(responses, question, id){
+      if(!id){
+        id= responses[0].id;
+      }
+      var otherResponse = [];
+      for(i=0; i<responses.length; i++){
+        if(id === responses[i].id){
+          var response = responses[i];
+        } else {
+          otherResponse.push(responses[i]);
+        }
+      }
+
+      mapGestion.questionViewEls.question.innerHTML = question.libQuestion;
+      mapGestion.questionViewEls.questionForm.innerHTML = question.libQuestion;
+      mapGestion.questionViewEls.author.innerHTML = response.author;
+      mapGestion.questionViewEls.country.innerHTML = response.country.libCountry;
+      mapGestion.questionViewEls.dtcreation.innerHTML = response.dtcreation.timestamp;
+      mapGestion.questionViewEls.dtnaissance.innerHTML = response.dtnaissance.timestamp;
+      mapGestion.questionViewEls.content.innerHTML = response.content;
+
+      mapGestion.questionViewEls.themeContainer.innerHTML = "";
+      mapGestion.questionViewEls.otherResponse.innerHTML = "";
+
+      mapGestion.sidebarForm.action = mapGestion.sidebarForm.action.replace(/\d+$/, question.id);
 
       var themesCreate = [];
       for(i=0; i<question.themes.length; i++){
         themesCreate.push(createElement("li"));
         themesCreate[i].innerHTML = question.themes[i].libTheme;
-        mapGestion.elements.themeContainer.appendChild(themesCreate[i]);
+        mapGestion.questionViewEls.themeContainer.appendChild(themesCreate[i]);
       }
 
+      var responsesCreate = [];
+      if(otherResponse.length > 0){
+        mapGestion.questionViewEls.otherResponseContainer.style = "display : block;";
+        for(i=0; i<otherResponse.length; i++){
+          responsesCreate.push(createElement("li"));
+          responsesCreate[i].innerHTML = otherResponse[i].id;
+          mapGestion.questionViewEls.otherResponse.appendChild(responsesCreate[i]);
+          mapGestion.initEventClickOtherResponse(responsesCreate[i], responses, question, responsesCreate[i].id);
+        }
+      } else {
+        mapGestion.questionViewEls.otherResponseContainer.style = "display : none;";
+      }
   },
 
   testSidebarOpen: function(){
@@ -169,12 +276,55 @@ mapGestion = {
     }
   },
 
+  ////////////////////////////////
+  // Position sidebar et panel  //
+  ////////////////////////////////
+
   closeSideBar:function(){
     mapGestion.sidebar.className = mapGestion.sidebar.className.replace("sidebar-open", "sidebar-close");
   },
 
   openSideBar:function(){
     mapGestion.sidebar.className = mapGestion.sidebar.className.replace("sidebar-close", "sidebar-open");
+  },
+  movePanelToLeft:function(el){
+    el.className = el.className.replace("sidebar-panel-position-center", "sidebar-panel-position-left");
+    el.className = el.className.replace("sidebar-panel-position-right", "sidebar-panel-position-left");
+  },
+  movePanelToRight:function(el){
+    el.className = el.className.replace("sidebar-panel-position-left", "sidebar-panel-position-right");
+    el.className = el.className.replace("sidebar-panel-position-center", "sidebar-panel-position-right");
+  },
+  movePanelToCenter:function(el){
+    el.className = el.className.replace("sidebar-panel-position-left", "sidebar-panel-position-center");
+    el.className = el.className.replace("sidebar-panel-position-right", "sidebar-panel-position-center");
+},
+displayPanelForm : function(){
+  mapGestion.movePanelToLeft(mapGestion.sidebarQuestionsList);
+  mapGestion.movePanelToLeft(mapGestion.sidebarQuestionView);
+  mapGestion.movePanelToCenter(mapGestion.sidebarFormContainer);
+},
+displayPanelQuestions : function(){
+  mapGestion.movePanelToRight(mapGestion.sidebarQuestionView);
+  mapGestion.movePanelToCenter(mapGestion.sidebarQuestionsList);
+  mapGestion.movePanelToRight(mapGestion.sidebarFormContainer);
+},
+displayPanelResponses : function(){
+  mapGestion.movePanelToRight(mapGestion.sidebarFormContainer);
+  mapGestion.movePanelToCenter(mapGestion.sidebarQuestionView);
+  mapGestion.movePanelToLeft(mapGestion.sidebarQuestionsList);
+},
+
+  initEventSidebar :function(){
+    mapGestion.comebackQuestionView.addEventListener("click", function(){
+      mapGestion.displayPanelResponses();
+    }, false)
+    mapGestion.comebackQuestionsList.addEventListener("click", function(){
+      mapGestion.displayPanelQuestions();
+    }, false)
+    mapGestion.goFormView.addEventListener("click", function(){
+      mapGestion.displayPanelForm();
+    }, false)
   },
 
   initSizeMap: function(){
@@ -201,6 +351,7 @@ mapGestion = {
 
   },
   init:function(){
+    mapGestion.initEventSidebar();
     mapGestion.initSizeMap();
     mapGestion.initStyleMap();
     mapGestion.initListenerMap();

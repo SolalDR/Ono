@@ -68,32 +68,59 @@
         </div>
       </nav>
     </div>
+
+    <!-- Sidebar Right -->
     <div id="sidebarRight" class="sidebar-right sidebar-close">
       <div class="burger-button slide-button"></div>
-      <div id="sidebarContent" class="state-fixe">
-        <div class="themes no-marge">
-          <ul id="response-list-themes-container">
-            <li>Thème1</li>
-            <li>Thème2</li>
-            <li>Thème3</li>
-          </ul>
-        </div>
-        <div class="article marge">
-          <h2 id="response-title">Title</h2>
-          <p id="response-author">Solal Dussout-Revel</p>
-          <p id="response-date-creation">07/11/2021</p>
-          <p id="response-date-naissance">07/11/2021</p>
-          <p id="response-country">Pays</p>
-          <p id="response-content">Contenu</p>
-          <p id=""></p>
-        </div>
-        <div id="formContainer" class="form-add marge">
-          {{ form_start(form, { 'attr': {
-            'action': absolute_url(path("ono_map_homepage")) ~ "response/add/0",
-            "data-xhrpost" : "true"
-          }} ) }}
+      <div class="sidebar-content">
 
-          {{ form_rest(form) }}
+        <!-- Liste des questions -->
+        <div id="sidebarQuestionsList" class="state-fixe sidebar-panel sidebar-panel-position-left">
+          <div class="marge">
+            <p class="title">Deux questions trouvées ici !</p>
+            <ul></ul>
+          </div>
+        </div>
+
+        <!-- Vue d'une question -->
+        <div id="sidebarQuestionView" class="state-fixe sidebar-panel sidebar-panel-position-center">
+          <div class="themes no-marge">
+            <ul id="response-list-themes-container">
+              <li>Thème1</li>
+              <li>Thème2</li>
+              <li>Thème3</li>
+            </ul>
+          </div>
+          <div class="article marge">
+            <h2 id="response-title">Title</h2>
+            <span id="comebackQuestionsList" class="button-style" style="display:inline-block;">Retour aux questions</span>
+            <p id="response-author">Solal Dussout-Revel</p>
+            <p id="response-date-creation">07/11/2021</p>
+            <p id="response-date-naissance">07/11/2021</p>
+            <p id="response-country">Pays</p>
+            <p id="response-content">Contenu</p>
+            <p id=""></p>
+          </div>
+          <span id="goFormView" class="marge button-style">Ajouter une réponse</span>
+          <div class="other-responses marge">
+            <p class="title">D'autres au même endroit</p>
+            <ul>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Panneau formulaire -->
+        <div id="sidebarFormContainer" class="state-fixe sidebar-panel sidebar-panel-position-right">
+          <span id="comebackQuestionView" class="button-style no-marge">Retour à la réponse</span>
+          <div class="form-add marge">
+            <p id="response-title-form" class="title"></p>
+            {{ form_start(form, { 'attr': {
+              'action': absolute_url(path("ono_map_homepage")) ~ "response/add/0",
+              "data-xhrpost" : "true"
+            }} ) }}
+
+            {{ form_rest(form) }}
+          </div>
         </div>
       </div>
 
