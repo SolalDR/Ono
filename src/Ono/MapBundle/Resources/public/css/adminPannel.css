@@ -59,6 +59,10 @@ table {
 	background-color: rgb(255, 95, 89);
 }
 
+.bg-blue {
+	background-color: #336393;
+}
+
 /*Style d'un bouton par défault*/
 .button-style {
   display: inline-block;
