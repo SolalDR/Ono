@@ -41,24 +41,26 @@ A Symfony project created on September 15, 2016, 10:30 am.
 - id_user
 
 #### RESPONSE (ManyToOne : question) (ManyToOne : User) (ManyToMany : theme)(ManyToOne : Country)
-- nblike (A rajouter) 
+- nblike (A rajouter)
 
 #### COUNTRY
-- cdCountry (A rajouter) 
+- cdCountry (A rajouter)
 
+### Controlleur :
 
-### Controlleur : 
+- Rajouter une action permettant de renvoyer une question en particulière
+- Gerer l'attribut published, le mettre par défaut à false lors de addAction dans le controlleur Map
 
-- Rajouter une action permettant de renvoyer une question en particulière 
-- Séparer l'action indexAction en deux action afin d'en créer une seulement pour la mise à jour des question ayant lieux en Ajax 
+### Vue
 
-## Rappel pour les developpeurs : 
+- Créer/Récupérer les icones pour chaque thèmes / les intégré dans les assets avec des nom pertinent (qui seront repris à l'aide du cdTheme)
 
-Pour récupérer code : 
+## Rappel pour les developpeurs :
+
+Pour récupérer code :
 - git stash //met de coté ton code
 - git pull //récupère le dernier commit
 - git stash apply //récupère ton code
 - git add . //rajoute tes modification
 - git commit…
 - git push
-

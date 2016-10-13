@@ -24,7 +24,6 @@ class ResponseType extends AbstractType
         $builder
             ->add('content',    TextareaType::class)
             ->add('author',     TextType::class)
-            ->add('published',  CheckboxType::class, array("required"=> false))
             ->add('dtnaissance', DateTimeType::class, array(
               "required"=> false,
               "label"=> "Date de naissance"
