@@ -25,7 +25,7 @@ class Country
     /**
      * @var string
      *
-     * @ORM\Column(name="cdCountry", type="string", length=255)
+     * @ORM\Column(name="cdCountry", type="string", length=255, unique=true)
      * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      * @Assert\Length(max=4, maxMessage="Le code pays doit être au maximum de 4 caractères !")
      */
