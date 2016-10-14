@@ -26,8 +26,10 @@ class ResponseType extends AbstractType
             ->add('content',    TextareaType::class)
             ->add('author',     TextType::class)
             ->add('dtnaissance', DateType::class, array(
-              "required"=> false,
-              "label"=> "Date de naissance"
+              "required" => false,
+              "label" => "Date de naissance",
+              "years" => range(1900,2016),
+              "format" => "dd / MM / yyyy"
             ))
             ->add('country', EntityType::class, array(
               'class'        => 'OnoMapBundle:Country',
