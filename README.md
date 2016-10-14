@@ -17,12 +17,6 @@ A Symfony project created on September 15, 2016, 10:30 am.
 
 ## Développement Back :
 
-### Formulaire
-
-#### Date de naissance
-- Changer la plage des années
-
-
 ### Modèle
 
 #### TRADUCTION QUESTION : (ManyToOne : Question)
