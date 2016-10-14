@@ -49,11 +49,12 @@ A Symfony project created on September 15, 2016, 10:30 am.
 ### Controlleur :
 
 - Rajouter une action permettant de renvoyer une question en particulière
-- Gerer l'attribut published, le mettre par défaut à false lors de addAction dans le controlleur Map
+- Rajouter bool type avec l'objet Assert pour les attributs bolleen 
 
 ### Vue
 
 - Créer/Récupérer les icones pour chaque thèmes / les intégré dans les assets avec des nom pertinent (qui seront repris à l'aide du cdTheme)
+- Costumizer les pages d'erreur, Erreur 500, Erreur 404, Access Denied
 
 ## Rappel pour les developpeurs :
 

@@ -1,3 +1,28 @@
 ono_map:
     resource: "@OnoMapBundle/Resources/config/routing.yml"
     prefix:   /
+
+
+login:
+    path: /login
+    defaults:
+        _controller: OnoUserBundle:Security:login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
+
+
+login_admin:
+    path: /admin/login
+    defaults:
+        _controller: OnoUserBundle:Security:loginAdmin
+
+login_admin_check:
+    path: /admin/login_check
+
+logout_admin:
+    path: /admin/logout
