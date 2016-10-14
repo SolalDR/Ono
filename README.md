@@ -49,7 +49,6 @@ A Symfony project created on September 15, 2016, 10:30 am.
 ### Controlleur :
 
 - Rajouter une action permettant de renvoyer une question en particulière
-- Rajouter bool type avec l'objet Assert pour les attributs bolleen 
 
 ### Vue
 
