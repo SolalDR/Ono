@@ -3,6 +3,7 @@
 namespace Ono\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Language
@@ -25,6 +26,7 @@ class Language
      * @var string
      *
      * @ORM\Column(name="cdLanguage", type="string", length=255, unique=true)
+     * @Assert\Length(max=4)
      */
     private $cdLanguage;
 
@@ -32,6 +34,7 @@ class Language
      * @var string
      *
      * @ORM\Column(name="libLanguageFr", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $libLanguageFr;
 
@@ -39,6 +42,7 @@ class Language
      * @var string
      *
      * @ORM\Column(name="libLanguageEn", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $libLanguageEn;
 

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,7 +25,7 @@ class ResponseType extends AbstractType
         $builder
             ->add('content',    TextareaType::class)
             ->add('author',     TextType::class)
-            ->add('dtnaissance', DateTimeType::class, array(
+            ->add('dtnaissance', DateType::class, array(
               "required"=> false,
               "label"=> "Date de naissance"
             ))

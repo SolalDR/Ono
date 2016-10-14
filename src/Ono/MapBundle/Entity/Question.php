@@ -27,16 +27,21 @@ class Question
      * @var string
      *
      * @ORM\Column(name="libQuestion", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=20)
      */
     private $libQuestion;
 
     /**
     * @ORM\OneToMany(targetEntity="Ono\MapBundle\Entity\Response", mappedBy="question")
+    * @Assert\Valid()
     */
     private $responses;
 
     /**
     * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Theme", cascade={"persist"})
+    * @Assert\Valid()
+    * @Assert\NotBlank()
     */
     private $themes;
 

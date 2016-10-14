@@ -27,6 +27,8 @@ class Response
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(min=30)
      */
     private $content;
 
@@ -34,13 +36,15 @@ class Response
      * @var \DateTime
      *
      * @ORM\Column(name="dtcreation", type="datetime")
+     * @Assert\DateTime()
      */
     private $dtcreation;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="dtnaissance", type="datetime")
+     * @ORM\Column(name="dtnaissance", type="date")
+     * @Assert\Date()
      */
     private $dtnaissance;
 
@@ -48,6 +52,7 @@ class Response
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $author;
 
@@ -63,12 +68,14 @@ class Response
     /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Question", inversedBy="responses")
     * @ORM\JoinColumn(nullable=false)
+    * @Assert\Valid()
     */
     private $question;
 
     /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Country")
     * @ORM\JoinColumn(nullable=false)
+    * @Assert\Valid()
     */
     private $country;
 

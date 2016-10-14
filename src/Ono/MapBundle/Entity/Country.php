@@ -3,6 +3,7 @@
 namespace Ono\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Country
@@ -25,6 +26,7 @@ class Country
      * @var string
      *
      * @ORM\Column(name="libCountry", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $libCountry;
 
@@ -32,6 +34,7 @@ class Country
      * @var string
      *
      * @ORM\Column(name="libCapital", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $libCapital;
 
@@ -39,6 +42,7 @@ class Country
      * @var int
      *
      * @ORM\Column(name="lat", type="integer")
+     * @Assert\NotBlank()
      */
     private $lat;
 
@@ -46,6 +50,7 @@ class Country
      * @var int
      *
      * @ORM\Column(name="ln", type="integer")
+     * @Assert\NotBlank()
      */
     private $ln;
 

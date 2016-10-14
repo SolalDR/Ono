@@ -3,6 +3,7 @@
 namespace Ono\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Theme
@@ -25,6 +26,8 @@ class Theme
      * @var string
      *
      * @ORM\Column(name="libTheme", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2)
      */
     private $libTheme;
 
