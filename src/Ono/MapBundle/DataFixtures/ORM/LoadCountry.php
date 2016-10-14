@@ -10,7 +10,7 @@ class LoadCountry implements FixtureInterface
   // Dans l'argument de la méthode load, l'objet $manager est l'EntityManager
   public function load(ObjectManager $manager)
   {
-    $json = file_get_contents("web/pays.json");
+    $json = file_get_contents("web/country.json");
 
     $tab = (array) json_decode($json);
     for($i=0; $i<count($tab); $i++){
@@ -20,6 +20,7 @@ class LoadCountry implements FixtureInterface
     for ($i=0; $i<count($tab); $i++) {
       // On crée la catégorie
       $country = new Country();
+      $country->setCdCountry($tab[$i]["cdCountry"]);
       $country->setLibCountry($tab[$i]["country"]);
       $country->setLibCapital($tab[$i]["capital"]);
       $country->setLat((int) $tab[$i]["lat"]);

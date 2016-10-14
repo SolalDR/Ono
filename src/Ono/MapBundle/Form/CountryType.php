@@ -26,6 +26,7 @@ class CountryType extends AbstractType
         $builder
             ->add('libCountry',   TextType::class)
             ->add('libCapital',   TextType::class)
+            ->add('cdCountry',   TextType::class)
             ->add('lat',          IntegerType::class)
             ->add('ln',           IntegerType::class)
             ->add('Enregistrer',  SubmitType::class)

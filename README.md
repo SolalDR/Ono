@@ -43,9 +43,6 @@ A Symfony project created on September 15, 2016, 10:30 am.
 #### RESPONSE (ManyToOne : question) (ManyToOne : User) (ManyToMany : theme)(ManyToOne : Country)
 - nblike (A rajouter)
 
-#### COUNTRY
-- cdCountry (A rajouter)
-
 ### Controlleur :
 
 - Rajouter une action permettant de renvoyer une question en particulière

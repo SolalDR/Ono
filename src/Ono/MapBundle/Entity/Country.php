@@ -25,6 +25,15 @@ class Country
     /**
      * @var string
      *
+     * @ORM\Column(name="cdCountry", type="string", length=255)
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
+     * @Assert\Length(max=4, maxMessage="Le code pays doit être au maximum de 4 caractères !")
+     */
+    private $cdCountry;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="libCountry", type="string", length=255)
      * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
@@ -159,5 +168,29 @@ class Country
     public function getLn()
     {
         return $this->ln;
+    }
+
+    /**
+     * Set cdCountry
+     *
+     * @param string $cdCountry
+     *
+     * @return Country
+     */
+    public function setCdCountry($cdCountry)
+    {
+        $this->cdCountry = $cdCountry;
+
+        return $this;
+    }
+
+    /**
+     * Get cdCountry
+     *
+     * @return string
+     */
+    public function getCdCountry()
+    {
+        return $this->cdCountry;
     }
 }
