@@ -61,7 +61,7 @@ class Response
      * @var bool
      *
      * @ORM\Column(name="published", type="boolean")
-     * @Assert\Type(type=bool, message="La valeur donnée n'est pas un booléen !")
+     * @Assert\Type(type="bool", message="La valeur donnée n'est pas un booléen !")
      */
     private $published = false;
 
