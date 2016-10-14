@@ -61,3 +61,8 @@ Pour récupérer code :
 - git add . //rajoute tes modification
 - git commit…
 - git push
+
+Pour gérer les utilisateurs :
+- Promouvoire : php app/console fos:user:promote monutilisateur ROLE_ADMIN
+- Rétrograder : php app/console fos:user:demote monutilisateur ROLE_ADMIN
+- Créer : php app/console fos:user:create monutilisateur test@example.com motdepasse
