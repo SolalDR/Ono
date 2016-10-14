@@ -27,7 +27,7 @@ class Theme
      *
      * @ORM\Column(name="libTheme", type="string", length=255, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Length(min=2)
+     * @Assert\Length(min=2, minMessage="Le nom du thème doit être au minimum de 2 caractères !")
      */
     private $libTheme;
 

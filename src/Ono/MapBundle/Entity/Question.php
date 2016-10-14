@@ -27,8 +27,8 @@ class Question
      * @var string
      *
      * @ORM\Column(name="libQuestion", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=20)
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
+     * @Assert\Length(min=20, minMessage="La longueur de la question doit être au minimum de 20 caractères !")
      */
     private $libQuestion;
 
@@ -41,7 +41,7 @@ class Question
     /**
     * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Theme", cascade={"persist"})
     * @Assert\Valid()
-    * @Assert\NotBlank()
+    * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
     */
     private $themes;
 

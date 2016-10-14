@@ -26,7 +26,7 @@ class Country
      * @var string
      *
      * @ORM\Column(name="libCountry", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
     private $libCountry;
 
@@ -34,7 +34,7 @@ class Country
      * @var string
      *
      * @ORM\Column(name="libCapital", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
     private $libCapital;
 
@@ -42,7 +42,7 @@ class Country
      * @var int
      *
      * @ORM\Column(name="lat", type="integer")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
     private $lat;
 
@@ -50,7 +50,7 @@ class Country
      * @var int
      *
      * @ORM\Column(name="ln", type="integer")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
     private $ln;
 

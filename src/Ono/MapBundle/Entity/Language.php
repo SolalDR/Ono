@@ -26,7 +26,7 @@ class Language
      * @var string
      *
      * @ORM\Column(name="cdLanguage", type="string", length=255, unique=true)
-     * @Assert\Length(max=4)
+     * @Assert\Length(max=4, maxMessage="Le code langue ne doit pas dépasser 4 caractères !")
      */
     private $cdLanguage;
 
@@ -34,7 +34,7 @@ class Language
      * @var string
      *
      * @ORM\Column(name="libLanguageFr", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
     private $libLanguageFr;
 
@@ -42,7 +42,7 @@ class Language
      * @var string
      *
      * @ORM\Column(name="libLanguageEn", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      */
     private $libLanguageEn;
 

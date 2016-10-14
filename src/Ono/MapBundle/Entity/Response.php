@@ -28,7 +28,7 @@ class Response
      *
      * @ORM\Column(name="content", type="text")
      * @Assert\NotBlank()
-     * @Assert\Length(min=30)
+     * @Assert\Length(min=30, minMessage="La longueur de la réponse doit être au minimum de 30 caractères !")
      */
     private $content;
 
@@ -36,7 +36,7 @@ class Response
      * @var \DateTime
      *
      * @ORM\Column(name="dtcreation", type="datetime")
-     * @Assert\DateTime()
+     * @Assert\DateTime(message="Le Datetime donné est incorrect !")
      */
     private $dtcreation;
 
@@ -44,7 +44,7 @@ class Response
      * @var \Date
      *
      * @ORM\Column(name="dtnaissance", type="date")
-     * @Assert\Date()
+     * @Assert\Date(message="La date donnée est incorrecte !")
      */
     private $dtnaissance;
 
@@ -52,7 +52,7 @@ class Response
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @Assert\Length(min=2, minMessage="Le nom doit être au minimum de 2 caractères !")
      */
     private $author;
 
@@ -61,6 +61,7 @@ class Response
      * @var bool
      *
      * @ORM\Column(name="published", type="boolean")
+     * @Assert\Type(type=bool, message="La valeur donnée n'est pas un booléen !")
      */
     private $published = false;
 
