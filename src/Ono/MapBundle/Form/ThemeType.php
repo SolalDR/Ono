@@ -21,8 +21,8 @@ class ThemeType extends AbstractType
     {
         $builder
             ->add('libTheme',     TextType::class, array("label"=>"Libellé Thème"))
-            ->add('description',  TextareaType::class)
-            ->add('cdTheme',      TextType::class, array("label"=>"Code thème"))
+            ->add('description',  TextareaType::class, array("required" => false))
+            ->add('cdTheme',      TextType::class, array("label"=>"Code Thème"))
             ->add('save',         SubmitType::class)
         ;
     }

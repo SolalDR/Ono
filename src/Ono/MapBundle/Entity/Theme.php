@@ -4,12 +4,14 @@ namespace Ono\MapBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Theme
  *
  * @ORM\Table(name="theme")
  * @ORM\Entity(repositoryClass="Ono\MapBundle\Repository\ThemeRepository")
+ * @UniqueEntity(fields="cdTheme", message="Le code thème est déjà utilisé !")
  */
 class Theme
 {
@@ -26,7 +28,7 @@ class Theme
      * @var string
      *
      * @ORM\Column(name="libTheme", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
      * @Assert\Length(min=2, minMessage="Le nom du thème doit être au minimum de 2 caractères !")
      */
     private $libTheme;
@@ -42,7 +44,11 @@ class Theme
     /**
      * @var string
      *
-     * @ORM\Column(name="cdTheme", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="cdTheme", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
+     * @Assert\Length(min=3, minMessage="La longueur du code thème doit être au minimum de 3 caractères !")
+     * @Assert\Regex(pattern="/^[a-z]+$/", message="Le code thème ne doit contenir que des letres minuscules sans accent !")
+
      */
     private $cdTheme;
 
