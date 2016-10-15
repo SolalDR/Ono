@@ -43,14 +43,29 @@ A Symfony project created on September 15, 2016, 10:30 am.
 #### RESPONSE (ManyToOne : question) (ManyToOne : User) (ManyToMany : theme)(ManyToOne : Country)
 - nblike (A rajouter)
 
+
+
 ### Controlleur :
 
 - Rajouter une action permettant de renvoyer une question en particulière
+
+
 
 ### Vue
 
 - Créer/Récupérer les icones pour chaque thèmes / les intégré dans les assets avec des nom pertinent (qui seront repris à l'aide du cdTheme)
 - Costumizer les pages d'erreur, Erreur 500, Erreur 404, Access Denied
+
+
+
+### Fixtures :
+
+- Modifier fixtures des thèmes pour pouvoir rajouter des codes de thèmes automatiquement. (les codes de thème doivent être sans accent et en minuscule du longueure minimum de 3 caractères
+- Modifier fixtures questions, pour rajouter automatiquement des réponses dépendant des questions
+- Trouver un moyen de rajouter des thèmes aux questions directement dans les fixtures
+
+
+
 
 ## Rappel pour les developpeurs :
 
