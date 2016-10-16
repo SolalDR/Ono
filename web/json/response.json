@@ -1,0 +1,30 @@
+[
+  {
+    "content":"Oui, j\u2019aime beaucoup, c\u2019est une tr\u00e8s belle exp\u00e9rience",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Fan anonyme",
+    "published":"1"
+  },
+  {
+    "content":"Je m\u2019appelle Jean Dupont, j\u2019ai 42 ans, et je vis dans une petite bourgade d\u2019Auvergne",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1974-01-01",
+    "author":"Jean",
+    "published":"1"
+  },
+  {
+    "content":"Le num\u00e9rique c\u2019est bien",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1998-04-02",
+    "author":"Anonyme",
+    "published":"1"
+  },
+  {
+    "content":"Le num\u00e9rique c\u2019est mal",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1970-01-01",
+    "author":"Anonyme",
+    "published":"1"
+  }
+]
