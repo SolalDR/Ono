@@ -18,9 +18,6 @@ class LoadTheme extends AbstractFixture implements OrderedFixtureInterface
       $tab[$i] = (array) $tab[$i];
     }
 
-    // Initialisation du tableau des thèmes
-    $themes = array();
-
     for ($i=0; $i<count($tab); $i++) {
       // On crée la catégorie
       $theme = new Theme();
@@ -30,19 +27,9 @@ class LoadTheme extends AbstractFixture implements OrderedFixtureInterface
 
       // On la persiste
       $manager->persist($theme);
-
-      // On ajoute l'entité dans le tableau
-      array_push($themes, $theme);
     }
-    // On déclenche l'enregistrement de toutes les catégories
+    // On déclenche l'enregistrement de tous les thèmes
     $manager->flush();
-
-    // Mélange des pays et référencement de 4 thèmes aléatoires
-    shuffle($themes);
-    for ($i=0; $i < 5; $i++) {
-      $ref = "theme-" . $i;
-      $this->addReference($ref, $themes[$i]);
-    }
   }
 
   public function getOrder() {

@@ -29,7 +29,7 @@ class User extends BaseUser
     /**
      * @var \Date
      *
-     * @ORM\Column(name="dtnaissance", type="date")
+     * @ORM\Column(name="dtnaissance", type="date", nullable=true)
      * @Assert\Date(message="La date donnée est incorrecte !")
      */
     private $dtnaissance;
@@ -46,14 +46,14 @@ class User extends BaseUser
 
     /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Country")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $country;
 
 
     /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Language")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $language;
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace Ono\MapBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -18,9 +17,6 @@ class LoadCountry extends AbstractFixture implements OrderedFixtureInterface
       $tab[$i] = (array) $tab[$i];
     }
 
-    // Initialisation du tableau des pays
-    $countries = array();
-
     for ($i=0; $i<count($tab); $i++) {
       // On crée la catégorie
       $country = new Country();
@@ -32,19 +28,9 @@ class LoadCountry extends AbstractFixture implements OrderedFixtureInterface
 
       // On la persiste
       $manager->persist($country);
-
-      // On ajoute l'entité dans le tableau
-      array_push($countries, $country);
     }
-    // On déclenche l'enregistrement de toutes les catégories
+    // On déclenche l'enregistrement de tous les pays
     $manager->flush();
-
-    // Mélange des pays et référencement de 4 pays aléatoires
-    shuffle($countries);
-    for ($i=0; $i < 5; $i++) {
-      $ref = "country-" . $i;
-      $this->addReference($ref, $countries[$i]);
-    }
   }
 
   public function getOrder() {
