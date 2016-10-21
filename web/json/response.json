@@ -5,7 +5,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q1R1",
     "published":"1",
-    "cdCountry":"fra"
+    "cdCountry":"fra",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 1. Réponse numéro 2",
@@ -13,7 +14,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q1R2",
     "published":"1",
-    "cdCountry":"fra"
+    "cdCountry":"fra",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 1. Réponse numéro 3",
@@ -21,7 +23,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q1R3",
     "published":"1",
-    "cdCountry":"fra"
+    "cdCountry":"fra",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 2. Réponse numéro 1",
@@ -29,7 +32,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q2R1",
     "published":"1",
-    "cdCountry":"esp"
+    "cdCountry":"esp",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 2. Réponse numéro 2",
@@ -37,7 +41,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q2R2",
     "published":"1",
-    "cdCountry":"esp"
+    "cdCountry":"esp",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 2. Réponse numéro 3",
@@ -45,7 +50,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q2R3",
     "published":"1",
-    "cdCountry":"esp"
+    "cdCountry":"esp",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 3. Réponse numéro 1",
@@ -53,7 +59,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q3R1",
     "published":"1",
-    "cdCountry":"ita"
+    "cdCountry":"ita",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 3. Réponse numéro 2",
@@ -61,7 +68,8 @@
     "dtnaissance":"1999-06-03",
     "author":"Q3R2",
     "published":"1",
-    "cdCountry":"ita"
+    "cdCountry":"ita",
+    "cdLanguage" : "fr"
   },
   {
     "content":"Ceci est une réponse à la question numéro 3. Réponse numéro 3",
@@ -69,6 +77,7 @@
     "dtnaissance":"1999-06-03",
     "author":"Q3R3",
     "published":"1",
-    "cdCountry":"ita"
+    "cdCountry":"ita",
+    "cdLanguage" : "fr"
   }
 ]

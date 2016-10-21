@@ -36,6 +36,11 @@ class ResponseType extends AbstractType
               'choice_label' => 'libCountry',
               'multiple'     => false,
             ))
+            ->add('language', EntityType::class, array(
+              'class'        => 'OnoMapBundle:Language',
+              'choice_label' => 'libLanguageFr',
+              'multiple'     => false,
+            ))
             ->add('save',       SubmitType::class)
         ;
     }

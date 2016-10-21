@@ -15,6 +15,7 @@ class LoadQR extends AbstractFixture implements OrderedFixtureInterface
     // Récupération des repositories
     $t_repo = $manager->getRepository("OnoMapBundle:Theme");
     $c_repo = $manager->getRepository("OnoMapBundle:Country");
+    $l_repo = $manager->getRepository("OnoMapBundle:Language");
 
     // Récupération des questions
     $ques_json = file_get_contents("web/json/question.json");
@@ -56,6 +57,9 @@ class LoadQR extends AbstractFixture implements OrderedFixtureInterface
           $country = $c_repo->findOneByCdCountry($resp_tab[$k]["cdCountry"]);
           $response->setCountry($country);
 
+          $language = $l_repo->findOneBy(array("cdLanguage" => $resp_tab[$k]["cdLanguage"]));
+          $response->setLanguage($language);
+          
           // Relation Q-R côté réponse
           $response->setQuestion($question);
           $manager->persist($response);

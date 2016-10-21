@@ -192,9 +192,7 @@ class MapController extends Controller
 
           //On enregistre
           $em->flush();
-
-          $request->getSession()->getFlashBag()->add('notice', 'Réponse bien enregistrée.');
-
+          
           return new JsonResponse(array(
             "type"=>"notice",
             "title" => "Message bien enregistré"

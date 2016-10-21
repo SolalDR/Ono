@@ -80,6 +80,13 @@ class Response
     private $country;
 
     /**
+    * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Language")
+    * @ORM\JoinColumn(nullable=true)
+    * @Assert\Valid()
+    */
+    private $language;
+
+    /**
     * @ORM\ManyToOne(targetEntity="Ono\UserBundle\Entity\User", inversedBy="responses")
     * @ORM\JoinColumn(nullable=true)
     * @Assert\Valid()
@@ -290,17 +297,41 @@ class Response
     public function updateUser(\Ono\UserBundle\Entity\User $user = null){
       if($user){
         $this->user = $user;
-        $this->country = $user->getCountry();
-        $this->dtnaissance = $user->getDtnaissance();
-        $this->author = $user->getFirstname().' '.$user->getName();
-      } else if($this->user){
+      } elseif($this->user) {
         $user = $this->user;
-        $this->country = $user->getCountry();
-        $this->dtnaissance = $user->getDtnaissance();
-        $this->author = $user->getFirstname().' '.$user->getName();
       } else {
         return false;
       }
+      $this->country = $user->getCountry();
+      $this->language = $user->getLanguage();
+      $this->dtnaissance = $user->getDtnaissance();
+      $this->language = $user->getLanguage();
+      $this->author = $user->getFirstname().' '.$user->getName();
+      return true;
     }
 
+
+    /**
+     * Set language
+     *
+     * @param \Ono\MapBundle\Entity\Language $language
+     *
+     * @return Response
+     */
+    public function setLanguage(\Ono\MapBundle\Entity\Language $language = null)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Ono\MapBundle\Entity\Language
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
 }

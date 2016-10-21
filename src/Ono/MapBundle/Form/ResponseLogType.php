@@ -20,6 +20,7 @@ class ResponseLogType extends ResponseType
     $builder
     ->remove("author")
     ->remove("dtnaissance")
+    ->remove("language")
     ->remove("country");
   }
 
