@@ -130,6 +130,7 @@ ono_admin_edit_question:
         id: \d+
 
 
+
 #delete question
 ono_admin_delete_question:
     path:   /admin/question/delete/{id}
@@ -138,38 +139,6 @@ ono_admin_delete_question:
     requirements:
         id: \d+
 
-#####################
-#  ADMIN UTILISATEURS
-#####################
-
-#ajouter utilisateurs
-ono_admin_add_user:
-    path:   /admin/user/add
-    defaults:
-        _controller: OnoMapBundle:Admin:addUser
-
-
-#list utilisateurs
-ono_admin_list_user:
-    path:   /admin/user/list
-    defaults:
-        _controller: OnoMapBundle:Admin:listUser
-
-#edit user
-ono_admin_edit_user:
-    path:   /admin/user/edit/{id}
-    defaults:
-        _controller: OnoMapBundle:Admin:editUser
-    requirements:
-        id: \d+
-
-#delete user
-ono_admin_delete_user:
-    path:   /admin/user/delete/{id}
-    defaults:
-        _controller: OnoMapBundle:Admin:deleteUser
-    requirements:
-        id: \d+
 
 #####################
 #  ADMIN RESPONSE
@@ -265,5 +234,46 @@ ono_admin_delete_language:
     path:   /admin/language/delete/{id}
     defaults:
         _controller: OnoMapBundle:Admin:deleteLanguage
+    requirements:
+        id: \d+
+
+
+#####################
+#  ADMIN USERS
+#####################
+
+ono_admin_promote_user:
+    path:   /admin/user/promote/{id}
+    defaults:
+        _controller: OnoUserBundle:User:promote
+    requirements:
+        id: \d+
+
+#ajouter utilisateurs
+ono_admin_add_user:
+    path:   /admin/user/add
+    defaults:
+        _controller: OnoUserBundle:User:add
+
+
+#list utilisateurs
+ono_admin_list_user:
+    path:   /admin/user/list
+    defaults:
+        _controller: OnoUserBundle:User:list
+
+#edit user
+ono_admin_edit_user:
+    path:   /admin/user/edit/{id}
+    defaults:
+        _controller: OnoUserBundle:User:edit
+    requirements:
+        id: \d+
+
+#delete user
+ono_admin_delete_user:
+    path:   /admin/user/delete/{id}
+    defaults:
+        _controller: OnoUserBundle:User:delete
     requirements:
         id: \d+

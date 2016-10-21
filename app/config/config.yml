@@ -86,3 +86,6 @@ fos_user:
     registration:
         form:
             type: Ono\UserBundle\Form\RegistrationType
+    profile:
+        form:
+            type: Ono\UserBundle\Form\ProfileFormType

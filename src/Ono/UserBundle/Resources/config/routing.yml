@@ -1,6 +1,6 @@
-
-promote_user:
-    path:     /admin/promoteUser/{id}
-    defaults: { _controller: OnoUserBundle:User:promoteUser }
+#promouvoir utilisateur
+ono_promote_user:
+    path:     /user/promote/{id}
+    defaults: { _controller: OnoUserBundle:User:promote }
     requirements:
         id: \d+

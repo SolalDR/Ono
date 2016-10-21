@@ -481,14 +481,5 @@ class AdminController extends Controller
             ));
         }
 
-    ////////////////////////////////////
-    //        Users
-    ///////////////////////////////////
-    public function addUserAction(){
-      return $this->render('OnoMapBundle:Admin:add-user.html.twig', array());
-    }
 
-    public function listUserAction(){
-      return $this->render('OnoMapBundle:Admin:list-user.html.twig', array());
-    }
 }

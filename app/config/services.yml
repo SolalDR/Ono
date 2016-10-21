@@ -11,7 +11,13 @@ services:
         class: Ono\UserBundle\Form\RegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
+
         # arguments: [%fos_user.model.user.class%]
+
+    app.form.profile:
+        class: Ono\UserBundle\Form\ProfileFormType
+        tags:
+            - { name: form.type, alias: fos_user_profile }
 
     # my_user_provider:
     #     class: "%my_user_provider.class%"

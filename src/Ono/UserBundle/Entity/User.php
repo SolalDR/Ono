@@ -39,7 +39,6 @@ class User extends BaseUser
      * @var \Text
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Assert\Date(message="La date donnée est incorrecte !")
      */
     private $description;
 
