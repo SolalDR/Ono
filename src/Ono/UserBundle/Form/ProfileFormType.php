@@ -22,7 +22,15 @@ class ProfileFormType extends AbstractType
     {
       parent::buildForm($builder, $options);
 
-      $builder->add('country', EntityType::class, array(
+      $builder
+      ->add('name',       TextType::class, array(
+        "label"=>"Nom"
+      ))
+      ->add('firstname',  TextType::class, array(
+        'label'=>"Prénom"
+      ))
+
+      ->add('country', EntityType::class, array(
         'class'        => 'OnoMapBundle:Country',
         'choice_label' => 'libCountry',
         'multiple'     => false,

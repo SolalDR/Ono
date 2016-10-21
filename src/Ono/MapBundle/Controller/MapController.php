@@ -17,6 +17,8 @@ use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
 use Ono\MapBundle\Entity\Theme;
 use Ono\MapBundle\Form\ResponseType;
+use Ono\MapBundle\Form\ResponseLogType;
+
 
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -32,8 +34,14 @@ class MapController extends Controller
     {
       //On affiche u formulaire
       $response = new ResponseQ;
-      $form = $this->get('form.factory')->create(ResponseType::class, $response);
 
+      if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $response->updateUser($user);
+        $form = $this->get('form.factory')->create(ResponseLogType::class, $response);
+      } else {
+        $form = $this->get('form.factory')->create(ResponseType::class, $response);
+      }
 
       //Initialisation
       $em = $this->getDoctrine()->getManager();
@@ -116,6 +124,7 @@ class MapController extends Controller
 
     public function viewQuestionAction($id)
     {
+
       $em = $this->getDoctrine()->getManager();
       $repoQ = $em->getRepository("OnoMapBundle:Question");
       $repoR = $em->getRepository("OnoMapBundle:Response");
@@ -165,7 +174,14 @@ class MapController extends Controller
         $response = new ResponseQ;
         $response->setDtcreation(new \DateTime());
         $response->setQuestion($question);
-        $form = $this->get('form.factory')->create(ResponseType::class, $response);
+
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+          $user = $this->get('security.token_storage')->getToken()->getUser();
+          $response->updateUser($user);
+          $form = $this->get('form.factory')->create(ResponseLogType::class, $response);
+        } else {
+          $form = $this->get('form.factory')->create(ResponseType::class, $response);
+        }
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
           //On persist la réponse

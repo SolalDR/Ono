@@ -32,6 +32,9 @@ A Symfony project created on September 15, 2016, 10:30 am.
 - responses
 - dtnaissance
 
+#### RESPONSE :
+- add language attributes
+
 #### LIKE RESPONSE (OneToOne Entity Response, OneToOne Entity User)
 - id_response
 - id_user

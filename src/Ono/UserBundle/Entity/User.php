@@ -25,6 +25,20 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var \Text
+     *
+     * @ORM\Column(name="name", type="text", nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var \Text
+     *
+     * @ORM\Column(name="firstname", type="text", nullable=false)
+     */
+    private $firstname;
+
 
     /**
      * @var \Date
@@ -56,7 +70,11 @@ class User extends BaseUser
     */
     private $language;
 
-
+    /**
+    * @ORM\OneToMany(targetEntity="Ono\MapBundle\Entity\Response", mappedBy="user")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $responses;
 
 
     /**
@@ -93,7 +111,6 @@ class User extends BaseUser
     public function setDtnaissance($dtnaissance)
     {
         $this->dtnaissance = $dtnaissance;
-
         return $this;
     }
 
@@ -153,5 +170,87 @@ class User extends BaseUser
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     *
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Add response
+     *
+     * @param \Ono\MapBundle\Entity\Response $response
+     *
+     * @return User
+     */
+    public function addResponse(\Ono\MapBundle\Entity\Response $response)
+    {
+        $this->responses[] = $response;
+
+        return $this;
+    }
+
+    /**
+     * Remove response
+     *
+     * @param \Ono\MapBundle\Entity\Response $response
+     */
+    public function removeResponse(\Ono\MapBundle\Entity\Response $response)
+    {
+        $this->responses->removeElement($response);
+    }
+
+    /**
+     * Get responses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponses()
+    {
+        return $this->responses;
     }
 }

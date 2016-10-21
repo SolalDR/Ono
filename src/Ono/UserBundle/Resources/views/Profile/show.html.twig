@@ -15,5 +15,15 @@
     {% if user.dtnaissance %}
     <p>Date de naissance : {{ user.dtnaissance.timestamp }}</p>
     {% endif %}
+    <div class="response">
+      <h2>Responses</h2>
+      {% for response in user.responses %}
+        <p>
+          Question : {{ response.question.libQuestion }}<br>
+          Date : {{ response.dtcreation|date("j/m/y") }}<br>
+          Contenu : {{ response.content }}<br>
+        </p>
+      {% endfor %}
+    </div>
 </div>
 {% endblock fos_user_content %}

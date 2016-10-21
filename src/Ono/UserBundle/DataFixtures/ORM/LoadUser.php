@@ -37,6 +37,8 @@ class LoadUserData
    $admin->setEmail('admin@admin.com');
    $admin->setPlainPassword('adminpass');
    $admin->setEnabled(true);
+   $admin->setName("Admin");
+   $admin->setFirstname("Mr");
    $admin->addRole('ROLE_ADMIN');
    $admin->setDtnaissance(date_create_from_format("Y-m-d", "1997-08-06"));
    $admin->setDescription("Admin Ono");
@@ -54,6 +56,8 @@ class LoadUserData
    $user->setPlainPassword('userpass');
    $user->setEnabled(true);
    $user->addRole('ROLE_USER');
+   $user->setName("User");
+   $user->setFirstname("Mr");
    $user->setDtnaissance(date_create_from_format("Y-m-d", "1999-06-03"));
    $user->setDescription("User Ono");
    $language = $l_repo->findOneByCdLanguage("zh");

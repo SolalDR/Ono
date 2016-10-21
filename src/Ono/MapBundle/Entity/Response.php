@@ -65,7 +65,6 @@ class Response
      */
     private $published = false;
 
-
     /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Question", inversedBy="responses")
     * @ORM\JoinColumn(nullable=false)
@@ -79,6 +78,13 @@ class Response
     * @Assert\Valid()
     */
     private $country;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Ono\UserBundle\Entity\User", inversedBy="responses")
+    * @ORM\JoinColumn(nullable=true)
+    * @Assert\Valid()
+    */
+    private $user;
 
     /**
      * Get id
@@ -257,4 +263,44 @@ class Response
     {
         return $this->dtnaissance;
     }
+
+    /**
+     * Set user
+     *
+     * @param \Ono\UserBundle\Entity\User $user
+     *
+     * @return Response
+     */
+    public function setUser(\Ono\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Ono\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function updateUser(\Ono\UserBundle\Entity\User $user = null){
+      if($user){
+        $this->user = $user;
+        $this->country = $user->getCountry();
+        $this->dtnaissance = $user->getDtnaissance();
+        $this->author = $user->getFirstname().' '.$user->getName();
+      } else if($this->user){
+        $user = $this->user;
+        $this->country = $user->getCountry();
+        $this->dtnaissance = $user->getDtnaissance();
+        $this->author = $user->getFirstname().' '.$user->getName();
+      } else {
+        return false;
+      }
+    }
+
 }

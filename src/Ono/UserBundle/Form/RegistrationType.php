@@ -20,11 +20,16 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-
         $builder->add('country', EntityType::class, array(
           'class'        => 'OnoMapBundle:Country',
           'choice_label' => 'libCountry',
           'multiple'     => false,
+        ))
+        ->add('name',       TextType::class, array(
+          "label"=>"Nom"
+        ))
+        ->add('firstname',  TextType::class, array(
+          'label'=>"Prénom"
         ))
         ->add('language', EntityType::class, array(
           'class'        => 'OnoMapBundle:Language',
