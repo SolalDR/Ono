@@ -22,6 +22,12 @@
           Author
         </th>
         <th>
+          Pays
+        </th>
+        <th>
+          Langue
+        </th>
+        <th>
           Date naissance
         </th>
         <th>
@@ -48,6 +54,12 @@
           </td>
           <td>
             {{ response.author }}
+          </td>
+          <td>
+            {{ response.country.libCountry }}
+          </td>
+          <td>
+            {{ response.language.libLanguageFr }}
           </td>
           <td>
             {{ response.dtnaissance|date("d/m/Y") }}

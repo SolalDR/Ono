@@ -1,16 +1,16 @@
 [
   {
-    "libQuestion":"Aimez-vous l'exp\u00e9rience Ono (Open Numeric Organization) ?",
+    "libQuestion":"Question numéro 1",
     "cdThemes":["ali"]
   },
 
   {
-    "libQuestion":"Pr\u00e9sentez-vous. (Nom, pr\u00e9nom, \u00e2ge, etc...)",
+    "libQuestion":"Question numéro 2",
     "cdThemes":["pvr", "soc"]
   },
 
   {
-    "libQuestion":"Que pensez-vous du num\u00e9rique à l'heure d'aujourd'hui ?",
+    "libQuestion":"Question numéro 3",
     "cdThemes": ["com"]
   }
 ]
