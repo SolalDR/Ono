@@ -20,7 +20,7 @@
       'bundles/onomap/css/form.css' %}
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title"> -->
 
     {% javascripts
      %}
@@ -47,27 +47,76 @@
       </div>
       <p class="loader-notice">Chargement</p>
     </div>
-    <div id="sidebarLeft" class="sidebar-left sidebar-close">
-      <div class="burger-button">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <nav>
-        <img class="logo sidebar-img" src="{{ asset("asset/img/logo.svg") }}" alt="" />
-        <div class="layout-scroll">
-          <h2>Thèmes</h2>
-          <ul class="theme-list">
-            {% for theme in themes %}
-            <li class="filter-theme" data-id="{{theme.id}}">{{ theme.libTheme|upper }}</li>
-            {% endfor %}
+    <header id="sidebarLeft" class="sidebar-left sidebar-open">
+      <!-- <div class="main-nav"> -->
+        <!-- <div class="burger-button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div> -->
+        <nav class="main-nav">
+          <div class="nav-head">
+            <img class="logo sidebar-img" src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p class="nav-bar-profile">Profil</p>
+            <a class="logout-button" href="/logout">Se déconnecter</a>
+          </div>
+          <ul class="nav-body">
+            <a href="#" class="item-nav active">
+              <li>
+                <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+                <p>Carte</p>
+              </li>
+            </a>
+            <a href="#" id="theme-list-container-open" class="item-nav">
+              <li>
+                <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+                <p>Thèmes</p>
+              </li>
+            </a>
+            <a href="#" class="item-nav">
+              <li>
+                <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+                <p>Article</p>
+              </li>
+            </a>
+            <a href="#" class="item-nav">
+              <li>
+                <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+                <p>Favoris</p>
+              </li>
+            </a>
+            <a href="#" class="item-nav">
+              <li>
+                <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+                <p>Réglage</p>
+              </li>
+            </a>
+            <a href="#" class="item-nav">
+              <li>
+                <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+                <p>Infos</p>
+              </li>
+            </a>
           </ul>
-          <h2>Filtré âge</h2>
-          <input id="rangeAgeActive" type="checkbox" value="">
-          <input id="rangeAge" type="range" name="name" value="">
-        </div>
-      </nav>
-    </div>
+        </nav>
+      <!-- </div> -->
+      <div id="theme-list-container" class="sidebar-close">
+        <span class="cross" id="theme-list-container-close"></span>
+        <p class="notice">Vous pouvez sélectionner un maximum <br>de <strong>5 filtres</strong></p>
+        <ul class="theme-list">
+          {% for theme in themes %}
+          <li class="filter-theme" data-id="{{theme.id}}">
+            <img src="" alt="" class=""/>
+            <span>{{ theme.libTheme }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        <!-- <h2>Filtré âge</h2>
+        <input id="rangeAgeActive" type="checkbox" value="">
+        <input id="rangeAge" type="range" name="name" value=""> -->
+      </div>
+    </header>
+
 
     <!-- Sidebar Right -->
     <div id="sidebarRight" class="sidebar-right sidebar-close">
@@ -100,6 +149,7 @@
             <p id="response-country">Pays</p>
             <p id="response-content">Contenu</p>
             <p id=""></p>
+            <a id="response-like" href="#">J'aime</a>
           </div>
           <span id="goFormView" class="marge button-style">Ajouter une réponse</span>
           <div class="other-responses marge">
@@ -124,23 +174,6 @@
         </div>
       </div>
 
-    </div>
-    <span id="display-dev" class="button-style">Afficher Environnement dev</span>
-    <div class="devEnv true-hidden">
-    <!--
-      <p>
-        <h2>Liste des questions chargé</h2>
-        <ul>
-          {# {% for question in questions %} #}
-          <li>
-          {# {{ question.libQuestion }}<br> #}
-          {# <a href="{{ path("ono_map_response_add", {"id" : question.id}) }}">Répondre en cliquant ici</a> #}
-          || 
-          {# <a href="{{ path("ono_map_question_view", {"id": question.id}) }}">Voir les réponses</a><br> #}
-          </li>
-          {# {% endfor %} #}
-        </ul>
-      </p> -->
     </div>
     <section class="map">
       <div id="map"></div>

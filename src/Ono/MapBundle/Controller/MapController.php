@@ -192,7 +192,7 @@ class MapController extends Controller
 
           //On enregistre
           $em->flush();
-          
+
           return new JsonResponse(array(
             "type"=>"notice",
             "title" => "Message bien enregistré"

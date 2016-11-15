@@ -1,7 +1,15 @@
+/////////////////////////////////////////////
+//
+//         FONCTION GÉNÉRIQUE
+//
+/////////////////////////////////////////////
+
+//Met un élément à la taille de la fenêtre
 function setToWindowHeight(el){
   el.style.height = window.innerHeight+'px';
 }
 
+//Test si un objet est un élément HTML
 function isElement(obj) {
   try {
     //Using W3 DOM2 (works for FF, Opera and Chrom)
@@ -16,45 +24,6 @@ function isElement(obj) {
       (typeof obj.ownerDocument ==="object");
   }
 }
-
-function sendMAJ(response){
-  response = JSON.parse(response);
-  response.parent = document.getElementById("alerts-container");
-  var message = new Message(response);
-  message.run();
-}
-
-// Envoie la XHR
-function updateQuestionCallscript (scriptName, args){
-	var xhr_object = null;
-
-	// ### Construction de l’objet XMLHttpRequest selon le type de navigateur
-	if(window.XMLHttpRequest){
-    xhr_object = new XMLHttpRequest();
-  }	else if(window.ActiveXObject) {
-	  	 xhr_object = new ActiveXObject("Microsoft.XMLHTTP");
-	} else {
-                // XMLHttpRequest non supporté par le navigateur
-	   	alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
-    		 return;
-	}
-
-	xhr_object.open("POST", scriptName, true);
-
-	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
-	xhr_object.onreadystatechange = function() {
-	  if(this.readyState == 4 && this.status === 200) {
-      mapGestion.updateQuestionFromJson(xhr_object.responseText);
-    }
-
-		return xhr_object.readyState;
-	}
-	xhr_object.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-  xhr_object.send("json="+JSON.stringify(args)+"&xhr=true");
-
-}
-
 
 
 // Envoie la XHR
@@ -108,6 +77,29 @@ function callScript (scriptName, args, form, isJsonEncode){
   }
 }
 
+// Renvoi le temps écoulé depuis une date
+function getAgeResponse(date){
+  date*=1000;
+  var actualDate = Date.now();
+  var diff = actualDate-date;
+  //Miliseconde
+
+  diff = Math.floor(diff/1000/60/60/24/365);
+  return diff;
+}
+
+//Crée un élément HTML de manière aisé
+function createElement(type, classname, attributes){
+  var el = document.createElement(type);
+  if(classname){
+    el.className+=classname;
+  }
+  for(attribute in attributes){
+    el.setAttribute(attribute, attributes[attribute]);
+  }
+  return el;
+}
+
 ///////////////////////////////////////////////////////
 //
 //          XHR POST AUTO
@@ -117,7 +109,7 @@ function callScript (scriptName, args, form, isJsonEncode){
 
 XHRformAuto = {
  forms : document.querySelectorAll("form[data-xhrpost='true']"),
- main :function(form){
+ main : function(form){
    form.onsubmit = function(e){
      e.preventDefault;
      return false;
@@ -176,7 +168,6 @@ XHRformAuto = {
    forms = XHRformAuto.forms;
    for(i=0; i<forms.length; i++){
      XHRformAuto.main(forms[i]);
-    //  console.log(forms[i]);
    }
  }
 }
@@ -194,8 +185,33 @@ filter = {
     age : null
   },
 
+  updateQuestionCallscript: function(scriptName, args){
+  	var xhr_object = null;
+  	// ### Construction de l’objet XMLHttpRequest selon le type de navigateur
+  	if(window.XMLHttpRequest){
+      xhr_object = new XMLHttpRequest();
+    }	else if(window.ActiveXObject) {
+  	  	 xhr_object = new ActiveXObject("Microsoft.XMLHTTP");
+  	} else {
+        // XMLHttpRequest non supporté par le navigateur
+  	   	alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
+      		 return;
+  	}
+  	xhr_object.open("POST", scriptName, true);
+
+  	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
+  	xhr_object.onreadystatechange = function() {
+  	  if(this.readyState == 4 && this.status === 200) {
+        mapGestion.updateQuestionFromJson(xhr_object.responseText);
+      }
+  		return xhr_object.readyState;
+  	}
+  	xhr_object.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr_object.send("json="+JSON.stringify(args)+"&xhr=true");
+  },
+
   sendModification:function(){
-    updateQuestionCallscript(config.rootPath+"update", filter.filterTab)
+    filter.updateQuestionCallscript(config.rootPath+"update", filter.filterTab)
   },
 
   addClickEvent:function(el, rank){
@@ -226,20 +242,24 @@ filter = {
     for(i=0; i<filter.themes.length; i++){
       filter.addClickEvent(filter.themes[i], i);
     }
-    filter.age.addEventListener("change", function(){
-      if(filter.ageControl.checked){
-        filter.filterTab.age = this.value;
-      }
-      filter.sendModification();
-    }, false)
-    filter.ageControl.addEventListener("change", function(){
-      if(this.checked){
-        filter.filterTab.age = filter.age.value;
-      } else {
-        filter.filterTab.age = null;
-      }
-      filter.sendModification();
-    }, false)
+    if(filter.age){
+      filter.age.addEventListener("change", function(){
+        if(filter.ageControl.checked){
+          filter.filterTab.age = this.value;
+        }
+        filter.sendModification();
+      }, false)
+    }
+    if(filter.ageControl){
+      filter.ageControl.addEventListener("change", function(){
+        if(this.checked){
+          filter.filterTab.age = filter.age.value;
+        } else {
+          filter.filterTab.age = null;
+        }
+        filter.sendModification();
+      }, false)
+    }
   },
   init: function(){
     filter.themes = document.getElementsByClassName("filter-theme");
@@ -256,6 +276,7 @@ filter = {
 //          Gestion du menu burger
 //
 ///////////////////////////////////////////////////////
+
 
 burgerGestion = {
   initEvent:function(){
@@ -281,51 +302,34 @@ burgerGestion = {
   }
 }
 
+///////////////////////////////////////////////////////
+//
+//          DISPLAY THEME PANNEL
+//
+///////////////////////////////////////////////////////
 
-sidebarGestion = {
+
+themeGestion = {
   initEvent:function(){
-    sidebarGestion.burger.addEventListener("click", function(){
-      if(sidebarGestion.container.className.match("sidebar-open")){
-        sidebarGestion.container.className = sidebarGestion.container.className.replace("sidebar-open", "sidebar-close")
-      } else if(sidebarGestion.container.className.match("sidebar-close")){
-        sidebarGestion.container.className = sidebarGestion.container.className.replace("sidebar-close", "sidebar-open")
+    themeGestion.closebutton.addEventListener("click", function(){
+      themeGestion.container.className = themeGestion.container.className.replace("sidebar-open", "sidebar-close")
+    }, false)
+    themeGestion.openbutton.addEventListener("click", function(e){
+      e.preventDefault();
+      if(themeGestion.container.className.match("sidebar-open")){
+        themeGestion.container.className = themeGestion.container.className.replace("sidebar-open", "sidebar-close")
+      } else if(themeGestion.container.className.match("sidebar-close")){
+        themeGestion.container.className = themeGestion.container.className.replace("sidebar-close", "sidebar-open")
       }
     }, false)
   },
-  initSidebarSize: function(){
-    setToWindowHeight(sidebarGestion.container);
-    window.addEventListener("resize", function(){
-      setToWindowHeight(sidebarGestion.container);
-    }, false)
-  },
-  init:function(query){
-    sidebarGestion.container = document.querySelector(query);
-    sidebarGestion.burger = sidebarGestion.container.getElementsByClassName("burger-button")[0];
-    sidebarGestion.initSidebarSize();
-    sidebarGestion.initEvent();
-  }
-}
-
-///////////////////////////////////////////////////////
-//
-//          Afficher les outils de développement
-//
-///////////////////////////////////////////////////////
-
-displayToolDev = {
-  button : document.getElementById("display-dev"),
-  el : document.getElementsByClassName("devEnv")[0],
   init:function(){
-    displayToolDev.button.addEventListener("click", function(){
-      if(displayToolDev.el.className.match("visible")){
-        displayToolDev.el.className = displayToolDev.el.className.replace("true-visible", "true-hidden");
-      } else {
-        displayToolDev.el.className = displayToolDev.el.className.replace("true-hidden", "true-visible");
-      }
-    }, false)
+    themeGestion.container = document.getElementById("theme-list-container");
+    themeGestion.closebutton = document.getElementById("theme-list-container-close");
+    themeGestion.openbutton = document.getElementById("theme-list-container-open");
+    themeGestion.initEvent();
   }
 }
-
 
 ///////////////////////////////////////////////////////
 //
@@ -336,6 +340,14 @@ displayToolDev = {
 // Dépendance :
 // - isElement();
 // - createElement();
+
+//Envoie une mise à jour
+function sendMAJ(response){
+  response = JSON.parse(response);
+  response.parent = document.getElementById("alerts-container");
+  var message = new Message(response);
+  message.run();
+}
 
 function Message(args, timelife = null){
   console.log(args);
@@ -412,9 +424,9 @@ Message.prototype.run = function () {
 
 
 
-burgerGestion.init("#sidebarLeft")
-sidebarGestion.init("#sidebarRight")
+// burgerGestion.init("#sidebarLeft")
+burgerGestion.init("#sidebarRight")
 
-displayToolDev.init();
 filter.init();
 XHRformAuto.init();
+themeGestion.init();
