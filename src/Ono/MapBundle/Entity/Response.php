@@ -66,6 +66,14 @@ class Response
     private $published = false;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="nbLikes", type="boolean")
+     * @Assert\Type(type="integer", message="La valeur donnée n'est pas un nombre !")
+     */
+    private $nbLikes = 0;
+
+    /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Question", inversedBy="responses")
     * @ORM\JoinColumn(nullable=false)
     * @Assert\Valid()
@@ -92,6 +100,7 @@ class Response
     * @Assert\Valid()
     */
     private $user;
+
 
     /**
      * Get id
@@ -334,4 +343,42 @@ class Response
     {
         return $this->language;
     }
+
+
+    /**
+     * Set nbLikes
+     *
+     * @param boolean $nbLikes
+     *
+     * @return Response
+     */
+    public function setNbLikes($nbLikes)
+    {
+        $this->nbLikes = $nbLikes;
+
+        return $this;
+    }
+
+    /**
+     * Get nbLikes
+     *
+     * @return boolean
+     */
+    public function getNbLikes()
+    {
+        return $this->nbLikes;
+    }
+
+    public function incrementLikes(){
+      $nbActual = $this->getNbLikes();
+      $new = $nbActual+1;
+      $this->setNbLikes($new);
+    }
+
+    public function decrementLikes(){
+      $nbActual = $this->getNbLikes();
+      $new = $nbActual-1;
+      $this->setNbLikes($new);
+    }
+
 }

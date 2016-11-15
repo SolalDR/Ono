@@ -37,6 +37,9 @@
           Publié
         </th>
         <th>
+          NbLike
+        </th>
+        <th>
         </th>
       </tr>
     </thead>
@@ -69,6 +72,9 @@
           </td>
           <td>
             {{ response.published }}
+          </td>
+          <td>
+            {{ response.nbLikes }}
           </td>
           <td>
             <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_response", {"id": response.id }) }}">Edit</a>

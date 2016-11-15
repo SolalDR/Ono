@@ -49,6 +49,20 @@ ono_map_response_delete:
     requirements:
         id: \d+
 
+ono_map_response_like:
+    path:     /response/like/{id}
+    defaults:
+        _controller: OnoMapBundle:Response:likeResponse
+    requirements:
+        id: \d+
+
+ono_map_response_unlike:
+    path:     /response/unlike/{id}
+    defaults:
+        _controller: OnoMapBundle:Response:unlikeResponse
+    requirements:
+        id: \d+
+
 
 ############
 #  QUESTION
