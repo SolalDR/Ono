@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ono\MapBundle\Entity\Response;
 
 
 /**
@@ -294,10 +295,10 @@ class User extends BaseUser
         return $this->responsesLiked;
     }
 
-    public function isLikingResponse($id) {
+    public function isLikingResponse(Response $response) {
       $likes = $this->getResponsesLiked();
       for($i=0; $i<count($likes); $i++){
-        if($likes[$i]->getId()===$id){
+        if($likes[$i]->getId()===$response->getId()){
           return true;
         }
       }

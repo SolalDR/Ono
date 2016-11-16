@@ -4,3 +4,9 @@ ono_promote_user:
     defaults: { _controller: OnoUserBundle:User:promote }
     requirements:
         id: \d+
+
+
+#promouvoir utilisateur
+ono_view_user:
+    path:     /profile
+    defaults: { _controller: OnoUserBundle:User:show }

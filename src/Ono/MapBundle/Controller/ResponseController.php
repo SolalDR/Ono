@@ -57,7 +57,7 @@ class ResponseController extends Controller
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
           $user = $this->get('security.token_storage')->getToken()->getUser();
           if($user){
-            $isLiking = $user->isLikingResponse($response->getId());
+            $isLiking = $user->isLikingResponse($response);
             if(!$isLiking){
               $user->addResponsesLiked($response);
               $response->incrementLikes();
@@ -86,7 +86,7 @@ class ResponseController extends Controller
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
           $user = $this->get('security.token_storage')->getToken()->getUser();
           if($user){
-            $isLiking = $user->isLikingResponse($response->getId());
+            $isLiking = $user->isLikingResponse($response);
             if($isLiking){
               $user->removeResponsesLiked($response);
               $response->decrementLikes();
@@ -193,7 +193,5 @@ class ResponseController extends Controller
       return $this->redirectToRoute('ono_map_response_view', array(
         "id" => $response->getId()
       ));
-
     }
-
 }

@@ -25,5 +25,15 @@
         </p>
       {% endfor %}
     </div>
+    <div class="response">
+      <h2>Responses aimées</h2>
+      {% for response in user.responsesLiked %}
+        <p>
+          Question : {{ response.question.libQuestion }}<br>
+          Date : {{ response.dtcreation|date("j/m/y") }}<br>
+          Contenu : {{ response.content }}<br>
+        </p>
+      {% endfor %}
+    </div>
 </div>
 {% endblock fos_user_content %}

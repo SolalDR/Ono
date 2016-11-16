@@ -14,6 +14,14 @@
         Nombre de like :
         {{ response.nbLikes }}
       </p>
+      <p>
+        Test :
+        {% if response|isliking == true %}
+        <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">J'aime plus</a>
+        {% else %}
+        <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">J'aime</a>
+        {% endif %}
+      </p>
       Contenu :
       {{response.content}}
     </p>

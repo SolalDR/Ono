@@ -364,7 +364,16 @@ mapGestion = {
 
 var stylesArray = [
     {
-        "featureType": "all",
+        "featureType": "administrative.country",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.country",
         "elementType": "labels",
         "stylers": [
             {
@@ -373,17 +382,38 @@ var stylesArray = [
         ]
     },
     {
-        "featureType": "administrative",
-        "elementType": "labels",
+        "featureType": "administrative.province",
+        "elementType": "geometry.stroke",
         "stylers": [
             {
-                "visibility": "on"
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative.neighborhood",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "visibility": "off"
             }
         ]
     },
     {
         "featureType": "road",
-        "elementType": "all",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
         "stylers": [
             {
                 "visibility": "off"
@@ -391,7 +421,7 @@ var stylesArray = [
         ]
     },
     {
-        "featureType": "transit",
+        "featureType": "transit.line",
         "elementType": "all",
         "stylers": [
             {
@@ -401,10 +431,22 @@ var stylesArray = [
     },
     {
         "featureType": "water",
-        "elementType": "all",
+        "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#effefd"
+                "color": "#136a8e"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "visibility": "off"
             }
         ]
     }
