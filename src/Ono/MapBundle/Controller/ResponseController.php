@@ -48,32 +48,26 @@ class ResponseController extends Controller
         "response" => $response
       ));
     }
-
-    public function likeResponseAction($id){
+    public function likeResponseAction($id, Request $request){
       $em = $this->getDoctrine()->getManager();
       $repoResponse = $em->getRepository("OnoMapBundle:Response");
-      $repoLikeResponse = $em->getRepository("OnoMapBundle:LikeResponse");
       $response = $repoResponse->find($id);
+
       if($response){
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
           $user = $this->get('security.token_storage')->getToken()->getUser();
           if($user){
-            $like = $repoLikeResponse->findOneBy(array("user" => $user, "response" => $response));
-            if(!$like){
-              $like = new LikeResponse();
-              $like->setUser($user);
-              $like->setResponse($response);
+            $isLiking = $user->isLikingResponse($response->getId());
+            if(!$isLiking){
+              $user->addResponsesLiked($response);
               $response->incrementLikes();
-              $em->persist($like);
+              $em->persist($user);
               $em->persist($response);
-              // dump($response->getNbLikes());
-              // exit;
               $em->flush();
-            } else {
-              $request->getSession()->getFlashBag()->add('notice', 'Vous aimez déja cette réponse.');
             }
+            $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
+            return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
           }
-          //La response n'existe pas
         }
         return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
       } else {
@@ -83,24 +77,25 @@ class ResponseController extends Controller
       return $this->redirectToRoute('ono_map_homepage');
     }
 
-    public function unlikeResponseAction($id){
+    public function unlikeResponseAction($id, Request $request){
       $em = $this->getDoctrine()->getManager();
       $repoResponse = $em->getRepository("OnoMapBundle:Response");
-      $repoLikeResponse = $em->getRepository("OnoMapBundle:LikeResponse");
       $response = $repoResponse->find($id);
+
       if($response){
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
           $user = $this->get('security.token_storage')->getToken()->getUser();
           if($user){
-            $like = $repoLikeResponse->findOneBy(array("user" => $user, "response" => $response));
-            if($like){
-              $em->remove($like);
+            $isLiking = $user->isLikingResponse($response->getId());
+            if($isLiking){
+              $user->removeResponsesLiked($response);
               $response->decrementLikes();
+              $em->persist($user);
+              $em->persist($response);
               $em->flush();
-            } else {
-              $request->getSession()->getFlashBag()->add('notice', 'Vous n\'aimez déja pas cette réponse.');
             }
-            //L'utilisateur n'aime déja
+            $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'est pas aimé.');
+            return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
           }
           //La response n'existe pas
         }

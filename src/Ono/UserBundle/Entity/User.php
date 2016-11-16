@@ -76,6 +76,12 @@ class User extends BaseUser
     */
     private $responses;
 
+    /**
+    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Response")
+    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinTable(name="user_like_response")
+    */
+    private $responsesLiked;
 
     /**
      * Set country
@@ -252,5 +258,49 @@ class User extends BaseUser
     public function getResponses()
     {
         return $this->responses;
+    }
+
+    /**
+     * Add responsesLiked
+     *
+     * @param \Ono\MapBundle\Entity\Response $responsesLiked
+     *
+     * @return User
+     */
+    public function addResponsesLiked(\Ono\MapBundle\Entity\Response $responsesLiked)
+    {
+        $this->responsesLiked[] = $responsesLiked;
+
+        return $this;
+    }
+
+    /**
+     * Remove responsesLiked
+     *
+     * @param \Ono\MapBundle\Entity\Response $responsesLiked
+     */
+    public function removeResponsesLiked(\Ono\MapBundle\Entity\Response $responsesLiked)
+    {
+        $this->responsesLiked->removeElement($responsesLiked);
+    }
+
+    /**
+     * Get responsesLiked
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponsesLiked()
+    {
+        return $this->responsesLiked;
+    }
+
+    public function isLikingResponse($id) {
+      $likes = $this->getResponsesLiked();
+      for($i=0; $i<count($likes); $i++){
+        if($likes[$i]->getId()===$id){
+          return true;
+        }
+      }
+      return false;
     }
 }

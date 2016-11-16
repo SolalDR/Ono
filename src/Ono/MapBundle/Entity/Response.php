@@ -66,10 +66,10 @@ class Response
     private $published = false;
 
     /**
-     * @var bool
+     * @var integer
      *
-     * @ORM\Column(name="nbLikes", type="boolean")
-     * @Assert\Type(type="integer", message="La valeur donnée n'est pas un nombre !")
+     * @ORM\Column(name="nbLike", type="integer")
+     * @Assert\Type(type="integer", message="La valeur donnée n'est pas un integer !")
      */
     private $nbLikes = 0;
 
@@ -100,6 +100,7 @@ class Response
     * @Assert\Valid()
     */
     private $user;
+
 
 
     /**
@@ -344,11 +345,10 @@ class Response
         return $this->language;
     }
 
-
     /**
      * Set nbLikes
      *
-     * @param boolean $nbLikes
+     * @param integer $nbLikes
      *
      * @return Response
      */
@@ -362,7 +362,7 @@ class Response
     /**
      * Get nbLikes
      *
-     * @return boolean
+     * @return integer
      */
     public function getNbLikes()
     {
@@ -370,15 +370,16 @@ class Response
     }
 
     public function incrementLikes(){
-      $nbActual = $this->getNbLikes();
-      $new = $nbActual+1;
+      $actual = $this->getNbLikes();
+      $new = $actual+1;
       $this->setNbLikes($new);
+      return $new;
     }
 
     public function decrementLikes(){
-      $nbActual = $this->getNbLikes();
-      $new = $nbActual-1;
+      $actual = $this->getNbLikes();
+      $new = $actual-1;
       $this->setNbLikes($new);
+      return $new;
     }
-
 }
