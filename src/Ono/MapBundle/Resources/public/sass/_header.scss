@@ -1,0 +1,132 @@
+#sidebarLeft.sidebar-left {
+  display: block;
+  z-index: 999;
+  position: absolute;
+  width: 110px;
+  height: 1300px;
+  background-color: rgba(0, 0, 0, 0.85);
+  @include transition(.4s ease-in);
+
+  color: white;
+  text-decoration: none;
+
+  .main-nav {
+    text-align: center;
+    margin-top: 20px;
+    .nav-head {
+      height: 18vh;
+      .sidebar-img {
+        width: 50%;
+        display: block;
+        margin: auto;
+        padding-top: 1vh;
+      }
+      .nav-bar-profile {
+        margin-top: 2vh;
+        text-align: center;
+        color: $light-grey;
+        font-size: .9em;
+        display: block;
+        margin-bottom: 3px;
+      }
+      .logout-button {
+        color: $medium-grey;
+        font-size: 0.8em;
+        font-family: sans-serif;
+      }
+    }
+    .nav-body {
+      text-align: center;
+      .item-nav {
+        width: 110px;
+        height: 13vh;
+        background-color: transparent;
+        display: block;
+        border-top: 1px solid $medium-grey;
+        @include transition(.3s ease-in);
+        &:hover, &.active {
+          background-color: $green;
+          color: white;
+          width: 120px;
+        }
+        li {
+          img {
+            margin-top: 2vh;
+            height: 5vh;
+          }
+          p {
+            text-transform: uppercase;
+            font-weight: 100;
+            margin-top: 8px;
+            letter-spacing: 2px;
+            font-size: 0.7em;
+          }
+        }
+      }
+    }
+  }
+
+  #theme-list-container {
+    position: fixed;
+    left: 120px;
+    width: 38vh;
+    background-color: white;
+    top: 0px;
+    color: black;
+    font-family: inherit;
+    font-weight: 100;
+    &.sidebar-open {
+      display: block;
+    }
+    &.sidebar-close {
+      display: none;
+    }
+    #theme-list-container-close {
+      display: inline-block;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      width: 15px;
+      height: 15px;
+      background-image: url(../../onomap/img/logo/cancel.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+    }
+    .notice {
+      margin-top: 45px;
+      text-align: center;
+      font-size: 0.8em;
+      margin-bottom: 15px;
+      padding: 0 10px;
+      strong {
+        font-weight: 600;
+      }
+    }
+    .theme-list .filter-theme {
+      height: 1.8em;
+      padding: 0 10px;
+      @include transition(.3s);
+
+      background-color: white;
+      cursor: pointer;
+      &:hover, &.active {
+        background-color: $green-light;
+        color: white;
+      }
+      img {
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        float: left;
+      }
+      span {
+        font-size: .9em;
+        display: inline-block;
+        width: calc(100% - 40px);
+        padding: .6em 0 .6em 10px;
+      }
+    }
+  }
+}

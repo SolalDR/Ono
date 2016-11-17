@@ -1,0 +1,101 @@
+#admin {
+  .sidebar {
+    background-color: $dark-grey;
+    #logo {
+      display: block;
+      width: 150px;
+      margin: 20px auto;
+    }
+    #menu {
+      background-color: transparent;
+      color: white;
+      border: 0;
+      li {
+        padding-left: 15px;
+        border: 1px solid transparent;
+        padding: 2px;
+        &.title {
+          cursor: pointer;
+          text-transform: uppercase;
+          padding-top: 15px;
+        	margin: 0;
+          font-size: 17px;
+          border-top: 1px solid $light-grey;
+        }
+        div {
+          background-color: transparent;
+          @include transition(.3s);
+          border: 1px solid transparent;
+          padding: 4px;
+          margin:4px;
+          &:hover {
+            background-color: $blue;
+            border: 1px solid transparent;
+          }
+        }
+      }
+      a {
+        padding-left: 15px;
+        border: 1px solid transparent;
+        padding: 2px;
+      	text-decoration: none;
+      	color: white;
+        li {
+        	background-color: transparent;
+          @include transition(.3s);
+          border: 1px solid transparent;
+          padding: 4px;
+          margin:4px;
+          &:hover {
+          	/*background-color: rgb(24, 118, 155);
+            border: 1px solid transparent;*/
+          }
+        }
+      }
+    }
+  }
+  a.button-style {
+  	text-decoration: none;
+  	color: white;
+  	margin-bottom: 25px;
+  }
+  .confirm {
+  	margin-bottom: 20px;
+  }
+
+  .mainContent {
+    margin: 30px 20px;
+    width: calc(100% - 40px);
+  	font-family: sans-serif;
+    h1 {
+     font-size: 30px;
+     font-weight: 100;
+     text-transform: uppercase;
+     margin-bottom: 40px;
+   }
+  }
+
+  .mainContent {
+    table tr {
+      th {
+        font-weight: bold;
+        &:first-child {
+          width: 40px;
+          max-width: 40px;
+        }
+      }
+      td {
+        &:first-child {
+          width: 40px;
+          max-width: 40px;
+        }
+        &:nth-child(2) {
+          width: 20%;
+        }
+        .button-style {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

@@ -2,39 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-
-  </body>
-</html>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    {% stylesheets  filter='cssrewrite'
-      'bundles/onomap/css/loader.css'
-      'bundles/onomap/css/main.css'
-      'bundles/onomap/css/form.css' %}
+    <title>Ono</title>
+    {% stylesheets  filter='cssrewrite' 'bundles/onomap/css/style.css' %}
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title"> -->
 
-    {% javascripts
-     %}
-      <script src="{{ asset_url }}" type="text/javascript"></script>
-    {% endjavascripts %}
   </head>
   <body id="mapBody">
     <noscript>
-      <p>Attention : </p>
-      <p>Afin de pouvoir utiliser Google Maps, JavaScript doit être activé.</p>
-      <p>Or, il semble que JavaScript est désactivé ou qu'il ne soit pas supporté par votre navigateur.</p>
-      <p>Pour afficher Google Maps, activez JavaScript en modifiant les options de votre navigateur, puis essayez à nouveau.</p>
+      <div id="noScript">
+        <p>Attention : </p>
+        <p>Afin de pouvoir utiliser Google Maps, JavaScript doit être activé.</p>
+        <p>Or, il semble que JavaScript est désactivé ou qu'il ne soit pas supporté par votre navigateur.</p>
+        <p>Pour afficher Google Maps, activez JavaScript en modifiant les options de votre navigateur, puis essayez à nouveau.</p>
+      </div>
+
       <style media="screen">
-        #loaderContent { display: none;}
+        #loaderContent { display: none !important;}
+        #sidebarLeft { display: none !important;}
       </style>
     </noscript>
     <div id='alerts-container'></div>
@@ -47,13 +32,7 @@
       </div>
       <p class="loader-notice">Chargement</p>
     </div>
-    <header id="sidebarLeft" class="sidebar-left sidebar-open">
-      <!-- <div class="main-nav"> -->
-        <!-- <div class="burger-button">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div> -->
+    <header id="sidebarLeft" class="sidebar-left">
         <nav class="main-nav">
           <div class="nav-head">
             <img class="logo sidebar-img" src="{{ asset("asset/img/logo.svg") }}" alt="" />
@@ -111,9 +90,6 @@
           </li>
           {% endfor %}
         </ul>
-        <!-- <h2>Filtré âge</h2>
-        <input id="rangeAgeActive" type="checkbox" value="">
-        <input id="rangeAge" type="range" name="name" value=""> -->
       </div>
     </header>
 
@@ -149,7 +125,6 @@
             <p id="response-country">Pays</p>
             <p id="response-content">Contenu</p>
             <p id=""></p>
-            <!-- <a id="response-like" href="{{ absolute_url(path("ono_map_response_like", {"id": 0})) }}">J'aime</a> -->
           </div>
           <span id="goFormView" class="marge button-style">Ajouter une réponse</span>
           <div class="other-responses marge">
@@ -166,15 +141,16 @@
             <p id="response-title-form" class="title"></p>
             {{ form_start(form, { 'attr': {
               'action': absolute_url(path("ono_map_homepage")) ~ "response/add/0",
-              "data-xhrpost" : "true"
+              "data-xhrpost" : "true",
+              "class" : "marge-top"
             }} ) }}
 
             {{ form_rest(form) }}
           </div>
         </div>
       </div>
-
     </div>
+
     <section class="map">
       <div id="map"></div>
     </section>

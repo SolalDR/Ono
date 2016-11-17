@@ -1,0 +1,124 @@
+p {
+  font-family: sans-serif;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#noScript {
+  width: 500px;
+  margin: 100px auto auto;
+  font-weight: 100;
+}
+
+// Visibility
+.hidden {display: none;}
+.true-hidden {display: none;}
+.true-visible {display: block;}
+
+// Marge
+.marge {margin: 0 25px;}
+.marge-top {margin-top: 25px;}
+.no-marge {margin: 0;}
+
+//Bg
+.bg-green {background-color: rgba(0, 161, 13, 0.6);}
+.bg-red {background-color: $red;}
+.bg-blue {background-color: $blue;}
+
+/*Style d'un bouton par défault*/
+.button-style {
+  display: block;
+  padding: 10px 15px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid grey;
+  border-radius: 5px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+
+/*//////////////////////*/
+/*    Input range       */
+/*//////////////////////*/
+
+input {
+  &[type=range] {
+    -webkit-appearance: none;
+    margin: 18px auto;
+    display: block;
+    width: 80%;
+    &:focus {
+      outline: none;
+      &::-webkit-slider-runnable-track {
+        background: #367ebd;
+      }
+      &::-ms-fill-lower {
+        background: #3071a9;
+      }
+      &::-ms-fill-upper {
+        background: #367ebd;
+      }
+    }
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: #fff;
+      border-radius: 1.3px;
+    }
+    &::-webkit-slider-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 10px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+    &::-moz-range-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: #fff;
+      border-radius: 1.3px;
+    }
+    &::-moz-range-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 10px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+    &::-ms-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: #fff;
+      border-radius: 1.3px;
+    }
+    &::-ms-fill-lower {
+      background: #2a6495;
+      border: 0.2px solid #010101;
+      border-radius: 2.6px;
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    }
+    &::-ms-fill-upper {
+      background: #3071a9;
+      border: 0.2px solid #010101;
+      border-radius: 2.6px;
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    }
+    &::-ms-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 10px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+  }
+}

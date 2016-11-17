@@ -1,0 +1,38 @@
+
+#alerts-container {
+  position: absolute;
+  bottom: 5px;
+  width: 500px;
+  z-index: 9999;
+  left: 50%;
+  @include transform(translateX(-50%));
+  .alert-container {
+    position: relative;
+    width: 500px;
+    padding: 20px;
+    margin: 5px auto;
+    display: block;
+    z-index: 9999;
+    border-radius: 5px;
+    border: 2px solid $green-dark;
+    text-align: center;
+    cursor: pointer;
+    .alert-title {
+      text-transform: uppercase;
+      color: white;
+      font-size: 15px;
+      font-weight: 100;
+      letter-spacing: 3px;
+      margin-bottom: 0;
+    }
+    &.alert-status-notice {
+      background-color: $green-light;
+    }
+    &.alert-status-warning {
+      background-color: $yellow;
+    }
+    &.alert-status-error {
+      background-color: $red;
+    }
+  }
+}

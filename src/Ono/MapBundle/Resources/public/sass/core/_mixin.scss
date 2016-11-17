@@ -1,0 +1,28 @@
+
+@mixin transform($content) {
+  -webkit-transform: $content; /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+  -ms-transform: $content; /* IE 9 */
+  -o-transform: $content;
+  transform: $content; /* IE 10, Fx 16+, Op 12.1+ */
+}
+
+@mixin transition($content) {
+  -webkit-transition: $content;
+  -o-transition: $content;
+  transition: $content;
+}
+
+@mixin box-shadow($content) {
+  -webkit-box-shadow: $content;
+  -moz-box-shadow: $content;
+  -ms-box-shadow: $content;
+  -o-box-shadow: $content;
+  box-shadow: $content;
+}
+
+@mixin flex() {
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+}
