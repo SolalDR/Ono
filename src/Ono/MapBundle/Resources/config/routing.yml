@@ -21,7 +21,7 @@ ono_map_changelanguage:
 ono_map_response_add:
     path:     /response/add/{id}
     defaults:
-        _controller: OnoMapBundle:Map:addResponse
+        _controller: OnoMapBundle:Response:add
     requirements:
         id: \d+
 
@@ -29,7 +29,7 @@ ono_map_response_add:
 ono_map_response_view:
     path:     /response/view/{id}
     defaults:
-        _controller: OnoMapBundle:Map:viewResponse
+        _controller: OnoMapBundle:Response:view
     requirements:
         id: \d+
 
@@ -37,7 +37,7 @@ ono_map_response_view:
 ono_map_response_edit:
     path:     /response/edit/{id}
     defaults:
-        _controller: OnoMapBundle:Map:editResponse
+        _controller: OnoMapBundle:Response:edit
     requirements:
         id: \d+
 
@@ -45,21 +45,21 @@ ono_map_response_edit:
 ono_map_response_delete:
     path:     /response/delete/{id}
     defaults:
-        _controller: OnoMapBundle:Map:deleteResponse
+        _controller: OnoMapBundle:Response:delete
     requirements:
         id: \d+
 
 ono_map_response_like:
     path:     /response/like/{id}
     defaults:
-        _controller: OnoMapBundle:Response:likeResponse
+        _controller: OnoMapBundle:Response:like
     requirements:
         id: \d+
 
 ono_map_response_unlike:
     path:     /response/unlike/{id}
     defaults:
-        _controller: OnoMapBundle:Response:unlikeResponse
+        _controller: OnoMapBundle:Response:unlike
     requirements:
         id: \d+
 
@@ -71,10 +71,16 @@ ono_map_response_unlike:
 ono_map_question_view:
     path:     /question/view/{id}
     defaults:
-        _controller: OnoMapBundle:Map:viewQuestion
+        _controller: OnoMapBundle:Question:view
     requirements:
         id: \d+
 
+ono_map_question_index:
+    path:     /questions
+    defaults:
+        _controller: OnoMapBundle:Question:index
+    requirements:
+        id: \d+
 
 ###############################################################
 #                            ADMIN

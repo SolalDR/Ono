@@ -30,11 +30,8 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class ResponseController extends Controller
 {
 
-    /////////////////////////////////
-    //          RESPONSE
-    /////////////////////////////////
-
-    public function viewResponseAction($id)
+    // View Response
+    public function viewAction($id)
     {
       $em = $this->getDoctrine()->getManager();
       $repo = $em->getRepository("OnoMapBundle:Response");
@@ -44,68 +41,13 @@ class ResponseController extends Controller
         throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
       }
 
-      return $this->render("OnoMapBundle:Map:responseView.html.twig", array(
+      return $this->render("OnoMapBundle:Response:view.html.twig", array(
         "response" => $response
       ));
     }
-    public function likeResponseAction($id, Request $request){
-      $em = $this->getDoctrine()->getManager();
-      $repoResponse = $em->getRepository("OnoMapBundle:Response");
-      $response = $repoResponse->find($id);
 
-      if($response){
-        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
-          $user = $this->get('security.token_storage')->getToken()->getUser();
-          if($user){
-            $isLiking = $user->isLikingResponse($response);
-            if(!$isLiking){
-              $user->addResponsesLiked($response);
-              $response->incrementLikes();
-              $em->persist($user);
-              $em->persist($response);
-              $em->flush();
-            }
-            $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
-            return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
-          }
-        }
-        return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
-      } else {
-        $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'existe pas.');
-      }
-      //L'utilisateur n'est pas authentifié
-      return $this->redirectToRoute('ono_map_homepage');
-    }
 
-    public function unlikeResponseAction($id, Request $request){
-      $em = $this->getDoctrine()->getManager();
-      $repoResponse = $em->getRepository("OnoMapBundle:Response");
-      $response = $repoResponse->find($id);
-
-      if($response){
-        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
-          $user = $this->get('security.token_storage')->getToken()->getUser();
-          if($user){
-            $isLiking = $user->isLikingResponse($response);
-            if($isLiking){
-              $user->removeResponsesLiked($response);
-              $response->decrementLikes();
-              $em->persist($user);
-              $em->persist($response);
-              $em->flush();
-            }
-            $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'est pas aimé.');
-            return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
-          }
-          //La response n'existe pas
-        }
-        return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
-      }
-      //L'utilisateur n'est pas authentifié
-      return $this->redirectToRoute('ono_map_homepage');
-    }
-
-    public function addResponseAction($id, Request $request)
+    public function addAction($id, Request $request)
     {
 
       $em =$this->getDoctrine()->getManager();
@@ -125,8 +67,8 @@ class ResponseController extends Controller
         } else {
           $form = $this->get('form.factory')->create(ResponseType::class, $response);
         }
-
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
           //On persist la réponse
           $em->persist($response);
 
@@ -182,7 +124,7 @@ class ResponseController extends Controller
         return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
       }
 
-      return $this->render('OnoMapBundle:Map:addResponse.html.twig', array(
+      return $this->render('OnoMapBundle:Response:add.html.twig', array(
         'form' => $form->createView(),
         'question' =>$question
       ));
@@ -193,5 +135,62 @@ class ResponseController extends Controller
       return $this->redirectToRoute('ono_map_response_view', array(
         "id" => $response->getId()
       ));
+    }
+
+    public function likeAction($id, Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $repoResponse = $em->getRepository("OnoMapBundle:Response");
+      $response = $repoResponse->find($id);
+
+      if($response){
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+          $user = $this->get('security.token_storage')->getToken()->getUser();
+          if($user){
+            $isLiking = $user->isLikingResponse($response);
+            if(!$isLiking){
+              $user->addResponsesLiked($response);
+              $response->incrementLikes();
+              $em->persist($user);
+              $em->persist($response);
+              $em->flush();
+            }
+            $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
+            return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
+          }
+        }
+        return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
+      } else {
+        $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'existe pas.');
+      }
+      //L'utilisateur n'est pas authentifié
+      return $this->redirectToRoute('ono_map_homepage');
+    }
+
+    public function unlikeAction($id, Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $repoResponse = $em->getRepository("OnoMapBundle:Response");
+      $response = $repoResponse->find($id);
+
+      if($response){
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+          $user = $this->get('security.token_storage')->getToken()->getUser();
+          if($user){
+            $isLiking = $user->isLikingResponse($response);
+            if($isLiking){
+              $user->removeResponsesLiked($response);
+              $response->decrementLikes();
+              $em->persist($user);
+              $em->persist($response);
+              $em->flush();
+            }
+            $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'est pas aimé.');
+            return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
+          }
+          //La response n'existe pas
+        }
+        return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
+      }
+      //L'utilisateur n'est pas authentifié
+      return $this->redirectToRoute('ono_map_homepage');
     }
 }
