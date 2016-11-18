@@ -1,0 +1,60 @@
+<header id="sidebarLeft" class="sidebar-left">
+    <nav class="main-nav">
+      <div class="nav-head">
+        <img class="logo sidebar-img" src="{{ asset("asset/img/logo.svg") }}" alt="" />
+        <p class="nav-bar-profile">Profil</p>
+        <a class="logout-button" href="/logout">Se déconnecter</a>
+      </div>
+      <ul class="nav-body">
+        <a href="#" class="item-nav active">
+          <li>
+            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p>Carte</p>
+          </li>
+        </a>
+        <a href="#" id="theme-list-container-open" class="item-nav">
+          <li>
+            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p>Thèmes</p>
+          </li>
+        </a>
+        <a href="#" class="item-nav">
+          <li>
+            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p>Article</p>
+          </li>
+        </a>
+        <a href="#" class="item-nav">
+          <li>
+            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p>Favoris</p>
+          </li>
+        </a>
+        <a href="#" class="item-nav">
+          <li>
+            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p>Réglage</p>
+          </li>
+        </a>
+        <a href="#" class="item-nav">
+          <li>
+            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+            <p>Infos</p>
+          </li>
+        </a>
+      </ul>
+    </nav>
+  <!-- </div> -->
+  <div id="theme-list-container" class="sidebar-close">
+    <span class="cross" id="theme-list-container-close"></span>
+    <p class="notice">Vous pouvez sélectionner un maximum <br>de <strong>5 filtres</strong></p>
+    <ul class="theme-list">
+      {% for theme in themes %}
+      <li class="filter-theme" data-id="{{theme.id}}">
+        <img src="" alt="" class=""/>
+        <span>{{ theme.libTheme }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</header>

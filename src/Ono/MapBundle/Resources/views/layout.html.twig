@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+
+
+{# STYLESHEETS #}
+{% block stylesheets %}
+{% stylesheets  filter='cssrewrite' 'bundles/onomap/css/style.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
+
+
+{# BODY #}
+{% block body %}
+  {% block pageAttributes %}<body>{% endblock %}
+  {% block bodyContent %}
+    {{ include("OnoMapBundle:Templates:noscript.html.twig") }}
+    {{ include("OnoMapBundle:Templates:loader.html.twig") }}
+    {{ include("OnoMapBundle:Templates:header.html.twig") }}
+    <div id='alerts-container'></div>
+  {% endblock %}
+</body>
+{% endblock %}
+
+
+{# JAVASCRIPT #}
+{% block javascripts %}
+  {% javascripts
+  'bundles/onomap/js/config.js'
+  'bundles/onomap/js/loaderManage.js'
+  'bundles/onomap/js/main.js'
+  "bundles/onomap/js/loader.js"
+   %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+  {% endjavascripts %}
+{% endblock %}

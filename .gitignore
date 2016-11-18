@@ -49,5 +49,5 @@
 */Entity/*~
 
 # Sass-cache
-#/src/Ono/MapBundle/Resources/public/.sass-cache/
-#/src/Ono/MapBundle/Resources/public/.sass-cache/*
+/src/Ono/MapBundle/Resources/public/.sass-cache/
+/src/Ono/MapBundle/Resources/public/.sass-cache/*
