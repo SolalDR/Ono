@@ -35,13 +35,6 @@ A Symfony project created on September 15, 2016, 10:30 am.
 #### RESPONSE :
 - add language attributes
 
-#### LIKE RESPONSE (OneToOne Entity Response, OneToOne Entity User)
-- id_response
-- id_user
-
-#### LIKE QUESTION  (OneToOne Entity Question, OneToOne Entity User)
-- id_question
-- id_user
 
 #### RESPONSE (ManyToOne : question) (ManyToOne : User) (ManyToMany : theme)(ManyToOne : Country)
 - nblike (A rajouter)
@@ -70,3 +63,8 @@ Pour gérer les utilisateurs :
 - Promouvoire : php app/console fos:user:promote monutilisateur ROLE_ADMIN
 - Rétrograder : php app/console fos:user:demote monutilisateur ROLE_ADMIN
 - Créer : php app/console fos:user:create monutilisateur test@example.com motdepasse
+
+Pour installation CKEditor :
+```
+php bin/console assets:install web
+```

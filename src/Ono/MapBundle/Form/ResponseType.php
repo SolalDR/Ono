@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 class ResponseType extends AbstractType
 {
@@ -23,7 +24,12 @@ class ResponseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content',    TextareaType::class)
+            // ->add('content',    TextareaType::class)
+            ->add('content', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#ffffff',
+                ),
+            ))
             ->add('author',     TextType::class)
             ->add('dtnaissance', DateType::class, array(
               "required" => false,

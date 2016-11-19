@@ -195,6 +195,9 @@ a {
   text-decoration: none;
   color: white; }
 
+body {
+  padding-left: 130px; }
+
 #noScript {
   width: 500px;
   margin: 100px auto auto;
@@ -349,6 +352,7 @@ input[type=range] {
   position: absolute;
   width: 110px;
   height: 1300px;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.85);
   -webkit-transition: 0.4s ease-in;
   -o-transition: 0.4s ease-in;
@@ -456,7 +460,8 @@ input[type=range] {
         padding: .6em 0 .6em 10px; }
 
 #mapBody {
-  overflow: hidden; }
+  overflow: hidden;
+  padding-left: 0; }
   #mapBody #map {
     min-height: 500px; }
   #mapBody #sidebarRight.sidebar-right {

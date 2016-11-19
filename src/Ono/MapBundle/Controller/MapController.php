@@ -47,15 +47,17 @@ class MapController extends Controller
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
       $responseRepo = $em->getRepository("OnoMapBundle:Response");
-      $themesRepo = $em->getRepository("OnoMapBundle:Theme");
       $serializer = $this->get('serializer');
       $encoder = new JsonEncoder();
       $normalizer = new ObjectNormalizer();
 
-      //On récupère les objets
+      //On récupère les questions et les réponses
       $questions = $questionRepo->findAll();
       $responses= $responseRepo->findBy(array("question"=>$questions[0]));
-      $themes = $themesRepo->findAll();
+
+      //On Récupère tout les thèmes
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $themes = $themRepo->findAll();
 
       //On prépare le json
       $normalizer->setCircularReferenceHandler(function ($responses) {
@@ -66,8 +68,8 @@ class MapController extends Controller
 
       //On retourne le tout
       return $this->render('OnoMapBundle:Map:index.html.twig', array(
-        "themes" => $themes,
         "json" =>$json,
+        "themes" => $themes,
         "form" => $form->createView()
       ));
     }
@@ -115,6 +117,17 @@ class MapController extends Controller
       } else {
         return new Response("Error");
       }
+    }
+
+    public function menuAction($route){
+      $em = $this->getDoctrine()->getManager();
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $themes = $themRepo->findAll();
+      //On retourne le tout
+      return $this->render('OnoMapBundle:Templates:header.html.twig', array(
+        "themes" => $themes,
+        "current_route" => $route
+      ));
     }
 
     /////////////////////////////////

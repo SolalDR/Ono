@@ -27,9 +27,14 @@ class QuestionController extends Controller
       //On récupère les objets
       $questions = $questionRepo->findAll();
 
+      //On Récupère tout les thèmes
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $themes = $themRepo->findAll();
+
       //On retourne le tout
       return $this->render('OnoMapBundle:Question:index.html.twig', array(
-        "questions" => $questions
+        "questions" => $questions,
+        "themes" => $themes
       ));
     }
 

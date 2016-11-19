@@ -6,37 +6,38 @@
         <a class="logout-button" href="/logout">Se déconnecter</a>
       </div>
       <ul class="nav-body">
-        <a href="#" class="item-nav active">
+        <a href="{{ path("ono_map_homepage") }}" class="item-nav{% if app.request.get('_route') == 'ono_map_homepage' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
             <p>Carte</p>
           </li>
         </a>
-        <a href="#" id="theme-list-container-open" class="item-nav">
+
+        <a href="#" id="theme-list-container-open" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
             <p>Thèmes</p>
           </li>
         </a>
-        <a href="#" class="item-nav">
+        <a href="#" class="item-nav{% if app.request.get('_route') == 'ono_map_articles' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
             <p>Article</p>
           </li>
         </a>
-        <a href="#" class="item-nav">
+        <a href="#" class="item-nav{% if app.request.get('_route') == 'ono_map_favoris' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
             <p>Favoris</p>
           </li>
         </a>
-        <a href="#" class="item-nav">
+        <a href="{{ path("ono_map_question_index") }}" class="item-nav{% if app.request.get('_route') == 'ono_map_question_index' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
-            <p>Réglage</p>
+            <p>Questions</p>
           </li>
         </a>
-        <a href="#" class="item-nav">
+        <a href="{{ path('ono_map_question_index') }}" class="item-nav{% if app.request.get('_route') == 'ono_map_infos' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
             <p>Infos</p>

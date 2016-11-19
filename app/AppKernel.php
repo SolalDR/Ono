@@ -18,7 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Ono\MapBundle\OnoMapBundle(),
             new Ono\UserBundle\OnoUserBundle(),
-            new FOS\UserBundle\FOSUserBundle()
+            new FOS\UserBundle\FOSUserBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
