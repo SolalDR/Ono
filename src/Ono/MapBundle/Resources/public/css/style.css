@@ -193,10 +193,17 @@ p {
 
 a {
   text-decoration: none;
-  color: white; }
+  color: #4a8acc; }
+  a:hover {
+    text-decoration: none; }
+
+h1 {
+  font-size: 2em;
+  font-weight: 100;
+  padding: 20px 0px; }
 
 body {
-  padding-left: 130px; }
+  padding-left: 110px; }
 
 #noScript {
   width: 500px;
@@ -349,9 +356,10 @@ input[type=range] {
 #sidebarLeft.sidebar-left {
   display: block;
   z-index: 999;
-  position: absolute;
+  position: fixed;
   width: 110px;
-  height: 1300px;
+  height: 100%;
+  height: 100vh;
   left: 0;
   background-color: rgba(0, 0, 0, 0.85);
   -webkit-transition: 0.4s ease-in;
@@ -359,6 +367,8 @@ input[type=range] {
   transition: 0.4s ease-in;
   color: white;
   text-decoration: none; }
+  #sidebarLeft.sidebar-left a {
+    color: white; }
   #sidebarLeft.sidebar-left .main-nav {
     text-align: center;
     margin-top: 20px; }
@@ -595,79 +605,81 @@ input[type=range] {
         -o-transition: 0.5s;
         transition: 0.5s; }
 
-#admin .sidebar {
-  background-color: #3c3c3c; }
-  #admin .sidebar #logo {
-    display: block;
-    width: 150px;
-    margin: 20px auto; }
-  #admin .sidebar #menu {
-    background-color: transparent;
+#admin {
+  padding-left: 0; }
+  #admin .sidebar {
+    background-color: #3c3c3c; }
+    #admin .sidebar #logo {
+      display: block;
+      width: 150px;
+      margin: 20px auto; }
+    #admin .sidebar #menu {
+      background-color: transparent;
+      color: white;
+      border: 0; }
+      #admin .sidebar #menu li {
+        padding-left: 15px;
+        border: 1px solid transparent;
+        padding: 2px; }
+        #admin .sidebar #menu li.title {
+          cursor: pointer;
+          text-transform: uppercase;
+          padding-top: 15px;
+          margin: 0;
+          font-size: 17px;
+          border-top: 1px solid #CCC; }
+        #admin .sidebar #menu li div {
+          background-color: transparent;
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          border: 1px solid transparent;
+          padding: 4px;
+          margin: 4px; }
+          #admin .sidebar #menu li div:hover {
+            background-color: #18769c;
+            border: 1px solid transparent; }
+      #admin .sidebar #menu a {
+        padding-left: 15px;
+        border: 1px solid transparent;
+        padding: 2px;
+        text-decoration: none;
+        color: white; }
+        #admin .sidebar #menu a li {
+          background-color: transparent;
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          border: 1px solid transparent;
+          padding: 4px;
+          margin: 4px; }
+          #admin .sidebar #menu a li:hover {
+            	/*background-color: rgb(24, 118, 155);
+              border: 1px solid transparent;*/ }
+  #admin a.button-style {
+    text-decoration: none;
     color: white;
-    border: 0; }
-    #admin .sidebar #menu li {
-      padding-left: 15px;
-      border: 1px solid transparent;
-      padding: 2px; }
-      #admin .sidebar #menu li.title {
-        cursor: pointer;
-        text-transform: uppercase;
-        padding-top: 15px;
-        margin: 0;
-        font-size: 17px;
-        border-top: 1px solid #CCC; }
-      #admin .sidebar #menu li div {
-        background-color: transparent;
-        -webkit-transition: 0.3s;
-        -o-transition: 0.3s;
-        transition: 0.3s;
-        border: 1px solid transparent;
-        padding: 4px;
-        margin: 4px; }
-        #admin .sidebar #menu li div:hover {
-          background-color: #18769c;
-          border: 1px solid transparent; }
-    #admin .sidebar #menu a {
-      padding-left: 15px;
-      border: 1px solid transparent;
-      padding: 2px;
-      text-decoration: none;
-      color: white; }
-      #admin .sidebar #menu a li {
-        background-color: transparent;
-        -webkit-transition: 0.3s;
-        -o-transition: 0.3s;
-        transition: 0.3s;
-        border: 1px solid transparent;
-        padding: 4px;
-        margin: 4px; }
-        #admin .sidebar #menu a li:hover {
-          	/*background-color: rgb(24, 118, 155);
-            border: 1px solid transparent;*/ }
-#admin a.button-style {
-  text-decoration: none;
-  color: white;
-  margin-bottom: 25px; }
-#admin .confirm {
-  margin-bottom: 20px; }
-#admin .mainContent {
-  margin: 30px 20px;
-  width: calc(100% - 40px);
-  font-family: sans-serif; }
-  #admin .mainContent h1 {
-    font-size: 30px;
-    font-weight: 100;
-    text-transform: uppercase;
-    margin-bottom: 40px; }
-#admin .mainContent table tr th {
-  font-weight: bold; }
-  #admin .mainContent table tr th:first-child {
+    margin-bottom: 25px; }
+  #admin .confirm {
+    margin-bottom: 20px; }
+  #admin .mainContent {
+    margin: 30px 20px;
+    width: calc(100% - 40px);
+    font-family: sans-serif; }
+    #admin .mainContent h1 {
+      font-size: 30px;
+      font-weight: 100;
+      text-transform: uppercase;
+      margin-bottom: 40px; }
+  #admin .mainContent table tr th {
+    font-weight: bold; }
+    #admin .mainContent table tr th:first-child {
+      width: 40px;
+      max-width: 40px; }
+  #admin .mainContent table tr td:first-child {
     width: 40px;
     max-width: 40px; }
-#admin .mainContent table tr td:first-child {
-  width: 40px;
-  max-width: 40px; }
-#admin .mainContent table tr td:nth-child(2) {
-  width: 20%; }
-#admin .mainContent table tr td .button-style {
-  margin-bottom: 0; }
+  #admin .mainContent table tr td:nth-child(2) {
+    width: 20%; }
+  #admin .mainContent table tr td .button-style {
+    margin-bottom: 0; }

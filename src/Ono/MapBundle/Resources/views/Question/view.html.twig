@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Question n°{{ question.id }}</title>
-  </head>
-  <body>
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Questions{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
     <h1>{{ question.libQuestion }}</h1>
     <h2>Liste des réponses :</h2>
     <ul>
       {% for response in responses %}
-      <li>{{ response.content }}</li>
+      <li>{{response.id}} {{ response.content | raw }}</li>
       {% endfor %}
     </ul>
     <a href="{{ path("ono_map_response_add", {"id": question.id }) }}">ajouter une réponse</a>
-  </body>
-</html>
+  {% endblock %}
+{% endblock %}

@@ -65,6 +65,13 @@ Pour gérer les utilisateurs :
 - Créer : php app/console fos:user:create monutilisateur test@example.com motdepasse
 
 Pour installation CKEditor :
+- Lancer cette commande après mise en place
 ```
-php bin/console assets:install web
+php bin/console assets:install web --symlink
 ```
+
+Pour plus d'information sur CKEditor :
+http://symfony.com/doc/current/bundles/IvoryCKEditorBundle/index.html
+
+Lien utile pour upload de video
+https://openclassrooms.com/forum/sujet/upload-de-video-symfony2-85865

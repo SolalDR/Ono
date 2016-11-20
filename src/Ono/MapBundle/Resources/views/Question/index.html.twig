@@ -1,9 +1,6 @@
-
 {% extends "OnoMapBundle::layout.html.twig" %}
-
 {% block title %}{{ parent() }} Questions{% endblock %}
 
-{# BODY #}
 {% block body %}
   {% block bodyContent %}{{ parent() }}
     <div class="mainContent">
@@ -13,6 +10,7 @@
           <tr>
             <th>Id</th>
             <th>Libellé question</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -20,8 +18,8 @@
           <tr>
             <td>{{ question.id }}</td>
             <td>{{ question.libQuestion }}</td>
+            <td><a href="{{ path("ono_map_question_view",{"id":question.id}) }}">Voir</a></td>
           </tr>
-
           {% endfor %}
         </tbody>
       </table>

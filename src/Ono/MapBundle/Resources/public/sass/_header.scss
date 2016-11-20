@@ -1,9 +1,10 @@
 #sidebarLeft.sidebar-left {
   display: block;
   z-index: 999;
-  position: absolute;
+  position: fixed;
   width: 110px;
-  height: 1300px;
+  height: 100%;
+  height: 100vh;
   left: 0;
   background-color: rgba(0, 0, 0, 0.85);
   @include transition(.4s ease-in);
@@ -11,6 +12,9 @@
   color: white;
   text-decoration: none;
 
+  a {
+    color: white;
+  }
   .main-nav {
     text-align: center;
     margin-top: 20px;

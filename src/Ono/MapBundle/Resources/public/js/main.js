@@ -308,9 +308,11 @@ burgerGestion = {
   },
   init:function(query){
     burgerGestion.container = document.querySelector(query);
-    burgerGestion.burger = burgerGestion.container.getElementsByClassName("burger-button")[0];
-    burgerGestion.initSidebarSize();
-    burgerGestion.initEvent();
+    if(burgerGestion.container) {
+      burgerGestion.burger = burgerGestion.container.getElementsByClassName("burger-button")[0];
+      burgerGestion.initSidebarSize();
+      burgerGestion.initEvent();
+    }
   }
 }
 

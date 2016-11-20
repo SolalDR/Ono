@@ -34,15 +34,18 @@ class ResponseController extends Controller
     public function viewAction($id)
     {
       $em = $this->getDoctrine()->getManager();
-      $repo = $em->getRepository("OnoMapBundle:Response");
+      $repoReponse = $em->getRepository("OnoMapBundle:Response");
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
 
-      $response = $repo->find($id);
+      $response = $repoReponse->find($id);
       if($response === null){
         throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
       }
+      $themes = $themRepo->findAll();
 
       return $this->render("OnoMapBundle:Response:view.html.twig", array(
-        "response" => $response
+        "response" => $response,
+        "themes" =>$themes
       ));
     }
 
@@ -52,6 +55,7 @@ class ResponseController extends Controller
 
       $em =$this->getDoctrine()->getManager();
       $repoQuestion = $em->getRepository("OnoMapBundle:Question");
+
       $question = $repoQuestion->find($id);
 
       //On crée le formulaire d'ajout de réponse, qu'on modifiera dynamiquement après
@@ -87,7 +91,6 @@ class ResponseController extends Controller
         //On renvoie une erreur
       }
 
-      $em = $this->getDoctrine()->getManager();
       $question = $em->getRepository("OnoMapBundle:Question")->find($id);
       // $country = $em->getRepository("OnoMapBundle:Country")->findOneBy(array("libCountry"=>"FRANCE"));
 
@@ -123,10 +126,14 @@ class ResponseController extends Controller
 
         return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
       }
+      
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $themes = $themRepo->findAll();
 
       return $this->render('OnoMapBundle:Response:add.html.twig', array(
         'form' => $form->createView(),
-        'question' =>$question
+        'question' =>$question,
+        "themes" => $themes
       ));
 
       $em->persist($response);

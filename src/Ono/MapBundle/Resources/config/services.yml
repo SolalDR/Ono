@@ -6,6 +6,4 @@ services:
             - { name: twig.extension }
         arguments:
             container: "@service_container"
-#    ono_map.example:
-#        class: Ono\MapBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+            token: "@security.token_storage"

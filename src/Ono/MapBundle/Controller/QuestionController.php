@@ -23,12 +23,10 @@ class QuestionController extends Controller
       //Initialisation
       $em = $this->getDoctrine()->getManager();
       $questionRepo = $em->getRepository("OnoMapBundle:Question");
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
 
       //On récupère les objets
       $questions = $questionRepo->findAll();
-
-      //On Récupère tout les thèmes
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
       $themes = $themRepo->findAll();
 
       //On retourne le tout
@@ -42,23 +40,23 @@ class QuestionController extends Controller
 
     public function viewAction($id)
     {
-
       $em = $this->getDoctrine()->getManager();
       $repoQ = $em->getRepository("OnoMapBundle:Question");
       $repoR = $em->getRepository("OnoMapBundle:Response");
+      $themRepo = $em->getRepository("OnoMapBundle:Theme");
 
       $question = $repoQ->find($id);
       if($question === null){
         throw new NotFoundHttpException("La question à afficher n'existe pas.");
       }
-
       $responses = $repoR->findBy(array("question"=>$question));
+      $themes = $themRepo->findAll();
 
       return $this->render("OnoMapBundle:Question:view.html.twig", array(
         "question" => $question,
-        "responses" =>  $responses
+        "responses" =>  $responses,
+        "themes" => $themes
       ));
     }
-
 
 }

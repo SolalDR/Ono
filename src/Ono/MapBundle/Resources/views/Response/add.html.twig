@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Réponse question</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
-  </head>
-  <body>
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Questions{% endblock %}
+
+{# STYLESHEETS #}
+{% block stylesheets %}
+{% stylesheets  filter='cssrewrite'
+  'bundles/onomap/css/bootstrap.min.css'
+  'bundles/onomap/css/style.css'
+%}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+  <div class="container-fluid">
     <h1>{{ question.libQuestion }}</h1>
 
     {# src/OC/PlatformBundle/Resources/views/Advert/form.html.twig #}
@@ -51,5 +59,7 @@
       {# Fermeture de la balise <form> du formulaire HTML #}
       {{ form_end(form) }}
     </div>
-  </body>
-</html>
+  </div>
+
+  {% endblock %}
+{% endblock %}
