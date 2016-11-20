@@ -65,6 +65,50 @@ ono_map_response_unlike:
 
 
 ############
+#  Article
+############
+
+ono_map_article_index:
+    path:     /articles
+    defaults:
+        _controller: OnoMapBundle:Article:index
+
+
+ono_map_article_view:
+    path:     /article/show/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:show
+    requirements:
+        id: \d+
+
+ono_map_article_add:
+    path:     /article/add
+    defaults:
+        _controller: OnoMapBundle:Article:add
+
+ono_map_article_edit:
+    path:     /article/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:edit
+    requirements:
+        id: \d+
+
+ono_map_article_like:
+    path:     /article/like/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:like
+    requirements:
+        id: \d+
+
+ono_map_article_unlike:
+    path:     /article/unlike/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:unlike
+    requirements:
+        id: \d+
+
+
+############
 #  QUESTION
 ############
 

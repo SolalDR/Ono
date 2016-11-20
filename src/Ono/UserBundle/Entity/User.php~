@@ -321,38 +321,4 @@ class User extends BaseUser
       }
       return false;
     }
-
-    /**
-     * Add articlesLiked
-     *
-     * @param \Ono\MapBundle\Entity\Article $articlesLiked
-     *
-     * @return User
-     */
-    public function addArticlesLiked(\Ono\MapBundle\Entity\Article $articlesLiked)
-    {
-        $this->articlesLiked[] = $articlesLiked;
-
-        return $this;
-    }
-
-    /**
-     * Remove articlesLiked
-     *
-     * @param \Ono\MapBundle\Entity\Article $articlesLiked
-     */
-    public function removeArticlesLiked(\Ono\MapBundle\Entity\Article $articlesLiked)
-    {
-        $this->articlesLiked->removeElement($articlesLiked);
-    }
-
-    /**
-     * Get articlesLiked
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticlesLiked()
-    {
-        return $this->articlesLiked;
-    }
 }

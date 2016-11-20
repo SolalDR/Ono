@@ -315,7 +315,6 @@ class Response
       $this->country = $user->getCountry();
       $this->language = $user->getLanguage();
       $this->dtnaissance = $user->getDtnaissance();
-      $this->language = $user->getLanguage();
       $this->author = $user->getFirstname().' '.$user->getName();
       return true;
     }

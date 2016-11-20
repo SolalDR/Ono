@@ -3,6 +3,8 @@
 namespace Ono\MapBundle\Twig;
 
 use Ono\MapBundle\Entity\Response;
+use Ono\MapBundle\Entity\Article;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Ono\UserBundle\Entity\User;
 
@@ -16,17 +18,8 @@ class AppExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('price', array($this, 'priceFilter')),
             new \Twig_SimpleFilter('isliking', array($this, 'isLiking'))
         );
-    }
-
-    public function priceFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
-    {
-        $price = number_format($number, $decimals, $decPoint, $thousandsSep);
-        $price = '$'.$price;
-
-        return $price;
     }
 
     public function isLiking($object)

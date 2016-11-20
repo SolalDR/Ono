@@ -1,0 +1,33 @@
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Article{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+    <div class="mainContent">
+      <h1>Liste des articles</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Libellé articles</th>
+            <th>Description</th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for article in articles %}
+          <tr>
+            <td>{{ article.id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.description }}</td>
+            <td><a href="{{ path("ono_map_article_view",{"id":article.id}) }}">Voir</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{{ path("ono_map_article_add") }}">Nouvel Article</a>
+
+    </div>
+  {% endblock %}
+{% endblock %}
