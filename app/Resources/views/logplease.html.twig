@@ -1,0 +1,12 @@
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Favoris{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+    <div class="container">
+      <h1>Vous devez vous logger pour continuer</h1>
+      <a href="{{ path("fos_user_security_login") }}">Connectez vous</a>
+      <a href="{{ path("fos_user_registration_register") }}">Inscriver vous</a>
+    </div>
+  {% endblock %}
+{% endblock %}

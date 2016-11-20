@@ -15,6 +15,8 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 // use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
+use Ono\UserBundle\Entity\User;
+
 class ProfileController extends BaseController
 {
   /**
@@ -38,9 +40,15 @@ class ProfileController extends BaseController
 
     $em = $this->getDoctrine()->getManager();
     $themes = $em->getRepository("OnoMapBundle:Theme")->findAll();
-    $user = $this->get('security.token_storage')->getToken()->getUser();
-    return $this->render('OnoUserBundle:Profile:favoris.html.twig', array(
-        'user' => $user,
+
+    if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+      $user = $this->get('security.token_storage')->getToken()->getUser();
+      return $this->render('OnoUserBundle:Profile:favoris.html.twig', array(
+          'user' => $user,
+          'themes' => $themes
+      ));
+    }
+    return $this->render('::logplease.html.twig', array(
         'themes' => $themes
     ));
   }
