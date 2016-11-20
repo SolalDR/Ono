@@ -1,3 +1,4 @@
+
 #promouvoir utilisateur
 ono_promote_user:
     path:     /user/promote/{id}

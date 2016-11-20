@@ -1,0 +1,35 @@
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Favoris{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+    <h1>Favoris</h1>
+    <h2>Réponse aimées</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Id :
+          </th>
+          <th>
+            NbLikes :
+          </th>
+          <th>
+            Questions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for response in user.responsesLiked %}
+        <tr>
+          <td>{{ response.id }}</td>
+          <td>{{ response.nbLikes }}</td>
+          <td>{{ response.question.libQuestion }}</td>
+          <td><a href="{{ path("ono_map_response_view", {"id": response.id}) }}">Voir</a> </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ path("ono_map_homepage") }}">Retour à l'accueil</a>
+  {% endblock %}
+{% endblock %}

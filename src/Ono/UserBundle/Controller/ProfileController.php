@@ -34,6 +34,17 @@ class ProfileController extends BaseController
       ));
   }
 
+  public function favorisAction(){
+
+    $em = $this->getDoctrine()->getManager();
+    $themes = $em->getRepository("OnoMapBundle:Theme")->findAll();
+    $user = $this->get('security.token_storage')->getToken()->getUser();
+    return $this->render('OnoUserBundle:Profile:favoris.html.twig', array(
+        'user' => $user,
+        'themes' => $themes
+    ));
+  }
+
   /**
    * Edit the user.
    *
