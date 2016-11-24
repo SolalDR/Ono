@@ -58,6 +58,7 @@ doctrine:
         user:     "root"
         password: "root"
         charset:  UTF8
+        unix_socket: "%unix_socket%"
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
