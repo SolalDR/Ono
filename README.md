@@ -83,9 +83,7 @@ git clone https://github.com/SolalDR/Ono.git
 
 - Allez dans le dossier Ono et téléchargez Composer
 ```
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
+wget https://getcomposer.org/composer.phar
 ```
 
 #### Configuration locale du projet
