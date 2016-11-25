@@ -52,11 +52,11 @@ twig:
 doctrine:
     dbal:
         driver:   pdo_mysql
-        host:     "localhost"
-        port:     "8888"
-        dbname:   "db-ono"
-        user:     "root"
-        password: "root"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset:  UTF8
         unix_socket: "%unix_socket%"
         # if using pdo_sqlite as your database driver:
