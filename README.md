@@ -82,9 +82,14 @@ git clone https://github.com/SolalDR/Ono.git
 ```
 
 - Allez dans le dossier Ono et téléchargez Composer
-```
-wget https://getcomposer.org/composer.phar
-```
+  - Pour Linux :
+  ```
+  wget https://getcomposer.org/composer.phar
+  ```
+  - Pour Mac :
+  ```
+  curl https://getcomposer.org/composer.phar -o composer.phar
+  ```
 
 #### Configuration locale du projet
 
