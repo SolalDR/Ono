@@ -97,19 +97,19 @@ Symfony load fixtures
 
 
 ### Installer Sass
-SASS a été implémenter pour gérer les assets. Si vous ne disposer pas de sass, vous pouvez l'installer en lançant : 
+SASS a été implémenter pour gérer les assets. Si vous ne disposer pas de sass, vous pouvez l'installer en lançant :
 ```
 gem install sass
 ```
 Sass utilise ruby, passez ici si vous n'avez pas gem
 https://rubygems.org/pages/download
 
-####Afin de lancer le watching des assets et mettre à jour vos css : 
+####Afin de lancer le watching des assets et mettre à jour vos css :
 Depuis la racine Ono
 ```
 cd src/Ono/MapBundle/Resources/public/
 ```
-Lancer la commande : 
+Lancer la commande :
 ```
 sass --watch sass/application.sass:css/style.css
 ```
@@ -127,17 +127,17 @@ git push
 
 ### Pour gérer les utilisateurs :
 
-- Promouvoire : 
+- Promouvoire :
 ```
 php bin/console fos:user:promote monutilisateur ROLE_ADMIN
 ```
 
-- Rétrograder : 
+- Rétrograder :
 ```
 php bin/console fos:user:demote monutilisateur ROLE_ADMIN
 ```
 
-- Créer : 
+- Créer :
 ```
 php bin/console fos:user:create monutilisateur test@example.com motdepasse
 ```
@@ -153,6 +153,9 @@ php bin/console assets:install web --symlink
 ===
 
 ## Liens externes :
+
+Affichage article à la Pinterest :
+http://codepen.io/dudleystorey/pen/yqrhw
 
 Pour plus d'informations sur CKEditor :
 http://symfony.com/doc/current/bundles/IvoryCKEditorBundle/index.html
