@@ -1,55 +1,10 @@
-Ono
-===
+#Ono
 
 A Symfony project created on September 15, 2016, 10:30 am.
 
+===
 
-
-## Développement Front :
-
-### Page à intégrer
-- Profil
-- Contact
-- Mentions légales (travail de rédaction)
-- Thèmes (décrit chaque variable)
-- À propos
-
-
-## Développement Back :
-
-### Modèle
-
-#### TRADUCTION QUESTION : (ManyToOne : Question)
-- idQuestion
-- libQuestion
-- cdLanguage
-
-#### USER : (OneToMany Entity responses, OneToOne Entity Country, OneToOne Entity Language)
-- FOS USER Bundle attributes : nom ; prénom ; datesign ; datelast ; mail ; status ; etc...
-- description
-- country
-- cdLanguage
-- responses
-- dtnaissance
-
-#### RESPONSE :
-- add language attributes
-
-#### RESPONSE (ManyToOne : question) (ManyToOne : User) (ManyToMany : theme)(ManyToOne : Country)
-- nblike (A rajouter)
-
-
-### Vue
-
-- Créer/Récupérer les icônes pour chaque thème / les intégrer dans les assets avec des noms pertinents (qui seront repris à l'aide du cdTheme)
-- Customiser les pages d'erreur, Erreur 500, Erreur 404, Access Denied
-
-
-
-
-## Rappel pour les développeurs :
-
-### Installation :
+## Initialisation :
 
 #### Pré-requis
 
@@ -135,21 +90,53 @@ Symfony update -f
 Symfony load fixtures
 ```
 
+===
+## Rappel pour les développeurs :
+
+
+### Installer Sass
+SASS a été implémenter pour gérer les assets. Si vous ne disposer pas de sass, vous pouvez l'installer en lançant : 
+```
+gem install sass
+```
+Sass utilise ruby, passez ici si vous n'avez pas gem
+https://rubygems.org/pages/download
+
+####Afin de lancer le watching des assets et mettre à jour vos css : 
+Depuis la racine Ono
+```
+cd src/Ono/MapBundle/Resources/public/
+```
+Lancer la commande : 
+```
+sass --watch sass/application.sass:css/style.css
+```
+
 ### Pour récupérer code avant de push ses modifications :
 
-- git stash // Met ses modifications locales de côté
-- git pull // Récupère les éventuelles mises à jour sur le repo
-- git stash apply // Récupère ses modifications locales
-- Résoudre les éventuels conflits
-- git add . // Ajoute les modifications
-- git commit…
-- git push
+```
+git stash // Met ses modifications locales de côté
+git pull // Récupère les éventuelles mises à jour sur le repo
+git stash apply // Récupère ses modifications locales
+git add . // Ajoute les modifications
+git commit -m "Votre commentaire de commit"
+git push
+```
 
 ### Pour gérer les utilisateurs :
 
-- Promouvoire : php bin/console fos:user:promote monutilisateur ROLE_ADMIN
-- Rétrograder : php bin/console fos:user:demote monutilisateur ROLE_ADMIN
-- Créer : php bin/console fos:user:create monutilisateur test@example.com motdepasse
+- Promouvoire : 
+```
+php bin/console fos:user:promote monutilisateur ROLE_ADMIN
+```
+- Rétrograder : 
+```
+php bin/console fos:user:demote monutilisateur ROLE_ADMIN
+``` 
+- Créer : 
+```
+php bin/console fos:user:create monutilisateur test@example.com motdepasse
+```
 
 ### Pour installation CKEditor :
 
@@ -159,7 +146,9 @@ Symfony load fixtures
 php bin/console assets:install web --symlink
 ```
 
-### Liens externes :
+===
+
+## Liens externes :
 
 Pour plus d'informations sur CKEditor :
 http://symfony.com/doc/current/bundles/IvoryCKEditorBundle/index.html
