@@ -1,4 +1,4 @@
-#Ono
+# Ono
 
 A Symfony project created on September 15, 2016, 10:30 am.
 
@@ -66,16 +66,18 @@ Pour les paramètres :
   - mailer_user (null)
   - mailer_password (null)
   - secret (51c22993d139d305998644299354a849fbdd16dd)
-- unix_socket : selon votre OS,
-  - Linux : laissez par défaut (null)
-  - Mac : /Applications/MAMP/tmp/mysql/mysql.sock
+- unix_socket laissez par défaut (null)
+  Sur Mac, si vous obtenez une erreur comme "No such file or directory" :
+  - Supprimez le fichier app/config/parameters.yml
+  - Recommencez l'installation des dépendances
+  - Pour "unix_socket", mettez cette valeur : /Applications/MAMP/tmp/mysql.sock
 
-- Une erreur apparaît car la base de données "db-ono" n'existe pas. Créez-là :
+- Une erreur peut apparaître car la base de données "db-ono" n'existe pas. Dans tous les cas, créez-là :
 ```
 Symfony db create
 ```
 
-- Finissez l'installation des dépendances d'Ono
+- Finissez l'installation des dépendances d'Ono pour vérifier que vous n'avez plus d'erreur
 ```
 php composer.phar install
 ```
@@ -129,10 +131,12 @@ git push
 ```
 php bin/console fos:user:promote monutilisateur ROLE_ADMIN
 ```
+
 - Rétrograder : 
 ```
 php bin/console fos:user:demote monutilisateur ROLE_ADMIN
-``` 
+```
+
 - Créer : 
 ```
 php bin/console fos:user:create monutilisateur test@example.com motdepasse
