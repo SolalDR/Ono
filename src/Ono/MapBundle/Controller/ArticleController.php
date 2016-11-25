@@ -34,6 +34,7 @@ class ArticleController extends Controller
       "themes" => $themes
     ));
   }
+
   public function showAction($id){
     $em = $this->getDoctrine()->getManager();
     $repoArticle = $em->getRepository("OnoMapBundle:Article");
@@ -50,9 +51,9 @@ class ArticleController extends Controller
       "themes" =>$themes
     ));
   }
+
   public function addAction(Request $request){
     $em =$this->getDoctrine()->getManager();
-    $repoArticle = $em->getRepository("OnoMapBundle:Article");
     $themRepo = $em->getRepository("OnoMapBundle:Theme");
     $themes = $themRepo->findAll();
 
@@ -133,8 +134,6 @@ class ArticleController extends Controller
           if(!$isLiking){
             $user->addArticlesLiked($article);
             $article->incrementLikes();
-            dump($user);
-            dump($article);
             $em->persist($user);
             $em->persist($article);
             $em->flush();

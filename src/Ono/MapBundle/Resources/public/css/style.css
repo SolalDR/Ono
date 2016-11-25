@@ -683,3 +683,138 @@ input[type=range] {
     width: 20%; }
   #admin .mainContent table tr td .button-style {
     margin-bottom: 0; }
+
+#authentification-pages {
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-height: 100vh;
+  width: 100%;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  padding-left: 0; }
+  #authentification-pages .container-log {
+    width: 50%;
+    margin: auto;
+    min-width: 800px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+    -ms-transform: translateX(-50%) translateY(-50%);
+    /* IE 9 */
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    /* IE 10, Fx 16+, Op 12.1+ */ }
+    #authentification-pages .container-log h1 {
+      text-align: center; }
+      #authentification-pages .container-log h1 img {
+        width: 60%;
+        display: inline-block; }
+    #authentification-pages .container-log .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      width: calc(40% - 60px); }
+      #authentification-pages .container-log .form-container #sign-in {
+        text-align: center;
+        margin-bottom: 40px; }
+      #authentification-pages .container-log .form-container #connect-later {
+        background-color: #797979;
+        text-align: center;
+        padding: 10px 0; }
+      #authentification-pages .container-log .form-container .btn {
+        width: 100%;
+        padding: 10px;
+        text-transform: uppercase;
+        font-size: .8em;
+        border: 0px none;
+        color: white;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 10px; }
+        #authentification-pages .container-log .form-container .btn.bg-green {
+          background-color: #a6d541; }
+    #authentification-pages .container-log .intro-description {
+      padding: 80px 40px;
+      background-color: rgba(0, 124, 150, 0.8);
+      color: white;
+      width: calc(60% - 80px);
+      top: 50%;
+      position: absolute;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+      -ms-transform: translateY(-50%);
+      /* IE 9 */
+      -o-transform: translateY(-50%);
+      transform: translateY(-50%);
+      /* IE 10, Fx 16+, Op 12.1+ */ }
+      #authentification-pages .container-log .intro-description h2 {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 2em; }
+      #authentification-pages .container-log .intro-description h3 {
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: #b6b6b6;
+        font-weight: 100; }
+      #authentification-pages .container-log .intro-description article {
+        font-weight: 100; }
+        #authentification-pages .container-log .intro-description article p {
+          margin-bottom: 15px;
+          font-size: .9em;
+          line-height: 20px; }
+
+.form-materialize form textarea {
+  position: relative;
+  display: block;
+  margin-bottom: 40px;
+  width: 96%;
+  height: 200px;
+  border: 2px solid #0c4874;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: 15px;
+  padding: 2%; }
+.form-materialize form input {
+  box-shadow: none; }
+.form-materialize form .textfieldContainer {
+  margin-bottom: 40px;
+  height: 22px;
+  width: 100%;
+  position: relative; }
+  .form-materialize form .textfieldContainer input[type="text"], .form-materialize form .textfieldContainer input[type="email"], .form-materialize form .textfieldContainer input[type="password"] {
+    display: block;
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    border-bottom: 2px solid #0c4874;
+    font-size: 20px;
+    font-weight: 100;
+    position: relative;
+    z-index: 3;
+    -webkit-transition: .1s ease-in;
+    -moz-transition: .1s ease-in;
+    -o-transition: .1s ease-in;
+    transition: .1s ease-in; }
+  .form-materialize form .textfieldContainer label {
+    position: absolute;
+    bottom: 0px;
+    top: 7px;
+    font-size: 17px;
+    color: #343434;
+    font-weight: 100;
+    z-index: 2;
+    -webkit-transition: .1s ease-in;
+    -moz-transition: .1s ease-in;
+    -o-transition: .1s ease-in;
+    transition: .1s ease-in; }
+    .form-materialize form .textfieldContainer label.focus {
+      top: -15px;
+      color: #0c4874;
+      font-size: 14px; }
+.form-materialize form .checkboxContainer {
+  margin-bottom: 20px; }
+
+/*# sourceMappingURL=style.css.map */

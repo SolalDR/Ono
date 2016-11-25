@@ -14,11 +14,12 @@
       </p>
       <p>
         Test :
-        {{ article|isliking }}
-        {% if article|isliking == true %}
-        <a href="{{ path("ono_map_article_unlike", {"id": article.id }) }}">J'aime plus</a>
-        {% else %}
-        <a href="{{ path("ono_map_article_like", {"id": article.id }) }}">J'aime</a>
+        {% if is_granted("ROLE_USER") %}
+          {% if article|isliking == true %}
+          <a href="{{ path("ono_map_article_unlike", {"id": article.id }) }}">J'aime plus</a>
+          {% else %}
+          <a href="{{ path("ono_map_article_like", {"id": article.id }) }}">J'aime</a>
+          {% endif %}
         {% endif %}
       </p>
       Contenu :
