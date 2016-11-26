@@ -20,7 +20,7 @@ use Ono\MapBundle\Form\QuestionType;
 class QuestionController extends Controller
 {
     //Action affichant la page d'accueil avec la carte
-    public function indexAction(Request $request, $ids = null)
+    public function indexAction(Request $request, $numIds = null)
     {
       //Initialisation
       $manager = $this->getDoctrine()->getManager();
@@ -46,14 +46,16 @@ class QuestionController extends Controller
     }
 
 
-    public function viewAction($id)
+    public function viewAction(Request $request)
     {
+      $numId = (int) $request->attributes->all()["id"];
+
       $manager = $this->getDoctrine()->getManager();
       $repoQ = $manager->getRepository("OnoMapBundle:Question");
       $repoR = $manager->getRepository("OnoMapBundle:Response");
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-      $question = $repoQ->find($id);
+      $question = $repoQ->find($numId);
       if($question === null){
         throw new NotFoundHttpException("La question à afficher n'existe pas.");
       }
@@ -67,9 +69,10 @@ class QuestionController extends Controller
       ));
     }
 
-    public function editAction(Request $request, $id){
+    public function editAction(Request $request){
+        $numId = (int) $request->attributes->all()["id"];
         $manager = $this->getDoctrine()->getManager();
-        $question = $manager->getRepository("OnoMapBundle:Question")->find($id);
+        $question = $manager->getRepository("OnoMapBundle:Question")->find($numId);
 
         $form = $this->get('form.factory')->create(QuestionType::class, $question);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -105,15 +108,17 @@ class QuestionController extends Controller
       ));
     }
 
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request)
     {
+      $numId = (int) $request->attributes->all()["id"];
+
         $manager = $this->getDoctrine()->getManager();
 
-        // On récupère l'annonce $id
-        $question = $manager->getRepository('OnoMapBundle:Question')->find($id);
+        // On récupère l'annonce $numId
+        $question = $manager->getRepository('OnoMapBundle:Question')->find($numId);
 
         if (null === $question) {
-          throw new NotFoundHttpException("La question d'id ".$id." n'existe pas.");
+          throw new NotFoundHttpException("La question d'id ".$numId." n'existe pas.");
         }
 
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF

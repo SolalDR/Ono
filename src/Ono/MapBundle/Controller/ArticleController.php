@@ -35,12 +35,13 @@ class ArticleController extends Controller
     ));
   }
 
-  public function showAction($id){
+  public function showAction(Request $request){
+    $numId = (int) $request->attributes->all()["id"];
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-    $article = $repoArticle->find($id);
+    $article = $repoArticle->find($numId);
     if($article === null){
       throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
     }
@@ -85,13 +86,14 @@ class ArticleController extends Controller
     ));
 
   }
-  public function editAction($id, Request $request){
+  public function editAction(Request $request){
+    $numId = (int) $request->attributes->all()["id"];
     $manager =$this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
     $themes = $themRepo->findAll();
 
-    $article = $repoArticle->find($id);
+    $article = $repoArticle->find($numId);
     $user = $this->get('security.token_storage')->getToken()->getUser();
 
     if($article && $user instanceof User && $user->getId() === $article->getUser()->getId()){
@@ -117,13 +119,14 @@ class ArticleController extends Controller
       ));
     }
     return $this->redirectToRoute("ono_map_article_view", array(
-      "id" => $id
+      "id" => $numId
     ));
   }
-  public function likeAction($id, Request $request){
+  public function likeAction(Request $request){
+    $numId = (int) $request->attributes->all()["id"];
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
-    $article = $repoArticle->find($id);
+    $article = $repoArticle->find($numId);
 
 
     if($article){
@@ -149,10 +152,11 @@ class ArticleController extends Controller
     return $this->redirectToRoute('ono_map_homepage');
   }
 
-  public function unlikeAction($id, Request $request){
+  public function unlikeAction(Request $request){
+    $numId = (int) $request->attributes->all()["id"];
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
-    $article = $repoArticle->find($id);
+    $article = $repoArticle->find($numId);
 
     if($article){
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){

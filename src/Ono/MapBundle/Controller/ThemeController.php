@@ -39,9 +39,11 @@ class ThemeController extends Controller
     ));
   }
 
-  public function editAction(Request $request, $id){
+  public function editAction(Request $request){
+    $numId = (int) $request->attributes->all()["id"];
+
     $manager = $this->getDoctrine()->getManager();
-    $theme = $manager->getRepository("OnoMapBundle:Theme")->find($id);
+    $theme = $manager->getRepository("OnoMapBundle:Theme")->find($numId);
     $form = $this->get('form.factory')->create(ThemeType::class, $theme);
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
       $manager->persist($theme);
@@ -55,13 +57,14 @@ class ThemeController extends Controller
     ));
   }
 
-  public function deleteAction(Request $request, $id)
+  public function deleteAction(Request $request)
   {
+      $numId = (int) $request->attributes->all()["id"];
       $manager = $this->getDoctrine()->getManager();
-      // On récupère l'annonce $id
-      $theme = $manager->getRepository('OnoMapBundle:Theme')->find($id);
+      // On récupère l'annonce $numId
+      $theme = $manager->getRepository('OnoMapBundle:Theme')->find($numId);
       if (null === $theme) {
-        throw new NotFoundHttpException("Le thème d'id ".$id." n'existe pas.");
+        throw new NotFoundHttpException("Le thème d'id ".$numId." n'existe pas.");
       }
       // On crée un formulaire vide, qui ne contiendra que le champ CSRF
       // Cela permet de protéger la suppression d'annonce contre cette faille

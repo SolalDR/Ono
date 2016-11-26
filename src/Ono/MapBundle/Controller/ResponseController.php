@@ -31,13 +31,15 @@ class ResponseController extends Controller
 {
 
     // View Response
-    public function viewAction($id)
+    public function viewAction(Request $request)
     {
+      $numId = (int) $request->attributes->all()["id"];
+
       $manager = $this->getDoctrine()->getManager();
       $repoReponse = $manager->getRepository("OnoMapBundle:Response");
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
-      dump($id);
-      $response = $repoReponse->find($id);
+      dump($numId);
+      $response = $repoReponse->find($numId);
       if($response === null){
         throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
       }
@@ -50,13 +52,14 @@ class ResponseController extends Controller
     }
 
 
-    public function addAction($id, Request $request)
+    public function addAction(Request $request)
     {
+      $numId = (int) $request->attributes->all()["id"];
 
       $manager =$this->getDoctrine()->getManager();
       $repoQuestion = $manager->getRepository("OnoMapBundle:Question");
 
-      $question = $repoQuestion->find($id);
+      $question = $repoQuestion->find($numId);
 
       //On crée le formulaire d'ajout de réponse, qu'on modifiera dynamiquement après
       if($question){
@@ -89,7 +92,7 @@ class ResponseController extends Controller
         }
       }
 
-      $question = $manager->getRepository("OnoMapBundle:Question")->find($id);
+      $question = $manager->getRepository("OnoMapBundle:Question")->find($numId);
       // $country = $manager->getRepository("OnoMapBundle:Country")->findOneBy(array("libCountry"=>"FRANCE"));
 
       //Si il n'y a pas de réponse
@@ -142,10 +145,12 @@ class ResponseController extends Controller
       ));
     }
 
-    public function likeAction($id, Request $request){
+    public function likeAction(Request $request){
+      $numId = (int) $request->attributes->all()["id"];
+
       $manager = $this->getDoctrine()->getManager();
       $repoResponse = $manager->getRepository("OnoMapBundle:Response");
-      $response = $repoResponse->find($id);
+      $response = $repoResponse->find($numId);
 
       if($response){
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
@@ -171,10 +176,12 @@ class ResponseController extends Controller
       return $this->redirectToRoute('ono_map_homepage');
     }
 
-    public function unlikeAction($id, Request $request){
+    public function unlikeAction(Request $request){
+      $numId = (int) $request->attributes->all()["id"];
+
       $manager = $this->getDoctrine()->getManager();
       $repoResponse = $manager->getRepository("OnoMapBundle:Response");
-      $response = $repoResponse->find($id);
+      $response = $repoResponse->find($numId);
 
       if($response){
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){

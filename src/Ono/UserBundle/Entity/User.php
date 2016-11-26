@@ -316,24 +316,6 @@ class User extends BaseUser
       }
       return false;
     }
-    // public function isLikingResponse(Response $response) {
-    //   $likes = $this->getResponsesLiked();
-    //   for($i=0; $i<count($likes); $i++){
-    //     if($likes[$i]->getId()===$response->getId()){
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // }
-    // public function isLikingArticle(Article $article) {
-    //   $likes = $this->getArticlesLiked();
-    //   for($i=0; $i<count($likes); $i++){
-    //     if($likes[$i]->getId()===$article->getId()){
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // }
 
     /**
      * Add articlesLiked
