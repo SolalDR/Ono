@@ -1,4 +1,9 @@
 var prefix = ["webkit", "o", "moz"];
+function listenAnimationIteration(prefix){
+  loaderManage.el.antenne.addEventListener(prefix+"Animationiteration", function(){
+    loaderManage.animationStart = Date.now();
+  }, false);
+}
 
 loaderManage = {
   loaderContainer : document.getElementById("loader"),
@@ -7,7 +12,7 @@ loaderManage = {
     duration : { //ms
       classic : 4200,
       speed : 4200,
-      skew : 3000,
+      skew : 3000
     }
   },
   el: {
@@ -31,26 +36,17 @@ loaderManage = {
   },
 
   stopAnimation:function(){
-    // var duration = parseInt(loaderManage.loaderContainer.getAttribute("data-animationDuration"));
-    // var timePass = Date.now() - loaderManage.animationStart;
-    // var timeLeft = duration - timePass;
-    //
-    // setTimeout(function(){
-    //   loaderManage.setToOutAnimation();
-      loaderManage.loaderContainerManage.style.opacity = 0;
-    // }, timeLeft);
+    loaderManage.loaderContainerManage.style.opacity = 0;
     setTimeout(function(){
       document.body.removeChild(loaderManage.loaderContainerManage);
     }, 1600);
   },
   initEvent: function(){
 
-    console.log(loaderManage.el.antenne);
+
     //Stocke à chaque itération d'animation, le début de cette dernière pour chaque prefix
     for(i=0; i<prefix.length; i++){
-      loaderManage.el.antenne.addEventListener(prefix[i]+"Animationiteration", function(){
-        loaderManage.animationStart = Date.now();
-      }, false);
+      listenAnimationIteration(prefix[i]);
     }
     loaderManage.el.antenne.addEventListener("animationiteration", function(){
       loaderManage.animationStart = Date.now();

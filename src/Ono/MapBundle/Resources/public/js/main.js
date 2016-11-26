@@ -25,27 +25,37 @@ function isElement(obj) {
   }
 }
 
+function toggleClassSidebarOpen(el, classOpen, classClose){
+  if(el.className.match(classOpen)){
+    el.className = el.className.replace(classOpen, classClose)
+  } else if(el.className.match(classClose)){
+    el.className = el.className.replace(classClose, classOpen)
+  }
+}
+
+function getXhrObject(){
+  // ### Construction de l’objet XMLHttpRequest selon le type de navigateur
+  if(window.XMLHttpRequest){
+    return new XMLHttpRequest();
+  }	else if(window.ActiveXObject) {
+    return new ActiveXObject("Microsoft.XMLHTTP");
+  } else {
+    // XMLHttpRequest non supporté par le navigateur
+    console.log("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
+    return;
+  }
+}
 
 // Envoie la XHR
 function callScript (scriptName, args, form, isJsonEncode){
-	var xhr_object = null;
+	var xhr_object = getXhrObject();
 
-	// ### Construction de l’objet XMLHttpRequest selon le type de navigateur
-	if(window.XMLHttpRequest){
-    xhr_object = new XMLHttpRequest();
-  }	else if(window.ActiveXObject) {
-	  	 xhr_object = new ActiveXObject("Microsoft.XMLHTTP");
-	} else {
-                // XMLHttpRequest non supporté par le navigateur
-	   	alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
-    		 return;
-	}
   console.log(scriptName);
 	xhr_object.open("POST", scriptName, true);
 
 	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
 	xhr_object.onreadystatechange = function() {
-	  if(this.readyState == 4 && this.status === 200) {
+	  if(this.readyState === 4 && this.status === 200) {
 			// alert(xhr_object.responseText); // DEBUG MODE
 			// document.write(xhr_object.responseText);
       if(form) {
@@ -106,12 +116,31 @@ function createElement(type, classname, attributes){
 //
 ///////////////////////////////////////////////////////
 
+function getArgs(els, arg){
+  for(i=0; i<els.length; i++){
+    if(els[i]){
+      arg[els[i].name]= els[i].value;
+    }
+  }
+  return arg;
+}
+
+function getInputs(inputs, arg){
+  for(i=0; i<inputs.length; i++){
+    if(inputs[i]){
+      if(inputs[i].value && inputs[i].name){
+        arg[inputs[i].name] = inputs[i].value;
+      }
+    }
+  }
+  return arg
+}
 
 XHRformAuto = {
  forms : document.querySelectorAll("form[data-xhrpost='true']"),
  main : function(form){
    form.onsubmit = function(e){
-     e.preventDefault;
+     e.preventDefault();
      return false;
    }
    var submitButton = form.querySelectorAll("input[type='submit'], button[type='submit']")[0];
@@ -120,36 +149,24 @@ XHRformAuto = {
      var inputs = form.getElementsByTagName("input");
      var textarea = form.getElementsByTagName("textarea");
      var select = form.getElementsByTagName("select");
+     var test;
 
-     for(i=0; i<select.length; i++){
-       if(select[i]){
-         arg[select[i].name]= select[i].value;
-       }
-     }     for(i=0; i<textarea.length; i++){
-       if(textarea[i]){
-         arg[textarea[i].name]= textarea[i].value;
-       }
-     }
-     for(i=0; i<inputs.length; i++){
-       if(inputs[i]){
-         if(inputs[i].value && inputs[i].name){
-           arg[inputs[i].name] = inputs[i].value;
-         }
-       }
-     }
-    //  console.log(this.action, );
+     arg = getArgs(select, arg);
+     arg = getArgs(textarea, arg);
+     arg = getInputs(inputs, arg);
+
     if(form.getAttribute("data-json")){
-      var test = callScript(form.action, arg, form,  true);
+      test = callScript(form.action, arg, form,  true);
     } else {
-      var test = callScript(form.action, arg, form);
+      test = callScript(form.action, arg, form);
     }
    }, false)
  },
  realiseAction(txt, form, content){
    function removeForm(form){
-     var form = form.parentNode;
+     var formParent = form.parentNode;
      var parent = form.parentNode;
-     parent.removeChild(form);
+     parent.removeChild(formParent);
     //  console.log(parent);
      console.log("Supprimer formulaire");
    }
@@ -198,22 +215,12 @@ filter = {
   },
 
   updateQuestionCallscript: function(scriptName, args){
-  	var xhr_object = null;
-  	// ### Construction de l’objet XMLHttpRequest selon le type de navigateur
-  	if(window.XMLHttpRequest){
-      xhr_object = new XMLHttpRequest();
-    }	else if(window.ActiveXObject) {
-  	  	 xhr_object = new ActiveXObject("Microsoft.XMLHTTP");
-  	} else {
-        // XMLHttpRequest non supporté par le navigateur
-  	   	alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
-      		 return;
-  	}
+  	var xhr_object = getXhrObject();
   	xhr_object.open("POST", scriptName, true);
 
   	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
   	xhr_object.onreadystatechange = function() {
-  	  if(this.readyState == 4 && this.status === 200) {
+  	  if(this.readyState === 4 && this.status === 200) {
         mapGestion.updateQuestionFromJson(xhr_object.responseText);
       }
   		return xhr_object.readyState;
@@ -293,11 +300,7 @@ filter = {
 burgerGestion = {
   initEvent:function(){
     burgerGestion.burger.addEventListener("click", function(){
-      if(burgerGestion.container.className.match("sidebar-open")){
-        burgerGestion.container.className = burgerGestion.container.className.replace("sidebar-open", "sidebar-close")
-      } else if(burgerGestion.container.className.match("sidebar-close")){
-        burgerGestion.container.className = burgerGestion.container.className.replace("sidebar-close", "sidebar-open")
-      }
+      toggleClassSidebarOpen(burgerGestion.container, "sidebar-open", "sidebar-close");
     }, false)
   },
   initSidebarSize: function(){
@@ -330,11 +333,7 @@ themeGestion = {
     }, false)
     themeGestion.openbutton.addEventListener("click", function(e){
       e.preventDefault();
-      if(themeGestion.container.className.match("sidebar-open")){
-        themeGestion.container.className = themeGestion.container.className.replace("sidebar-open", "sidebar-close")
-      } else if(themeGestion.container.className.match("sidebar-close")){
-        themeGestion.container.className = themeGestion.container.className.replace("sidebar-close", "sidebar-open")
-      }
+      toggleClassSidebarOpen(themeGestion.container, "sidebar-open", "sidebar-close");
     }, false)
   },
   init:function(){
@@ -390,7 +389,8 @@ function Message(args, timelife = null){
 }
 
 Message.prototype.generateHtml = function(){
-  var container = createElement("div", "alert-container "+"alert-status-"+this.type);
+  var containerString = "alert-container alert-status-"+this.type
+  var container = createElement("div", containerString);
   var title = createElement("p", "alert-title");
   title.innerHTML = this.title;
   container.appendChild(title);

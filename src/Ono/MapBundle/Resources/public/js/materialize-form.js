@@ -3,7 +3,7 @@ materializeForm = {
     elements: {
         container: document.getElementsByClassName("textfieldContainer"),
         input: [],
-        label: [],
+        label: []
     },
 
     // Récupére les éléments
@@ -15,21 +15,29 @@ materializeForm = {
     },
 
     //
+    setReset:function(){
+      for (i = 0; i < materializeForm.elements.label.length; i++) {
+          if (!materializeForm.elements.input[i].value) {
+              materializeForm.elements.label[i].className = "";
+          }
+      }
+    },
+
+    setFocus:function(rank){
+      for (i = 0; i < materializeForm.elements.label.length; i++) {
+          if (i === rank) {
+              materializeForm.elements.label[i].className = "focus";
+          } else if (!materializeForm.elements.input[i].value) {
+              materializeForm.elements.label[i].className = "";
+          }
+      }
+    },
+
     setLabelPosition: function(rank, reset) {
         if (reset) {
-            for (i = 0; i < materializeForm.elements.label.length; i++) {
-                if (materializeForm.elements.input[i].value == "") {
-                    materializeForm.elements.label[i].className = "";
-                }
-            }
+          materializeForm.setReset();
         } else {
-            for (i = 0; i < materializeForm.elements.label.length; i++) {
-                if (i == rank) {
-                    materializeForm.elements.label[i].className = "focus";
-                } else if (materializeForm.elements.input[i].value == "") {
-                    materializeForm.elements.label[i].className = "";
-                }
-            }
+          materializeForm.setFocus(rank);
         }
     },
 

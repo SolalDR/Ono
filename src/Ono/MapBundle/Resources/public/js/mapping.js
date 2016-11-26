@@ -187,13 +187,13 @@ mapGestion = {
     console.log("List des questions :", listContainer);
     var questionsEl = [];
 
-    for(var i=0; i<questions.length; i++){
+    for(i=0; i<questions.length; i++){
       var length = questionsEl.push(createElement("li"));
       questionsEl[i].innerHTML = questions[i].libQuestion;
       listContainer.appendChild(questionsEl[i]);
     }
 
-    for(var i=0; i<questionsEl.length; i++){
+    for(i=0; i<questionsEl.length; i++){
       mapGestion.initQuestionClickInSidebar(questionsEl[i], questions[i], idCountry);
     }
   },
