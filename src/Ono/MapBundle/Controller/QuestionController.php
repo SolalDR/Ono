@@ -15,37 +15,45 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
 
+use Ono\MapBundle\Form\QuestionType;
+
 class QuestionController extends Controller
 {
     //Action affichant la page d'accueil avec la carte
     public function indexAction(Request $request, $ids = null)
     {
       //Initialisation
-      $em = $this->getDoctrine()->getManager();
-      $questionRepo = $em->getRepository("OnoMapBundle:Question");
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $manager = $this->getDoctrine()->getManager();
+      $questionRepo = $manager->getRepository("OnoMapBundle:Question");
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
       //On récupère les objets
       $questions = $questionRepo->findAll();
       $themes = $themRepo->findAll();
 
-      //On retourne le tout
+      $routeName = $request->get('_route');
+      if($routeName === "ono_admin_list_question") {
+        return $this->render('OnoMapBundle:Admin:list-question.html.twig', array(
+          "questions" => $questions
+        ));
+      }
+        //On retourne le tout
       return $this->render('OnoMapBundle:Question:index.html.twig', array(
         "questions" => $questions,
         "themes" => $themes
       ));
+
     }
 
 
-
-    public function viewAction($id)
+    public function viewAction($question_id)
     {
-      $em = $this->getDoctrine()->getManager();
-      $repoQ = $em->getRepository("OnoMapBundle:Question");
-      $repoR = $em->getRepository("OnoMapBundle:Response");
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $manager = $this->getDoctrine()->getManager();
+      $repoQ = $manager->getRepository("OnoMapBundle:Question");
+      $repoR = $manager->getRepository("OnoMapBundle:Response");
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-      $question = $repoQ->find($id);
+      $question = $repoQ->find($question_id);
       if($question === null){
         throw new NotFoundHttpException("La question à afficher n'existe pas.");
       }
@@ -57,6 +65,77 @@ class QuestionController extends Controller
         "responses" =>  $responses,
         "themes" => $themes
       ));
+    }
+
+    public function editAction(Request $request, $question_id){
+        $manager = $this->getDoctrine()->getManager();
+        $question = $manager->getRepository("OnoMapBundle:Question")->find($question_id);
+
+        $form = $this->get('form.factory')->create(QuestionType::class, $question);
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $manager->persist($question);
+          $manager->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Question bien modifié.');
+
+          return $this->redirectToRoute("ono_admin_list_question");
+        }
+
+        return $this->render('OnoMapBundle:Admin:edit-question.html.twig', array(
+          "form" => $form->createView(),
+          "question" => $question
+        ));
+      }
+
+    public function addAction(Request $request){
+      $manager = $this->getDoctrine()->getManager();
+      $question = new Question;
+
+      $form = $this->get('form.factory')->create(QuestionType::class, $question);
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $manager->persist($question);
+        $manager->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Question bien enregistrée.');
+
+        return $this->redirectToRoute("ono_admin_list_question");
+      }
+      return $this->render('OnoMapBundle:Admin:add-question.html.twig', array(
+        "form" => $form->createView()
+      ));
+    }
+
+    public function deleteAction(Request $request, $question_id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        // On récupère l'annonce $question_id
+        $question = $manager->getRepository('OnoMapBundle:Question')->find($question_id);
+
+        if (null === $question) {
+          throw new NotFoundHttpException("La question d'id ".$question_id." n'existe pas.");
+        }
+
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'annonce contre cette faille
+        $form = $this->createFormBuilder()->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+          $manager->remove($question);
+          $manager->flush();
+
+          $request->getSession()->getFlashBag()->add('info', "La question a bien été supprimée.");
+
+          return $this->redirect($this->generateUrl('ono_admin_list_question'));
+        }
+
+        // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+        return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+          'object' => $question,
+          'title' => $question->getLibQuestion(),
+          'pathDelete' => "ono_admin_delete_question",
+          'form'   => $form->createView()
+        ));
     }
 
 }

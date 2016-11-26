@@ -24,9 +24,9 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class ArticleController extends Controller
 {
   public function indexAction(){
-    $em = $this->getDoctrine()->getManager();
-    $repoArticle = $em->getRepository("OnoMapBundle:Article");
-    $themesRepo = $em->getRepository("OnoMapBundle:Theme");
+    $manager = $this->getDoctrine()->getManager();
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+    $themesRepo = $manager->getRepository("OnoMapBundle:Theme");
     $themes = $themesRepo->findAll();
     $articles = $repoArticle->findAll();
     return $this->render("OnoMapBundle:Article:index.html.twig", array(
@@ -35,12 +35,12 @@ class ArticleController extends Controller
     ));
   }
 
-  public function showAction($id){
-    $em = $this->getDoctrine()->getManager();
-    $repoArticle = $em->getRepository("OnoMapBundle:Article");
-    $themRepo = $em->getRepository("OnoMapBundle:Theme");
+  public function showAction($article_id){
+    $manager = $this->getDoctrine()->getManager();
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+    $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-    $article = $repoArticle->find($id);
+    $article = $repoArticle->find($article_id);
     if($article === null){
       throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
     }
@@ -53,8 +53,8 @@ class ArticleController extends Controller
   }
 
   public function addAction(Request $request){
-    $em =$this->getDoctrine()->getManager();
-    $themRepo = $em->getRepository("OnoMapBundle:Theme");
+    $manager =$this->getDoctrine()->getManager();
+    $themRepo = $manager->getRepository("OnoMapBundle:Theme");
     $themes = $themRepo->findAll();
 
     $article = new Article;
@@ -69,9 +69,9 @@ class ArticleController extends Controller
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
         //On persist la réponse
-        $em->persist($article);
+        $manager->persist($article);
         //On enregistre
-        $em->flush();
+        $manager->flush();
         $request->getSession()->getFlashBag()->add('notice', 'Article bien enregistrée.');
         return $this->redirectToRoute("ono_map_article_view", array(
           "id" => $article->getId(),
@@ -85,13 +85,13 @@ class ArticleController extends Controller
     ));
 
   }
-  public function editAction($id, Request $request){
-    $em =$this->getDoctrine()->getManager();
-    $repoArticle = $em->getRepository("OnoMapBundle:Article");
-    $themRepo = $em->getRepository("OnoMapBundle:Theme");
+  public function editAction($article_id, Request $request){
+    $manager =$this->getDoctrine()->getManager();
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+    $themRepo = $manager->getRepository("OnoMapBundle:Theme");
     $themes = $themRepo->findAll();
 
-    $article = $repoArticle->find($id);
+    $article = $repoArticle->find($article_id);
     $user = $this->get('security.token_storage')->getToken()->getUser();
 
     if($article && $user instanceof User && $user->getId() === $article->getUser()->getId()){
@@ -101,9 +101,9 @@ class ArticleController extends Controller
 
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
           //On persist la réponse
-          $em->persist($article);
+          $manager->persist($article);
           //On enregistre
-          $em->flush();
+          $manager->flush();
           $request->getSession()->getFlashBag()->add('notice', 'Article bien modifié.');
           return $this->redirectToRoute("ono_map_article_view", array(
             "id" => $article->getId(),
@@ -117,13 +117,13 @@ class ArticleController extends Controller
       ));
     }
     return $this->redirectToRoute("ono_map_article_view", array(
-      "id" => $id
+      "id" => $article_id
     ));
   }
-  public function likeAction($id, Request $request){
-    $em = $this->getDoctrine()->getManager();
-    $repoArticle = $em->getRepository("OnoMapBundle:Article");
-    $article = $repoArticle->find($id);
+  public function likeAction($article_id, Request $request){
+    $manager = $this->getDoctrine()->getManager();
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+    $article = $repoArticle->find($article_id);
 
 
     if($article){
@@ -134,9 +134,9 @@ class ArticleController extends Controller
           if(!$isLiking){
             $user->addArticlesLiked($article);
             $article->incrementLikes();
-            $em->persist($user);
-            $em->persist($article);
-            $em->flush();
+            $manager->persist($user);
+            $manager->persist($article);
+            $manager->flush();
           }
           $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
         }
@@ -149,10 +149,10 @@ class ArticleController extends Controller
     return $this->redirectToRoute('ono_map_homepage');
   }
 
-  public function unlikeAction($id, Request $request){
-    $em = $this->getDoctrine()->getManager();
-    $repoArticle = $em->getRepository("OnoMapBundle:Article");
-    $article = $repoArticle->find($id);
+  public function unlikeAction($article_id, Request $request){
+    $manager = $this->getDoctrine()->getManager();
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+    $article = $repoArticle->find($article_id);
 
     if($article){
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
@@ -162,9 +162,9 @@ class ArticleController extends Controller
           if($isLiking){
             $user->removeArticlesLiked($article);
             $article->decrementLikes();
-            $em->persist($user);
-            $em->persist($article);
-            $em->flush();
+            $manager->persist($user);
+            $manager->persist($article);
+            $manager->flush();
           }
           $request->getSession()->getFlashBag()->add('notice', 'L\'article est pas aimé.');
           return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));

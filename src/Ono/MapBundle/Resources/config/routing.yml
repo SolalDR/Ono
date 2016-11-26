@@ -177,19 +177,19 @@ ono_admin_delete_theme:
 ono_admin_add_question:
     path:   /admin/question/add
     defaults:
-        _controller: OnoMapBundle:Admin:addQuestion
+        _controller: OnoMapBundle:Question:add
 
 #list questions
 ono_admin_list_question:
     path:   /admin/question/list
     defaults:
-        _controller: OnoMapBundle:Admin:listQuestion
+        _controller: OnoMapBundle:Question:index
 
 #edit question
 ono_admin_edit_question:
     path:   /admin/question/edit/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:editQuestion
+        _controller: OnoMapBundle:Question:edit
     requirements:
         id: \d+
 
@@ -199,7 +199,7 @@ ono_admin_edit_question:
 ono_admin_delete_question:
     path:   /admin/question/delete/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:deleteQuestion
+        _controller: OnoMapBundle:Question:delete
     requirements:
         id: \d+
 
@@ -245,19 +245,19 @@ ono_admin_delete_response:
 ono_admin_add_country:
     path:   /admin/country/add
     defaults:
-        _controller: OnoMapBundle:Admin:addCountry
+        _controller: OnoMapBundle:Country:add
 
 #list des pays
 ono_admin_list_country:
     path:   /admin/country/list
     defaults:
-        _controller: OnoMapBundle:Admin:listCountry
+        _controller: OnoMapBundle:Country:index
 
 #edit country
 ono_admin_edit_country:
     path:   /admin/country/edit/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:editCountry
+        _controller: OnoMapBundle:Country:edit
     requirements:
         id: \d+
 
@@ -265,7 +265,7 @@ ono_admin_edit_country:
 ono_admin_delete_country:
     path:   /admin/country/delete/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:deleteCountry
+        _controller: OnoMapBundle:Country:delete
     requirements:
         id: \d+
 
@@ -277,19 +277,19 @@ ono_admin_delete_country:
 ono_admin_add_language:
     path:   /admin/language/add
     defaults:
-        _controller: OnoMapBundle:Admin:addLanguage
+        _controller: OnoMapBundle:Language:add
 
 #list des langues
 ono_admin_list_language:
     path:   /admin/language/list
     defaults:
-        _controller: OnoMapBundle:Admin:listLanguage
+        _controller: OnoMapBundle:Language:index
 
 #edit langue
 ono_admin_edit_language:
     path:   /admin/language/edit/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:editLanguage
+        _controller: OnoMapBundle:Language:edit
     requirements:
         id: \d+
 
@@ -297,7 +297,7 @@ ono_admin_edit_language:
 ono_admin_delete_language:
     path:   /admin/language/delete/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:deleteLanguage
+        _controller: OnoMapBundle:Language:delete
     requirements:
         id: \d+
 

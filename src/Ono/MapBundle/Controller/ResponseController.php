@@ -31,13 +31,13 @@ class ResponseController extends Controller
 {
 
     // View Response
-    public function viewAction($id)
+    public function viewAction($response_id)
     {
-      $em = $this->getDoctrine()->getManager();
-      $repoReponse = $em->getRepository("OnoMapBundle:Response");
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $manager = $this->getDoctrine()->getManager();
+      $repoReponse = $manager->getRepository("OnoMapBundle:Response");
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-      $response = $repoReponse->find($id);
+      $response = $repoReponse->find($response_id);
       if($response === null){
         throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
       }
@@ -50,13 +50,13 @@ class ResponseController extends Controller
     }
 
 
-    public function addAction($id, Request $request)
+    public function addAction($question_id, Request $request)
     {
 
-      $em =$this->getDoctrine()->getManager();
-      $repoQuestion = $em->getRepository("OnoMapBundle:Question");
+      $manager =$this->getDoctrine()->getManager();
+      $repoQuestion = $manager->getRepository("OnoMapBundle:Question");
 
-      $question = $repoQuestion->find($id);
+      $question = $repoQuestion->find($question_id);
 
       //On crée le formulaire d'ajout de réponse, qu'on modifiera dynamiquement après
       if($question){
@@ -74,13 +74,13 @@ class ResponseController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
           //On persist la réponse
-          $em->persist($response);
+          $manager->persist($response);
 
           //On rajoute la réponse à la question
           $question->addResponse($response);
 
           //On enregistre
-          $em->flush();
+          $manager->flush();
 
           return new JsonResponse(array(
             "type"=>"notice",
@@ -91,8 +91,8 @@ class ResponseController extends Controller
         //On renvoie une erreur
       }
 
-      $question = $em->getRepository("OnoMapBundle:Question")->find($id);
-      // $country = $em->getRepository("OnoMapBundle:Country")->findOneBy(array("libCountry"=>"FRANCE"));
+      $question = $manager->getRepository("OnoMapBundle:Question")->find($question_id);
+      // $country = $manager->getRepository("OnoMapBundle:Country")->findOneBy(array("libCountry"=>"FRANCE"));
 
       //Si il n'y a pas de réponse
       if($question === null){
@@ -111,23 +111,23 @@ class ResponseController extends Controller
       $form = $this->get('form.factory')->create(ResponseType::class, $response);
 
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->getDoctrine()->getManager();
 
         //On persist la réponse
-        $em->persist($response);
+        $manager->persist($response);
 
         //On rajoute la réponse à la question
         $question->addResponse($response);
 
         //On enregistre
-        $em->flush();
+        $manager->flush();
 
         $request->getSession()->getFlashBag()->add('notice', 'Réponse bien enregistrée.');
 
         return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
       }
-      
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themes = $themRepo->findAll();
 
       return $this->render('OnoMapBundle:Response:add.html.twig', array(
@@ -136,18 +136,18 @@ class ResponseController extends Controller
         "themes" => $themes
       ));
 
-      $em->persist($response);
-      $em->flush();
+      $manager->persist($response);
+      $manager->flush();
 
       return $this->redirectToRoute('ono_map_response_view', array(
         "id" => $response->getId()
       ));
     }
 
-    public function likeAction($id, Request $request){
-      $em = $this->getDoctrine()->getManager();
-      $repoResponse = $em->getRepository("OnoMapBundle:Response");
-      $response = $repoResponse->find($id);
+    public function likeAction($response_id, Request $request){
+      $manager = $this->getDoctrine()->getManager();
+      $repoResponse = $manager->getRepository("OnoMapBundle:Response");
+      $response = $repoResponse->find($response_id);
 
       if($response){
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
@@ -157,9 +157,9 @@ class ResponseController extends Controller
             if(!$isLiking){
               $user->addResponsesLiked($response);
               $response->incrementLikes();
-              $em->persist($user);
-              $em->persist($response);
-              $em->flush();
+              $manager->persist($user);
+              $manager->persist($response);
+              $manager->flush();
             }
             $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
             return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
@@ -173,10 +173,10 @@ class ResponseController extends Controller
       return $this->redirectToRoute('ono_map_homepage');
     }
 
-    public function unlikeAction($id, Request $request){
-      $em = $this->getDoctrine()->getManager();
-      $repoResponse = $em->getRepository("OnoMapBundle:Response");
-      $response = $repoResponse->find($id);
+    public function unlikeAction($response_id, Request $request){
+      $manager = $this->getDoctrine()->getManager();
+      $repoResponse = $manager->getRepository("OnoMapBundle:Response");
+      $response = $repoResponse->find($response_id);
 
       if($response){
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
@@ -186,9 +186,9 @@ class ResponseController extends Controller
             if($isLiking){
               $user->removeResponsesLiked($response);
               $response->decrementLikes();
-              $em->persist($user);
-              $em->persist($response);
-              $em->flush();
+              $manager->persist($user);
+              $manager->persist($response);
+              $manager->flush();
             }
             $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'est pas aimé.');
             return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));

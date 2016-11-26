@@ -14,33 +14,24 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
 use Ono\MapBundle\Entity\Theme;
-use Ono\MapBundle\Entity\Country;
-use Ono\MapBundle\Entity\Language;
 
-use Ono\MapBundle\Form\CountryType;
 use Ono\MapBundle\Form\ResponseType;
 use Ono\MapBundle\Form\ResponseAdminType;
 use Ono\MapBundle\Form\QuestionType;
-use Ono\MapBundle\Form\ThemeType;
-use Ono\MapBundle\Form\LanguageType;
-
-
 
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-
 
 
 class AdminController extends Controller
 {
     public function indexAction()
     {
-      $em = $this->getDoctrine()->getManager();
-      $questionRepo = $em->getRepository("OnoMapBundle:Question");
-      $responseRepo = $em->getRepository("OnoMapBundle:Response");
-      $themesRepo = $em->getRepository("OnoMapBundle:Theme");
+      $manager = $this->getDoctrine()->getManager();
+      $questionRepo = $manager->getRepository("OnoMapBundle:Question");
+      $responseRepo = $manager->getRepository("OnoMapBundle:Response");
+      $themesRepo = $manager->getRepository("OnoMapBundle:Theme");
       $serializer = $this->get('serializer');
 
 
@@ -66,18 +57,19 @@ class AdminController extends Controller
       ));
     }
 
-
     ////////////////////////////////////
     //        Questions
     ///////////////////////////////////
+
+
     public function addQuestionAction(Request $request){
-      $em = $this->getDoctrine()->getManager();
+      $manager = $this->getDoctrine()->getManager();
       $question = new Question;
 
       $form = $this->get('form.factory')->create(QuestionType::class, $question);
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        $em->persist($question);
-        $em->flush();
+        $manager->persist($question);
+        $manager->flush();
 
         $request->getSession()->getFlashBag()->add('notice', 'Question bien enregistrée.');
 
@@ -89,8 +81,8 @@ class AdminController extends Controller
     }
 
     public function listQuestionAction(){
-      $em = $this->getDoctrine()->getManager();
-      $questions = $em->getRepository("OnoMapBundle:Question")->findAll();
+      $manager = $this->getDoctrine()->getManager();
+      $questions = $manager->getRepository("OnoMapBundle:Question")->findAll();
 
       return $this->render('OnoMapBundle:Admin:list-question.html.twig', array(
         "questions" => $questions
@@ -98,14 +90,14 @@ class AdminController extends Controller
     }
 
 
-      public function editQuestionAction(Request $request, $id){
-          $em = $this->getDoctrine()->getManager();
-          $question = $em->getRepository("OnoMapBundle:Question")->find($id);
+      public function editQuestionAction(Request $request, $question_id){
+          $manager = $this->getDoctrine()->getManager();
+          $question = $manager->getRepository("OnoMapBundle:Question")->find($question_id);
 
           $form = $this->get('form.factory')->create(QuestionType::class, $question);
           if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->persist($question);
-            $em->flush();
+            $manager->persist($question);
+            $manager->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Question bien modifié.');
 
@@ -118,15 +110,15 @@ class AdminController extends Controller
           ));
         }
 
-        public function deleteQuestionAction(Request $request, $id)
+        public function deleteQuestionAction(Request $request, $question_id)
         {
-            $em = $this->getDoctrine()->getManager();
+            $manager = $this->getDoctrine()->getManager();
 
-            // On récupère l'annonce $id
-            $question = $em->getRepository('OnoMapBundle:Question')->find($id);
+            // On récupère l'annonce $question_id
+            $question = $manager->getRepository('OnoMapBundle:Question')->find($question_id);
 
             if (null === $question) {
-              throw new NotFoundHttpException("La question d'id ".$id." n'existe pas.");
+              throw new NotFoundHttpException("La question d'id ".$question_id." n'existe pas.");
             }
 
             // On crée un formulaire vide, qui ne contiendra que le champ CSRF
@@ -134,8 +126,8 @@ class AdminController extends Controller
             $form = $this->createFormBuilder()->getForm();
 
             if ($form->handleRequest($request)->isValid()) {
-              $em->remove($question);
-              $em->flush();
+              $manager->remove($question);
+              $manager->flush();
 
               $request->getSession()->getFlashBag()->add('info', "La question a bien été supprimée.");
 
@@ -155,13 +147,13 @@ class AdminController extends Controller
     //        Response
     ///////////////////////////////////
     public function addResponseAction(Request $request){
-      $em = $this->getDoctrine()->getManager();
+      $manager = $this->getDoctrine()->getManager();
       $response = new ResponseQ;
 
       $form = $this->get('form.factory')->create(ResponseAdminType::class, $response);
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        $em->persist($response);
-        $em->flush();
+        $manager->persist($response);
+        $manager->flush();
 
         $request->getSession()->getFlashBag()->add('notice', 'Réponse bien enregistrée.');
 
@@ -174,22 +166,22 @@ class AdminController extends Controller
     }
 
     public function listResponseAction(){
-      $em = $this->getDoctrine()->getManager();
-      $responses = $em->getRepository("OnoMapBundle:Response")->findAll();
+      $manager = $this->getDoctrine()->getManager();
+      $responses = $manager->getRepository("OnoMapBundle:Response")->findAll();
 
       return $this->render('OnoMapBundle:Admin:list-response.html.twig', array(
         "responses" => $responses
       ));
     }
 
-    public function editResponseAction(Request $request, $id){
-        $em = $this->getDoctrine()->getManager();
-        $response = $em->getRepository("OnoMapBundle:Response")->find($id);
+    public function editResponseAction(Request $request, $response_id){
+        $manager = $this->getDoctrine()->getManager();
+        $response = $manager->getRepository("OnoMapBundle:Response")->find($response_id);
 
         $form = $this->get('form.factory')->create(ResponseType::class, $response);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          $em->persist($response);
-          $em->flush();
+          $manager->persist($response);
+          $manager->flush();
 
           $request->getSession()->getFlashBag()->add('notice', 'Réponse bien modifié.');
 
@@ -202,15 +194,15 @@ class AdminController extends Controller
         ));
       }
 
-      public function deleteResponseAction(Request $request, $id)
+      public function deleteResponseAction(Request $request, $response_id)
       {
-          $em = $this->getDoctrine()->getManager();
+          $manager = $this->getDoctrine()->getManager();
 
           // On récupère l'annonce $id
-          $response = $em->getRepository('OnoMapBundle:Response')->find($id);
+          $response = $manager->getRepository('OnoMapBundle:Response')->find($response_id);
 
           if (null === $response) {
-            throw new NotFoundHttpException("La réponse d'id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("La réponse d'id ".$response_id." n'existe pas.");
           }
 
           // On crée un formulaire vide, qui ne contiendra que le champ CSRF
@@ -218,8 +210,8 @@ class AdminController extends Controller
           $form = $this->createFormBuilder()->getForm();
 
           if ($form->handleRequest($request)->isValid()) {
-            $em->remove($response);
-            $em->flush();
+            $manager->remove($response);
+            $manager->flush();
 
             $request->getSession()->getFlashBag()->add('info', "La réponse a bien été supprimée.");
 
@@ -234,170 +226,4 @@ class AdminController extends Controller
             'form'   => $form->createView()
           ));
       }
-
-    ////////////////////////////////////
-    //        Country
-    ///////////////////////////////////
-    public function addCountryAction(Request $request){
-      $em = $this->getDoctrine()->getManager();
-      $country = new Country;
-
-      $form = $this->get('form.factory')->create(CountryType::class, $country);
-      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        $em->persist($country);
-        $em->flush();
-
-        $request->getSession()->getFlashBag()->add('notice', 'Pays bien enregistrée.');
-
-        return $this->redirectToRoute("ono_admin_list_country");
-      }
-      return $this->render('OnoMapBundle:Admin:add-country.html.twig', array(
-        "form" => $form->createView()
-      ));
-    }
-
-    public function listCountryAction(){
-      $em = $this->getDoctrine()->getManager();
-      $countries = $em->getRepository("OnoMapBundle:Country")->findAll();
-
-      return $this->render('OnoMapBundle:Admin:list-country.html.twig', array(
-        "countries" => $countries
-      ));
-    }
-    public function editCountryAction(Request $request, $id){
-        $em = $this->getDoctrine()->getManager();
-        $country = $em->getRepository("OnoMapBundle:Country")->find($id);
-
-        $form = $this->get('form.factory')->create(CountryType::class, $country);
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          $em->persist($country);
-          $em->flush();
-
-          $request->getSession()->getFlashBag()->add('notice', 'Pays bien modifié.');
-
-          return $this->redirectToRoute("ono_admin_list_country");
-        }
-
-        return $this->render('OnoMapBundle:Admin:edit-country.html.twig', array(
-          "form" => $form->createView(),
-          "country" => $country
-        ));
-      }
-
-      public function deleteCountryAction(Request $request, $id)
-      {
-          $em = $this->getDoctrine()->getManager();
-
-          // On récupère l'annonce $id
-          $country = $em->getRepository('OnoMapBundle:Country')->find($id);
-
-          if (null === $country) {
-            throw new NotFoundHttpException("Le pays d'id ".$id." n'existe pas.");
-          }
-
-          // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-          // Cela permet de protéger la suppression d'annonce contre cette faille
-          $form = $this->createFormBuilder()->getForm();
-
-          if ($form->handleRequest($request)->isValid()) {
-            $em->remove($country);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('info', "Le pays a bien été supprimée.");
-
-            return $this->redirect($this->generateUrl('ono_admin_list_country'));
-          }
-
-          // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-          return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
-            'object' => $country,
-            'title' => $country->getLibCountry(),
-            'pathDelete' => "ono_admin_delete_country",
-            'form'   => $form->createView()
-          ));
-      }
-
-      ////////////////////////////////////
-      //        Language
-      ///////////////////////////////////
-      public function addLanguageAction(Request $request){
-        $em = $this->getDoctrine()->getManager();
-        $language = new Language;
-
-        $form = $this->get('form.factory')->create(LanguageType::class, $language);
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          $em->persist($language);
-          $em->flush();
-
-          $request->getSession()->getFlashBag()->add('notice', 'Langue bien enregistrée.');
-
-          return $this->redirectToRoute("ono_admin_list_language");
-        }
-        return $this->render('OnoMapBundle:Admin:add-language.html.twig', array(
-          "form" => $form->createView()
-        ));
-      }
-
-      public function listLanguageAction(){
-        $em = $this->getDoctrine()->getManager();
-        $languages = $em->getRepository("OnoMapBundle:Language")->findAll();
-
-        return $this->render('OnoMapBundle:Admin:list-language.html.twig', array(
-          "languages" => $languages
-        ));
-      }
-      public function editLanguageAction(Request $request, $id){
-          $em = $this->getDoctrine()->getManager();
-          $language = $em->getRepository("OnoMapBundle:Language")->find($id);
-
-          $form = $this->get('form.factory')->create(LanguageType::class, $language);
-          if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->persist($language);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Langue bien modifiée.');
-
-            return $this->redirectToRoute("ono_admin_list_language");
-          }
-
-          return $this->render('OnoMapBundle:Admin:edit-language.html.twig', array(
-            "form" => $form->createView(),
-            "language" => $language
-          ));
-        }
-
-        public function deleteLanguageAction(Request $request, $id)
-        {
-            $em = $this->getDoctrine()->getManager();
-
-            // On récupère l'annonce $id
-            $language = $em->getRepository('OnoMapBundle:Language')->find($id);
-
-            if (null === $language) {
-              throw new NotFoundHttpException("La langue d'id ".$id." n'existe pas.");
-            }
-
-            // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-            // Cela permet de protéger la suppression d'annonce contre cette faille
-            $form = $this->createFormBuilder()->getForm();
-
-            if ($form->handleRequest($request)->isValid()) {
-              $em->remove($language);
-              $em->flush();
-
-              $request->getSession()->getFlashBag()->add('info', "La langue a bien été supprimée.");
-
-              return $this->redirect($this->generateUrl('ono_admin_list_language'));
-            }
-
-            // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-            return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
-              'object' => $language,
-              'title' => $language->getLibLanguageFr(),
-              'pathDelete' => "ono_admin_delete_language",
-              'form'   => $form->createView()
-            ));
-        }
-
-
 }

@@ -44,9 +44,9 @@ class MapController extends Controller
       }
 
       //Initialisation
-      $em = $this->getDoctrine()->getManager();
-      $questionRepo = $em->getRepository("OnoMapBundle:Question");
-      $responseRepo = $em->getRepository("OnoMapBundle:Response");
+      $manager = $this->getDoctrine()->getManager();
+      $questionRepo = $manager->getRepository("OnoMapBundle:Question");
+      $responseRepo = $manager->getRepository("OnoMapBundle:Response");
       $serializer = $this->get('serializer');
       $encoder = new JsonEncoder();
       $normalizer = new ObjectNormalizer();
@@ -56,7 +56,7 @@ class MapController extends Controller
       $responses= $responseRepo->findBy(array("question"=>$questions[0]));
 
       //On Récupère tout les thèmes
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themes = $themRepo->findAll();
 
       //On prépare le json
@@ -81,9 +81,9 @@ class MapController extends Controller
       if($request->request->get("xhr")){
 
         //Initialisation
-        $em = $this->getDoctrine()->getManager();
-        $questionRepo = $em->getRepository("OnoMapBundle:Question");
-        $responseRepo = $em->getRepository("OnoMapBundle:Response");
+        $manager = $this->getDoctrine()->getManager();
+        $questionRepo = $manager->getRepository("OnoMapBundle:Question");
+        $responseRepo = $manager->getRepository("OnoMapBundle:Response");
 
         //Traitement des filtres
         $filters = (array) json_decode($request->request->get("json"));
@@ -120,8 +120,8 @@ class MapController extends Controller
     }
 
     public function menuAction($route){
-      $em = $this->getDoctrine()->getManager();
-      $themRepo = $em->getRepository("OnoMapBundle:Theme");
+      $manager = $this->getDoctrine()->getManager();
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themes = $themRepo->findAll();
       //On retourne le tout
       return $this->render('OnoMapBundle:Templates:header.html.twig', array(
