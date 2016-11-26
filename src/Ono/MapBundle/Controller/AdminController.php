@@ -90,9 +90,9 @@ class AdminController extends Controller
     }
 
 
-      public function editQuestionAction(Request $request, $question_id){
+      public function editQuestionAction(Request $request, $id){
           $manager = $this->getDoctrine()->getManager();
-          $question = $manager->getRepository("OnoMapBundle:Question")->find($question_id);
+          $question = $manager->getRepository("OnoMapBundle:Question")->find($id);
 
           $form = $this->get('form.factory')->create(QuestionType::class, $question);
           if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -110,15 +110,15 @@ class AdminController extends Controller
           ));
         }
 
-        public function deleteQuestionAction(Request $request, $question_id)
+        public function deleteQuestionAction(Request $request, $id)
         {
             $manager = $this->getDoctrine()->getManager();
 
-            // On récupère l'annonce $question_id
-            $question = $manager->getRepository('OnoMapBundle:Question')->find($question_id);
+            // On récupère l'annonce $id
+            $question = $manager->getRepository('OnoMapBundle:Question')->find($id);
 
             if (null === $question) {
-              throw new NotFoundHttpException("La question d'id ".$question_id." n'existe pas.");
+              throw new NotFoundHttpException("La question d'id ".$id." n'existe pas.");
             }
 
             // On crée un formulaire vide, qui ne contiendra que le champ CSRF
@@ -174,9 +174,9 @@ class AdminController extends Controller
       ));
     }
 
-    public function editResponseAction(Request $request, $response_id){
+    public function editResponseAction(Request $request, $id){
         $manager = $this->getDoctrine()->getManager();
-        $response = $manager->getRepository("OnoMapBundle:Response")->find($response_id);
+        $response = $manager->getRepository("OnoMapBundle:Response")->find($id);
 
         $form = $this->get('form.factory')->create(ResponseType::class, $response);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -194,15 +194,15 @@ class AdminController extends Controller
         ));
       }
 
-      public function deleteResponseAction(Request $request, $response_id)
+      public function deleteResponseAction(Request $request, $id)
       {
           $manager = $this->getDoctrine()->getManager();
 
           // On récupère l'annonce $id
-          $response = $manager->getRepository('OnoMapBundle:Response')->find($response_id);
+          $response = $manager->getRepository('OnoMapBundle:Response')->find($id);
 
           if (null === $response) {
-            throw new NotFoundHttpException("La réponse d'id ".$response_id." n'existe pas.");
+            throw new NotFoundHttpException("La réponse d'id ".$id." n'existe pas.");
           }
 
           // On crée un formulaire vide, qui ne contiendra que le champ CSRF

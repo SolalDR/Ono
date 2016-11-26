@@ -45,9 +45,9 @@ class CountryController extends Controller
       "countries" => $countries
     ));
   }
-  public function editAction(Request $request, $country_id){
+  public function editAction(Request $request, $id){
       $manager = $this->getDoctrine()->getManager();
-      $country = $manager->getRepository("OnoMapBundle:Country")->find($country_id);
+      $country = $manager->getRepository("OnoMapBundle:Country")->find($id);
 
       $form = $this->get('form.factory')->create(CountryType::class, $country);
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -65,15 +65,15 @@ class CountryController extends Controller
       ));
     }
 
-    public function deleteAction(Request $request, $country_id)
+    public function deleteAction(Request $request, $id)
     {
         $manager = $this->getDoctrine()->getManager();
 
-        // On récupère l'annonce $country_id
-        $country = $manager->getRepository('OnoMapBundle:Country')->find($country_id);
+        // On récupère l'annonce $id
+        $country = $manager->getRepository('OnoMapBundle:Country')->find($id);
 
         if (null === $country) {
-          throw new NotFoundHttpException("Le pays d'id ".$country_id." n'existe pas.");
+          throw new NotFoundHttpException("Le pays d'id ".$id." n'existe pas.");
         }
 
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF

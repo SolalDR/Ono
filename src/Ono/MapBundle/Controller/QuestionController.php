@@ -46,14 +46,14 @@ class QuestionController extends Controller
     }
 
 
-    public function viewAction($question_id)
+    public function viewAction($id)
     {
       $manager = $this->getDoctrine()->getManager();
       $repoQ = $manager->getRepository("OnoMapBundle:Question");
       $repoR = $manager->getRepository("OnoMapBundle:Response");
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-      $question = $repoQ->find($question_id);
+      $question = $repoQ->find($id);
       if($question === null){
         throw new NotFoundHttpException("La question à afficher n'existe pas.");
       }
@@ -67,9 +67,9 @@ class QuestionController extends Controller
       ));
     }
 
-    public function editAction(Request $request, $question_id){
+    public function editAction(Request $request, $id){
         $manager = $this->getDoctrine()->getManager();
-        $question = $manager->getRepository("OnoMapBundle:Question")->find($question_id);
+        $question = $manager->getRepository("OnoMapBundle:Question")->find($id);
 
         $form = $this->get('form.factory')->create(QuestionType::class, $question);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -105,15 +105,15 @@ class QuestionController extends Controller
       ));
     }
 
-    public function deleteAction(Request $request, $question_id)
+    public function deleteAction(Request $request, $id)
     {
         $manager = $this->getDoctrine()->getManager();
 
-        // On récupère l'annonce $question_id
-        $question = $manager->getRepository('OnoMapBundle:Question')->find($question_id);
+        // On récupère l'annonce $id
+        $question = $manager->getRepository('OnoMapBundle:Question')->find($id);
 
         if (null === $question) {
-          throw new NotFoundHttpException("La question d'id ".$question_id." n'existe pas.");
+          throw new NotFoundHttpException("La question d'id ".$id." n'existe pas.");
         }
 
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF

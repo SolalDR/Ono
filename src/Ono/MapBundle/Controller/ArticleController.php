@@ -35,12 +35,12 @@ class ArticleController extends Controller
     ));
   }
 
-  public function showAction($article_id){
+  public function showAction($id){
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
-    $article = $repoArticle->find($article_id);
+    $article = $repoArticle->find($id);
     if($article === null){
       throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
     }
@@ -85,13 +85,13 @@ class ArticleController extends Controller
     ));
 
   }
-  public function editAction($article_id, Request $request){
+  public function editAction($id, Request $request){
     $manager =$this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
     $themes = $themRepo->findAll();
 
-    $article = $repoArticle->find($article_id);
+    $article = $repoArticle->find($id);
     $user = $this->get('security.token_storage')->getToken()->getUser();
 
     if($article && $user instanceof User && $user->getId() === $article->getUser()->getId()){
@@ -117,13 +117,13 @@ class ArticleController extends Controller
       ));
     }
     return $this->redirectToRoute("ono_map_article_view", array(
-      "id" => $article_id
+      "id" => $id
     ));
   }
-  public function likeAction($article_id, Request $request){
+  public function likeAction($id, Request $request){
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
-    $article = $repoArticle->find($article_id);
+    $article = $repoArticle->find($id);
 
 
     if($article){
@@ -149,10 +149,10 @@ class ArticleController extends Controller
     return $this->redirectToRoute('ono_map_homepage');
   }
 
-  public function unlikeAction($article_id, Request $request){
+  public function unlikeAction($id, Request $request){
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
-    $article = $repoArticle->find($article_id);
+    $article = $repoArticle->find($id);
 
     if($article){
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){

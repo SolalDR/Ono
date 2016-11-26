@@ -41,9 +41,9 @@ class LanguageController extends Controller
       "languages" => $languages
     ));
   }
-  public function editAction(Request $request, $language_id){
+  public function editAction(Request $request, $id){
       $manager = $this->getDoctrine()->getManager();
-      $language = $manager->getRepository("OnoMapBundle:Language")->find($language_id);
+      $language = $manager->getRepository("OnoMapBundle:Language")->find($id);
 
       $form = $this->get('form.factory')->create(LanguageType::class, $language);
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -61,15 +61,15 @@ class LanguageController extends Controller
       ));
     }
 
-    public function deleteAction(Request $request, $language_id)
+    public function deleteAction(Request $request, $id)
     {
         $manager = $this->getDoctrine()->getManager();
 
-        // On récupère l'annonce $language_id
-        $language = $manager->getRepository('OnoMapBundle:Language')->find($language_id);
+        // On récupère l'annonce $id
+        $language = $manager->getRepository('OnoMapBundle:Language')->find($id);
 
         if (null === $language) {
-          throw new NotFoundHttpException("La langue d'id ".$language_id." n'existe pas.");
+          throw new NotFoundHttpException("La langue d'id ".$id." n'existe pas.");
         }
 
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
