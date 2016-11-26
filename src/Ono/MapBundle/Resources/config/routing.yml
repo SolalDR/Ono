@@ -144,19 +144,19 @@ ono_admin_home:
 ono_admin_add_theme:
     path:   /admin/theme/add
     defaults:
-        _controller: OnoMapBundle:Admin:addTheme
+        _controller: OnoMapBundle:Theme:add
 
 #list thème
 ono_admin_list_theme:
     path:   /admin/theme/list
     defaults:
-        _controller: OnoMapBundle:Admin:listTheme
+        _controller: OnoMapBundle:Theme:list
 
 #edit thème
 ono_admin_edit_theme:
     path:   /admin/theme/edit/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:editTheme
+        _controller: OnoMapBundle:Theme:edit
     requirements:
         id: \d+
 
@@ -165,7 +165,7 @@ ono_admin_edit_theme:
 ono_admin_delete_theme:
     path:   /admin/theme/delete/{id}
     defaults:
-        _controller: OnoMapBundle:Admin:deleteTheme
+        _controller: OnoMapBundle:Theme:delete
     requirements:
         id: \d+
 
