@@ -130,7 +130,7 @@ class ArticleController extends Controller
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
         $user = $this->get('security.token_storage')->getToken()->getUser();
         if($user){
-          $isLiking = $user->isLikingArticle($article);
+          $isLiking = $user->isLiking($article);
           if(!$isLiking){
             $user->addArticlesLiked($article);
             $article->incrementLikes();
@@ -158,7 +158,7 @@ class ArticleController extends Controller
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
         $user = $this->get('security.token_storage')->getToken()->getUser();
         if($user){
-          $isLiking = $user->isLikingArticle($article);
+          $isLiking = $user->isLiking($article);
           if($isLiking){
             $user->removeArticlesLiked($article);
             $article->decrementLikes();

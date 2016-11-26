@@ -303,24 +303,37 @@ class User extends BaseUser
         return $this->responsesLiked;
     }
 
-    public function isLikingResponse(Response $response) {
-      $likes = $this->getResponsesLiked();
+    public function isLiking($object){
+      if($object instanceof Article){
+        $likes = $this->getArticlesLiked();
+      } else if($object instanceof Response){
+        $likes = $this->getResponsesLiked();
+      }
       for($i=0; $i<count($likes); $i++){
-        if($likes[$i]->getId()===$response->getId()){
+        if($likes[$i]->getId()===$object->getId()){
           return true;
         }
       }
       return false;
     }
-    public function isLikingArticle(Article $article) {
-      $likes = $this->getArticlesLiked();
-      for($i=0; $i<count($likes); $i++){
-        if($likes[$i]->getId()===$article->getId()){
-          return true;
-        }
-      }
-      return false;
-    }
+    // public function isLikingResponse(Response $response) {
+    //   $likes = $this->getResponsesLiked();
+    //   for($i=0; $i<count($likes); $i++){
+    //     if($likes[$i]->getId()===$response->getId()){
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // }
+    // public function isLikingArticle(Article $article) {
+    //   $likes = $this->getArticlesLiked();
+    //   for($i=0; $i<count($likes); $i++){
+    //     if($likes[$i]->getId()===$article->getId()){
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // }
 
     /**
      * Add articlesLiked

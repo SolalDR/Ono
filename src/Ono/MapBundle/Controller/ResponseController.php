@@ -87,8 +87,6 @@ class ResponseController extends Controller
             "title" => "Message bien enregistré"
           ));
         }
-      } else {
-        //On renvoie une erreur
       }
 
       $question = $manager->getRepository("OnoMapBundle:Question")->find($id);
@@ -153,7 +151,7 @@ class ResponseController extends Controller
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
           $user = $this->get('security.token_storage')->getToken()->getUser();
           if($user){
-            $isLiking = $user->isLikingResponse($response);
+            $isLiking = $user->isLiking($response);
             if(!$isLiking){
               $user->addResponsesLiked($response);
               $response->incrementLikes();
@@ -182,7 +180,7 @@ class ResponseController extends Controller
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
           $user = $this->get('security.token_storage')->getToken()->getUser();
           if($user){
-            $isLiking = $user->isLikingResponse($response);
+            $isLiking = $user->isLiking($response);
             if($isLiking){
               $user->removeResponsesLiked($response);
               $response->decrementLikes();

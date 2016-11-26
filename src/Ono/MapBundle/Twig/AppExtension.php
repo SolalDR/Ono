@@ -28,12 +28,12 @@ class AppExtension extends \Twig_Extension
       if($user instanceof User){
         if($object instanceof Response){
           dump($user);
-          if($user->isLikingResponse($object)){
+          if($user->isLiking($object)){
             return true;
           }
           return false;
         } elseif($object instanceof Article){
-          if($user->isLikingArticle($object)){
+          if($user->isLiking($object)){
             return true;
           }
         }
