@@ -1,8 +1,7 @@
-# Ono
+# <img src="https://raw.githubusercontent.com/SolalDR/Ono/master/web/asset/img/logo-name.png" alt="Ono" width="400" />
+
 
 A Symfony project created on September 15, 2016, 10:30 am.
-
-===
 
 ## Initialisation :
 
