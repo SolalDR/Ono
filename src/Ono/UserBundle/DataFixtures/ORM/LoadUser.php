@@ -49,6 +49,24 @@ class LoadUserData
    $this->addReference('user-admin', $admin);
    $userManager->updateUser($admin);
 
+   // Création d'un Admin
+   $editor = $userManager->createUser();
+   $editor->setUsername('editor');
+   $editor->setEmail('editor@editor.com');
+   $editor->setPlainPassword('editorpass');
+   $editor->setEnabled(true);
+   $editor->setName("Editor");
+   $editor->setFirstname("Mr");
+   $editor->addRole('ROLE_EDITOR');
+   $editor->setDtnaissance(date_create_from_format("Y-m-d", "1997-08-06"));
+   $editor->setDescription("Admin Ono");
+   $language = $l_repo->findOneByCdLanguage("fr");
+   $editor->setLanguage($language);
+   $country = $c_repo->findOneByCdCountry("fra");
+   $editor->setCountry($country);
+   $this->addReference('user-editor', $editor);
+   $userManager->updateUser($editor);
+
    // Création d'un User
    $user = $userManager->createUser();
    $user->setUsername('user');

@@ -62,10 +62,14 @@ class ArticleController extends Controller
     $article->setDtcreation(new \DateTime());
 
 
-    if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+    if($this->container->get('security.authorization_checker')->isGranted('ROLE_EDITOR')){
       $user = $this->get('security.token_storage')->getToken()->getUser();
       $article->setUser($user);
       $form = $this->get('form.factory')->create(ArticleType::class, $article);
+      return $this->render('OnoMapBundle:Article:add.html.twig', array(
+        'form' => $form->createView(),
+        "themes" => $themes
+      ));
     }
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -80,11 +84,7 @@ class ArticleController extends Controller
         ));
     }
 
-    return $this->render('OnoMapBundle:Article:add.html.twig', array(
-      'form' => $form->createView(),
-      "themes" => $themes
-    ));
-
+    return $this->redirectToRoute("ono_map_article_index");
   }
   public function editAction(Request $request){
     $numId = (int) $request->attributes->all()["id"];
@@ -97,31 +97,31 @@ class ArticleController extends Controller
     $user = $this->get('security.token_storage')->getToken()->getUser();
 
     if($article && $user instanceof User && $user->getId() === $article->getUser()->getId()){
-      if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+      if($this->container->get('security.authorization_checker')->isGranted('ROLE_EDITOR')){
         $form = $this->get('form.factory')->create(ArticleType::class, $article);
+        return $this->render('OnoMapBundle:Article:edit.html.twig', array(
+          'form' => $form->createView(),
+          "themes" => $themes,
+          "article" => $article
+        ));
       }
-
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          //On persist la réponse
-          $manager->persist($article);
-          //On enregistre
-          $manager->flush();
-          $request->getSession()->getFlashBag()->add('notice', 'Article bien modifié.');
-          return $this->redirectToRoute("ono_map_article_view", array(
-            "id" => $article->getId(),
-            "themes" => $themes
-          ));
+        //On persist la réponse
+        $manager->persist($article);
+        //On enregistre
+        $manager->flush();
+        $request->getSession()->getFlashBag()->add('notice', 'Article bien modifié.');
+        return $this->redirectToRoute("ono_map_article_view", array(
+          "id" => $article->getId(),
+          "themes" => $themes
+        ));
       }
-      return $this->render('OnoMapBundle:Article:edit.html.twig', array(
-        'form' => $form->createView(),
-        "themes" => $themes,
-        "article" => $article
-      ));
     }
     return $this->redirectToRoute("ono_map_article_view", array(
       "id" => $numId
     ));
   }
+
   public function likeAction(Request $request){
     $numId = (int) $request->attributes->all()["id"];
     $manager = $this->getDoctrine()->getManager();
@@ -145,10 +145,9 @@ class ArticleController extends Controller
         }
       }
       return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
-    } else {
-      $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'existe pas.');
     }
     //L'utilisateur n'est pas authentifié
+    $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'existe pas.');
     return $this->redirectToRoute('ono_map_homepage');
   }
 
@@ -173,7 +172,6 @@ class ArticleController extends Controller
           $request->getSession()->getFlashBag()->add('notice', 'L\'article est pas aimé.');
           return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
         }
-        //La response n'existe pas
       }
       return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
     }
