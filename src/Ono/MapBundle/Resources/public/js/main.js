@@ -221,7 +221,11 @@ filter = {
   	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
   	xhr_object.onreadystatechange = function() {
   	  if(this.readyState === 4 && this.status === 200) {
-        mapGestion.updateQuestionFromJson(xhr_object.responseText);
+        if(typeof mapGestion !== "undefined"){
+          mapGestion.updateQuestionFromJson(xhr_object.responseText);
+        } else {
+          config.xhrLastResponse = xhr_object.responseText;
+        }
       }
   		return xhr_object.readyState;
   	}
@@ -242,6 +246,7 @@ filter = {
         el.className+= " active";
         filter.filterThemeActive[parseInt(el.getAttribute("data-id"))] = true;
       }
+      console.log(filter.filterThemeActive);
       filter.updateFilterTheme();
     }, false)
   },
@@ -256,6 +261,7 @@ filter = {
       }
     }
     filter.sendModification();
+    console.log(filter.filterThemeActive);
   },
   initEvent: function(){
     for(i=0; i<filter.themes.length; i++){
@@ -280,11 +286,24 @@ filter = {
       }, false)
     }
   },
+
+  //Se lance au chargement de la page
+  initFilterThemeActive : function(){
+    if(filter.themes) {
+      for(i=0; i<filter.themes.length; i++){
+        if(filter.themes[i].className.match("active")){
+          filter.filterThemeActive[parseInt(filter.themes[i].getAttribute('data-id'))] = true;
+        }
+      }
+    }
+  },
   init: function(){
     filter.themes = document.getElementsByClassName("filter-theme");
     filter.age = document.getElementById("rangeAge");
     filter.ageControl = document.getElementById("rangeAgeActive");
+    filter.initFilterThemeActive();
     filter.initEvent();
+    console.log(filter.filterThemeActive);
   }
 }
 

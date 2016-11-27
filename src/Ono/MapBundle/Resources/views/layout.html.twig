@@ -32,4 +32,7 @@
    %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
   {% endjavascripts %}
+  <script type="text/javascript">
+    config.rootPath = "{{ absolute_url(path("ono_map_homepage")) }}";
+  </script>
 {% endblock %}

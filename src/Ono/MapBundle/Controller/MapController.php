@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\sfWebRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
@@ -51,21 +52,27 @@ class MapController extends Controller
       $encoder = new JsonEncoder();
       $normalizer = new ObjectNormalizer();
 
+
       //On récupère les questions et les réponses
-      $questions = $questionRepo->findAll();
-      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
+      if($request->getSession()->get("questions")){
+        $questions = $request->getSession()->get("questions");
+      } else {
+        $questions = $questionRepo->findAll();
+      }
 
       //On Récupère tout les thèmes
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themes = $themRepo->findAll();
 
       //On prépare le json
+      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
       $normalizer->setCircularReferenceHandler(function ($responses) {
           return $responses->getId();
       });
       $serializer = new Serializer(array($normalizer), array($encoder));
       $json = $serializer->serialize($questions, 'json');
 
+      $request->getSession()->set("questions", $questions);
       //On retourne le tout
       return $this->render('OnoMapBundle:Map:index.html.twig', array(
         "json" =>$json,
@@ -79,7 +86,6 @@ class MapController extends Controller
     {
       //On vérifie que la requête soit XHR
       if($request->request->get("xhr")){
-
         //Initialisation
         $manager = $this->getDoctrine()->getManager();
         $questionRepo = $manager->getRepository("OnoMapBundle:Question");
@@ -87,6 +93,7 @@ class MapController extends Controller
 
         //Traitement des filtres
         $filters = (array) json_decode($request->request->get("json"));
+
         //Si on a des thèmes à filtrer on utilise cette méthode
         if(count($filters["themes"])>0){
           $questions = $questionRepo->getQuestionsWithThemes($filters["themes"]);
@@ -111,12 +118,16 @@ class MapController extends Controller
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($questions, 'json');
 
+        $request->getSession()->set("questions", $questions);
+        $request->getSession()->set("themes", $filters["themes"]);
+
         //Return response
         return new Response($json);
 
-      } else {
-        return new Response("Error");
       }
+
+
+      return new Response("Error");
     }
 
     public function menuAction($route){
