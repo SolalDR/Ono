@@ -22,7 +22,10 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-
+# Override security controller 
+fos_user_security_login:
+    path:      /login
+    defaults:  { _controller: OnoUserBundle:Security:login }
 
 ono_favoris_user:
     path:     /favoris

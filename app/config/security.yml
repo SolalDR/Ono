@@ -49,8 +49,10 @@ security:
 
     access_control:
       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/logout, roles: ROLE_USER }
       - { path: ^/admin.+ , roles: ROLE_ADMIN }
       - { path: ^/admin, roles: ROLE_ADMIN }
+
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
