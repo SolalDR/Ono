@@ -1,0 +1,47 @@
+{% extends "::base.html.twig" %}
+
+
+{# STYLESHEETS #}
+{% block stylesheets %}
+{% stylesheets  filter='cssrewrite' 'bundles/onomap/css/style.css' %}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
+
+
+{# BODY #}
+{% block body %}
+  {% block pageAttributes %}<body id="authentification-pages">{% endblock %}
+  {% block bodyContent %}
+    {{ include("OnoMapBundle:Templates:noscript.html.twig") }}
+    {{ include("OnoMapBundle:Templates:loader.html.twig") }}
+    <div id='alerts-container'></div>
+    {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+    {% for key, messages in app.session.flashbag.all() %}
+      {% for message in messages %}
+        <div class="alert alert-{{ key }}">
+          {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+      {% endfor %}
+    {% endfor %}
+
+    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+    <div class="container-log form-materialize">
+      {% block fos_user_content %}
+      {% endblock fos_user_content %}
+    </div>
+
+  {% endblock %}
+</body>
+{% endblock %}
+
+{% block javascripts %}
+  {% javascripts
+  'bundles/onomap/js/config.js'
+  'bundles/onomap/js/loaderManage.js'
+  "bundles/onomap/js/loader.js"
+  "bundles/onomap/js/materialize-form.js"
+   %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+  {% endjavascripts %}
+{% endblock %}

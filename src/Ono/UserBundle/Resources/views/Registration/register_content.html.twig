@@ -1,0 +1,13 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<p id="sign-in">
+  Déja un compte ?<br> <a href="{{ path("fos_user_security_login") }}">Connecter vous !</a>
+</p>
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" class="btn bg-green" value="{{ 'registration.submit'|trans }}" />
+    </div>
+    <a id="connect-later" class="btn bg-dark-grey" href="{{ path("ono_map_homepage") }}">Se connecter plus tard</a>
+{{ form_end(form) }}

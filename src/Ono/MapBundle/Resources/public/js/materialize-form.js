@@ -1,7 +1,6 @@
 
 materializeForm = {
     elements: {
-        container: document.getElementsByClassName("textfieldContainer"),
         input: [],
         label: []
     },
@@ -57,6 +56,10 @@ materializeForm = {
         }
     },
     init: function() {
+        materializeForm.elements.container = document.getElementsByClassName("textfieldContainer");
+        if(!materializeForm.elements.container.length){
+          materializeForm.elements.container = document.getElementsByClassName("form-group");
+        }
         materializeForm.getElements();
         materializeForm.initEventsFocus();
         // materializeForm.initEventKey();

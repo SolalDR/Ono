@@ -30,14 +30,14 @@ class User extends BaseUser
     /**
      * @var \Text
      *
-     * @ORM\Column(name="name", type="text", nullable=false)
+     * @ORM\Column(name="name", type="text", nullable=true)
      */
     private $name;
 
     /**
      * @var \Text
      *
-     * @ORM\Column(name="firstname", type="text", nullable=false)
+     * @ORM\Column(name="firstname", type="text", nullable=true)
      */
     private $firstname;
 

@@ -732,7 +732,8 @@ input[type=range] {
         color: white;
         letter-spacing: 2px;
         display: block;
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        cursor: pointer; }
         #authentification-pages .container-log .form-container .btn.bg-green {
           background-color: #a6d541; }
     #authentification-pages .container-log .intro-description {
@@ -779,12 +780,12 @@ input[type=range] {
   padding: 2%; }
 .form-materialize form input {
   box-shadow: none; }
-.form-materialize form .textfieldContainer {
+.form-materialize form .textfieldContainer, .form-materialize form .form-group {
   margin-bottom: 40px;
   height: 22px;
   width: 100%;
   position: relative; }
-  .form-materialize form .textfieldContainer input[type="text"], .form-materialize form .textfieldContainer input[type="email"], .form-materialize form .textfieldContainer input[type="password"] {
+  .form-materialize form .textfieldContainer input[type="text"], .form-materialize form .textfieldContainer input[type="email"], .form-materialize form .textfieldContainer input[type="password"], .form-materialize form .form-group input[type="text"], .form-materialize form .form-group input[type="email"], .form-materialize form .form-group input[type="password"] {
     display: block;
     width: 100%;
     border: 0;
@@ -798,7 +799,7 @@ input[type=range] {
     -moz-transition: .1s ease-in;
     -o-transition: .1s ease-in;
     transition: .1s ease-in; }
-  .form-materialize form .textfieldContainer label {
+  .form-materialize form .textfieldContainer label, .form-materialize form .form-group label {
     position: absolute;
     bottom: 0px;
     top: 7px;
@@ -810,11 +811,37 @@ input[type=range] {
     -moz-transition: .1s ease-in;
     -o-transition: .1s ease-in;
     transition: .1s ease-in; }
-    .form-materialize form .textfieldContainer label.focus {
+    .form-materialize form .textfieldContainer label.focus, .form-materialize form .form-group label.focus {
       top: -15px;
       color: #0c4874;
       font-size: 14px; }
 .form-materialize form .checkboxContainer {
   margin-bottom: 20px; }
+
+.container-confirmed {
+  background-color: rgba(40, 140, 156, 0.6);
+  color: white;
+  width: 50%;
+  margin: auto;
+  padding: 40px;
+  font-weight: 100;
+  text-align: center; }
+  .container-confirmed #notice {
+    font-family: sans-serif;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px; }
+  .container-confirmed .btn {
+    width: 100%;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: .8em;
+    border: 0px none;
+    color: white;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #a6d541;
+    padding: 20px 0; }
 
 /*# sourceMappingURL=style.css.map */

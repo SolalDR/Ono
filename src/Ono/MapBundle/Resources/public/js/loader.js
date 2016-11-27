@@ -5,7 +5,5 @@ window.onload = function(){
         mapGestion.createAllMarkers();
       }
     }, 1000)
-    setTimeout(function(){
-      loaderManage.stopAnimation();
-    }, 1200)
+    loaderManage.stopAnimation();
 }

@@ -3,7 +3,7 @@
 {% block fos_user_content %}
     <div class="form-container">
       <h1><img src="{{ asset("asset/img/logo-name.svg") }}" alt="" /></h1>
-      {{ include('OnoUserBundle:Security:login_content.html.twig') }}
+      {% include "FOSUserBundle:Registration:register_content.html.twig" %}
     </div>
     <div class="intro-description">
       <h2>Le numérique</h2>
