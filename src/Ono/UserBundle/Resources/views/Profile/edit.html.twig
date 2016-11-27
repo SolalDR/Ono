@@ -1,16 +1,38 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Article{% endblock %}
 
-{% block fos_user_content %}
+{# STYLESHEETS #}
+{% block stylesheets %}
+{% stylesheets  filter='cssrewrite'
+  'bundles/onomap/css/bootstrap.min.css'
+  'bundles/onomap/css/style.css'
+%}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
 
-  {% trans_default_domain 'FOSUserBundle' %}
-  {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+  <div class="container-fluid">
+    <h1>Mon profil</h1>
+    <p>
+      Afin de pouvoir rédiger des réponses à vos questions préférées et faire vivre la plateforme, il est important de renseigner votre <strong>pays</strong> ainsi que votre <strong>langue natale</strong>.
+    </p>
+  {% block fos_user_content %}
 
-      {{ form_widget(form) }}
-      <div>
-          <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-      </div>
+    {% trans_default_domain 'FOSUserBundle' %}
+    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
-  {{ form_end(form) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
+
+    {{ form_end(form) }}
 
 
-{% endblock fos_user_content %}
+  {% endblock fos_user_content %}
+  </div>
+
+  {% endblock %}
+{% endblock %}

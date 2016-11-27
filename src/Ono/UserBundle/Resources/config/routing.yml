@@ -11,3 +11,9 @@ ono_promote_user:
 ono_view_user:
     path:     /profile
     defaults: { _controller: OnoUserBundle:User:show }
+
+
+#promouvoir utilisateur
+ono_edit_user:
+    path:     /profile/edit
+    defaults: { _controller: OnoUserBundle:User:edit }

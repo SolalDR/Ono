@@ -38,8 +38,8 @@ class ProfileController extends BaseController
 
   public function favorisAction(){
 
-    $em = $this->getDoctrine()->getManager();
-    $themes = $em->getRepository("OnoMapBundle:Theme")->findAll();
+    $manager = $this->getDoctrine()->getManager();
+    $themes = $manager->getRepository("OnoMapBundle:Theme")->findAll();
 
     if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
       $user = $this->get('security.token_storage')->getToken()->getUser();
@@ -62,10 +62,14 @@ class ProfileController extends BaseController
    */
   public function editAction(Request $request)
   {
+    $manager = $this->getDoctrine()->getManager();
+
       $user = $this->getUser();
       if (!is_object($user) || !$user instanceof UserInterface) {
           throw new AccessDeniedException('This user does not have access to this section.');
       }
+      $themesRepo = $manager->getRepository("OnoMapBundle:Theme");
+      $themes = $themesRepo->findAll();
 
       /** @var $dispatcher EventDispatcherInterface */
       $dispatcher = $this->get('event_dispatcher');
@@ -106,6 +110,7 @@ class ProfileController extends BaseController
 
       return $this->render('OnoUserBundle:Profile:edit.html.twig', array(
           'form' => $form->createView(),
+          "themes" => $themes
       ));
   }
 }
