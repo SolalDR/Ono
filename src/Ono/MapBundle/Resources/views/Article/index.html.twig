@@ -3,9 +3,11 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
+
+  <body id="article-index">
     <div class="mainContent">
-      <h1>Liste des articles</h1>
-      <table class="table table-hover">
+      <h1>Les articles <br/><span>sur une seule page</span></h1>
+      <!-- <table class="table table-hover">
         <thead>
           <tr>
             <th>Id</th>
@@ -25,9 +27,41 @@
           </tr>
           {% endfor %}
         </tbody>
-      </table>
-      <a href="{{ path("ono_map_article_add") }}">Nouvel Article</a>
+      </table> -->
+      <!-- <a href="{{ path("ono_map_article_add") }}">Nouvel Article</a> -->
 
     </div>
+
+    <div class="columns">
+
+      <figure>
+        <div class=column-container>
+
+          <div class="image">
+            <div>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bordeaux_Tram_R01.jpg/220px-Bordeaux_Tram_R01.jpg"/>
+
+              <div class="info">
+                  <h4> France </h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="colum-content">
+            <h2> Le numérique apporte une solution dans les déplacements quotidiens </h2>
+
+            <h3> Lorem ipsum ono </h3>
+            <p> Ceci est un article interessant, si vous souhaitez en lire plus veuillez appuyer
+            sur le bouton prévu à cet effet incessamment sous peu. Ensuite, aller voir au fond du lac
+            pour vérifier que la chambre de lucas a été rangé par les draps cachés sous les algues.
+            Finalement, n'hésitez pas à manger tout le foin et à casser trois pattes a un canard.</p>
+            <figcaption><a href="#" ><span>Lire plus...</span></a></figcaption>
+          </div>
+        </div>
+      </figure>
+
+    </div>
+</body>
+
   {% endblock %}
 {% endblock %}

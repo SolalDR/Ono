@@ -1,0 +1,114 @@
+#article-index {
+
+.mainContent {
+  width:100%;
+  height:auto;
+  text-align: center;
+  background:url('http://i.jootix.com/o/unnamed--9313267bce.jpg') no-repeat;
+  background-size: cover;
+
+
+  h1 {
+    color: #FFF;
+    margin: auto;
+    font-weight: lighter;
+    padding:3% 0;
+  }
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.columns {
+  column-width: 250px;
+  column-gap: 30px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 50px auto;
+  font-family: 'Roboto',cursive;
+    figure {
+      margin: 0 2px 15px;
+      padding-bottom: 10px;
+      display: inline-block;
+      column-break-inside: avoid;
+
+        .column-container {
+          box-shadow: 2px 2px 7px rgba(154, 150, 150, 0.6);
+
+          .image {
+          width: 100%; height: auto;
+
+            img {
+              width: 100%;
+              margin:0;
+              top:0;
+              margin-bottom:-23px;
+            }
+            .info {
+            background-color: rgba(0,0,0,0.8);
+            height: 20px;
+            width:249px;
+            position: absolute;
+            }
+            h4 {
+              margin:0;
+              color:#FFF;
+              padding:5px 0 0 20px;
+              font-size: 10px;
+              font-weight: lighter;
+            }
+          }
+
+          .colum-content {
+            margin:15px;
+
+            p {
+             line-height: 20px;
+             margin:10px;
+             font-size:15px;
+             font-weight: lighter;
+           }
+
+
+           figcaption {
+             font-size: .9rem;
+             line-height: 1.5;
+             margin:25px 0px 20px;
+             padding: 0px 8px;
+             display: inline-block;
+           }
+
+            span {
+              color:$blue;
+            }
+
+            h2 {
+              font-size:20px;
+              color:$blue;
+              text-align: left;
+              margin-top: 40px;
+              padding:5px;
+
+              &::after{
+                content: "";
+                display: block;
+                margin:25px 0px 15px;
+                width:100%;
+                height:1px;
+                background-color: rgba(102, 102, 102,0.7);
+              }
+            }
+
+            h3 {
+              margin:10px 10px 15px;
+              font-size: 20px;
+              color:$dark-grey;
+              text-transform: uppercase;
+            }
+
+          }
+        }
+      }
+    }
+  }
