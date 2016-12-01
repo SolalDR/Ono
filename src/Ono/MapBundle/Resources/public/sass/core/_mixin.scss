@@ -26,3 +26,15 @@
   display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
 }
+
+@mixin column-width($content) {
+  -webkit-column-width: $content;
+  -moz-column-width: $content;
+  column-width: $content;
+}
+
+@mixin column-gap($content) {
+  -webkit-column-gap: $content;
+  -moz-column-gap: $content;
+  column-gap: $content;
+}
