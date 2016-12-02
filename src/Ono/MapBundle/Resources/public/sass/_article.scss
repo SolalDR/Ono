@@ -23,7 +23,7 @@
 
 #tags-container {
   text-align: center;
-  padding:40px;
+  padding: 40px 40px 0 40px;
   font-weight: lighter;
 
   .switch {
@@ -104,7 +104,7 @@
   @include column-gap(30px);
   width: 90%;
   max-width: 1100px;
-  margin: 50px auto;
+  margin: 40px auto;
   font-family: 'Roboto',cursive;
 
     figure {

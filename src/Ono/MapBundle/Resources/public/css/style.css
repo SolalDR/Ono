@@ -203,7 +203,7 @@ h1 {
   padding: 20px 0px; }
 
 body {
-  padding-left: 110px; }
+  padding-left: 88px; }
 
 #noScript {
   width: 500px;
@@ -357,7 +357,7 @@ input[type=range] {
   display: block;
   z-index: 999;
   position: fixed;
-  width: 110px;
+  width: 88px;
   height: 100%;
   height: 100vh;
   left: 0;
@@ -371,49 +371,69 @@ input[type=range] {
     color: white; }
   #sidebarLeft.sidebar-left .main-nav {
     text-align: center;
-    margin-top: 20px; }
+    font-size: 0.8em; }
     #sidebarLeft.sidebar-left .main-nav .nav-head {
-      height: 18vh; }
+      height: 14vh;
+      background-color: #FFF; }
       #sidebarLeft.sidebar-left .main-nav .nav-head .sidebar-img {
-        width: 50%;
+        width: 70%;
         display: block;
         margin: auto;
-        padding-top: 1vh; }
-      #sidebarLeft.sidebar-left .main-nav .nav-head .nav-bar-profile {
-        margin-top: 2vh;
-        text-align: center;
-        color: #CCC;
-        font-size: .9em;
-        display: block;
-        margin-bottom: 3px; }
-      #sidebarLeft.sidebar-left .main-nav .nav-head .logout-button {
-        color: #666;
-        font-size: 0.8em;
-        font-family: sans-serif; }
+        padding-top: 25px; }
     #sidebarLeft.sidebar-left .main-nav .nav-body {
       text-align: center; }
       #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav {
-        width: 110px;
-        height: 13vh;
+        width: 86px;
+        height: 10vh;
         background-color: transparent;
         display: block;
-        border-top: 1px solid #666;
+        margin: auto;
+        border-left: 2px solid transparent;
         -webkit-transition: 0.3s ease-in;
         -o-transition: 0.3s ease-in;
         transition: 0.3s ease-in; }
         #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav:hover, #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav.active {
-          background-color: #709129;
-          color: white;
-          width: 120px; }
+          background-color: rgba(50, 50, 50, 0.85);
+          color: #18769c;
+          font-weight: bolder;
+          border-left: 2px solid #18769c;
+          width: 86px; }
         #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav li img {
           margin-top: 2vh;
-          height: 5vh; }
+          height: 3vh; }
         #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav li p {
           text-transform: uppercase;
           font-weight: 100;
           margin-top: 8px;
           letter-spacing: 2px;
           font-size: 0.7em; }
+    #sidebarLeft.sidebar-left .main-nav .nav-bottom {
+      text-align: center;
+      height: auto;
+      background-color: #1e1e1e;
+      margin-top: 30px;
+      padding: 20px 0 10px; }
+      #sidebarLeft.sidebar-left .main-nav .nav-bottom .sidebar-img {
+        width: 50px;
+        border-radius: 50%;
+        display: block;
+        margin: auto; }
+      #sidebarLeft.sidebar-left .main-nav .nav-bottom .nav-bar-profile {
+        margin-top: 2vh;
+        text-align: center;
+        color: #CCC;
+        font-size: .9em;
+        display: block;
+        margin-bottom: 10px; }
+      #sidebarLeft.sidebar-left .main-nav .nav-bottom .logout-button {
+        color: #666;
+        font-size: 0.8em;
+        font-family: sans-serif;
+        -webkit-transition: 0.1s ease-in;
+        -o-transition: 0.1s ease-in;
+        transition: 0.1s ease-in; }
+        #sidebarLeft.sidebar-left .main-nav .nav-bottom .logout-button:hover {
+          color: white; }
   #sidebarLeft.sidebar-left #theme-list-container {
     position: fixed;
     left: 120px;
@@ -861,7 +881,7 @@ input[type=range] {
       font-weight: bold; }
   #article-index #tags-container {
     text-align: center;
-    padding: 40px;
+    padding: 40px 40px 0 40px;
     font-weight: lighter; }
     #article-index #tags-container .switch {
       position: relative;
@@ -924,7 +944,7 @@ input[type=range] {
     column-gap: 30px;
     width: 90%;
     max-width: 1100px;
-    margin: 50px auto;
+    margin: 40px auto;
     font-family: 'Roboto',cursive; }
     #article-index .columns figure {
       margin: 0 2px 15px;
@@ -1003,7 +1023,7 @@ input[type=range] {
       font-weight: bold; }
   #questions-index #tags-container {
     text-align: center;
-    padding: 40px;
+    padding: 40px 40px 0 40px;
     font-weight: lighter; }
     #questions-index #tags-container .switch {
       position: relative;
