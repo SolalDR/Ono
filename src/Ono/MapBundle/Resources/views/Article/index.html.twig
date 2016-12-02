@@ -14,18 +14,13 @@
               <input type="checkbox">
               <div class="slider round"></div>
           </label>
-          <div class="tag">
-            <p> vie </p>
-          </div>
-          <div class="tag">
-            <p> transport </p>
-          </div>
-          <div class="tag">
-            <p> activités <p>
-          </div>
-          <div class="tag">
-            <p> temps <p>
-          </div>
+          {% for theme in themes %}
+            {% if theme.id in app.session.get("themes") %}
+            <div class="tag">
+              <p>{{ theme.libTheme }}</p>
+            </div>
+            {% endif %}
+          {% endfor %}
       </div>
 
       <div class="columns">
@@ -48,10 +43,7 @@
               <p>
                 {{ article.description }}
               </p>
-              <p> Ceci est un article interessant, si vous souhaitez en lire plus veuillez appuyer
-              sur le bouton prévu à cet effet incessamment sous peu. Ensuite, aller voir au fond du lac
-              pour vérifier que la chambre de lucas a été rangé par les draps cachés sous les algues.
-              Finalement, n'hésitez pas à manger tout le foin et à casser trois pattes a un canard.</p>
+              <p>{{ article.content |raw }}</p>
               <figcaption><a href="{{ path("ono_map_article_view",{"id":article.id}) }}" ><span>Lire plus...</span></a></figcaption>
             </div>
           </div>
