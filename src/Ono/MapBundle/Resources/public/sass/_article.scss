@@ -126,11 +126,16 @@
               margin:0;
               top:0;
             }
+
+            img + .info {
+              top:-23px;
+            }
+
             .info {
             background-color: rgba(0,0,0,0.8);
             height: 20px;
             position: relative;
-            top: -22px;
+
             }
             h4 {
               margin:0;
