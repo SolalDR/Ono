@@ -62,27 +62,31 @@ class ArticleController extends Controller
     $article->setDtcreation(new \DateTime());
 
 
+
     if($this->container->get('security.authorization_checker')->isGranted('ROLE_EDITOR')){
       $user = $this->get('security.token_storage')->getToken()->getUser();
       $article->setUser($user);
       $form = $this->get('form.factory')->create(ArticleType::class, $article);
+
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          //On persist la réponse
+          $manager->persist($article);
+          //On enregistre
+          $manager->flush();
+          $request->getSession()->getFlashBag()->add('notice', 'Article bien enregistrée.');
+          return $this->redirectToRoute("ono_map_article_view", array(
+            "id" => $article->getId(),
+            "themes" => $themes
+          ));
+      }
+
       return $this->render('OnoMapBundle:Article:add.html.twig', array(
         'form' => $form->createView(),
         "themes" => $themes
       ));
     }
 
-    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        //On persist la réponse
-        $manager->persist($article);
-        //On enregistre
-        $manager->flush();
-        $request->getSession()->getFlashBag()->add('notice', 'Article bien enregistrée.');
-        return $this->redirectToRoute("ono_map_article_view", array(
-          "id" => $article->getId(),
-          "themes" => $themes
-        ));
-    }
+
 
     return $this->redirectToRoute("ono_map_article_index");
   }
