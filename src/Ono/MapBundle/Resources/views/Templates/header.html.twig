@@ -1,10 +1,10 @@
 <header id="sidebarLeft" class="sidebar-left">
+
     <nav class="main-nav">
       <div class="nav-head">
-        <img class="logo sidebar-img" src="{{ asset("asset/img/logo.svg") }}" alt="" />
-        <p class="nav-bar-profile">Profil</p>
-        <a class="logout-button" href="{{ path("fos_user_security_logout") }}">Se déconnecter</a>
+        <img class="logo sidebar-img" src="{{ asset("asset/img/logo-name-after.svg") }}" alt="" />
       </div>
+
       <ul class="nav-body">
         <a href="{{ path("ono_map_homepage") }}" class="item-nav{% if app.request.get('_route') == 'ono_map_homepage' %} active{% endif %}">
           <li>
@@ -37,13 +37,21 @@
             <p>Questions</p>
           </li>
         </a>
+
         <a href="{{ path('ono_map_question_index') }}" class="item-nav{% if app.request.get('_route') == 'ono_map_infos' %} active{% endif %}">
           <li>
             <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
             <p>Infos</p>
           </li>
         </a>
-      </ul>
+
+        <div class="nav-bottom">
+          <img class="logo sidebar-img" src="http://www.superprof.fr/images/annonces/professeur-home-etudiant-histoire-profil-litteraire-donne-cours-particuliers-soutien-generalise-disciplines-litteraires-ou.jpg" alt="" />
+          <p class="nav-bar-profile">Profil</p>
+          <a class="logout-button" href="{{ path("fos_user_security_logout") }}">DECONNEXION</a>
+        </div>
+    </ul>
+
     </nav>
   <!-- </div> -->
   <div id="theme-list-container" class="sidebar-close">

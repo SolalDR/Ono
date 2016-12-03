@@ -2,7 +2,7 @@
   display: block;
   z-index: 999;
   position: fixed;
-  width: 110px;
+  width: 88px;
   height: 100%;
   height: 100vh;
   left: 0;
@@ -17,47 +17,43 @@
   }
   .main-nav {
     text-align: center;
-    margin-top: 20px;
+    font-size:0.8em;
     .nav-head {
-      height: 18vh;
+      height: 14vh;
+      background-color: #FFF;
+
       .sidebar-img {
-        width: 50%;
+        width: 70%;
         display: block;
         margin: auto;
-        padding-top: 1vh;
+        padding-top: 25px;
       }
-      .nav-bar-profile {
-        margin-top: 2vh;
-        text-align: center;
-        color: $light-grey;
-        font-size: .9em;
-        display: block;
-        margin-bottom: 3px;
-      }
-      .logout-button {
-        color: $medium-grey;
-        font-size: 0.8em;
-        font-family: sans-serif;
-      }
+
     }
     .nav-body {
       text-align: center;
       .item-nav {
-        width: 110px;
-        height: 13vh;
+        width:86px;
+        height: 10vh;
         background-color: transparent;
         display: block;
-        border-top: 1px solid $medium-grey;
+        margin: auto;
+        border-left:2px solid transparent;
+        // border-top: 1px solid $medium-grey;
         @include transition(.3s ease-in);
         &:hover, &.active {
-          background-color: $green;
-          color: white;
-          width: 120px;
+          background-color: rgba(50, 50, 50, 0.85);
+          color: $blue;
+          font-weight: bolder;
+          border-left: 2px solid $blue;
+          width:86px;
         }
+
+
         li {
           img {
             margin-top: 2vh;
-            height: 5vh;
+            height: 3vh;
           }
           p {
             text-transform: uppercase;
@@ -66,9 +62,43 @@
             letter-spacing: 2px;
             font-size: 0.7em;
           }
+
         }
       }
     }
+
+    .nav-bottom {
+      text-align: center;
+      height: auto;
+      background-color: rgba(30, 30, 30,1);
+      margin-top: 30px;
+      padding: 20px 0 10px;
+
+      .sidebar-img {
+        width:50px;
+        border-radius: 50%;
+        display: block;
+        margin: auto;
+      }
+      .nav-bar-profile {
+        margin-top: 2vh;
+        text-align: center;
+        color: $light-grey;
+        font-size: .9em;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .logout-button {
+        color: $medium-grey;
+        font-size: 0.8em;
+        font-family: sans-serif;
+        @include transition(.1s ease-in);
+
+        &:hover {
+          color:white;
+          }
+        }
+      }
   }
 
   #theme-list-container {
