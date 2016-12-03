@@ -385,28 +385,28 @@ ono_admin_delete_article:
 
 #ajouter langue
 ono_admin_add_tag:
-    path:   /admin/article/add
+    path:   /admin/tag/add
     defaults:
-        _controller: OnoMapBundle:Article:add
+        _controller: OnoMapBundle:Tag:add
 
 #list des langues
 ono_admin_list_tags:
-    path:   /admin/article/list
+    path:   /admin/tag/list
     defaults:
-        _controller: OnoMapBundle:Article:index
+        _controller: OnoMapBundle:Tag:index
 
 #edit langue
 ono_admin_edit_tag:
-    path:   /admin/article/edit/{id}
+    path:   /admin/tag/edit/{id}
     defaults:
-        _controller: OnoMapBundle:Article:edit
+        _controller: OnoMapBundle:Tag:edit
     requirements:
         id: \d+
 
 #delete langue
 ono_admin_delete_tag:
-    path:   /admin/article/delete/{id}
+    path:   /admin/tag/delete/{id}
     defaults:
-        _controller: OnoMapBundle:Article:delete
+        _controller: OnoMapBundle:Tag:delete
     requirements:
         id: \d+
