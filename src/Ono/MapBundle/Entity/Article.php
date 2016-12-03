@@ -75,6 +75,13 @@ class Article
     private $themes;
 
     /**
+    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Tag", cascade={"persist"})
+    * @Assert\Valid()
+    * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
+    */
+    private $tags;
+
+    /**
     * @ORM\ManyToOne(targetEntity="Ono\MapBundle\Entity\Country")
     * @ORM\JoinColumn(nullable=false)
     * @Assert\Valid()
@@ -374,5 +381,39 @@ class Article
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \Ono\MapBundle\Entity\Tag $tag
+     *
+     * @return Article
+     */
+    public function addTag(\Ono\MapBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Ono\MapBundle\Entity\Tag $tag
+     */
+    public function removeTag(\Ono\MapBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

@@ -13,6 +13,11 @@
         {{ article.nbLikes }}
       </p>
       <p>
+        {% for tag in article.tags %}
+          {{ tag.libTag }}
+        {% endfor %}
+      </p>
+      <p>
         Test :
         {% if is_granted("ROLE_USER") %}
           {% if article|isliking == true %}

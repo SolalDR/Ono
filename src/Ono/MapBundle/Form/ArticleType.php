@@ -12,8 +12,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Ono\MapBundle\Form\TagType;
+
 
 class ArticleType extends AbstractType
 {
@@ -39,6 +43,11 @@ class ArticleType extends AbstractType
               'class'        => 'OnoMapBundle:Country',
               'choice_label' => 'libCountry',
               'multiple'     => false,
+            ))
+            ->add('tags', CollectionType::class, array(
+              'entry_type'   => TagType::class,
+              'allow_add'    => true,
+              'allow_delete' => true
             ))
             ->add('language', EntityType::class, array(
               'class'        => 'OnoMapBundle:Language',

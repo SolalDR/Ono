@@ -3,6 +3,13 @@
 //         FONCTION GÉNÉRIQUE
 //
 /////////////////////////////////////////////
+//S'applique à un élément du DOM, le Supprime du DOM
+Node.prototype.remove = function(){
+  var parent = this.parentNode;
+  if(parent){
+    parent.removeChild(this);
+  }
+}
 
 //Met un élément à la taille de la fenêtre
 function setToWindowHeight(el){
