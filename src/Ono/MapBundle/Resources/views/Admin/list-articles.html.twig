@@ -1,0 +1,80 @@
+
+{% extends "OnoMapBundle:Admin:layout.html.twig" %}
+
+{% block body %}
+
+<div class="mainContent">
+  <h1>Liste des ARTICLES</h1>
+  <a class="button-style bg-blue" href="{{ path('ono_admin_add_article') }}">Ajouter un Article</a>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Id
+        </th>
+        <th>
+          Title
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Published
+        </th>
+        <th>
+          NbLikes
+        </th>
+        <th>
+          Country
+        </th>
+        <th>
+          Language
+        </th>
+        <th>
+          User id
+        </th>
+        <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+        <tr>
+          <td>
+            {{ article.id }}
+          </td>
+          <td>
+            {{ article.title }}
+          </td>
+          <td>
+            {{ article.description }}
+          </td>
+          <td>
+            {{ article.published }}
+          </td>
+          <td>
+            {{ article.nbLikes }}
+          </td>
+          <td>
+            {{ article.country.libCountry }}
+          </td>
+          <td>
+            {{ article.language.libLanguageFr }}
+          </td>
+          <td>
+            {{ article.user.id }}
+          </td>
+          <td>
+            <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_article", {"id": article.id}) }}">Edit</a>
+          </td>
+          <td>
+            <a class="button-style bg-red no-marge" href="{{ path("ono_admin_delete_article", {"id": article.id}) }}">Supprimer</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

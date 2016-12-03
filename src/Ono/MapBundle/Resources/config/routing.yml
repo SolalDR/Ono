@@ -343,3 +343,70 @@ ono_admin_delete_user:
         _controller: OnoUserBundle:User:delete
     requirements:
         id: \d+
+
+
+
+#####################
+#  ADMIN Article
+#####################
+
+#ajouter langue
+ono_admin_add_article:
+    path:   /admin/article/add
+    defaults:
+        _controller: OnoMapBundle:Article:add
+
+#list des langues
+ono_admin_list_articles:
+    path:   /admin/article/list
+    defaults:
+        _controller: OnoMapBundle:Article:index
+
+#edit langue
+ono_admin_edit_article:
+    path:   /admin/article/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:edit
+    requirements:
+        id: \d+
+
+#delete langue
+ono_admin_delete_article:
+    path:   /admin/article/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:delete
+    requirements:
+        id: \d+
+
+
+#####################
+#  ADMIN Tags
+#####################
+
+#ajouter langue
+ono_admin_add_tag:
+    path:   /admin/article/add
+    defaults:
+        _controller: OnoMapBundle:Article:add
+
+#list des langues
+ono_admin_list_tags:
+    path:   /admin/article/list
+    defaults:
+        _controller: OnoMapBundle:Article:index
+
+#edit langue
+ono_admin_edit_tag:
+    path:   /admin/article/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:edit
+    requirements:
+        id: \d+
+
+#delete langue
+ono_admin_delete_tag:
+    path:   /admin/article/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Article:delete
+    requirements:
+        id: \d+
