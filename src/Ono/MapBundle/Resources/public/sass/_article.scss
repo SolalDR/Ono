@@ -5,7 +5,7 @@
   width:100%;
   height:auto;
   text-align: center;
-  background:url('http://i.jootix.com/o/unnamed--9313267bce.jpg') no-repeat;
+  background:url('../img/title-bg.jpg') no-repeat;
   background-size: cover;
 
 
@@ -104,11 +104,10 @@
   @include column-gap(30px);
   width: 90%;
   max-width: 1100px;
-  margin: 40px auto;
+  margin: 20px auto;
   font-family: 'Roboto',cursive;
 
     figure {
-      margin: 0 2px 15px;
       padding-bottom: 10px;
       display: inline-block;
       column-break-inside: avoid;
