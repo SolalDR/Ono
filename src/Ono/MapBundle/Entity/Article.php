@@ -75,7 +75,7 @@ class Article
     private $themes;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Tag", cascade={"persist"})
+    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Tag")
     * @Assert\Valid()
     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
     */
@@ -405,6 +405,16 @@ class Article
     public function removeTag(\Ono\MapBundle\Entity\Tag $tag)
     {
         $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Ono\MapBundle\Entity\Tag $tag
+     */
+    public function removeTags()
+    {
+        $this->tags = null;
     }
 
     /**

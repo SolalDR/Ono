@@ -80,11 +80,14 @@ dynamicTag = {
       console.log("Bonjour");
     }, false)
   },
-  create:function(){
+  create:function(inputValue = null){
     var id = dynamicTag.lgt;
     var formGroup = document.createElement("div");
     var label = document.createElement("label");
     var input = document.createElement("input");
+    if (inputValue){
+      input.value = inputValue;
+    }
     var buttonSupp = document.createElement("button");
     buttonSupp.className= "btn supp-tag";
     buttonSupp.innerHTML = "Supprimer";
@@ -130,11 +133,25 @@ dynamicTag = {
       dynamicTag.lgt --;
     }, false);
   },
+  initChildren:function(){
+    dynamicTag.lgt = 0;
+    if(dynamicTag.container.getElementsByTagName("input")){
+      var inputs = dynamicTag.container.getElementsByTagName("input");
+      var value = [];
+      for(i=0; i<inputs.length; i++){
+        value.push(inputs[i].value)
+      }
+      dynamicTag.container.innerHTML = "";
+      for(i=0; i<value.length; i++){
+        dynamicTag.create(value[i]);
+      }
+    }
+  },
   init:function(queryContainer){
     dynamicTag.container = document.querySelector(queryContainer);
     dynamicTag.queryId = queryContainer;
     if(dynamicTag.container){
-      dynamicTag.lgt = dynamicTag.container.getElementsByTagName("input").length;
+      dynamicTag.initChildren()
       dynamicTag.prototype = dynamicTag.container.getAttribute("data-prototype");
       dynamicTag.addbutton=document.getElementById("add_item_dynamic");
       if(dynamicTag.addbutton){

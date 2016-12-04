@@ -24,6 +24,12 @@
       {# Les erreurs générales du formulaire. #}
       {{ form_errors(form) }}
 
+
+      <div id="dynamicForm">
+        {{ form_row(form.tags) }}
+        <a href="#" id="add_item_dynamic" class="btn btn-default">Ajouter un Tag</a>
+      </div>
+
       {# Génération automatique des champs pas encore écrits.
          Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
          et tous les champs cachés (type « hidden »). #}
@@ -35,4 +41,9 @@
   </div>
 
   {% endblock %}
+{% endblock %}
+
+{% block javascriptload %}
+  {{ parent() }}
+  dynamicTag.init("#article_tags");
 {% endblock %}

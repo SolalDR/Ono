@@ -64,6 +64,7 @@ class ArticleController extends Controller
   public function addAction(Request $request){
     $manager =$this->getDoctrine()->getManager();
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
+    $tagRepo = $manager->getRepository("OnoMapBundle:Tag");
     $themes = $themRepo->findAll();
 
     $article = new Article;
@@ -78,7 +79,27 @@ class ArticleController extends Controller
 
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
           //On persist la réponse
+
+          $tags=$article->getTags();
+          $article->removeTags();
+          for($i=0; $i<count($tags); $i++){
+            $tagSearch = null;
+            $tagSearch = $tagRepo->findOneBy(array(
+              "libTag" => $tags[$i]->getlibTag()
+            ));
+            if(!$tagSearch){
+              $tagSearch = new Tag;
+              $tagSearch->setLibTag($tags[$i]["libTag"]);
+              $article->addTag($tagSearch);
+            }
+            $article->addTag($tagSearch);
+          }
+
+          // dump($article);
           $manager->persist($article);
+
+          // exit;
+
           //On enregistre
           $manager->flush();
           $request->getSession()->getFlashBag()->add('notice', 'Article bien enregistrée.');
@@ -111,6 +132,7 @@ class ArticleController extends Controller
     $manager =$this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
+    $tagRepo = $manager->getRepository("OnoMapBundle:Tag");
     $themes = $themRepo->findAll();
 
     $article = $repoArticle->find($numId);
@@ -119,6 +141,33 @@ class ArticleController extends Controller
     if($article && $user instanceof User && $user->getId() === $article->getUser()->getId()){
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_EDITOR')){
         $form = $this->get('form.factory')->create(ArticleType::class, $article);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          //On persist la réponse
+          $tags=$article->getTags();
+          $article->removeTags();
+          for($i=0; $i<count($tags); $i++){
+            $tagSearch = null;
+            $tagSearch = $tagRepo->findOneBy(array(
+              "libTag" => $tags[$i]->getlibTag()
+            ));
+            if(!$tagSearch){
+              $tagSearch = new Tag;
+              $tagSearch->setLibTag($tags[$i]["libTag"]);
+              $article->addTag($tagSearch);
+            }
+            $article->addTag($tagSearch);
+          }
+          $manager->persist($article);
+          //On enregistre
+          $manager->flush();
+          $request->getSession()->getFlashBag()->add('notice', 'Article bien modifié.');
+          return $this->redirectToRoute("ono_map_article_view", array(
+            "id" => $article->getId(),
+            "themes" => $themes
+          ));
+        }
+
         $routeName = $request->get('_route');
         if($routeName === "ono_admin_edit_article") {
           return $this->render('OnoMapBundle:Admin:edit-article.html.twig', array(
@@ -130,17 +179,6 @@ class ArticleController extends Controller
           'form' => $form->createView(),
           "themes" => $themes,
           "article" => $article
-        ));
-      }
-      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-        //On persist la réponse
-        $manager->persist($article);
-        //On enregistre
-        $manager->flush();
-        $request->getSession()->getFlashBag()->add('notice', 'Article bien modifié.');
-        return $this->redirectToRoute("ono_map_article_view", array(
-          "id" => $article->getId(),
-          "themes" => $themes
         ));
       }
     }

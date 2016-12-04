@@ -28,6 +28,7 @@
          Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
          et tous les champs cachés (type « hidden »). #}
       <div id="dynamicForm">
+
         {{ form_row(form.tags) }}
         <a href="#" id="add_item_dynamic" class="btn btn-default">Ajouter un Tag</a>
       </div>
@@ -42,17 +43,8 @@
   {% endblock %}
 {% endblock %}
 
-{# JAVASCRIPT #}
-{% block javascripts %}
-  {% javascripts
-  'bundles/onomap/js/config.js'
-  'bundles/onomap/js/loaderManage.js'
-  'bundles/onomap/js/main.js'
-  "bundles/onomap/js/form.js"
-  "bundles/onomap/js/loader.js"
-   %}
-    <script src="{{ asset_url }}" type="text/javascript"></script>
-    <script type="text/javascript">
-      dynamicTag.init("#article_tags");
-    </script>
-  {% endjavascripts %}
+{# ce code s'execute au chargement de la page #}
+{% block javascriptload %}
+  {{ parent() }}
+  dynamicTag.init("#article_tags");
+{% endblock %}

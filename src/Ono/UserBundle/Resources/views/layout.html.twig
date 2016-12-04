@@ -50,3 +50,17 @@
     <script src="{{ asset_url }}" type="text/javascript"></script>
   {% endjavascripts %}
 {% endblock %}
+
+{% block javascriptLoadContainer %} <script type="text/javascript">window.onload = function(){
+
+      //Au chargement de la page
+      {% block javascriptload %}
+        setTimeout(function(){
+          if(typeof mapGestion !== "undefined" ){
+            mapGestion.createAllMarkers();
+          }
+        }, 1000)
+        loaderManage.stopAnimation();
+      {% endblock %}
+
+}</script> {% endblock %}
