@@ -436,7 +436,7 @@ input[type=range] {
           color: white; }
   #sidebarLeft.sidebar-left #theme-list-container {
     position: fixed;
-    left: 120px;
+    left: 88px;
     width: 38vh;
     background-color: white;
     top: 0px;
@@ -870,7 +870,7 @@ input[type=range] {
     width: 100%;
     height: auto;
     text-align: center;
-    background: url("http://i.jootix.com/o/unnamed--9313267bce.jpg") no-repeat;
+    background: url("../img/title-bg.jpg") no-repeat;
     background-size: cover; }
     #article-index .mainContent h1 {
       color: #FFF;
@@ -944,10 +944,9 @@ input[type=range] {
     column-gap: 30px;
     width: 90%;
     max-width: 1100px;
-    margin: 40px auto;
+    margin: 20px auto;
     font-family: 'Roboto',cursive; }
     #article-index .columns figure {
-      margin: 0 2px 15px;
       padding-bottom: 10px;
       display: inline-block;
       column-break-inside: avoid; }
@@ -1012,7 +1011,7 @@ input[type=range] {
     width: 100%;
     height: auto;
     text-align: center;
-    background: url("http://i.jootix.com/o/unnamed--9313267bce.jpg") no-repeat;
+    background: url("../img/title-bg.jpg") no-repeat;
     background-size: cover; }
     #questions-index .mainContent h1 {
       color: #FFF;
@@ -1086,10 +1085,9 @@ input[type=range] {
     column-gap: 30px;
     width: 90%;
     max-width: 1100px;
-    margin: 50px auto;
+    margin: 20px auto;
     font-family: 'Roboto',cursive; }
     #questions-index .columns figure {
-      margin: 0 2px 15px;
       padding-bottom: 10px;
       display: inline-block;
       column-break-inside: avoid; }
