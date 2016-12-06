@@ -75,7 +75,7 @@ class Article
     private $themes;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Tag")
+    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Tag",  cascade={"persist"})
     * @Assert\Valid()
     * @Assert\NotBlank(message="Le champ ne doit pas être vide !")
     */
