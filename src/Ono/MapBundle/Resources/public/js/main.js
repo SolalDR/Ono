@@ -208,6 +208,51 @@ likeManage = {
 
 }
 
+
+///////////////////////////////////////////////////////
+//
+//
+//
+//   gère les test et requête xhr pour like & dislike
+//
+///////////////////////////////////////////////////////
+
+tagManage = {
+  tags : [],
+  hydrateObject:function(){
+    for(i=0; i<tagManage.tagsEl.length; i++){
+      tagManage.tags.push({
+        "id":  tagManage.tagsEl[i].getAttribute("data-id"),
+        "lib" : tagManage.tagsEl[i].innerHTML
+      });
+    }
+  },
+  run:function(){
+    var regStr, link, str;
+    for(i=0; i<tagManage.tags.length; i++){
+      regStr = new RegExp("\\s"+tagManage.tags[i].lib+"\\s", "g");
+      link = tagManage.prototype.replace(/(.+?)\d+$/, "$1"+tagManage.tags[i].id)
+      console.log(link);
+      str = tagManage.content.innerHTML
+
+      str = str.replace(regStr, ' <a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a> ')
+      tagManage.content.innerHTML = str;
+      console.log(regStr, '<a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a>');
+      console.log(str);
+    }
+  },
+  init:function(){
+    tagManage.tagsEl = document.getElementsByClassName("tag-content");
+    tagManage.content = document.getElementById("tagManageContent");
+    if(tagManage.content && tagManage.tagsEl){
+      tagManage.prototype = tagManage.content.getAttribute("data-prototypetag")
+      tagManage.hydrateObject();
+      tagManage.run();
+    }
+  }
+}
+
+
 ///////////////////////////////////////////////////////
 //
 //          Capte filter
@@ -470,3 +515,4 @@ burgerGestion.init("#sidebarRight")
 filter.init();
 XHRformAuto.init();
 themeGestion.init();
+tagManage.init();

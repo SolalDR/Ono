@@ -20,6 +20,13 @@
               </div>
               {% endif %}
             {% endfor %}
+            <div>
+              {% for tag in article.tags %}
+                <div class="tag">
+                  <p class="tag-content" data-id="{{ tag.id }}">{{ tag.libTag }}</p>
+                </div>
+              {% endfor %}
+            </div>
         </div>
 
         <h1>{{ article.title }}</h1>
@@ -46,7 +53,7 @@
                   <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
                 </a>
                 {% endif %}
-                
+
             </div>
         </div>
 
@@ -60,7 +67,7 @@
               </p>
           </div>
 
-          <div class="question-answer">
+          <div class="question-answer"  id="tagManageContent" data-prototypeTag="{{ path("ono_map_article_view_from_tag", {"id": article.id, "tag":"0"}) }}">
             <p> {{article.content | raw}} </p>
           </div>
 
@@ -123,6 +130,7 @@
     </div>
         <a href="{{ path("ono_map_article_edit", {"id": article.id }) }}">Editer</a>
         <a href="{{ path("ono_map_article_index") }}">Retour à la liste</a>
+
   </body>
   {% endblock %}
 {% endblock %}

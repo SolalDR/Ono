@@ -10,18 +10,16 @@ use Ono\MapBundle\Form\TagType;
 
 class TagController extends Controller
 {
+
   public function addAction(Request $request)
   {
     $manager = $this->getDoctrine()->getManager();
     $tag = new Tag;
-
     $form = $this->get('form.factory')->create(TagType::class, $tag);
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
       $manager->persist($tag);
       $manager->flush();
-
       $request->getSession()->getFlashBag()->add('notice', 'Tag bien enregistrée.');
-
       return $this->redirectToRoute("ono_admin_list_tags");
     }
     return $this->render('OnoMapBundle:Admin:add-tag.html.twig', array(
@@ -39,12 +37,9 @@ class TagController extends Controller
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
         $manager->persist($tag);
         $manager->flush();
-
         $request->getSession()->getFlashBag()->add('notice', 'Tag bien modifié.');
-
         return $this->redirectToRoute("ono_admin_list_country");
       }
-
       return $this->render('OnoMapBundle:Admin:edit-tag.html.twig', array(
         "form" => $form->createView(),
         "tag" => $tag
@@ -58,7 +53,6 @@ class TagController extends Controller
 
       // On récupère l'annonce $numId
       $tag = $manager->getRepository('OnoMapBundle:Tag')->find($numId);
-
       if (null === $tag) {
         throw new NotFoundHttpException("Le pays d'id ".$numId." n'existe pas.");
       }
@@ -84,6 +78,7 @@ class TagController extends Controller
         'form'   => $form->createView()
       ));
   }
+
   public function indexAction()
   {
     $manager = $this->getDoctrine()->getManager();

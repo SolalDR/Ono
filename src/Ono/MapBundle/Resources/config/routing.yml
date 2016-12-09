@@ -83,6 +83,14 @@ ono_map_article_view:
     requirements:
         id: \d+
 
+ono_map_article_view_from_tag:
+    path:     /article/show/{id}/{tag}
+    defaults:
+        _controller: OnoMapBundle:Article:show
+    requirements:
+        id: \d+
+        tag: \d+
+
 ono_map_article_add:
     path:     /article/add
     defaults:

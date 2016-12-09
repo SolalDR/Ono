@@ -45,12 +45,23 @@ class ArticleController extends Controller
   }
 
   public function showAction(Request $request){
-    $numId = (int) $request->attributes->all()["id"];
+    $parameters = $request->attributes->all();
+    $numId = (int) $parameters["id"];
+    if(isset($parameters["tag"])){
+      $numTag = (int) $parameters["tag"];
+    }
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
     $article = $repoArticle->find($numId);
+    if(isset($numTag)){
+      $articles = $repoArticle->getFromTag($numTag);
+      if (count($articles)>1){
+        $article = $articles[floor(rand(0, count($articles)-1))];
+      }
+    }
+
     if($article === null){
       throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
     }
