@@ -1,42 +1,128 @@
 {% extends "OnoMapBundle::layout.html.twig" %}
-{% block title %}{{ parent() }} Article{% endblock %}
+{% block title %}{{ parent() }} Article {% endblock %}
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
 
   <body id='article-show'>
-    <h1>{{ article.title }}</h1>
-    <p>
-      Le {{ article.dtcreation|date("j/m/y") }} par {{ article.user.firstname }}
-    </p>
-    <p>
-      <p>
-        Nombre de like :
-        {{ article.nbLikes }}
-      </p>
-      <p>
-        {% for tag in article.tags %}
-          {{ tag.libTag }}
-        {% endfor %}
-      </p>
-      <p>
-        Test :
-        {% if is_granted("ROLE_USER") %}
-          {% if article|isliking == true %}
-          <a href="{{ path("ono_map_article_unlike", {"id": article.id }) }}">J'aime plus</a>
-          {% else %}
-          <a href="{{ path("ono_map_article_like", {"id": article.id }) }}">J'aime</a>
-          {% endif %}
-        {% endif %}
-      </p>
-      Contenu :
-      {{article.content | raw}}
-      <p>
-        <a href="{{ path("ono_map_article_edit", {"id": article.id }) }}">Editer</a>
-      </p>
-    </p>
-    <a href="{{ path("ono_map_article_index") }}">Retour à la liste</a>
 
+    <div id="redirect-map" class='shadow'>
+      <p><a href="{{ path('ono_map_homepage')}}"> Revenir à la carte </a></p>
+    </div>
+
+    <div id='question-container'>
+    <div id="question-info" class='shadow'>
+      <div id="tags-container">
+            {% for theme in themes %}
+              {% if theme.id in app.session.get("themes") %}
+              <div class="tag">
+                <p>{{ theme.libTheme }}</p>
+              </div>
+              {% endif %}
+            {% endfor %}
+        </div>
+
+        <h1>{{ article.title }}</h1>
+        <p> Il y a (nombre de réponses) réponses </p>
+    </div>
+
+    <h3> Meilleure réponse à cette question </h3>
+
+    <div id="question-content" class='shadow'>
+        <div id="question-img">
+            <!-- <img src="{{ asset("asset/img/logo.svg") }}"/> Image/Vidéo de l'article -->
+
+            <div class="info">
+                <h4> {{ article.country.libCountry }} </h4>
+                <p>{{ article.nbLikes }}</p>
+
+                {{ article|isliking }}
+                {% if article|isliking == true %}
+                <a href="{{ path("ono_map_response_unlike", {"id": article.id }) }}">
+                  <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />
+                </a>
+                {% else %}
+                <a href="{{ path("ono_map_response_like", {"id": article.id }) }}">
+                  <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
+                </a>
+                {% endif %}
+                
+            </div>
+        </div>
+
+        <div id="question-text">
+
+          <div class="profil">
+              <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
+              <p class="profil-description">
+                <span>{{ article.user.firstname }}</span>
+                <br/> {{ article.dtcreation |date("d/m/y")}}
+              </p>
+          </div>
+
+          <div class="question-answer">
+            <p> {{article.content | raw}} </p>
+          </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="add-response" class='shadow'>
+      <a href='{{ path("ono_map_response_add", {"id": article.id})}}'> Proposer un article </a>
+    </div>
+
+    </div>
+
+    <div id='more'>
+      <h3> Consulter d'autre articles similaires </h3>
+      <div class='answer shadow'>
+
+        <div class='answer-img'>
+          <!-- <img src="{{ asset("asset/img/logo.svg") }}"/> Image/Vidéo de l'article -->
+
+            <div class='info'>
+              <h4> {{ article.country.libCountry }} </h4>
+              <p>{{ article.nbLikes }}</p>
+
+              {{ article|isliking }}
+              {% if article|isliking == true %}
+              <a href="{{ path("ono_map_response_unlike", {"id": article.id }) }}">
+                <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />
+              </a>
+              {% else %}
+              <a href="{{ path("ono_map_response_like", {"id": article.id }) }}">
+                <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
+              </a>
+              {% endif %}
+
+            </div>
+        </div>
+
+        <div class='answer-content'>
+          <div class="profil">
+              <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
+              <p class="profil-description"><span>{{ article.user.firstname }}</span><br/> {{ article.dtcreation |date("d/m/y")}}</p>
+          </div>
+
+          <div class="question-answer">
+            <p> {{article.content | raw}} </p>
+            <a href="{{ path("ono_map_response_view",{"id":article.id}) }}"><span>Lire plus...</span></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div id='carrousel'>
+        <a href="" alt=""> <div class="circle"></div> </a>
+        <a href="" alt=""> <div class="circle"></div> </a>
+        <a href="" alt=""> <div class="circle"></div> </a>
+        <a href="" alt=""> <div class="circle"></div> </a>
+
+    </div>
+        <a href="{{ path("ono_map_article_edit", {"id": article.id }) }}">Editer</a>
+        <a href="{{ path("ono_map_article_index") }}">Retour à la liste</a>
   </body>
   {% endblock %}
 {% endblock %}

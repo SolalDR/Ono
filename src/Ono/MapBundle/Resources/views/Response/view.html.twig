@@ -34,7 +34,17 @@
             <div class="info">
                 <h4> {{ response.country.libCountry }} </h4>
                 <p>{{ response.nbLikes }}</p>
-            </div>
+                {{ response|isliking }}
+                
+                {% if response|isliking == true %}
+                <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">
+                  <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />
+                </a>
+                {% else %}
+                <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">
+                  <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
+                </a>
+                {% endif %}            </div>
         </div>
 
         <div id="question-text">
@@ -42,7 +52,7 @@
           <!-- Le {{ response.dtcreation|date("j/m/y") }} par {{ response.author }} -->
 
           <div class="profil">
-              <img src="#" class="profil-pic" alt='profil-picture'/>
+              <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
               <p class="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
           </div>
 
@@ -71,12 +81,25 @@
             <div class='info'>
               <h4> {{ response.country.libCountry }} </h4>
               <p>{{ response.nbLikes }}</p>
+
+              {{ response|isliking }}
+              {% if response|isliking == true %}
+              <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">
+                <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />
+              </a>
+              {% else %}
+              <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">
+                <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
+              </a>
+              {% endif %}
+
             </div>
+
         </div>
 
         <div class='answer-content'>
           <div class="profil">
-              <img src="#" class="profil-pic" alt='profil-picture'/>
+              <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
               <p class="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
           </div>
 
@@ -95,17 +118,6 @@
         <a href="" alt=""> <div class="circle"></div> </a>
 
   </div>
-
-
-      <!-- <p>
-        Test :
-        {{ response|isliking }}
-        {% if response|isliking == true %}
-        <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">J'aime plus</a>
-        {% else %}
-        <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">J'aime</a>
-        {% endif %}
-      </p> -->
 
 
   </body>
