@@ -3,6 +3,8 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
+
+  <body id='article-show'>
     <h1>{{ article.title }}</h1>
     <p>
       Le {{ article.dtcreation|date("j/m/y") }} par {{ article.user.firstname }}
@@ -34,5 +36,7 @@
       </p>
     </p>
     <a href="{{ path("ono_map_article_index") }}">Retour à la liste</a>
+
+  </body>
   {% endblock %}
 {% endblock %}

@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 use Ono\MapBundle\Entity\Article;
+use Ono\MapBundle\Entity\Tag;
 use Ono\UserBundle\Entity\User;
 use Ono\MapBundle\Form\ArticleType;
 
@@ -89,12 +90,10 @@ class ArticleController extends Controller
             ));
             if(!$tagSearch){
               $tagSearch = new Tag;
-              $tagSearch->setLibTag($tags[$i]["libTag"]);
-              $article->addTag($tagSearch);
+              $tagSearch->setLibTag($tags[$i]->getlibTag());
             }
             $article->addTag($tagSearch);
           }
-
           // dump($article);
           $manager->persist($article);
 

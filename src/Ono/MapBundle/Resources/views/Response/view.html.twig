@@ -3,16 +3,101 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-    <h1>{{ response.question.libQuestion }}</h1>
-    <p>
-      Le {{ response.dtcreation|date("j/m/y") }} par {{ response.author }}
-    </p>
-    <p>
-      <p>
-        Nombre de like :
-        {{ response.nbLikes }}
-      </p>
-      <p>
+
+  <body id="response-view">
+    <div id="redirect-map" class='shadow'>
+      <p><a href="{{ path('ono_map_homepage')}}"> Revenir à la carte </a></p>
+    </div>
+
+  <div id='question-container'>
+    <div id="question-info" class='shadow'>
+      <div id="tags-container">
+            {% for theme in themes %}
+              {% if theme.id in app.session.get("themes") %}
+              <div class="tag">
+                <p>{{ theme.libTheme }}</p>
+              </div>
+              {% endif %}
+            {% endfor %}
+        </div>
+
+        <h1>{{ response.question.libQuestion }}</h1>
+        <p> Il y a (nombre de réponses) réponses </p>
+    </div>
+
+    <h3> Meilleure réponse à cette question </h3>
+
+    <div id="question-content" class='shadow'>
+        <div id="question-img">
+            <!-- <img src="{{ asset("asset/img/logo.svg") }}"/> Image/Vidéo de l'article -->
+
+            <div class="info">
+                <h4> {{ response.country.libCountry }} </h4>
+                <p>{{ response.nbLikes }}</p>
+            </div>
+        </div>
+
+        <div id="question-text">
+
+          <!-- Le {{ response.dtcreation|date("j/m/y") }} par {{ response.author }} -->
+
+          <div class="profil">
+              <img src="#" class="profil-pic" alt='profil-picture'/>
+              <p class="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
+          </div>
+
+          <div class="question-answer">
+            <p> {{response.content | raw}} </p>
+          </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="add-response" class='shadow'>
+      <a href='{{ path("ono_map_response_add", {"id": response.question.id})}}'>Renseignez votre réponse </a>
+    </div>
+
+  </div>
+
+  <div id='more'>
+      <h3> Consulter d'autre réponses à cette question </h3>
+      <div class='answer shadow'>
+
+        <div class='answer-img'>
+          <!-- <img src="{{ asset("asset/img/logo.svg") }}"/> Image/Vidéo de l'article -->
+
+            <div class='info'>
+              <h4> {{ response.country.libCountry }} </h4>
+              <p>{{ response.nbLikes }}</p>
+            </div>
+        </div>
+
+        <div class='answer-content'>
+          <div class="profil">
+              <img src="#" class="profil-pic" alt='profil-picture'/>
+              <p class="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
+          </div>
+
+          <div class="question-answer">
+            <p> {{response.content | raw}} </p>
+            <a href="{{ path("ono_map_response_view",{"id":response.id}) }}" ><span>Lire plus...</span></a></figcaption>
+          </div>
+        </div>
+
+      </div>
+
+      <div id='carrousel'>
+        <a href="" alt=""> <div class="circle"></div> </a>
+        <a href="" alt=""> <div class="circle"></div> </a>
+        <a href="" alt=""> <div class="circle"></div> </a>
+        <a href="" alt=""> <div class="circle"></div> </a>
+
+  </div>
+
+
+      <!-- <p>
         Test :
         {{ response|isliking }}
         {% if response|isliking == true %}
@@ -20,10 +105,9 @@
         {% else %}
         <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">J'aime</a>
         {% endif %}
-      </p>
-      Contenu :
-      {{response.content | raw}}
-    </p>
-    <a href="{{ path("ono_map_homepage") }}">Retour à l'accueil</a>
+      </p> -->
+
+
+  </body>
   {% endblock %}
 {% endblock %}
