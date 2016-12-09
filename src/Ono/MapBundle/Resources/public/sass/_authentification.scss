@@ -1,6 +1,5 @@
 
 #authentification-pages {
-  // background-image: url(../img/bg-log.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   max-height: 100vh;
@@ -16,6 +15,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    z-index: 2;
     @include transform(translateX(-50%) translateY(-50%));
     h1 {
       text-align: center;
@@ -83,6 +83,24 @@
         }
       }
     }
+  }
+  canvas {
+    background-image: url(../img/bg-log-fond.png);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: cover;
+  }
+  .montain{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../img/bg-log-front.png);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: cover;
+    z-index: 1;
   }
 }
 

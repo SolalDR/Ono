@@ -92,16 +92,6 @@
             [
                 [0.95, 1, 0.5], 4
             ]
-            // ,
-            // [
-            //     [0.90, 1, 0.5], 3
-            // ],
-            // [
-            //     [0.85, 1, 0.5], 2
-            // ],
-            // [
-            //     [0.80, 1, 0.5], 1
-            // ]
         ];
         parameterCount = parameters.length;
 
@@ -129,10 +119,10 @@
         /*	If my calculations are correct, when this baby hits 88 miles per hour...
 	you're gonna see some serious shit.	*/
 
-        renderer = new THREE.WebGLRenderer(); /*	Rendererererers particles.	*/
+        renderer = new THREE.WebGLRenderer({ antialias: false,alpha:true }); /*	Rendererererers particles.	*/
         renderer.setPixelRatio(window.devicePixelRatio); /*	Probably 1; unless you're fancy.	*/
         renderer.setSize(WIDTH, HEIGHT); /*	Full screen baby Wooooo!	*/
-
+        renderer.setClearColor(0x000000, 0)
         container.appendChild(renderer.domElement); /* Let's add all this crazy junk to the page.	*/
 
         /*	I don't know about you, but I like to know how bad my
@@ -192,19 +182,13 @@
         for (i = 0; i < materials.length; i++) {
 
             color = parameters[i][0];
-            // console.log(h);
 
-
-            // h = (360 * (color[0] + time) % 360) / 360;
-            // console.log((color[0] + time) % 360, time);
-            // console.log(360*time%360);
-
-            // console.log(getTFromTLS(.27, .70, 10000, timeC));
+            var white = 0xffffff;
             h = getTFromTLS(.27, .70, 20000, timeC)
 
-            materials[i].color.setHSL(h, color[1], color[2]);
-            materials[i].color.setHSL(h, .7, .7);
-
+            // materials[i].color.setHSL(h, color[1], color[2]);
+            // materials[i].color.setHSL(h, .7, .7);
+            materials[i].color.setHSL(1, 1, 1)
         }
 
         renderer.render(scene, camera);

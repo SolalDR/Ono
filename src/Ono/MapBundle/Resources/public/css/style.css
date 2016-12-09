@@ -720,6 +720,7 @@ input[type=range] {
     position: fixed;
     top: 50%;
     left: 50%;
+    z-index: 2;
     -webkit-transform: translateX(-50%) translateY(-50%);
     /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
     -ms-transform: translateX(-50%) translateY(-50%);
@@ -786,6 +787,22 @@ input[type=range] {
           margin-bottom: 15px;
           font-size: .9em;
           line-height: 20px; }
+  #authentification-pages canvas {
+    background-image: url(../img/bg-log-fond.png);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: cover; }
+  #authentification-pages .montain {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../img/bg-log-front.png);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: cover;
+    z-index: 1; }
 
 .form-materialize form textarea {
   position: relative;
