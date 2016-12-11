@@ -16,6 +16,9 @@
         <th>
           Libellé
         </th>
+        <th>
+          UsedCount
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +29,9 @@
         </td>
         <td>
           {{ tag.libTag }}
+        <td>
+        <td>
+          {{ tag.usedCount }}
         <td>
           <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_tag", {"id" : tag.id}) }}">Editer</a>
         </td>

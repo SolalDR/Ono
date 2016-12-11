@@ -29,4 +29,21 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
       ->getResult()
     ;
   }
+  public function getNbUsedCount($tagId){
+    // $em = $this->getDoctrine()->getManager();
+     $qb = $this->_em->createQueryBuilder();
+
+     $result = $qb->select('COUNT(u) AS amount')
+                  ->from('OnoMapBundle:Article' , 'u')
+                  ->innerJoin('u.tags','t')
+                  ->where('t.id = :tagId')
+                  ->setParameter("tagId", $tagId);
+    // La syntaxe du IN et d'autres expressions se trouve dans la documentation Doctrine
+
+    // Enfin, on retourne le résultat
+    return $qb
+      ->getQuery()
+      ->getResult()
+    ;
+  }
 }

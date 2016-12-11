@@ -229,20 +229,21 @@ tagManage = {
   },
   run:function(){
     var regStr, link, str;
+    var regPunctu = "\(\[\\<\\>\\.\\s\\,\\&\]\)" //On récupère les " . , & < > "
     for(i=0; i<tagManage.tags.length; i++){
-      regStr = new RegExp("\\s"+tagManage.tags[i].lib+"\\s", "g");
-      link = tagManage.prototype.replace(/(.+?)\d+$/, "$1"+tagManage.tags[i].id)
-      console.log(link);
-      str = tagManage.content.innerHTML
 
-      str = str.replace(regStr, ' <a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a> ')
+      regStr = new RegExp(regPunctu+tagManage.tags[i].lib+regPunctu, "g");
+      link = tagManage.prototype.replace(/(.+?)\d+$/, "$1"+tagManage.tags[i].id)
+      str = tagManage.content.innerHTML
+      str = str.replace(regStr, '$1<a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a>$2')
       tagManage.content.innerHTML = str;
-      console.log(regStr, '<a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a>');
       console.log(str);
+      console.log(regStr, '<a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a>');
     }
   },
   init:function(){
-    tagManage.tagsEl = document.getElementsByClassName("tag-content");
+    //On influe sur ce tag car tout les tags ne seront pas traité par le script
+    tagManage.tagsEl = document.getElementsByClassName("tag-content-manage");
     tagManage.content = document.getElementById("tagManageContent");
     if(tagManage.content && tagManage.tagsEl){
       tagManage.prototype = tagManage.content.getAttribute("data-prototypetag")

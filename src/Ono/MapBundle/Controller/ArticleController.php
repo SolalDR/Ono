@@ -77,6 +77,7 @@ class ArticleController extends Controller
     $manager =$this->getDoctrine()->getManager();
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
     $tagRepo = $manager->getRepository("OnoMapBundle:Tag");
+    $articleRepo = $manager->getRepository("OnoMapBundle:Article");
     $themes = $themRepo->findAll();
 
     $article = new Article;
@@ -90,25 +91,10 @@ class ArticleController extends Controller
       $form = $this->get('form.factory')->create(ArticleType::class, $article);
 
       if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          //On persist la réponse
 
-          $tags=$article->getTags();
-          $article->removeTags();
-          for($i=0; $i<count($tags); $i++){
-            $tagSearch = null;
-            $tagSearch = $tagRepo->findOneBy(array(
-              "libTag" => $tags[$i]->getlibTag()
-            ));
-            if(!$tagSearch){
-              $tagSearch = new Tag;
-              $tagSearch->setLibTag($tags[$i]->getlibTag());
-            }
-            $article->addTag($tagSearch);
-          }
-          // dump($article);
+          $article = $this->manageTagsType($article);
+
           $manager->persist($article);
-
-          // exit;
 
           //On enregistre
           $manager->flush();
@@ -133,8 +119,6 @@ class ArticleController extends Controller
       ));
     }
 
-
-
     return $this->redirectToRoute("ono_map_article_index");
   }
   public function editAction(Request $request){
@@ -151,23 +135,8 @@ class ArticleController extends Controller
     if($article && $user instanceof User && $user->getId() === $article->getUser()->getId()){
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_EDITOR')){
         $form = $this->get('form.factory')->create(ArticleType::class, $article);
-
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-          //On persist la réponse
-          $tags=$article->getTags();
-          $article->removeTags();
-          for($i=0; $i<count($tags); $i++){
-            $tagSearch = null;
-            $tagSearch = $tagRepo->findOneBy(array(
-              "libTag" => $tags[$i]->getlibTag()
-            ));
-            if(!$tagSearch){
-              $tagSearch = new Tag;
-              $tagSearch->setLibTag($tags[$i]["libTag"]);
-              $article->addTag($tagSearch);
-            }
-            $article->addTag($tagSearch);
-          }
+          $article = $this->manageTagsType($article);
           $manager->persist($article);
           //On enregistre
           $manager->flush();
@@ -287,5 +256,48 @@ class ArticleController extends Controller
         'pathDelete' => "ono_admin_delete_article",
         'form'   => $form->createView()
       ));
+  }
+
+  private function manageTagsType($article){
+    $manager = $this->getDoctrine()->getManager();
+    $tagRepo = $manager->getRepository("OnoMapBundle:Tag");
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+
+    //Stocke les tags
+    $tags=$article->getTags();
+
+    //Supprime les tags actuel de l'article
+    $article->removeTags();
+
+    for($i=0; $i<count($tags); $i++){
+      //Détache du persistage les tags édités du formulaire
+      $manager->detach($tags[$i]);
+
+      //Initialise un tag
+      $tagSearch = null;
+
+      //Test si le libellé existe dans la bdd
+      $tagSearch = $tagRepo->findOneBy(array(
+        "libTag" => $tags[$i]->getlibTag()
+      ));
+
+      //Si il n'y a pas de tag dans la bdd on le crée
+      if(!$tagSearch){
+        $tagSearch = new Tag;
+        $tagSearch->setLibTag($tags[$i]["libTag"]);
+        $tagSearch->setUsedCount(1);
+      }
+
+      //Si le tag est déja dans la bdd, on met à jour le comptage
+      if($tagSearch->getId()){
+        $amount = $repoArticle->getNbUsedCount($tagSearch->getId())[0]["amount"];
+        $tagSearch->setUsedCount($amount+1);
+      }
+
+      //On rajoute le nouveau tag à l'article
+      $article->addTag($tagSearch);
+    }
+
+    return $article;
   }
 }

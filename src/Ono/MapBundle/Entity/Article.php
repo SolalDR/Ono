@@ -369,7 +369,6 @@ class Article
     public function setUser(\Ono\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -392,9 +391,8 @@ class Article
      */
     public function addTag(\Ono\MapBundle\Entity\Tag $tag)
     {
-        $this->tags[] = $tag;
-
-        return $this;
+      $this->tags[] = $tag;
+      return $this;
     }
 
     /**
