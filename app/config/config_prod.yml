@@ -20,6 +20,16 @@ monolog:
         console:
             type:  console
 
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+    bundles:
+        - OnoMapBundle
+        - OnoUserBundle
+        - IvoryCKEditorBundle
+
 
 doctrine:
     dbal:
