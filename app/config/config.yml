@@ -79,6 +79,8 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# ivory_ck_editor:
+#     autoload: true
 
 fos_user:
     db_driver:     orm                        # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début

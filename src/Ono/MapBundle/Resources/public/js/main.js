@@ -63,14 +63,11 @@ function callScript (scriptName, args, form, isJsonEncode){
 	//  Définition du comportement à adopter sur le changement d’état de l’objet XMLHttpRequest
 	xhr_object.onreadystatechange = function() {
 	  if(this.readyState === 4 && this.status === 200) {
-			// alert(xhr_object.responseText); // DEBUG MODE
-			// document.write(xhr_object.responseText);
       if(form) {
         if(form.getAttribute("data-action")) {
           XHRResponse.init(xhr_object.responseText, form, args);
         }
       } else {
-        // alert(xhr_object.responseText);
         XHRResponse.response = xhr_object.responseText;
       }
       sendMAJ(xhr_object.responseText);
