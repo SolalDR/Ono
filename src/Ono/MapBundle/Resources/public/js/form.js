@@ -71,6 +71,49 @@ materializeForm = {
 }
 
 
+function DynamicFormPrototype(args){
+  if(args.form) {
+    this.form = args.form;
+    this.prototype = this.form.getAttribute("data-prototype");
+  } else {
+    return false;
+  }
+  this.index = this.form.children.length ? this.form.children.length : 0;
+  this.init();
+}
+
+DynamicFormPrototype.prototype.generatePrototype = function(){
+  var prototype = this.prototype.replace(/__name__label__/g, "Fichier").replace(/__name__/g, this.index)
+  this.form.innerHTML += prototype;
+  this.index++
+}
+
+DynamicFormPrototype.prototype.generateAddButton = function(){
+  var button = document.createElement("span");
+  button.className = "btn";
+  button.innerHTML = "Ajouter";
+  this.button = button
+  this.form.parentNode.appendChild(this.button);
+}
+
+DynamicFormPrototype.prototype.init = function(){
+  this.generateAddButton();
+  this.initEvents();
+}
+
+DynamicFormPrototype.prototype.initEvents = function(){
+  var self = this;
+  this.button.addEventListener("click", function(e){
+    e.preventDefault();
+    self.generatePrototype();
+    return false;
+  }, false)
+}
+
+var dynamic =  new DynamicFormPrototype({
+  form: document.getElementById("article_resources")
+});
+
 
 dynamicTag = {
   els: [],
@@ -165,4 +208,4 @@ dynamicTag = {
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
-materializeForm.init();
+// materializeForm.init();

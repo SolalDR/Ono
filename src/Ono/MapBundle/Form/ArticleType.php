@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Ono\MapBundle\Form\TagType;
+use Ono\MapBundle\Form\ResourceType;
 
 
 class ArticleType extends AbstractType
@@ -59,6 +60,11 @@ class ArticleType extends AbstractType
               'choice_label' => 'libTheme',
               'multiple'     => true,
               "expanded" => true
+            ))
+            ->add('resources', CollectionType::class, array(
+              'entry_type'   => ResourceType::class,
+              'allow_add'    => true,
+              'allow_delete' => true
             ))
             ->add('save',       SubmitType::class)
         ;

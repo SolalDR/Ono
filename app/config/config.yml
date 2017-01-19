@@ -76,3 +76,13 @@ fos_user:
     profile:
         form:
             type: Ono\UserBundle\Form\ProfileFormType
+
+vich_uploader:
+    db_driver:     orm
+    mappings:
+        resource_file:
+            uri_prefix:         /Ono/web/files/resources
+            upload_destination: '%kernel.root_dir%/../web/files/resources'
+            inject_on_load:     true
+            delete_on_remove:   true
+            delete_on_update:   true

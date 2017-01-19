@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class ArticleController extends Controller
+class Resource extends Controller
 {
   public function indexAction(Request $request){
     $manager = $this->getDoctrine()->getManager();
@@ -241,10 +241,6 @@ class ArticleController extends Controller
       $form = $this->createFormBuilder()->getForm();
 
       if ($form->handleRequest($request)->isValid()) {
-        $articleResources = $article->getResources();
-        for ($i = 0; $i < count($articleResources);$i++) {
-          $article->removeResource($articleResources[$i]);
-        }
         $manager->remove($article);
         $manager->flush();
 

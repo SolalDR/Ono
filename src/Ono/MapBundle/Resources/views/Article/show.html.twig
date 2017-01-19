@@ -72,6 +72,11 @@
 
           <div class="question-answer"  id="tagManageContent" data-prototypeTag="{{ path("ono_map_article_view_from_tag", {"id": article.id, "tag":"0"}) }}">
             <p> {{article.content | raw}} </p>
+            <div class="resources">
+              {% for resource in article.resources %}
+              <img src="{{ vich_uploader_asset(resource, 'file') }}" alt="{{ article.title }}" />
+              {% endfor %}
+            </div>
           </div>
 
         </div>

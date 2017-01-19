@@ -103,6 +103,25 @@ class Article
     private $user;
 
     /**
+    * Many Articles have Many Resources
+    * @ORM\ManyToMany(targetEntity="Ono\MapBundle\Entity\Resource", cascade={"persist", "remove"}, orphanRemoval=true)
+    * @ORM\JoinTable(name="articles_resources",
+    *     joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
+    *     inverseJoinColumns={@ORM\JoinColumn(name="resource_id", referencedColumnName="id", unique=true)}
+    *     )
+    */
+    private $resources;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+      $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
+      $this->resources = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -230,13 +249,6 @@ class Article
     public function getDtcreation()
     {
         return $this->dtcreation;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -423,5 +435,39 @@ class Article
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Add resource
+     *
+     * @param \Ono\MapBundle\Entity\Resource $resource
+     *
+     * @return Article
+     */
+    public function addResource(\Ono\MapBundle\Entity\Resource $resource)
+    {
+        $this->resources[] = $resource;
+
+        return $this;
+    }
+
+    /**
+     * Remove resource
+     *
+     * @param \Ono\MapBundle\Entity\Resource $resource
+     */
+    public function removeResource(\Ono\MapBundle\Entity\Resource $resource)
+    {
+        $this->resources->removeElement($resource);
+    }
+
+    /**
+     * Get resources
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResources()
+    {
+        return $this->resources;
     }
 }
