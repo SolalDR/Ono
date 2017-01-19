@@ -11,8 +11,8 @@
 
 {# BODY #}
 {% block body %}
-  {% block pageAttributes %}<body>{% endblock %}
   {% block bodyContent %}
+  <body id="{{ app.request.get("_route") }}">
     {{ include("OnoMapBundle:Templates:noscript.html.twig") }}
     {{ include("OnoMapBundle:Templates:loader.html.twig") }}
     {{ include("OnoMapBundle:Templates:header.html.twig") }}
@@ -49,5 +49,5 @@
         }, 1000)
         loaderManage.stopAnimation();
       {% endblock %}
-      
+
 }</script> {% endblock %}

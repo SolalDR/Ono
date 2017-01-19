@@ -4,10 +4,9 @@
 {% block body %}
   {% block bodyContent %}{{ parent() }}
 
-  <body id="response-view">
-    <div id="redirect-map" class='shadow'>
-      <p><a href="{{ path('ono_map_homepage')}}"> Revenir à la carte </a></p>
-    </div>
+  <div id="redirect-map" class='shadow'>
+    <p><a href="{{ path('ono_map_homepage')}}"> Revenir à la carte </a></p>
+  </div>
 
   <div id='question-container'>
     <div id="question-info" class='shadow'>
@@ -35,7 +34,7 @@
                 <h4> {{ response.country.libCountry }} </h4>
                 <p>{{ response.nbLikes }}</p>
                 {{ response|isliking }}
-                
+
                 {% if response|isliking == true %}
                 <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">
                   <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />

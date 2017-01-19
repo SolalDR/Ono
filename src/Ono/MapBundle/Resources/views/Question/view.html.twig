@@ -3,19 +3,7 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-
-
-  <body id="questions-index">
-
-    <!-- <h1>{{ question.libQuestion }}</h1>
-    <h2>Liste des réponses :</h2>
-    <ul>
-      {% for response in responses %}
-      <li>{{response.id}} => <a href="{{ path("ono_map_response_view", {"id": response.id }) }}">Voir</a></li>
-      {% endfor %}
-    </ul>
-    <a href="{{ path("ono_map_response_add", {"id": question.id }) }}">ajouter une réponse</a> -->
-
+  
     <div class="mainContent">
       <h1>Les réponses <br/><span>sur une seule page</span></h1>
     </div>
