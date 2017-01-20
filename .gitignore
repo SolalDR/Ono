@@ -56,3 +56,7 @@ app/config/parameters*
 
 /.DS_Store
 .DS_Store
+
+# Local upload destination
+web/files/
+/web/files/

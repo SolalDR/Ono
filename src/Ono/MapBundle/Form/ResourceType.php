@@ -24,7 +24,9 @@ class ResourceType extends AbstractType
             "label" => "Distant",
             "required" => false
           ))
-        ->add('file', VichFileType::class)
+        ->add('file', VichFileType::class, array(
+          "required" => false
+        ))
         ;
     }
 
