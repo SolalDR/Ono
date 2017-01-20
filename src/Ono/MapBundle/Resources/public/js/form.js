@@ -118,10 +118,10 @@ DynamicFormPrototype.prototype.generateUpdateButton = function(el, notRemovable)
 
 
   if(notRemovable) {
-    vichType[0].remove();
+    vichType[0].className += " form-hide";
     distantType.parentNode.parentNode.parentNode.className += " form-hide";
     urlName.className = urlName.className.replace("form-hide", "form-display");
-    urlName.setAttribute("disabled", true);
+    urlName.setAttribute("type", "output");
 
   } else {
     distantType.onclick = function(){
