@@ -47,7 +47,7 @@ knp_gaufrette:
         resource_adapter:
             aws_s3:
                 service_id: 'aws.s3'
-                bucket_name: %s3_bucket%
+                bucket_name: %env(S3_BUCKET)%
                 options:
                     directory: 'resource_files'
     filesystems:
@@ -57,7 +57,9 @@ knp_gaufrette:
 aws:
     version: latest
     region: eu-west-1
-    credentials: "@a_service"
+    credentials:
+        key:     %env(AWS_KEY)%
+        secret:  %env(AWS_SECRET)%
     S3:
         version: '2006-03-01'
 
@@ -65,5 +67,5 @@ vich_uploader:
     storage:       gaufrette
     mappings:
         resource_file:
-            uri_prefix:         "https://%s3_bucket%.s3.amazonaws.com/resource_files"
+            uri_prefix:         "https://%env(S3_BUCKET)%.s3.amazonaws.com/resource_files"
             upload_destination: resource_file_fs
