@@ -59,3 +59,8 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+vich_uploader:
+    mappings:
+        resource_file:
+            uri_prefix:         /Ono/web/files/resources
+            upload_destination: '%kernel.root_dir%/../web/files/resources'

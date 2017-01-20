@@ -231,6 +231,7 @@ class ArticleController extends Controller
 
       // On récupère l'annonce $numId
       $article = $manager->getRepository('OnoMapBundle:Article')->find($numId);
+      // $resources = $manager->getRepository('OnoMapBundle:Resource');
 
       if (null === $article) {
         throw new NotFoundHttpException("Le pays d'id ".$numId." n'existe pas.");
@@ -242,9 +243,13 @@ class ArticleController extends Controller
 
       if ($form->handleRequest($request)->isValid()) {
         $articleResources = $article->getResources();
-        for ($i = 0; $i < count($articleResources);$i++) {
+        $count = count($articleResources);
+        for ($i = $count-1; $i >= 0; $i--) {
           $article->removeResource($articleResources[$i]);
+          // dump($article);
+          // exit;
         }
+
         $manager->remove($article);
         $manager->flush();
 

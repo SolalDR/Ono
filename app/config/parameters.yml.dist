@@ -18,3 +18,7 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            51c22993d139d305998644299354a849fbdd16dd
     unix_socket:       ~
+    aws_key:           ~
+    aws_secret:        ~
+    aws_region:        eu-west-1
+    s3_bucket:         ~

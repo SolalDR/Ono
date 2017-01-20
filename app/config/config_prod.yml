@@ -39,3 +39,31 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+knp_gaufrette:
+    stream_wrapper: ~
+
+    adapters:
+        resource_adapter:
+            aws_s3:
+                service_id: 'aws.s3'
+                bucket_name: %s3_bucket%
+                options:
+                    directory: 'resource_files'
+    filesystems:
+        resource_file_fs:
+            adapter:    resource_adapter
+
+aws:
+    version: latest
+    region: eu-west-1
+    credentials: "@a_service"
+    S3:
+        version: '2006-03-01'
+
+vich_uploader:
+    storage:       gaufrette
+    mappings:
+        resource_file:
+            uri_prefix:         "https://%s3_bucket%.s3.amazonaws.com/resource_files"
+            upload_destination: resource_file_fs

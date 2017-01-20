@@ -22,3 +22,9 @@ services:
     # my_user_provider:
     #     class: "%my_user_provider.class%"
     #     arguments: ['@fos_user.user_manager', { facebook: facebook_id}]
+
+    a_service:
+        class: Aws\Credentials\Credentials
+        arguments:
+            - %aws_key%
+            - %aws_secret%

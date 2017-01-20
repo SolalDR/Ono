@@ -81,8 +81,8 @@ vich_uploader:
     db_driver:     orm
     mappings:
         resource_file:
-            uri_prefix:         /Ono/web/files/resources
-            upload_destination: '%kernel.root_dir%/../web/files/resources'
+            uri_prefix:         "https://%s3_bucket%.s3.amazonaws.com/resource_files"
+            upload_destination: resource_file_fs
             inject_on_load:     true
             delete_on_remove:   true
             delete_on_update:   true
