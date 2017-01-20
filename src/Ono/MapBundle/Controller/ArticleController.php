@@ -246,8 +246,6 @@ class ArticleController extends Controller
         $count = count($articleResources);
         for ($i = $count-1; $i >= 0; $i--) {
           $article->removeResource($articleResources[$i]);
-          // dump($article);
-          // exit;
         }
 
         $manager->remove($article);
@@ -280,8 +278,6 @@ class ArticleController extends Controller
 
     for($i=0; $i<count($tags); $i++){
       //Détache du persistage les tags édités du formulaire
-      dump($tags);
-      // exit;
       $manager->detach($tags[$i]);
 
       //Initialise un tag
