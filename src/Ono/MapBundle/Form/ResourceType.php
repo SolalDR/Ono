@@ -18,13 +18,40 @@ class ResourceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', TextType::class)
-        ->add('legend', TextType::class)
-        ->add('isDistant', CheckboxType::class, array(
-            "label" => "Distant",
-            "required" => false
+        $builder->add('title', TextType::class, array(
+          "label" => false,
+          "attr"=> array(
+            "placeholder" => "Titre"
+          )
+        ))
+        ->add('legend', TextType::class, array(
+          "label" => false,
+          "attr"=> array(
+            "placeholder" => "Légende"
+          )
+        ))
+        ->add('file', VichFileType::class, array(
+            "required" => false,
+            "label"=> false,
+            "attr"=> array(
+              "class" => "vich-type form-display"
+            )
           ))
-        ->add('file', VichFileType::class)
+        ->add('filename', TextType::class, array(
+            "label"=> false,
+            "required" => false,
+            "attr"=> array(
+              "placeholder" => "URL",
+              "class" => "url-type form-hide"
+            )
+          ))
+          ->add('isDistant', CheckboxType::class, array(
+              "label" => "Distant",
+              "required" => false,
+              "attr"=> array(
+                "class"=>"distant-type"
+              )
+            ))
         ;
     }
 

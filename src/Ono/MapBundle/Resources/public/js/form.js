@@ -78,14 +78,24 @@ function DynamicFormPrototype(args){
   } else {
     return false;
   }
+  if(args.label){
+    this.label = args.label;
+  }
+  this.childrens = [];
   this.index = this.form.children.length ? this.form.children.length : 0;
   this.init();
 }
 
 DynamicFormPrototype.prototype.generatePrototype = function(){
-  var prototype = this.prototype.replace(/__name__label__/g, "Fichier").replace(/__name__/g, this.index)
-  this.form.innerHTML += prototype;
+  var prototype = this.prototype.replace(/__name__label__/g, this.label).replace(/__name__/g, this.index)
+  var test = document.createElement("template");
+  test.innerHTML = prototype;
+  prototype = test.content.firstChild;
+  prototype.className += " dynamic-form-group";
+  this.form.appendChild(prototype);
   this.index++
+  this.childrens.push(this.form.children[this.form.children.length-1]);
+  this.generateUpdateButton(this.form.children[this.form.children.length-1]);
 }
 
 DynamicFormPrototype.prototype.generateAddButton = function(){
@@ -96,9 +106,51 @@ DynamicFormPrototype.prototype.generateAddButton = function(){
   this.form.parentNode.appendChild(this.button);
 }
 
+DynamicFormPrototype.prototype.generateUpdateButton = function(el, notRemovable){
+  var buttonDelete = document.createElement("span");
+  var vichType = el.getElementsByClassName("vich-type");
+  var distantType = el.getElementsByClassName("distant-type")[0];
+  var fileType = vichType[0].firstChild;
+  var deleteCheckBox = vichType[0].lastChild;
+  var urlName = el.getElementsByClassName("url-type")[0];
+  distantType.parentNode.parentNode.parentNode.className += " form-right";
+  buttonDelete.className = "btn btn-danger";
+
+
+  if(notRemovable) {
+    vichType[0].remove();
+    distantType.parentNode.parentNode.parentNode.className += " form-hide";
+    urlName.className = urlName.className.replace("form-hide", "form-display");
+    urlName.setAttribute("disabled", true);
+
+  } else {
+    distantType.onclick = function(){
+      if(this.checked){
+        urlName.className = urlName.className.replace("form-hide", "form-display");
+        vichType[0].className = vichType[0].className.replace("form-display", "form-hide");
+      } else {
+        urlName.className = urlName.className.replace("form-display", "form-hide");
+        vichType[0].className = vichType[0].className.replace("form-hide", "form-display");
+      }
+    }
+  }
+
+  buttonDelete.innerHTML = "";
+  el.appendChild(buttonDelete);
+
+  buttonDelete.onclick = function(){
+    this.parentNode.remove();
+  }
+}
+
 DynamicFormPrototype.prototype.init = function(){
   this.generateAddButton();
   this.initEvents();
+  for(i=0; i<this.form.children.length; i++){
+    this.form.children[i].className += " dynamic-form-group";
+    this.generateUpdateButton(this.form.children[i], true);
+    this.childrens.push(this.form.children[i]);
+  }
 }
 
 DynamicFormPrototype.prototype.initEvents = function(){
@@ -111,7 +163,8 @@ DynamicFormPrototype.prototype.initEvents = function(){
 }
 
 var dynamic =  new DynamicFormPrototype({
-  form: document.getElementById("article_resources")
+  form: document.getElementById("article_resources"),
+  label: "Fichier"
 });
 
 

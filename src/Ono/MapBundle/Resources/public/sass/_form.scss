@@ -1,0 +1,83 @@
+.dynamic-form-group {
+  margin: 0 15px;
+  & > div {
+    .form-group {
+
+    }
+  }
+}
+
+
+#article_resources {
+  .dynamic-form-group {
+    width: 95%;
+    margin-left: 2.5%;
+    padding: 10px;
+    background: white;
+    box-shadow: 2px 2px 10px 0px #b6b6b6;
+    position: relative;
+    margin-top: 20px;
+    height: 65px;
+    .form-hide {
+      display: inline-block;
+      position: absolute;
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .form-right {
+      position: absolute;
+      right: 100px;
+    }
+    input[type="checkbox"]{
+      margin-right: 10px;
+      margin-top: 0;
+    }
+    & > .control-label {
+      display: none;
+    }
+    & > div {
+      display: inline-block;
+      .form-group {
+        float: left;
+        display: inline-block;
+        margin: 5px;
+        width: auto;
+        label {
+          display: inline-block;
+        }
+        input {
+          display: inline-block;
+        }
+      }
+      &::after {
+        content:"";
+        display: block;
+        clear: both;
+      }
+    }
+    & > .btn-danger, & > .btn-good, & > .btn-warn {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      top: 0;
+      border-radius: 0;
+      width: 50px;
+      background-repeat: no-repeat;
+      background-size: 50%;
+      background-position: center;
+    }
+    & > .btn-danger {
+      background-image:url(../../onomap/img/trash.png);
+    }
+    & > .btn-good {
+      background-image:url(../../onomap/img/valid.svg);
+      background-color: rgb(113, 185, 101);
+    }
+    & > .btn-warn {
+      background-image:url(../../onomap/img/time.svg);
+      background-color: #dba343;
+    }
+  }
+}

@@ -10,6 +10,39 @@ Node.prototype.remove = function(){
     parent.removeChild(this);
   }
 }
+Node.prototype.setStyle = function(obj){
+  var s="";
+  for(sProp in obj){
+    s+=sProp+":"+obj[sProp]+";";
+  }
+  var a = this.getAttribute("style");
+  s+=a;
+  this.setAttribute("style", s);
+
+  return s;
+}
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+  }
+}
+
 
 //Met un élément à la taille de la fenêtre
 function setToWindowHeight(el){
