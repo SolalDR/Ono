@@ -7,47 +7,56 @@
 
       <ul class="nav-body">
         <a href="{{ path("ono_map_homepage") }}" class="item-nav{% if app.request.get('_route') == 'ono_map_homepage' %} active{% endif %}">
-          <li>
-            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+          <li style="background-image:url({{ asset("asset/img/icone/carte.svg") }})">
             <p>Carte</p>
           </li>
         </a>
 
         <a href="#" id="theme-list-container-open" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}">
-          <li>
-            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+          <li style="background-image:url({{ asset("asset/img/icone/themes.svg") }})">
             <p>Thèmes</p>
           </li>
         </a>
-        <a href="{{path("ono_map_article_index")}}" class="item-nav{% if "article" in  app.request.get('_route') %} active{% endif %}">
-          <li>
-            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
-            <p>Article</p>
-          </li>
-        </a>
-        <a href="{{ path("ono_favoris_user") }}" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
-          <li>
-            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
-            <p>Favoris</p>
-          </li>
-        </a>
+
         <a href="{{ path("ono_map_question_index") }}" class="item-nav{% if "question" in app.request.get('_route') or "response" in app.request.get('_route') %} active{% endif %}">
-          <li>
-            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
+          <li style="background-image:url({{ asset("asset/img/icone/questions.svg") }})">
             <p>Questions</p>
           </li>
         </a>
 
-        <a href="{{ path('ono_map_question_index') }}" class="item-nav{% if app.request.get('_route') == 'ono_map_infos' %} active{% endif %}">
-          <li>
-            <img src="{{ asset("asset/img/logo.svg") }}" alt="" />
-            <p>Infos</p>
+        <a href="{{path("ono_map_article_index")}}" class="item-nav{% if "article" in  app.request.get('_route') %} active{% endif %}">
+          <li style="background-image:url({{ asset("asset/img/icone/articles.svg") }})">
+            <p>Articles</p>
           </li>
         </a>
 
-        <div class="nav-bottom">
-          <p class="nav-bar-profile">Profil</p>
-          <a class="logout-button" href="{{ path("fos_user_security_logout") }}">DECONNEXION</a>
+        <a href="{{ path("ono_favoris_user") }}" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+          <li style="background-image:url({{ asset("asset/img/icone/favoris.svg") }})">
+            <p>Favoris</p>
+          </li>
+        </a>
+
+        <a href="{{ path("ono_favoris_user") }}" class="item-nav{% if "plus" in app.request.get('_route') %} active{% endif %}">
+          <li style="background-image:url({{ asset("asset/img/icone/add.svg") }})">
+            <p>Plus</p>
+          </li>
+        </a>
+
+
+        <div class="nav-bottom {% if app.user %}bg-dark{% endif %}">
+          {% if app.user %}
+            <a class="logout-button" href="{{ path("fos_user_security_logout") }}">
+              <li  style="background-image:url({{ asset("asset/img/icone/deconnexion.svg") }})">
+                <p>DECONNEXION</p>
+              </li>
+            </a>
+          {% else %}
+            <a class="login-button" href="{{ path("fos_user_security_login") }}">
+              <li  style="background-image:url({{ asset("asset/img/icone/connexion.svg") }})">
+                <p>CONNEXION</p>
+              </li>
+            </a>
+          {% endif %}
         </div>
     </ul>
 
