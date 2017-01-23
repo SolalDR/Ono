@@ -173,10 +173,10 @@ class ArticleController extends Controller
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $article = $repoArticle->find($numId);
 
-
     if($article){
       if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
         if($user){
           $isLiking = $user->isLiking($article);
           if(!$isLiking){
@@ -186,9 +186,13 @@ class ArticleController extends Controller
             $manager->persist($article);
             $manager->flush();
           }
+          if($request->isXmlHttpRequest()){
+            return  new Response($this->getXhrLikesResponse(true, $article->getNbLikes(), $article->getId()));
+          }
           $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
         }
       }
+
       return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
     }
     //L'utilisateur n'est pas authentifié
@@ -213,6 +217,9 @@ class ArticleController extends Controller
             $manager->persist($user);
             $manager->persist($article);
             $manager->flush();
+          }
+          if($request->isXmlHttpRequest()){
+            return  new Response($this->getXhrLikesResponse(false, $article->getNbLikes(), $article->getId()));
           }
           $request->getSession()->getFlashBag()->add('notice', 'L\'article est pas aimé.');
           return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
@@ -263,6 +270,25 @@ class ArticleController extends Controller
         'pathDelete' => "ono_admin_delete_article",
         'form'   => $form->createView()
       ));
+  }
+
+  private function getXhrLikesResponse($isLiking, $nbLikes, $id){
+    $render = [];
+    $render["nbLike"] = $nbLikes;
+    if($isLiking){
+      $render["liking"] = true;
+      $render["nextRoute"] = $this->generateUrl(
+            'ono_map_article_unlike',
+            array('id' => $id)
+        );
+      return json_encode($render);
+    }
+    $render["liking"] = false;
+    $render["nextRoute"] =  $this->generateUrl(
+          'ono_map_article_like',
+          array('id' => $id)
+      );
+    return json_encode($render);
   }
 
   private function manageTagsType($article){

@@ -1,8 +1,85 @@
+
 /////////////////////////////////////////////
 //
 //         FONCTION GÉNÉRIQUE
 //
 /////////////////////////////////////////////
+
+
+function Request(args){
+  if(args.url){
+    this.target = args.target;
+    this.url = args.url;
+  }
+  if(args.method){
+    this.method = args.method;
+  } else {
+    this.method = "GET";
+  }
+  if(args.json){
+    this.json = args.json;
+  } else {
+    this.json = true;
+  }
+  if(args.callback){
+    this.callback = args.callback;
+  }
+  if(args.target){
+    this.target = args.target;
+  }
+  if(args.data){
+    this.data = args.data;
+  } else if(args.formData){
+    this.formData = args.formData;
+  }
+  this.additionnalData = args.additionnalData;
+  this.xhr = getXhrObject();
+}
+
+Request.prototype.open = function(){
+  var self = this;
+  this.xhr.open(this.method, this.url, true);
+  this.opened = true;
+  this.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  this.xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  this.xhr.onreadystatechange = function() {
+    if(this.readyState === 4 && this.status === 200) {
+      var response = this.responseText;
+      self.success = true;
+      if(typeof self.callback === "function") {
+        self.callback(response);
+      } else {
+        console.log("Response successfull but no callback");
+      }
+    }
+  }
+  return this;
+}
+
+Request.prototype.send = function(){
+  if(!this.opened){
+    console.warn("Objet XHR ouvert automatiquement");
+    this.open();
+  }
+
+  //Si données en string ou en json
+  // if(this.data){
+    var data = "";
+    if(this.data && this.json){
+      console.log(this.data);
+      data = "json="+JSON.stringify(this.data);
+    } else {
+      console.log(typeof this.data);
+      if(this.data && typeof this.data === "string"){
+        data = this.data;
+      }
+    }
+
+  this.xhr.send(data);
+  return this;
+}
+
 //S'applique à un élément du DOM, le Supprime du DOM
 Node.prototype.remove = function(){
   var parent = this.parentNode;
@@ -236,6 +313,57 @@ XHRformAuto = {
 
 likeManage = {
 
+  updateContent: function(response){
+    response = JSON.parse(response);
+    var button = likeManage.currentAction.el;
+    var id = button.getAttribute("data-id");
+    var content = document.querySelector("[data-like-content][data-id='"+id+"']");
+
+    content.innerHTML = response.nbLike;
+    button.href = response.nextRoute;
+
+    if(response.liking){
+      console.log("Like");
+      button.parentNode.className += " liked";
+    } else {
+      console.log("Unlike");
+      button.parentNode.className = button.parentNode.className.replace("liked", "");
+    }
+  },
+
+  initEvent : function(el){
+    var self = this;
+    el.addEventListener("click", function(e){
+
+      self.currentAction = {};
+      self.currentAction.request = new Request({
+        url : this.href,
+        method: "GET",
+        callback : self.updateContent
+      }).send();
+
+      console.log(self.currentAction);
+
+      self.currentAction.el = this;
+
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }, false)
+  },
+
+  initEvents:function(){
+    for(i=0; i<this.buttons.length; i++){
+      this.initEvent(this.buttons[i])
+    }
+  },
+
+  init:function(){
+    this.buttons = document.querySelectorAll("[data-like-action]");
+    if(this.buttons.length){
+      this.initEvents();
+    }
+  }
 }
 
 
@@ -563,7 +691,7 @@ Message.prototype.run = function () {
 
 // burgerGestion.init("#sidebarLeft")
 burgerGestion.init("#sidebarRight")
-
+likeManage.init();
 filter.init();
 XHRformAuto.init();
 themeGestion.init();

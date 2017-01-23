@@ -3,35 +3,43 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-    <div class="mainContent">
-      <h1>Les articles <br/><span>sur une seule page</span></h1>
-    </div>
-    <div id="tags-container">
-      <p>La recherche prends en compte les thèmes que vous avez prédéfinis</p>
-          <label class="switch">
-              <input type="checkbox">
-              <div class="slider round"></div>
-          </label>
-          {% for theme in themes %}
-            {% if theme.id in app.session.get("themes") %}
-            <div class="tag">
-              <p>{{ theme.libTheme }}</p>
-            </div>
-            {% endif %}
-          {% endfor %}
+    <div class="header-list">
+      <div class="switch-container">
+        <label class="switch">
+            <input type="checkbox">
+            <div class="slider round"></div>
+        </label>
+        <p>Prendre en compte vos thèmes</p>
       </div>
-
+      <div class="themes-container">
+        {% for theme in themes %}
+          {% if theme.id in app.session.get("themes") %}
+          <div class="tag">
+            <p>{{ theme.libTheme }}</p>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <a href="{{ path("ono_map_article_index") }}" class="ramdom"></a>
+    </div>
+    <div class="main-block">
+      <div class="main-block-header">
+        <h1>Les articles correspondant à votre recherche</h1>
+        <p class="count">{{ articles|length }} résultats</p>
+      </div>
       <div class="columns">
         {% for article in articles %}
         <figure>
+          <a href="{{ path("ono_map_article_view",{"id":article.id}) }}" >
           <div class=column-container>
 
             <div class="image">
-              <div>
-                <div class="info">
-                    <h4> {{ article.country.libCountry }} </h4>
-                </div>
-              </div>
+              {% if article.resources %}
+                {% set resource = article.resources|first %}
+                {% if resource %}
+                <img src="{{ vich_uploader_asset(resource, 'file') }}" alt="{{ article.title }}" />
+                {% endif %}
+              {% endif %}
             </div>
 
             <div class="colum-content">
@@ -40,13 +48,27 @@
                 {{ article.description }}
               </p>
               <p>{{ article.content |raw }}</p>
-              <figcaption><a href="{{ path("ono_map_article_view",{"id":article.id}) }}" ><span>Lire plus...</span></a></figcaption>
+            </div>
+            <div class="column-footer">
+              <p class="info">{{ article.country.libCountry }}</p>
+              <div class="like" data-id="{{ article.id }}" data-like-content>
+                {{ article.nbLikes }}
+              </div>
+            </div>
+            <div class="action-figure {% if article|isliking %}liked{% endif %}">
+              {% if article|isliking %}
+                <a href="{{ path("ono_map_article_unlike", {"id": article.id }) }}" class="like-button" data-id="{{ article.id }}" data-like-action></a>
+              {% else %}
+              <a href="{{ path("ono_map_article_like", {"id": article.id }) }}" class="like-button" data-id="{{ article.id }}" data-like-action></a>
+              {% endif %}
             </div>
           </div>
+          </a>
         </figure>
 
         {% endfor %}
       </div>
+    </div>
 
 
 
