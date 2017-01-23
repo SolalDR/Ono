@@ -291,10 +291,26 @@ tagManage = {
 ///////////////////////////////////////////////////////
 
 filter = {
+  limit:5,
   filterThemeActive : [],
   filterTab : {
     themes : [],
     age : null
+  },
+
+  testCount: function(){
+    var count = 0;
+    for(i=0; i<this.filterThemeActive.length ; i++){
+      if(this.filterThemeActive[i]){
+        count++;
+      }
+    }
+    console.log(count, this.limit);
+    if(count < this.limit){
+      return true;
+    } else {
+      return false;
+    }
   },
 
   updateQuestionCallscript: function(scriptName, args){
@@ -321,15 +337,21 @@ filter = {
   },
 
   addClickEvent:function(el, rank){
+    var self = this;
     el.addEventListener("click", function(){
+      console.log(self.testCount());
       if(el.className.match("active")){
+        console.log("Hide");
         el.className = el.className.replace("active", "");
         filter.filterThemeActive[parseInt(el.getAttribute("data-id"))] = false
-      } else {
+      } else if(self.testCount()){
+        console.log("Display");
         el.className+= " active";
         filter.filterThemeActive[parseInt(el.getAttribute("data-id"))] = true;
+      } else {
+        console.log("No modif");
+        return;
       }
-      console.log(filter.filterThemeActive);
       filter.updateFilterTheme();
     }, false)
   },
@@ -344,7 +366,6 @@ filter = {
       }
     }
     filter.sendModification();
-    console.log(filter.filterThemeActive);
   },
   initEvent: function(){
     for(i=0; i<filter.themes.length; i++){
