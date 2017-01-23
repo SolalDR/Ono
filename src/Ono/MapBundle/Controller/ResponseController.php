@@ -164,6 +164,9 @@ class ResponseController extends Controller
               $manager->persist($response);
               $manager->flush();
             }
+            if($request->isXmlHttpRequest()){
+              return  new Response($this->getXhrLikesResponse(true, $response->getNbLikes(), $response->getId()));
+            }
             $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
             return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
           }
@@ -195,6 +198,9 @@ class ResponseController extends Controller
               $manager->persist($response);
               $manager->flush();
             }
+            if($request->isXmlHttpRequest()){
+              return  new Response($this->getXhrLikesResponse(true, $response->getNbLikes(), $response->getId()));
+            }
             $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'est pas aimé.');
             return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
           }
@@ -204,5 +210,24 @@ class ResponseController extends Controller
       }
       //L'utilisateur n'est pas authentifié
       return $this->redirectToRoute('ono_map_homepage');
+    }
+
+    private function getXhrLikesResponse($isLiking, $nbLikes, $id){
+      $render = [];
+      $render["nbLike"] = $nbLikes;
+      if($isLiking){
+        $render["liking"] = true;
+        $render["nextRoute"] = $this->generateUrl(
+              'ono_map_response_unlike',
+              array('id' => $id)
+          );
+        return json_encode($render);
+      }
+      $render["liking"] = false;
+      $render["nextRoute"] =  $this->generateUrl(
+            'ono_map_response_like',
+            array('id' => $id)
+        );
+      return json_encode($render);
     }
 }

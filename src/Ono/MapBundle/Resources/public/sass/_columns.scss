@@ -1,3 +1,113 @@
+.header-list {
+    width: calc(100% - 140px);
+    height: 25px;
+    background-color: white;
+    padding: 25px 70px;
+
+    .switch-container {
+        display: inline-block;
+        float: left;
+
+        p {
+            display: inline-block;
+            float: left;
+            margin-top: 5px;
+            margin-left: 10px;
+            text-transform: uppercase;
+            font-family: $font;
+            color: $blueLight;
+            font-size: 14px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin: auto;
+            float: left;
+
+            input {
+                display: none;
+
+                &:checked + .slider {
+                    background-color: $blue;
+                }
+
+                &:checked + .focus {
+                    box-shadow: 0 0 1px $blue;
+                }
+
+                &:checked + .slider:before {
+                    -webkit-transform: translateX(26px);
+                    -ms-transform: translateX(26px);
+                    transform: translateX(26px);
+                }
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+
+                &::before {
+                    position: absolute;
+                    content: "";
+                    height: 16px;
+                    width: 16px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    -webkit-transition: 0.4s;
+                    transition: 0.4s;
+                }
+            }
+
+            .round {
+                border-radius: 30px;
+
+                &::before {
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    .themes-container {
+        display: inline-block;
+        float: left;
+        margin-left: 20px;
+
+        .tag {
+            display: inline-block;
+            font-family: $fontLight;
+            border: 1px solid $blue;
+            color: $blue;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 0 5px;
+        }
+    }
+
+    .ramdom {
+        width: 30px;
+        height: 30px;
+        float: right;
+        display: inline-block;
+        background-image: url("../img/random.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+}
+
 .main-block {
     padding: 30px 70px;
 

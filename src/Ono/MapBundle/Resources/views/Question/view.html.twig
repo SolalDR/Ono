@@ -3,19 +3,16 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-  
-    <div class="mainContent">
-      <h1>Les réponses <br/><span>sur une seule page</span></h1>
-    </div>
 
-    <div id="tags-container">
-      <p> La recherche prends en compte les thèmes que vous avez prédéfinis </p>
-
+    <div class="header-list">
+      <div class="switch-container">
         <label class="switch">
             <input type="checkbox">
             <div class="slider round"></div>
         </label>
-
+        <p>Prendre en compte vos thèmes</p>
+      </div>
+      <div class="themes-container">
         {% for theme in themes %}
           {% if theme.id in app.session.get("themes") %}
           <div class="tag">
@@ -23,35 +20,54 @@
           </div>
           {% endif %}
         {% endfor %}
-
+      </div>
+      <a href="{{ path("ono_map_question_view", {"id": question.id}) }}" class="ramdom"></a>
     </div>
+    <div class="main-block">
+      <div class="main-block-header">
+        <h1>Les Réponses correspondant à votre recherche</h1>
+        <p class="count">{{ responses|length }} résultats</p>
+      </div>
+      <div class="columns">
+        {% for response in responses %}
+        <figure>
+          <a href="{{ path("ono_map_response_view",{"id":response.id}) }}" >
+          <div class=column-container>
 
-    <div class="columns">
-      {% for response in responses %}
-      <figure>
-        <div class=column-container>
+            <div class="image">
+              {% if response == false %}
+                {% set resource = response.resources|first %}
+                {% if resource %}
+                <img src="{{ vich_uploader_asset(resource, 'file') }}" alt="{{resource.alt}}" />
+                {% endif %}
+              {% endif %}
+            </div>
 
-          <div class="image">
-            <div>
-              <img src="{{ asset("asset/img/logo.svg") }}"/> <!-- Image/Vidéo de l'article -->
-
-              <div class="info">
-                  <h4> {{ response.country.libCountry }} </h4>
+            <div class="colum-content">
+              <h2> {{ response.question.libQuestion }} </h2>
+              <p>{{ response.content |raw }}</p>
+            </div>
+            <div class="column-footer">
+              <p class="info">{{ response.country.libCountry }}</p>
+              <div class="like" data-id="{{ response.id }}" data-like-content>
+                {{ response.nbLikes }}
               </div>
             </div>
-          </div>
-          <div class="colum-content">
-            <div class="profil">
-                <img src="#" class="profil-pic" alt='profil-picture'/>
-                <p id="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
+            <div class="action-figure {% if response|isliking %}liked{% endif %}">
+              {% if response|isliking %}
+                <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+              {% else %}
+              <a href="{{ path("ono_map_response_like", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+              {% endif %}
             </div>
-            <p> {{ response.content | raw }} </p>
-            <figcaption><a href="{{ path("ono_map_response_view",{"id":response.id}) }}" ><span>Lire plus...</span></a></figcaption>
           </div>
-        </div>
-      </figure>
-      {% endfor %}
+          </a>
+        </figure>
+
+        {% endfor %}
+      </div>
     </div>
+
 
   </body>
   {% endblock %}
