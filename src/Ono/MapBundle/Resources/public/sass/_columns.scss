@@ -1,0 +1,193 @@
+.main-block {
+    padding: 30px 70px;
+
+    .main-block-header {
+        font-weight: 100;
+        padding: 20px 0;
+        font-size: 20px;
+        font-family: Roboto;
+        color: #AAA;
+        text-align: left;
+        height: 20px;
+        border-bottom: 1px solid #AAA;
+        margin-bottom: 40px;
+
+        h1 {
+            float: left;
+            display: inline-block;
+            font-size: 20px;
+            padding: 0;
+        }
+
+        .count {
+            display: inline-block;
+            float: right;
+        }
+    }
+
+    .columns {
+        @include column-width(300px);
+        @include column-gap(15px);
+        width: calc(100%);
+        max-width: 1100px;
+        text-align: center;
+        margin: 20px auto;
+        font-family: 'Roboto',cursive;
+
+        figure {
+            padding-bottom: 10px;
+            display: inline-block;
+            column-break-inside: avoid;
+            text-align: left;
+            min-width: 300px;
+            width: 25px;
+            margin-bottom: 30px;
+
+            .column-container {
+                border: 1px solid #DDD;
+                background-color: #fbfbfb;
+                position: relative;
+                box-shadow: 0 0 0 rgba(154, 150, 150, 0.6);
+                @include transition(.4s);
+
+                .image {
+                    width: 100%;
+                    height: auto;
+                    padding-bottom: 15px;
+
+                    img {
+                        width: 100%;
+                        margin: 0;
+                        top: 0;
+                    }
+
+                    img + .info {
+                        top: -23px;
+                    }
+
+                    h4 {
+                        margin: 0;
+                        color: #FFF;
+                        padding: 5px 0 0 20px;
+                        font-size: 10px;
+                        font-weight: 100;
+                    }
+                }
+
+                .colum-content {
+                    margin: 0 15px;
+
+                    p {
+                        line-height: 20px;
+                        margin: 10px;
+                        font-size: 15px;
+                        font-weight: 100;
+                        color: #222;
+                    }
+
+                    h2 {
+                        font-size: 20px;
+                        color: $blue;
+                        text-align: left;
+                        padding: 5px;
+
+                        &::after {
+                            content: "";
+                            display: block;
+                            margin: 25px 0 15px;
+                            width: 100%;
+                            height: 1px;
+                            background-color: rgba(102, 102, 102,0.7);
+                        }
+                    }
+
+                    h3 {
+                        margin: 10px 10px 15px;
+                        font-size: 20px;
+                        color: $dark-grey;
+                        text-transform: uppercase;
+                    }
+                }
+
+                .column-footer {
+                    margin-top: 20px;
+                    padding: 15px 15px 20px;
+                    color: black;
+                    font-family: $font;
+
+                    .info {
+                        height: 20px;
+                        position: relative;
+                        color: black;
+                        display: inline-block;
+                        font-size: 12px;
+                    }
+
+                    .like {
+                        display: inline-block;
+                        float: right;
+                        padding-right: 20px;
+                        background-image: url("../img/heart-color.png");
+                        background-position: right;
+                        background-repeat: no-repeat;
+                        background-size: auto 80%;
+                    }
+                }
+
+                &:hover {
+                    box-shadow: 2px 2px 10px rgba(154, 150, 150, 0.6);
+                }
+
+                &:hover,
+                .liked {
+                    border-bottom: 1px solid $blue;
+
+                    .action-figure {
+                        .like-button {
+                            @include transform(rotateX(0));
+                        }
+                    }
+                }
+
+                .action-figure {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    text-align: center;
+                    height: 15px;
+
+                    &.liked {
+                        border-bottom: 1px solid #c56161;
+
+                        .like-button {
+                            background-color: #c56161;
+
+                            &:hover {
+                                background-color: #c56161;
+                            }
+                            @include transform(rotateX(0));
+                        }
+                    }
+
+                    .like-button {
+                        display: inline-block;
+                        @include transform(rotateX(270deg));
+                        @include transition(.4s);
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 100%;
+                        background-color: $blue;
+                        background-image: url("../img/heart-white.png");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 35%;
+
+                        &:hover {
+                            background-color: $blueLight;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
