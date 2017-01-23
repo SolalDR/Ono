@@ -5,11 +5,8 @@
   width: 110px;
   height: 100vh;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.95);
-  -moz-box-shadow: 8px 0px 7px rgba(50, 50, 50, 0.5);
-  -webkit-box-shadow: 8px 0px 7px rgba(50, 50, 50, 0.5);
-  box-shadow: 8px 0px 7px rgba(50, 50, 50, 0.5);
-
+  background-color: #141b20;
+  @include box-shadow( 0px 0px 10px rgba(0, 0, 0, 0.5));
   @include transition(.4s ease-in);
 
   color: white;
@@ -36,7 +33,7 @@
     .nav-body {
       text-align: center;
       li {
-        background-size: 30%;
+        background-size: 22%;
         background-repeat: no-repeat;
         height: 12vh;
         background-position: center 35%;
@@ -49,23 +46,25 @@
         display: block;
         margin: auto;
         border-left:2px solid transparent;
+        filter: brightness(50%);
         // border-top: 1px solid $medium-grey;
         @include transition(.3s ease-in);
         &:hover, &.active {
-          color: $green-hover;
           background-color: rgba(50, 50, 50, 0.85);
           font-weight: bolder;
           border-left: 2px solid $green-hover;
           width:108px;
           opacity: 1;
+          filter: brightness(100%);
+          color: white;
         }
         li {
           p {
-            font-family: 'Roboto';
+            font-family: $font;
             text-transform: uppercase;
             font-weight: 400;
             font-size: 0.8em;
-            padding-top: 9vh;
+            padding-top: 8vh;
           }
         }
       }
@@ -75,22 +74,22 @@
     }
     .nav-bottom {
       height: 18vh;
-      opacity: 0.8;
+      opacity: 1;
       text-align: center;
-      background-color: $green-hover;
+      background-color: $green;
       @include transition(.3s ease-in);
       a {
         height: 18vh;
       }
       &:hover {
-        background-color:$green;
-        font-weight: bolder;
+        background-color:$green-hover;
         opacity: 1;
-        }
+      }
 
       p {
         padding-top: 9vh;
         color: white;
+        font-family: $font;
       }
       .nav-bar-profile {
         margin-top: 2vh;

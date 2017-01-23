@@ -360,10 +360,12 @@ input[type=range] {
   width: 110px;
   height: 100vh;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.95);
-  -moz-box-shadow: 8px 0px 7px rgba(50, 50, 50, 0.5);
-  -webkit-box-shadow: 8px 0px 7px rgba(50, 50, 50, 0.5);
-  box-shadow: 8px 0px 7px rgba(50, 50, 50, 0.5);
+  background-color: #141b20;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   -webkit-transition: 0.4s ease-in;
   -o-transition: 0.4s ease-in;
   transition: 0.4s ease-in;
@@ -385,7 +387,7 @@ input[type=range] {
     #sidebarLeft.sidebar-left .main-nav .nav-body {
       text-align: center; }
       #sidebarLeft.sidebar-left .main-nav .nav-body li {
-        background-size: 30%;
+        background-size: 22%;
         background-repeat: no-repeat;
         height: 12vh;
         background-position: center 35%; }
@@ -397,41 +399,43 @@ input[type=range] {
         display: block;
         margin: auto;
         border-left: 2px solid transparent;
+        filter: brightness(50%);
         -webkit-transition: 0.3s ease-in;
         -o-transition: 0.3s ease-in;
         transition: 0.3s ease-in; }
         #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav:hover, #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav.active {
-          color: #94D376;
           background-color: rgba(50, 50, 50, 0.85);
           font-weight: bolder;
           border-left: 2px solid #94D376;
           width: 108px;
-          opacity: 1; }
+          opacity: 1;
+          filter: brightness(100%);
+          color: white; }
         #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav li p {
-          font-family: 'Roboto';
+          font-family: "Roboto";
           text-transform: uppercase;
           font-weight: 400;
           font-size: 0.8em;
-          padding-top: 9vh; }
+          padding-top: 8vh; }
     #sidebarLeft.sidebar-left .main-nav .bg-dark {
       background-color: #1e1e1e; }
     #sidebarLeft.sidebar-left .main-nav .nav-bottom {
       height: 18vh;
-      opacity: 0.8;
+      opacity: 1;
       text-align: center;
-      background-color: #94D376;
+      background-color: #709129;
       -webkit-transition: 0.3s ease-in;
       -o-transition: 0.3s ease-in;
       transition: 0.3s ease-in; }
       #sidebarLeft.sidebar-left .main-nav .nav-bottom a {
         height: 18vh; }
       #sidebarLeft.sidebar-left .main-nav .nav-bottom:hover {
-        background-color: #709129;
-        font-weight: bolder;
+        background-color: #94D376;
         opacity: 1; }
       #sidebarLeft.sidebar-left .main-nav .nav-bottom p {
         padding-top: 9vh;
-        color: white; }
+        color: white;
+        font-family: "Roboto"; }
       #sidebarLeft.sidebar-left .main-nav .nav-bottom .nav-bar-profile {
         margin-top: 2vh;
         text-align: center;
