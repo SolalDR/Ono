@@ -35,11 +35,8 @@
           <div class=column-container>
 
             <div class="image">
-              {% if response == false %}
-                {% set resource = response.resources|first %}
-                {% if resource %}
-                <img src="{{ vich_uploader_asset(resource, 'file') }}" alt="{{resource.alt}}" />
-                {% endif %}
+              {% if response.resource %}
+                <img src="{{ vich_uploader_asset(response.resource, 'file') }}" alt="{{response.resource.legend}}" />
               {% endif %}
             </div>
 

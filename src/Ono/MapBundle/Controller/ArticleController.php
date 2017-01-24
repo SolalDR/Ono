@@ -98,7 +98,6 @@ class ArticleController extends Controller
 
           //On enregistre
           $manager->flush();
-          $request->getSession()->getFlashBag()->add('notice', 'Article bien enregistrée.');
           return $this->redirectToRoute("ono_map_article_view", array(
             "id" => $article->getId(),
             "themes" => $themes
@@ -140,7 +139,6 @@ class ArticleController extends Controller
           $manager->persist($article);
           //On enregistre
           $manager->flush();
-          $request->getSession()->getFlashBag()->add('notice', 'Article bien modifié.');
           return $this->redirectToRoute("ono_map_article_view", array(
             "id" => $article->getId(),
             "themes" => $themes
@@ -189,14 +187,12 @@ class ArticleController extends Controller
           if($request->isXmlHttpRequest()){
             return  new Response($this->getXhrLikesResponse(true, $article->getNbLikes(), $article->getId()));
           }
-          $request->getSession()->getFlashBag()->add('notice', 'La réponse est déja aimé.');
         }
       }
 
       return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
     }
     //L'utilisateur n'est pas authentifié
-    $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'existe pas.');
     return $this->redirectToRoute('ono_map_homepage');
   }
 
@@ -221,7 +217,6 @@ class ArticleController extends Controller
           if($request->isXmlHttpRequest()){
             return  new Response($this->getXhrLikesResponse(false, $article->getNbLikes(), $article->getId()));
           }
-          $request->getSession()->getFlashBag()->add('notice', 'L\'article est pas aimé.');
           return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
         }
       }
@@ -258,7 +253,6 @@ class ArticleController extends Controller
         $manager->remove($article);
         $manager->flush();
 
-        $request->getSession()->getFlashBag()->add('info', "Le pays a bien été supprimée.");
 
         return $this->redirect($this->generateUrl('ono_admin_list_articles'));
       }

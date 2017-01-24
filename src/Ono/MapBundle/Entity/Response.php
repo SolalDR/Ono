@@ -101,7 +101,11 @@ class Response
     */
     private $user;
 
-
+    /**
+    * @ORM\OneToOne(targetEntity="Ono\MapBundle\Entity\Resource", cascade={"persist", "remove"}, orphanRemoval=true)
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $resource;
 
     /**
      * Get id
@@ -380,5 +384,30 @@ class Response
       $new = $actual-1;
       $this->setNbLikes($new);
       return $new;
+    }
+
+
+    /**
+     * Set resource
+     *
+     * @param \Ono\MapBundle\Entity\Resource $resource
+     *
+     * @return Response
+     */
+    public function setResource(\Ono\MapBundle\Entity\Resource $resource = null)
+    {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    /**
+     * Get resource
+     *
+     * @return \Ono\MapBundle\Entity\Resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
     }
 }
