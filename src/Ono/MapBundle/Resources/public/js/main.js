@@ -366,6 +366,51 @@ likeManage = {
   }
 }
 
+///////////////////////////////////////////////////////
+//
+//      headerComplement
+//
+///////////////////////////////////////////////////////
+
+headerComplement = {
+
+  display:function(){
+    this.menu.className = this.menu.className.replace("hidden", "visible");
+  },
+
+  hide:function(){
+    this.menu.className = this.menu.className.replace("visible", "hidden");
+  },
+
+  isHide:function(){
+    return this.menu.className.match("visible") ? false : true;
+  },
+
+  initEvents:function(){
+    var self = this;
+    this.button.addEventListener("click", function(e){
+      e.preventDefault();
+      if(self.isHide()){
+        self.display();
+      } else {
+        self.hide();
+      }
+      return false;
+    }, false)
+  },
+  init:function(){
+    this.button = document.getElementById("headerComplementButton");
+    this.menu = document.getElementById("headerComplementMenu");
+    if(this.button && this.menu){
+      if(!this.menu.className.match(/(?:visible|hidden)/)){
+        this.menu.className+= " hidden";
+      }
+      this.initEvents();
+    }
+  }
+}
+
+headerComplement.init();
 
 ///////////////////////////////////////////////////////
 //

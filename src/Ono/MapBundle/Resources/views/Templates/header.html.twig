@@ -36,7 +36,7 @@
           </li>
         </a>
 
-        <a href="{{ path("ono_favoris_user") }}" class="item-nav{% if "plus" in app.request.get('_route') %} active{% endif %}">
+        <a href="#" id="headerComplementButton" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}">
           <li style="background-image:url({{ asset("asset/img/icone/add.svg") }})">
             <p>Plus</p>
           </li>
@@ -74,4 +74,46 @@
       {% endfor %}
     </ul>
   </div>
+
 </header>
+
+<div id="headerComplementMenu" class="hidden">
+
+  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+    <li style="background-image:url({{ asset("asset/img/icone/param.svg") }})">
+      <p>Paramètres</p>
+    </li>
+  </a>
+
+  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+    <li style="background-image:url({{ asset("asset/img/icone/profil.svg") }})">
+      <p>Profil</p>
+    </li>
+  </a>
+
+  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+    <li style="background-image:url({{ asset("asset/img/icone/concept.svg") }})">
+      <p>Concept</p>
+    </li>
+  </a>
+
+  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+    <li style="background-image:url({{ asset("asset/img/icone/recrutement.svg") }})">
+      <p>Recrutement</p>
+    </li>
+  </a>
+
+  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+    <li style="background-image:url({{ asset("asset/img/icone/equipe.svg") }})">
+      <p>Equipe</p>
+    </li>
+  </a>
+
+
+    <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+      <li style="background-image:url({{ asset("asset/img/icone/mentions.svg") }})">
+        <p>Mentions légales</p>
+      </li>
+    </a>
+
+</div>
