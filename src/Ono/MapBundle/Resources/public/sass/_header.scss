@@ -46,13 +46,13 @@
         display: block;
         margin: auto;
         border-left:2px solid transparent;
+        box-sizing: border-box;
         // border-top: 1px solid $medium-grey;
         @include transition(.3s ease-in);
         &:hover, &.active {
           background-color: rgba(50, 50, 50, 0.85);
           font-weight: bolder;
           border-left: 2px solid $green-hover;
-          box-sizing: border-box;
           width:110px;
           opacity: 1;
           color: white;
@@ -136,14 +136,13 @@
       background-position: center;
       background-size: contain;
       cursor: pointer;
+      filter: invert(1);
     }
     .notice {
-      text-align: center;
-      font-size: 1.3em;
-      padding: 40px 10px;
-      strong {
-        font-weight: 600;
-      }
+      text-align: left;
+      font-size: 1em;
+      padding: 30px 0 15px 25px;
+      font-family: Roboto;
     }
     .theme-list .filter-theme {
       height: 3.2vh;
@@ -151,15 +150,22 @@
       padding-left: 10%;
       @include transition(.3s);
       cursor: pointer;
+      border-left: 2px solid transparent;
+
       &:hover, &.active {
         background-color: rgba(70, 70, 70, 0.9);
-        font-weight: bolder;
         border-left: 2px solid $green-hover;
         color: white;
+        span {
+          filter: brightness(100%);
+          font-family: $font;
+        }
       }
       span {
-        font-size: .9em;
+        font-size: .8em;
         width: calc(100% - 40px);
+        font-family: $font;
+        filter: brightness(70%);
       }
     }
   }
