@@ -34,12 +34,16 @@
   {% endjavascripts %}
   <script type="text/javascript">
     config.rootPath = "{{ absolute_url(path("ono_map_homepage")) }}";
+
   </script>
 {% endblock %}
 
 
-{% block javascriptLoadContainer %} <script type="text/javascript">window.onload = function(){
+{% block javascriptLoadContainer %} <script type="text/javascript">
 
+config.assetPath = "{{ app.request.schemeAndHttpHost }}{{ asset("asset") }}";
+
+window.onload = function(){
       //Au chargement de la page
       {% block javascriptload %}
         setTimeout(function(){

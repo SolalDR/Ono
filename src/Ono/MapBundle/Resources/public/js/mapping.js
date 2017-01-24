@@ -100,16 +100,27 @@ mapGestion = {
 
     //Rajoute un marker et ses évenements depuis une réponse
     addMarkerFromResonse: function(response, question){
+      var image = {
+        url : config.assetPath+"/img/marker.png",
+
+        size: new google.maps.Size(40, 44),
+         // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+       // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(20, 20)
+
+      }
       mapGestion.markers.push(new google.maps.Marker({
         position: {lat: response.country.lat, lng: response.country.ln},
         map: mapGestion.map,
         title: response.question.libQuestion,
+        icon: image,
         id: response.id
       }));
+      console.log(config.assetPath+"/img/marker2.png");
 
       var actualRank = mapGestion.markers.length-1;
       google.maps.event.addListener(mapGestion.markers[actualRank], 'click', function() {
-
         //On récupère les question apparaissant sur les autres pays
         var idCountry = response.country.id;
         var questionsFromPays = mapGestion.getQuestionsFromPays(idCountry);
@@ -362,92 +373,4 @@ mapGestion = {
   }
 }
 
-var stylesArray = [
-    {
-        "featureType": "administrative.country",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.country",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.province",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.neighborhood",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.line",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#136a8e"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    }
-]
+var stylesArray = [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.province","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.land_parcel","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":"25"},{"lightness":"-3"},{"gamma":"1"},{"weight":"1"}]},{"featureType":"landscape.man_made","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#085076"}]}]

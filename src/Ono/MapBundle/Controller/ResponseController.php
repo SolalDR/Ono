@@ -237,7 +237,7 @@ class ResponseController extends Controller
               $manager->flush();
             }
             if($request->isXmlHttpRequest()){
-              return  new Response($this->getXhrLikesResponse(true, $response->getNbLikes(), $response->getId()));
+              return  new Response($this->getXhrLikesResponse(false, $response->getNbLikes(), $response->getId()));
             }
             $request->getSession()->getFlashBag()->add('notice', 'La réponse n\'est pas aimé.');
             return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));

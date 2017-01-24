@@ -322,9 +322,11 @@ likeManage = {
     content.innerHTML = response.nbLike;
     button.href = response.nextRoute;
 
+    console.log(response);
     if(response.liking){
-      console.log("Like");
-      button.parentNode.className += " liked";
+      if(!button.parentNode.className.match("liked")){
+        button.parentNode.className += " liked";
+      }
     } else {
       console.log("Unlike");
       button.parentNode.className = button.parentNode.className.replace("liked", "");
