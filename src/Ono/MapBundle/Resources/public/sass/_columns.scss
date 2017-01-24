@@ -259,6 +259,7 @@
                     }
                 }
 
+
                 .action-figure {
                     position: absolute;
                     bottom: 0;
@@ -298,6 +299,47 @@
                     }
                 }
             }
+        }
+    }
+}
+
+// En dehors car accessible aussi depuis le panel
+.action-figure {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    height: 15px;
+    left: 0;
+
+    &.liked {
+        border-bottom: 1px solid #c56161;
+
+        .like-button {
+            background-color: #c56161;
+
+            &:hover {
+                background-color: #c56161;
+            }
+            @include transform(rotateX(0));
+        }
+    }
+
+    .like-button {
+        display: inline-block;
+        @include transform(rotateX(270deg));
+        @include transition(.4s);
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        background-color: $blue;
+        background-image: url("../img/heart-white.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 35%;
+
+        &:hover {
+            background-color: $blueLight;
         }
     }
 }

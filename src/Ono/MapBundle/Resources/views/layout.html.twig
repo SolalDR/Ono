@@ -49,6 +49,7 @@ window.onload = function(){
         setTimeout(function(){
           if(typeof mapGestion !== "undefined" ){
             mapGestion.createAllMarkers();
+            mapSidebarGestion.init();
           }
         }, 1000)
         loaderManage.stopAnimation();

@@ -7,58 +7,73 @@
   {% block bodyContent %}{{ parent() }}
 
     <!-- Sidebar Right -->
-    <div id="sidebarRight" class="sidebar-right sidebar-close">
-      <div class="burger-button slide-button"></div>
-      <div class="sidebar-content">
-
-        <!-- Liste des questions -->
-        <div id="sidebarQuestionsList" class="state-fixe sidebar-panel sidebar-panel-position-left">
-          <div class="marge">
-            <p class="title">Deux questions trouvées ici !</p>
-            <ul></ul>
-          </div>
+    <div id="sidebarRight" class="sidebar-close">
+      <div class="banner-top">
+        <a href="#" class="sidebar-close-button"></a>
+      </div>
+      <div class="sidebar-body list-state">
+        <div class="sidebar-header">
+          <p class="sidebar-title">France</p>
         </div>
+        <div id="list-items">
+          <p class="list-title">Les questions en France</p>
+          <div class="list-question">
+            <a href="#" data-href="">
+              <div class="item">
+                <p class="item-title">Le numérique apporte t-il véritablement une solution dans les déplacement quotidien</p>
+                <p class="item-mention">12 réponse</p>
+              </div>
+            </a>
+            <a href="#" data-href="">
+              <div class="item">
+                <p class="item-title">Le numérique apporte t-il véritablement une solution dans les déplacement quotidien</p>
+                <p class="item-mention">12 réponse</p>
+              </div>
+            </a>
+          </div>
+          <p class="list-title">Les articles en France</p>
+          <div class="list-article">
+            <a href="#" data-href="">
+              <div class="item">
+                <p class="item-title">Le numérique apporte t-il véritablement une solution dans les déplacement quotidien</p>
+                <p class="item-mention">12 réponse</p>
+              </div>
+            </a>
+            <a href="#" data-href="">
+              <div class="item">
+                <p class="item-title">Le numérique apporte t-il véritablement une solution dans les déplacement quotidien</p>
+                <p class="item-mention">12 réponse</p>
+              </div>
+            </a>
+          </div>
 
-        <!-- Vue d'une question -->
-        <div id="sidebarQuestionView" class="state-fixe sidebar-panel sidebar-panel-position-center">
-          <div class="themes no-marge">
-            <ul id="response-list-themes-container">
-              <li>Thème1</li>
-              <li>Thème2</li>
-              <li>Thème3</li>
-            </ul>
-          </div>
-          <div class="article marge">
-            <h2 id="response-title">Title</h2>
-            <span id="comebackQuestionsList" class="button-style" style="display:inline-block;">Retour aux questions</span>
-            <p id="response-author">Solal Dussout-Revel</p>
-            <p id="response-date-creation">07/11/2021</p>
-            <p id="response-date-naissance">07/11/2021</p>
-            <p id="response-country">Pays</p>
-            <p id="response-content">Contenu</p>
-            <p id=""></p>
-          </div>
-          <span id="goFormView" class="marge button-style">Ajouter une réponse</span>
-          <div class="other-responses marge">
-            <p class="title">D'autres au même endroit</p>
-            <ul>
-            </ul>
-          </div>
         </div>
-
-        <!-- Panneau formulaire -->
-        <div id="sidebarFormContainer" class="state-fixe sidebar-panel sidebar-panel-position-right">
-          <span id="comebackQuestionView" class="button-style no-marge">Retour à la réponse</span>
-          <div class="form-add marge">
-            <p id="response-title-form" class="title"></p>
-            {{ form_start(form, { 'attr': {
-              'action': absolute_url(path("ono_map_homepage")) ~ "response/add/0",
-              "data-xhrpost" : "true",
-              "class" : "marge-top"
-            }} ) }}
-
-            {{ form_rest(form) }}
+        <div id="show-item" class="panel-right-position">
+          <a href="#" data-href="">
+            <p class="show-title">Le numérique apporte t-il une solution dans les déplacements quotidien ?</p>
+          </a>
+          <div class="show-body">
+            <div class="show-top-info">
+              <p class="author">Margot</p>
+              <p class="author-info">19ans - Bordeaux</p>
+            </div>
+            <div class="show-content">
+              <p class="content">Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec</p>
+              <img class="content-resource" src="" alt="">
+            </div>
+            <div class="show-bottom-info">
+              <p class="country">France</p>
+              <p class="like">125</p>
+            </div>
+            <div class="action-figure">
+              <a href="" class="like-button" data-id="" data-like-action></a>
+            </div>
           </div>
+          <a href="#" data-href="">
+            <div class="banner-bottom">
+              <p>Lire la suite</p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
