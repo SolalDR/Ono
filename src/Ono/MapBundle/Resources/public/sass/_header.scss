@@ -23,7 +23,7 @@
       background-color: #FFF;
 
       .sidebar-img {
-        height: 60%;
+        height: 60px;
         display: block;
         margin: auto;
         padding-top: 3vh;
@@ -40,22 +40,21 @@
       }
       .item-nav {
         color: white;
-        opacity: 0.8;
-        width:108px;
+        opacity: 0.5;
+        width:110px;
         background-color: transparent;
         display: block;
         margin: auto;
         border-left:2px solid transparent;
-        filter: brightness(50%);
         // border-top: 1px solid $medium-grey;
         @include transition(.3s ease-in);
         &:hover, &.active {
           background-color: rgba(50, 50, 50, 0.85);
           font-weight: bolder;
           border-left: 2px solid $green-hover;
-          width:108px;
+          box-sizing: border-box;
+          width:110px;
           opacity: 1;
-          filter: brightness(100%);
           color: white;
         }
         li {
@@ -110,11 +109,13 @@
 
   #theme-list-container {
     position: fixed;
-    left: 88px;
-    width: 38vh;
-    background-color: white;
+    left: 110px;
+    width: 25%;
+    min-width: 350px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
     top: 0px;
-    color: black;
+    color: white;
     font-family: inherit;
     font-weight: 100;
     &.sidebar-open {
@@ -137,37 +138,28 @@
       cursor: pointer;
     }
     .notice {
-      margin-top: 45px;
       text-align: center;
-      font-size: 0.8em;
-      margin-bottom: 15px;
-      padding: 0 10px;
+      font-size: 1.3em;
+      padding: 40px 10px;
       strong {
         font-weight: 600;
       }
     }
     .theme-list .filter-theme {
-      height: 1.8em;
-      padding: 0 10px;
+      height: 3.2vh;
+      padding-top: 1.2vh;
+      padding-left: 10%;
       @include transition(.3s);
-
-      background-color: white;
       cursor: pointer;
       &:hover, &.active {
-        background-color: $green-light;
+        background-color: rgba(70, 70, 70, 0.9);
+        font-weight: bolder;
+        border-left: 2px solid $green-hover;
         color: white;
-      }
-      img {
-        width: 25px;
-        height: 25px;
-        display: inline-block;
-        float: left;
       }
       span {
         font-size: .9em;
-        display: inline-block;
         width: calc(100% - 40px);
-        padding: .6em 0 .6em 10px;
       }
     }
   }

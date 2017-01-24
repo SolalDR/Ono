@@ -64,12 +64,11 @@
   <!-- </div> -->
   <div id="theme-list-container" class="sidebar-close">
     <span class="cross" id="theme-list-container-close"></span>
-    <p class="notice">Vous pouvez sélectionner un maximum <br>de <strong>5 filtres</strong></p>
+    <p class="notice">Sélectionnez les thèmes</p>
     <ul class="theme-list">
       {% for theme in themes %}
 
       <li class="filter-theme {% if theme.id in app.session.get("themes") %}active{% endif %}" data-id="{{theme.id}}">
-        <img src="" alt="" class=""/>
         <span>{{ theme.libTheme }}</span>
       </li>
       {% endfor %}
