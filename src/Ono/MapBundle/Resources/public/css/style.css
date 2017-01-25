@@ -59,7 +59,7 @@ html, body {
   top: 0;
   left: 0;
   background-color: white;
-  z-index: 1000;
+  z-index: 2000;
   -webkit-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
@@ -203,7 +203,7 @@ h1 {
   padding: 20px 0px; }
 
 body {
-  padding-left: 88px; }
+  padding-left: 110px; }
 
 #noScript {
   width: 500px;
@@ -315,6 +315,35 @@ input[type=range] {
     background: #ffffff;
     cursor: pointer; }
 
+.unlogged-page {
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center; }
+  .unlogged-page h1 {
+    font-size: 1.5em; }
+  .unlogged-page a {
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    background-color: #439B41;
+    color: white;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: .8em;
+    margin: 10px;
+    background-color: #85bd6a;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s; }
+    .unlogged-page a:hover {
+      background-color: #94D376; }
+
 #alerts-container {
   position: absolute;
   bottom: 5px;
@@ -391,7 +420,6 @@ input[type=range] {
         background-size: 22%;
         background-repeat: no-repeat;
         height: 12vh;
-        box-sizing: border-box;
         background-position: center 35%; }
       #sidebarLeft.sidebar-left .main-nav .nav-body .item-nav {
         color: white;
@@ -401,6 +429,7 @@ input[type=range] {
         display: block;
         margin: auto;
         border-left: 2px solid transparent;
+        box-sizing: border-box;
         -webkit-transition: 0.3s ease-in;
         -o-transition: 0.3s ease-in;
         transition: 0.3s ease-in; }
@@ -408,7 +437,6 @@ input[type=range] {
           background-color: rgba(50, 50, 50, 0.85);
           font-weight: bolder;
           border-left: 2px solid #94D376;
-          box-sizing: border-box;
           width: 110px;
           opacity: 1;
           color: white; }
@@ -416,7 +444,7 @@ input[type=range] {
           font-family: "Roboto";
           text-transform: uppercase;
           font-weight: 400;
-          font-size: 0.8em;
+          font-size: 11px;
           padding-top: 8vh; }
     #sidebarLeft.sidebar-left .main-nav .bg-dark {
       background-color: #141B20; }
@@ -553,7 +581,6 @@ input[type=range] {
     background-size: 22%;
     background-repeat: no-repeat;
     height: 12vh;
-    box-sizing: border-box;
     background-position: center 35%;
     list-style: none; }
   #headerComplementMenu .item-nav {
@@ -564,6 +591,7 @@ input[type=range] {
     display: block;
     margin: auto;
     border-left: 2px solid transparent;
+    box-sizing: border-box;
     -webkit-transition: 0.3s ease-in;
     -o-transition: 0.3s ease-in;
     transition: 0.3s ease-in; }
@@ -579,7 +607,7 @@ input[type=range] {
       font-family: "Roboto";
       text-transform: uppercase;
       font-weight: 400;
-      font-size: 0.8em;
+      font-size: 11px;
       padding-top: 8vh; }
 
 .header-list {
@@ -1558,6 +1586,9 @@ body#ono_map_homepage {
   #ono_map_article_view .shadow {
     box-shadow: 0 3px 5px #CCC; }
 
+body#ono_map_question_index {
+  background-color: #f1f1f1; }
+
 body#ono_map_question_view {
   background-color: #f1f1f1; }
   body#ono_map_question_view .mainContent {
@@ -2019,34 +2050,10 @@ body#ono_map_response_view, body#ono_map_article_view_from_tag {
     background-image: url(../../onomap/img/time.svg);
     background-color: #dba343; }
 
-.favoris-unlog {
-  max-width: 500px;
-  margin: auto;
-  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
-  padding: 30px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: center; }
-  .favoris-unlog h1 {
-    font-size: 1.5em; }
-  .favoris-unlog a {
-    display: inline-block;
-    text-align: center;
-    padding: 15px;
-    background-color: #439B41;
-    color: white;
-    font-weight: 100;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: .8em;
-    margin: 10px;
-    background-color: #85bd6a;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s; }
-    .favoris-unlog a:hover {
-      background-color: #94D376; }
+body#ono_favoris_user {
+  background-color: #f1f1f1; }
+  body#ono_favoris_user h1 {
+    padding: 0; }
 
 .help-test {
   width: 30px;

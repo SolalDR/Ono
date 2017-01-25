@@ -16,7 +16,7 @@ h1 {
 }
 
 body {
-  padding-left: 88px;
+  padding-left: 110px;
 }
 
 #noScript {
@@ -132,6 +132,39 @@ input {
       border-radius: 10px;
       background: #ffffff;
       cursor: pointer;
+    }
+  }
+}
+
+
+
+.unlogged-page {
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 2px 2px 15px rgba(0,0,0,.2);
+  padding: 30px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  h1 {
+    font-size: 1.5em;
+  }
+  a {
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    background-color: #439B41;
+    color: white;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: .8em;
+    margin: 10px;
+    background-color: $green;
+    @include transition(.5s);
+    &:hover {
+      background-color: $green-hover;
     }
   }
 }

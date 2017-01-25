@@ -37,7 +37,6 @@
         background-size: 22%;
         background-repeat: no-repeat;
         height: 12vh;
-        box-sizing: border-box;
         background-position: center 35%;
       }
       .item-nav {
@@ -48,13 +47,13 @@
         display: block;
         margin: auto;
         border-left:2px solid transparent;
-        // border-top: 1px solid $medium-grey;
+        box-sizing: border-box;
+
         @include transition(.3s ease-in);
         &:hover, &.active {
           background-color: rgba(50, 50, 50, 0.85);
           font-weight: bolder;
           border-left: 2px solid $green-hover;
-          box-sizing: border-box;
           width:110px;
           opacity: 1;
           color: white;
@@ -64,7 +63,7 @@
             font-family: $font;
             text-transform: uppercase;
             font-weight: 400;
-            font-size: 0.8em;
+            font-size: 11px;
             padding-top: 8vh;
           }
         }
@@ -203,7 +202,6 @@
     background-size: 22%;
     background-repeat: no-repeat;
     height: 12vh;
-    box-sizing: border-box;
     background-position: center 35%;
     list-style: none;
   }
@@ -215,6 +213,7 @@
     display: block;
     margin: auto;
     border-left:2px solid transparent;
+    box-sizing: border-box;
     // border-top: 1px solid $medium-grey;
     @include transition(.3s ease-in);
     &:hover, &.active {
@@ -231,7 +230,7 @@
         font-family: $font;
         text-transform: uppercase;
         font-weight: 400;
-        font-size: 0.8em;
+        font-size: 11px;
         padding-top: 8vh;
       }
     }

@@ -82,38 +82,38 @@
 
 <div id="headerComplementMenu" class="hidden">
 
-  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+  <a href="#" class="item-nav">
     <li style="background-image:url({{ asset("asset/img/icone/param.svg") }})">
       <p>Paramètres</p>
     </li>
   </a>
 
-  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+  <a href="{{ path("fos_user_profile_show") }}" class="item-nav {% if "profil" in app.request.get('_route') %} active{% endif %}">
     <li style="background-image:url({{ asset("asset/img/icone/user.svg") }})">
       <p>Profil</p>
     </li>
   </a>
 
-  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+  <a href="#" class="item-nav">
     <li style="background-image:url({{ asset("asset/img/icone/concept.svg") }})">
       <p>Concept</p>
     </li>
   </a>
 
-  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+  <a href="#" class="item-nav">
     <li style="background-image:url({{ asset("asset/img/icone/recrutement.svg") }})">
       <p>Recrutement</p>
     </li>
   </a>
 
-  <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+  <a href="#" class="item-nav">
     <li style="background-image:url({{ asset("asset/img/icone/equipe.svg") }})">
       <p>Equipe</p>
     </li>
   </a>
 
 
-    <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
+    <a href="#" class="item-nav">
       <li style="background-image:url({{ asset("asset/img/icone/mentions.svg") }})">
         <p>Mentions légales</p>
       </li>

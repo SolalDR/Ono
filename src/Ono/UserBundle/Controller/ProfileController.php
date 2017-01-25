@@ -24,15 +24,21 @@ class ProfileController extends BaseController
    */
   public function showAction()
   {
+      $manager = $this->getDoctrine()->getManager();
       $user = $this->get('security.token_storage')->getToken()->getUser();
+      $themes = $manager->getRepository("OnoMapBundle:Theme")->findAll();
+
       // dump($user);
       // exit;
       if (!is_object($user) || !$user instanceof UserInterface) {
-          throw new AccessDeniedException('This user does not have access to this section.');
+        return $this->render('::logplease.html.twig', array(
+            'themes' => $themes
+        ));
       }
 
       return $this->render('OnoUserBundle:Profile:show.html.twig', array(
           'user' => $user,
+          'themes' => $themes
       ));
   }
 
