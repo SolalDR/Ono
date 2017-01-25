@@ -20,16 +20,26 @@ use Ono\MapBundle\Form\QuestionType;
 class QuestionController extends Controller
 {
     //Action affichant la page d'accueil avec la carte
-    public function indexAction(Request $request, $numIds = null)
+    public function indexAction(Request $request, $numIds = null, $activeThemes)
     {
       //Initialisation
       $manager = $this->getDoctrine()->getManager();
       $questionRepo = $manager->getRepository("OnoMapBundle:Question");
+      $responseRepo = $manager->getRepository("OnoMapBundle:Response");
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
 
       //On récupère les objets
       $questions = $questionRepo->findAll();
       $themes = $themRepo->findAll();
+
+
+      $themesActive = $request->getSession()->get("themes");
+      if(count($themesActive)>0 && $activeThemes==="active"){
+        $responses = $responseRepo->getResponses($themesActive, true);
+      } else {
+        $responses = $responseRepo->getResponses(false, true);
+      }
+
 
       $routeName = $request->get('_route');
       if($routeName === "ono_admin_list_question") {
@@ -40,6 +50,7 @@ class QuestionController extends Controller
         //On retourne le tout
       return $this->render('OnoMapBundle:Question:index.html.twig', array(
         "questions" => $questions,
+        "responses" => $responses,
         "themes" => $themes
       ));
 

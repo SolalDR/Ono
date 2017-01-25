@@ -130,11 +130,13 @@ ono_map_question_view:
         id: \d+
 
 ono_map_question_index:
-    path:     /questions
+    path:     /questions/{activeThemes}
     defaults:
         _controller: OnoMapBundle:Question:index
+        activeThemes: false
     requirements:
         id: \d+
+
 
 ###############################################################
 #                            ADMIN

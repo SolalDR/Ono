@@ -3,26 +3,67 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-    <div class="mainContent">
-      <h1>Liste des questions</h1>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Libellé question</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for question in questions %}
-          <tr>
-            <td>{{ question.id }}</td>
-            <td>{{ question.libQuestion }}</td>
-            <td><a href="{{ path("ono_map_question_view",{"id":question.id}) }}">Voir</a></td>
-          </tr>
+
+      <div class="header-list">
+        <div class="switch-container">
+          <label class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+          </label>
+          <p>Prendre en compte vos thèmes</p>
+        </div>
+        <div class="themes-container">
+          {% for theme in themes %}
+            {% if theme.id in app.session.get("themes") %}
+            <div class="tag">
+              <p>{{ theme.libTheme }}</p>
+            </div>
+            {% endif %}
           {% endfor %}
-        </tbody>
-      </table>
-    </div>
+        </div>
+        <a href="{{ path("ono_map_question_index")}}" class="ramdom"></a>
+      </div>
+      <div class="main-block">
+        <div class="main-block-header">
+          <h1>Les Réponses correspondant à votre recherche</h1>
+          <p class="count">{{ responses|length }} résultats</p>
+        </div>
+        <div class="columns">
+          {% for response in responses %}
+          <figure>
+            <a href="{{ path("ono_map_response_view",{"id":response.id}) }}" >
+            <div class=column-container>
+
+              <div class="image">
+                {% if response.resource %}
+                  <img src="{{ vich_uploader_asset(response.resource, 'file') }}" alt="{{response.resource.legend}}" />
+                {% endif %}
+              </div>
+
+              <div class="colum-content">
+                <h2> {{ response.question.libQuestion }} </h2>
+                <p>{{ response.content |raw }}</p>
+              </div>
+              <div class="column-footer">
+                <p class="info">{{ response.country.libCountry }}</p>
+                <div class="like" data-id="{{ response.id }}" data-like-content>
+                  {{ response.nbLikes }}
+                </div>
+              </div>
+              <div class="action-figure {% if response|isliking %}liked{% endif %}">
+                {% if response|isliking %}
+                  <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+                {% else %}
+                <a href="{{ path("ono_map_response_like", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+                {% endif %}
+              </div>
+            </div>
+            </a>
+          </figure>
+
+          {% endfor %}
+        </div>
+      </div>
+
   {% endblock %}
 {% endblock %}
