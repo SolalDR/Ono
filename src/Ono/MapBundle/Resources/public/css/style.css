@@ -132,7 +132,7 @@ html, body {
     text-transform: uppercase;
     letter-spacing: 6px;
     color: #00b400;
-    color: #709129; }
+    color: #85bd6a; }
 
 /*///////////////////////
 //   Rotate Skew
@@ -424,7 +424,7 @@ input[type=range] {
       height: 18vh;
       opacity: 1;
       text-align: center;
-      background-color: #709129;
+      background-color: #85bd6a;
       -webkit-transition: 0.3s ease-in;
       -o-transition: 0.3s ease-in;
       transition: 0.3s ease-in; }
@@ -1587,9 +1587,9 @@ body#ono_map_question_view {
       body#ono_map_question_view #tags-container .switch input {
         display: none; }
         body#ono_map_question_view #tags-container .switch input:checked + .slider {
-          background-color: #709129; }
+          background-color: #85bd6a; }
         body#ono_map_question_view #tags-container .switch input:checked + .focus {
-          box-shadow: 0 0 1px #709129; }
+          box-shadow: 0 0 1px #85bd6a; }
         body#ono_map_question_view #tags-container .switch input:checked + .slider:before {
           -webkit-transform: translateX(26px);
           -ms-transform: translateX(26px);
@@ -1624,8 +1624,8 @@ body#ono_map_question_view {
       height: auto;
       padding: 5px 7px;
       margin: 30px 10px 20px;
-      border: 2px solid #709129;
-      color: #709129;
+      border: 2px solid #85bd6a;
+      color: #85bd6a;
       font-weight: bold;
       font-size: 12px;
       background-color: #fbfbfb; }
@@ -1703,10 +1703,10 @@ body#ono_map_question_view {
             padding: 0px 8px;
             display: inline-block; }
           body#ono_map_question_view .columns figure .column-container .colum-content span {
-            color: #709129; }
+            color: #85bd6a; }
           body#ono_map_question_view .columns figure .column-container .colum-content h2 {
             font-size: 20px;
-            color: #709129;
+            color: #85bd6a;
             text-align: left;
             padding: 5px 0 15px; }
           body#ono_map_question_view .columns figure .column-container .colum-content h3 {
@@ -1743,7 +1743,7 @@ body#ono_map_response_view, body#ono_map_article_view_from_tag {
     margin: auto; }
     body#ono_map_response_view #question-container #question-info, body#ono_map_article_view_from_tag #question-container #question-info {
       text-align: center;
-      background-color: #709129;
+      background-color: #85bd6a;
       height: auto;
       color: white;
       margin: auto;
@@ -1833,7 +1833,7 @@ body#ono_map_response_view, body#ono_map_article_view_from_tag {
       width: 20%;
       height: auto;
       padding: 2vh;
-      background-color: #709129;
+      background-color: #85bd6a;
       margin: auto;
       text-align: center; }
       body#ono_map_response_view #question-container #add-response a, body#ono_map_article_view_from_tag #question-container #add-response a {
@@ -1915,7 +1915,7 @@ body#ono_map_response_view, body#ono_map_article_view_from_tag {
           padding: 1vh 4vh 5vh 4vh;
           font-size: 15px; }
         body#ono_map_response_view #more .answer .answer-content .question-answer span, body#ono_map_article_view_from_tag #more .answer .answer-content .question-answer span {
-          color: #709129; }
+          color: #85bd6a; }
     body#ono_map_response_view #more #carrousel, body#ono_map_article_view_from_tag #more #carrousel {
       margin: auto;
       text-align: center;
@@ -2018,6 +2018,35 @@ body#ono_map_response_view, body#ono_map_article_view_from_tag {
   #article_resources .dynamic-form-group > .btn-warn {
     background-image: url(../../onomap/img/time.svg);
     background-color: #dba343; }
+
+.favoris-unlog {
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center; }
+  .favoris-unlog h1 {
+    font-size: 1.5em; }
+  .favoris-unlog a {
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    background-color: #439B41;
+    color: white;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: .8em;
+    margin: 10px;
+    background-color: #85bd6a;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s; }
+    .favoris-unlog a:hover {
+      background-color: #94D376; }
 
 .help-test {
   width: 30px;
