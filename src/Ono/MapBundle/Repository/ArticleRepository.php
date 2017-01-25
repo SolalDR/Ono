@@ -1,6 +1,7 @@
 <?php
-
 namespace Ono\MapBundle\Repository;
+
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * ArticleRepository
@@ -13,18 +14,9 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
   public function getArticlesWithThemes(array $themesId)
   {
     $qb = $this->createQueryBuilder('q');
-
-    // On fait une jointure avec l'entité Category avec pour alias « c »
-    $qb
-      ->innerJoin('q.themes', 't')
-      ->addSelect('t')
-    ;
-
-    // Puis on filtre sur le nom des catégories à l'aide d'un IN
-    $qb->where($qb->expr()->in('t.id', $themesId));
-    // La syntaxe du IN et d'autres expressions se trouve dans la documentation Doctrine
-
-    // Enfin, on retourne le résultat
+    $qb->innerJoin('q.themes', 't')
+       ->addSelect('t')
+       ->where($qb->expr()->in('t.id', $themesId));
     return $qb
       ->getQuery()
       ->getResult()
@@ -68,4 +60,5 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
       ->getResult()
     ;
   }
+
 }

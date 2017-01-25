@@ -40,12 +40,22 @@ class ProfileController extends BaseController
 
     $manager = $this->getDoctrine()->getManager();
     $themes = $manager->getRepository("OnoMapBundle:Theme")->findAll();
+    $reponseRepo = $manager->getRepository("OnoMapBundle:Response");
+    $articleRepo = $manager->getRepository("OnoMapBundle:Article");
+
+
 
     if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
       $user = $this->get('security.token_storage')->getToken()->getUser();
+
+      $articles = $user->getArticlesLiked();
+      $responses = $user->getResponsesLiked();
+
       return $this->render('OnoUserBundle:Profile:favoris.html.twig', array(
           'user' => $user,
-          'themes' => $themes
+          'themes' => $themes,
+          'responses' => $responses,
+          'articles' => $articles
       ));
     }
     return $this->render('::logplease.html.twig', array(

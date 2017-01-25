@@ -3,33 +3,101 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-    <h1>Favoris</h1>
-    <h2>Réponse aimées</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>
-            Id :
-          </th>
-          <th>
-            NbLikes :
-          </th>
-          <th>
-            Questions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for response in user.responsesLiked %}
-        <tr>
-          <td>{{ response.id }}</td>
-          <td>{{ response.nbLikes }}</td>
-          <td>{{ response.question.libQuestion }}</td>
-          <td><a href="{{ path("ono_map_response_view", {"id": response.id}) }}">Voir</a> </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <a href="{{ path("ono_map_homepage") }}">Retour à l'accueil</a>
+
+        <div class="header-list">
+          <h1>Favoris</h1>
+        </div>
+
+        <!-- Réponse aimée -->
+        <div class="main-block">
+          <div class="main-block-header">
+            <h1>Les Réponses que vous avez aimées</h1>
+            <p class="count">{{ responses|length }} résultats</p>
+          </div>
+          <div class="columns">
+            {% for response in responses %}
+            <figure>
+              <a href="{{ path("ono_map_response_view",{"id":response.id}) }}" >
+              <div class=column-container>
+
+                <div class="image">
+                  {% if response.resource %}
+                    <img src="{{ vich_uploader_asset(response.resource, 'file') }}" alt="{{response.resource.legend}}" />
+                  {% endif %}
+                </div>
+
+                <div class="colum-content">
+                  <h2> {{ response.question.libQuestion }} </h2>
+                  <p>{{ response.content |raw }}</p>
+                </div>
+                <div class="column-footer">
+                  <p class="info">{{ response.country.libCountry }}</p>
+                  <div class="like" data-id="{{ response.id }}" data-like-content>
+                    {{ response.nbLikes }}
+                  </div>
+                </div>
+                <div class="action-figure {% if response|isliking %}liked{% endif %}">
+                  {% if response|isliking %}
+                    <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+                  {% else %}
+                  <a href="{{ path("ono_map_response_like", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+                  {% endif %}
+                </div>
+              </div>
+              </a>
+            </figure>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="main-block">
+          <div class="main-block-header">
+            <h1>Les articles que vous avez aimées</h1>
+            <p class="count">{{ articles|length }} résultats</p>
+          </div>
+          <div class="columns">
+            {% for article in articles %}
+            <figure>
+              <a href="{{ path("ono_map_article_view",{"id":article.id}) }}" >
+              <div class=column-container>
+
+                <div class="image">
+                  {% if article.resources %}
+                    {% set resource = article.resources|first %}
+                    {% if resource %}
+                    <img src="{{ vich_uploader_asset(resource, 'file') }}" alt="{{ article.title }}" />
+                    {% endif %}
+                  {% endif %}
+                </div>
+
+                <div class="colum-content">
+                  <h2> {{ article.title }} </h2>
+                  <p>
+                    {{ article.description }}
+                  </p>
+                  <p>{{ article.content |raw }}</p>
+                </div>
+                <div class="column-footer">
+                  <p class="info">{{ article.country.libCountry }}</p>
+                  <div class="like" data-id="{{ article.id }}" data-like-content>
+                    {{ article.nbLikes }}
+                  </div>
+                </div>
+                <div class="action-figure {% if article|isliking %}liked{% endif %}">
+                  {% if article|isliking %}
+                    <a href="{{ path("ono_map_article_unlike", {"id": article.id }) }}" class="like-button" data-id="{{ article.id }}" data-like-action></a>
+                  {% else %}
+                  <a href="{{ path("ono_map_article_like", {"id": article.id }) }}" class="like-button" data-id="{{ article.id }}" data-like-action></a>
+                  {% endif %}
+                </div>
+              </div>
+              </a>
+            </figure>
+
+            {% endfor %}
+          </div>
+        </div>
+        <a href="{{ path("ono_map_homepage") }}">Retour à l'accueil</a>
+      </div>
   {% endblock %}
 {% endblock %}
