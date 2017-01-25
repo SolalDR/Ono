@@ -38,6 +38,7 @@ body#ono_map_homepage {
         right: 0;
         bottom: 0;
         @include transition(.5s);
+        width: calc(100% - 20px);
       }
       &.list-state {
         #list-items {
@@ -60,6 +61,7 @@ body#ono_map_homepage {
         padding-top: 50px;
         padding-bottom: 30px;
         text-align: center;
+        box-shadow: 0 0 10px rgba(0,0,0,.2);
         .sidebar-title {
           text-transform: uppercase;
           font-size: 1.5em;
@@ -88,10 +90,15 @@ body#ono_map_homepage {
             .item-mention {
               padding-left: 20px;
               color: #BBB;
-              background-image:url(../img/comment.svg);
               background-repeat: no-repeat;
               background-size: contain;
               background-position: center left;
+              &.likes {
+                background-image:url(../img/heart-grey.png);
+              }
+              &.comment {
+                background-image:url(../img/comment.svg);
+              }
             }
           }
         }
@@ -175,7 +182,7 @@ body#ono_map_homepage {
             border-right: 1px solid white;
             padding: 10px 0;
             color: white;
-            flex: 1; 
+            flex: 1;
           }
         }
       }

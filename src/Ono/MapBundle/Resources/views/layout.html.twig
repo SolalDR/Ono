@@ -42,7 +42,12 @@
 {% block javascriptLoadContainer %} <script type="text/javascript">
 
 config.assetPath = "{{ app.request.schemeAndHttpHost }}{{ asset("asset") }}";
+config.responseShowPath = "{{ absolute_url(path("ono_map_response_view", {"id": 1})) }}"
+config.articleShowPath = "{{ absolute_url(path("ono_map_article_view", {"id": 1})) }}"
+config.responseAddPath = "{{ absolute_url(path("ono_map_response_add", {"id": 1})) }}"
+config.articleAddPath = "{{ absolute_url(path("ono_map_article_add", {"id": 1})) }}"
 
+console.log(config.responseShowPath);
 window.onload = function(){
       //Au chargement de la page
       {% block javascriptload %}

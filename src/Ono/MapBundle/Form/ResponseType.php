@@ -24,15 +24,14 @@ class ResponseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('content',    TextareaType::class)
             ->add('content', CKEditorType::class, array(
                 'config' => array(
                     'uiColor' => '#ffffff',
-                ),
+                )
             ))
             ->add('author',     TextType::class)
             ->add('dtnaissance', DateType::class, array(
-              "required" => false,
+              "required" => true,
               "label" => "Date de naissance",
               "years" => range(1900,2016),
               "format" => "dd / MM / yyyy"
@@ -47,7 +46,9 @@ class ResponseType extends AbstractType
               'choice_label' => 'libLanguageFr',
               'multiple'     => false,
             ))
-            ->add('resource', ResourceType::class, array())
+            ->add('resource', ResourceType::class, array(
+              "required" => false
+            ))
             ->add('save',       SubmitType::class)
         ;
     }

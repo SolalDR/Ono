@@ -899,7 +899,8 @@ body#ono_map_homepage {
         bottom: 0;
         -webkit-transition: 0.5s;
         -o-transition: 0.5s;
-        transition: 0.5s; }
+        transition: 0.5s;
+        width: calc(100% - 20px); }
       body#ono_map_homepage #sidebarRight .sidebar-body.list-state #list-items {
         -webkit-transform: translateX(0) translateZ(0);
         /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
@@ -936,7 +937,8 @@ body#ono_map_homepage {
         background-color: white;
         padding-top: 50px;
         padding-bottom: 30px;
-        text-align: center; }
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
         body#ono_map_homepage #sidebarRight .sidebar-body .sidebar-header .sidebar-title {
           text-transform: uppercase;
           font-size: 1.5em;
@@ -960,10 +962,13 @@ body#ono_map_homepage {
           body#ono_map_homepage #sidebarRight .sidebar-body #list-items .list-question .item .item-mention, body#ono_map_homepage #sidebarRight .sidebar-body #list-items .list-article .item .item-mention {
             padding-left: 20px;
             color: #BBB;
-            background-image: url(../img/comment.svg);
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center left; }
+            body#ono_map_homepage #sidebarRight .sidebar-body #list-items .list-question .item .item-mention.likes, body#ono_map_homepage #sidebarRight .sidebar-body #list-items .list-article .item .item-mention.likes {
+              background-image: url(../img/heart-grey.png); }
+            body#ono_map_homepage #sidebarRight .sidebar-body #list-items .list-question .item .item-mention.comment, body#ono_map_homepage #sidebarRight .sidebar-body #list-items .list-article .item .item-mention.comment {
+              background-image: url(../img/comment.svg); }
       body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-title {
         padding: 15px;
         background-color: white;

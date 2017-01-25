@@ -15,15 +15,17 @@
   {% block bodyContent %}
     {{ include("OnoMapBundle:Templates:noscript.html.twig") }}
     {{ include("OnoMapBundle:Templates:loader.html.twig") }}
-    <div id='alerts-container'></div>
-    {# On affiche les messages flash que définissent les contrôleurs du bundle #}
-    {% for key, messages in app.session.flashbag.all() %}
-      {% for message in messages %}
-        <div class="alert alert-{{ key }}">
-          {{ message|trans({}, 'FOSUserBundle') }}
-        </div>
+    <div id='alerts-container'>
+      {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+      {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+          <div class="alert alert-{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+          </div>
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
+    </div>
+
 
     {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
     <div class="container-log form-materialize">

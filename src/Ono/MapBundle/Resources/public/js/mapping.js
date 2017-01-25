@@ -156,13 +156,40 @@ mapSidebarGestion = {
       object.author = response.author;
       object.dtNaissance = response.dtnaissance.timestamp;
       object.content = response.content;
-      object.resource = response.resource ? response.resource : null;
-      object.resourceLegend = response.resource ? response.resource : null;
+      object.resource = response.resource ? response.resource : "";
+      object.resourceLegend = response.resource ? response.resource : "";
       object.country = response.country.libCountry;
       object.likes = response.nbLikes;
       object.id = response.id;
       object.likePath = "";
-      object.showPath = "";
+      object.showPath = config.responseShowPath.replace(/(\d)$/, response.id);
+      return object;
+    }
+    return null;
+  },
+
+  getArticle:function(id, isBest=false){
+    id= parseInt(id);
+    var article;
+    var object = {};
+
+    for(i=0; i<this.articles.length; i++){
+      if(this.articles[i].id===id){
+        article = this.articles[i];
+      }
+    }
+    if(article){
+      object.title = article.title;
+      object.author = "";
+      object.dtNaissance = "";
+      object.content = article.content;
+      object.resource = article.resource ? article.resource : "";
+      object.resourceLegend = article.resource ? article.resource : "";
+      object.country = article.country.libCountry;
+      object.likes = article.nbLikes;
+      object.id = article.id;
+      object.likePath = "";
+      object.showPath = config.articleShowPath.replace(/(\d)$/, article.id);
       return object;
     }
     return null;
@@ -177,7 +204,8 @@ mapSidebarGestion = {
         var object = self.getQuestion(this.getAttribute("data-href"));
         self.updateShow(object);
       } else if(this.getAttribute("data-object")==="articles") {
-
+        var object = self.getArticle(this.getAttribute("data-href"));
+        self.updateShow(object);
       }
 
       //Bouge le panneau
@@ -189,7 +217,7 @@ mapSidebarGestion = {
   },
 
 
-  genLists:function(questions){
+  genLists:function(questions, articles){
     var questionsItem = [];
     var question;
     for(i=0; i<questions.length; i++){
@@ -207,12 +235,33 @@ mapSidebarGestion = {
       questionsItem.push(proto.result);
     }
     this.lists.questions.els = questionsItem;
-    console.log("El to appends", this.lists.questions.els);
     this.appendList(this.lists.questions.container, this.lists.questions.els);
+
+    var articlesItem = [];
+    var article;
+    for(i=0; i<articles.length; i++){
+      article = articles[i];
+      var proto = new ProtoGen({
+        parent : this.lists.articles.container,
+        datas: {
+            __object__ : "articles",
+            __id__: article.id,
+            __lib__ : article.title,
+            __count__: article.nbLikes
+          },
+        onclick: this.initClickItem
+      });
+      articlesItem.push(proto.result);
+    }
+    this.lists.articles.els = articlesItem;
+    this.appendList(this.lists.articles.container, this.lists.articles.els);
+
+
   },
 
   resetList:function(){
     this.lists.questions.container.innerHTML="";
+    this.lists.articles.container.innerHTML="";
   },
 
   appendList:function(container, array){
@@ -226,17 +275,27 @@ mapSidebarGestion = {
     this.sidebar.getElementsByClassName("sidebar-title")[0].innerHTML = str;
   },
 
+  manageListTitle:function(qCount, aCount){
+    this.lists.questions.title.className = qCount ? "list-title visible" : "list-title hidden";
+    this.lists.articles.title.className = aCount ? "list-title visible" : "list-title hidden";
+  },
+
   updatePanel:function(questions, articles=null){
-    console.log(questions);
     //Met à jour les données
     this.questions = questions;
     this.articles = articles;
 
-    this.toggleState("show-state", "list-state");
+    this.manageListTitle(questions.length, articles.length);
 
-    this.setCountry(questions[0].responses[0].country.libCountry);
+    this.toggleState("show-state", "list-state");
+    if(questions.length){
+      this.setCountry(questions[0].responses[0].country.libCountry);
+    } else {
+      this.setCountry(articles[0].country.libCountry);
+    }
+
     this.resetList();
-    this.genLists(questions);
+    this.genLists(questions, articles);
   },
 
   initShowEvent:function(){
@@ -278,10 +337,12 @@ mapSidebarGestion = {
     this.show = document.getElementById("show-item");
 
     this.lists.questions = {
-      container : this.sidebar.getElementsByClassName("list-question")[0]
+      container : this.sidebar.getElementsByClassName("list-question")[0],
+      title: this.sidebar.getElementsByClassName("list-title")[0]
     };
     this.lists.articles = {
-      container : this.sidebar.getElementsByClassName("list-article")[0]
+      container : this.sidebar.getElementsByClassName("list-article")[0],
+      title: this.sidebar.getElementsByClassName("list-title")[1]
     }
 
     //Devrons être généré après chaque mise à jour
@@ -308,6 +369,7 @@ mapGestion = {
   zoom : 3,
   markers: [],
   questions:[],
+  articles:[],
   previousQuestion: [],
 
 
@@ -319,19 +381,27 @@ mapGestion = {
   //Rajoute les question ainsi que leurs réponse dans le tableau questions
   //Post load
   addQuestions: function(json){
-    for(i=0; i<json.length; i++){
-      mapGestion.questions.push(json[i]);
+    var questions = json.questions;
+    var articles = json.articles;
+    for(i=0; i<questions.length; i++){
+      mapGestion.questions.push(questions[i]);
+    }
+    for(i=0; i<articles.length; i++){
+      mapGestion.articles.push(articles[i]);
     }
   },
 
   // Met à jour les markeurs de la cartes au changement de filtres
   // Post Request
   updateQuestionFromJson: function(json){
-    var questions = JSON.parse(json);
+    json = JSON.parse(json);
+    var questions = json.questions;
+    var articles = json.articles
 
     //On transpose les nouvelles questions et les anciennes
     mapGestion.previousQuestion = mapGestion.questions;
     mapGestion.questions = questions;
+    mapGestion.articles = articles;
 
     //On supprime tout, on recré
     mapGestion.deleteAllMarkers();
@@ -340,7 +410,7 @@ mapGestion = {
 
 
   //Rajoute un objet Google Marker dans le tableau de marker
-  pushMarker:function(response, question){
+  pushMarkerResponse:function(response, question){
     this.markers.push(new google.maps.Marker({
       position: {lat: response.country.lat, lng: response.country.ln},
       map: mapGestion.map,
@@ -352,9 +422,20 @@ mapGestion = {
     return this.markers[this.markers.length-1];
   },
 
-  initMarkerEvent :function(marker, response, question){
+  pushMarkerArticle:function(article){
+    this.markers.push(new google.maps.Marker({
+      position: {lat: article.country.lat, lng: article.country.ln},
+      map: mapGestion.map,
+      title: article.title,
+      icon: mapGestion.image,
+      id: article.id
+    }));
+
+    return this.markers[this.markers.length-1];
+  },
+
+  initMarkerEvent :function(marker, object){
     google.maps.event.addListener(marker, 'click', function() {
-      //On récupère les question apparaissant sur les autres pays
 
       if(!mapSidebarGestion.isOpen()){
         mapSidebarGestion.display();
@@ -362,11 +443,12 @@ mapGestion = {
       }
       mapGestion.map.panTo(marker.getPosition());
 
-      var idCountry = response.country.id;
+      var idCountry = object.country.id;
       var questionsFromPays = mapGestion.getQuestionsFromPays(idCountry);
+      var articlesFromPays = mapGestion.getArticlesFromPays(idCountry);
 
-
-      mapSidebarGestion.updatePanel(questionsFromPays);
+      console.log(articlesFromPays);
+      mapSidebarGestion.updatePanel(questionsFromPays, articlesFromPays);
       console.log(questionsFromPays);
 
     })
@@ -374,8 +456,13 @@ mapGestion = {
 
   //Rajoute un marker et ses évenements depuis une réponse
   addMarkerFromResonse: function(response, question){
-    var marker = this.pushMarker(response, question);
-    this.initMarkerEvent(marker, response, question);
+    var marker = this.pushMarkerResponse(response, question);
+    this.initMarkerEvent(marker, response);
+  },
+
+  addMarkerFromArticle:function(article){
+    var marker = this.pushMarkerArticle(article);
+    this.initMarkerEvent(marker, article);
   },
 
   //Parcour les réponses et rajoutes les markers
@@ -390,6 +477,10 @@ mapGestion = {
       for(j=0; j<mapGestion.questions[i].responses.length; j++){
         mapGestion.addMarkerFromResonse(mapGestion.questions[i].responses[j], mapGestion.questions[i]);
       }
+    }
+
+    for(i=0; i<mapGestion.articles.length; i++){
+      mapGestion.addMarkerFromArticle(mapGestion.articles[i]);
     }
   },
 
@@ -428,6 +519,16 @@ mapGestion = {
       }
     }
     return questionReturn;
+  },
+
+  getArticlesFromPays:function(id){
+    var articlesReturn =[];
+    for(i=0; i<mapGestion.articles.length; i++){
+      if(mapGestion.articles[i].country.id === id){
+        articlesReturn.push(mapGestion.articles[i]);
+      }
+    }
+    return articlesReturn;
   },
 
   ///////////////////////////////////////////////////////////
