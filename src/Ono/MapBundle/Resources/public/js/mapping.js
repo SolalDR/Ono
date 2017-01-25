@@ -15,6 +15,12 @@ function initMap() {
   mapGestion.init();
 }
 
+toHtml = function(str){
+  var fragment = document.createElement("fragment");
+  fragment.innerHTML = str;
+  console.log(fragment);
+  return fragment.firstChild;
+}
 
 //////////////////////////////
 //
@@ -22,8 +28,45 @@ function initMap() {
 //
 ///////////////////////////////
 
+function ProtoGen(args){
+  this.events={};
+  if(args.parent){
+    this.parent = args.parent;
+  }
+  if(args.datas){
+    this.datas = args.datas;
+  }
+  if(args.onclick){
+    this.events.onclick = args.onclick;
+  }
+  this.prototype = this.parent.getAttribute("data-prototype");
+  this.gen();
+}
+
+ProtoGen.prototype.gen = function(){
+  var output = this.prototype;
+  var datas = this.datas;
+  for( data in datas ){
+    output = output.replace(data, datas[data])
+  }
+  this.result = toHtml(output);
+  this.html = output;
+  this.initEvent();
+}
+
+ProtoGen.prototype.initEvent = function(){
+  if(this.result){
+    var self = this;
+    this.result.onclick = function(){
+      self.events.onclick(this);
+    }
+  }
+}
+
+
 mapSidebarGestion = {
   btn:{},
+  lists:{},
   secure : {
     state: [
       "show-state",
@@ -38,6 +81,8 @@ mapSidebarGestion = {
   display:function(){
     this.sidebar.className = this.sidebar.className.replace("sidebar-close", "sidebar-open");
   },
+
+
 
   toggleState:function(actual, next){
     if(this.secure.state.indexOf(actual) === -1 || this.secure.state.indexOf(next) === -1 ){
@@ -96,13 +141,132 @@ mapSidebarGestion = {
     }
   },
 
-  initClickItem:function(el){
-    var self = this;
-    el.onclick = function(){
-      var actual = self.getParentState(this);
-      var next = self.getNextState(actual);
-      self.toggleState(actual, next);
+  getQuestion:function(id, isBest=false){
+    id= parseInt(id);
+    var question, response;
+    var object = {};
+    for(i=0; i<this.questions.length; i++){
+      if(this.questions[i].id===id){
+        question = this.questions[i];
+        response = question.responses[0];
+      }
     }
+    if(question && response){
+      object.title = question.libQuestion;
+      object.author = response.author;
+      object.dtNaissance = response.dtnaissance.timestamp;
+      object.content = response.content;
+      object.resource = response.resource ? response.resource : null;
+      object.resourceLegend = response.resource ? response.resource : null;
+      object.country = response.country.libCountry;
+      object.likes = response.nbLikes;
+      object.id = response.id;
+      object.likePath = "";
+      object.showPath = "";
+      return object;
+    }
+    return null;
+  },
+
+  initClickItem:function(el){
+    var self = mapSidebarGestion;
+    el.onclick = function(){
+
+      //On cherche dans l'object questions
+      if(this.getAttribute("data-object")==="questions"){
+        var object = self.getQuestion(this.getAttribute("data-href"));
+        self.updateShow(object);
+      } else if(this.getAttribute("data-object")==="articles") {
+
+      }
+
+      //Bouge le panneau
+      var actual = self.getParentState(this);
+      setTimeout(function(){
+        self.toggleState(actual, self.getNextState(actual));
+      }, 100)
+    }
+  },
+
+
+  genLists:function(questions){
+    var questionsItem = [];
+    var question;
+    for(i=0; i<questions.length; i++){
+      question = questions[i];
+      var proto = new ProtoGen({
+        parent : this.lists.questions.container,
+        datas: {
+            __object__ : "questions",
+            __id__: question.id,
+            __lib__ : question.libQuestion,
+            __count__: question.responses.length
+          },
+        onclick: this.initClickItem
+      });
+      questionsItem.push(proto.result);
+    }
+    this.lists.questions.els = questionsItem;
+    console.log("El to appends", this.lists.questions.els);
+    this.appendList(this.lists.questions.container, this.lists.questions.els);
+  },
+
+  resetList:function(){
+    this.lists.questions.container.innerHTML="";
+  },
+
+  appendList:function(container, array){
+    for(i=0; i<array.length; i++){
+      container.appendChild(array[i]);
+      console.log("Elements Add", array[i]);
+    }
+  },
+
+  setCountry: function(str){
+    this.sidebar.getElementsByClassName("sidebar-title")[0].innerHTML = str;
+  },
+
+  updatePanel:function(questions, articles=null){
+    console.log(questions);
+    //Met à jour les données
+    this.questions = questions;
+    this.articles = articles;
+
+    this.toggleState("show-state", "list-state");
+
+    this.setCountry(questions[0].responses[0].country.libCountry);
+    this.resetList();
+    this.genLists(questions);
+  },
+
+  initShowEvent:function(){
+    var items = this.show.querySelectorAll("*[data-href]");
+    for(i=0; i<items.length; i++){
+      this.initClickItem(items[i]);
+    }
+  },
+
+  updateShow:function(object){
+    this.show.innerHTML ="";
+    var proto = new ProtoGen({
+      parent : this.show,
+      datas: {
+          __id__: object.id,
+          __title__: object.title,
+          __author__ : object.author,
+          __dt_naissance__: object.dtNaissance,
+          __content__: object.content,
+          __resource__: object.resource,
+          __resource_legend__: object.resourceLegend,
+          __country__: object.country,
+          __likes__: object.likes,
+          __is_liked__: "",
+          __like_path__: object.likePath,
+          __show_path__ : object.showPath
+        }
+    });
+    this.show.innerHTML = proto.html;
+    this.initShowEvent();
   },
 
 
@@ -111,9 +275,17 @@ mapSidebarGestion = {
     this.btn.close = this.sidebar.getElementsByClassName("sidebar-close-button")[0];
     this.body = this.sidebar.getElementsByClassName("sidebar-body")[0];
 
+    this.show = document.getElementById("show-item");
+
+    this.lists.questions = {
+      container : this.sidebar.getElementsByClassName("list-question")[0]
+    };
+    this.lists.articles = {
+      container : this.sidebar.getElementsByClassName("list-article")[0]
+    }
+
     //Devrons être généré après chaque mise à jour
     this.items = this.sidebar.querySelectorAll("[data-href]");
-    console.log(this.items);
     this.initItems();
 
     if(this.sidebar && this.btn.close){
@@ -121,6 +293,11 @@ mapSidebarGestion = {
     }
   }
 }
+
+
+
+
+
 
 mapGestion = {
 
@@ -181,22 +358,16 @@ mapGestion = {
 
       if(!mapSidebarGestion.isOpen()){
         mapSidebarGestion.display();
+        mapSidebarGestion.toggleState("show-state", "list-state");
       }
       mapGestion.map.panTo(marker.getPosition());
-      // var idCountry = response.country.id;
-      // var questionsFromPays = mapGestion.getQuestionsFromPays(idCountry);
-      //
-      // //Si il y a plusieurs questions :
-      // if(questionsFromPays.length>1){
-      //   //On affiche la liste
-      //   mapGestion.displayPanelQuestions();
-      //   mapGestion.updateSidebarQuestionsView(questionsFromPays, idCountry);
-      // } else {
-      //   //Sinon on affiche la question
-      //   var responses = mapGestion.getResponseViewFromQuestion(questionsFromPays[0], idCountry);
-      //   mapGestion.updateSidebarResponsesView(responses, questionsFromPays[0]);
-      //   mapGestion.displayPanelResponses();
-      // }
+
+      var idCountry = response.country.id;
+      var questionsFromPays = mapGestion.getQuestionsFromPays(idCountry);
+
+
+      mapSidebarGestion.updatePanel(questionsFromPays);
+      console.log(questionsFromPays);
 
     })
   },

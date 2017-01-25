@@ -13,23 +13,16 @@
       </div>
       <div class="sidebar-body list-state">
         <div class="sidebar-header">
-          <p class="sidebar-title">France</p>
+          <p class="sidebar-title"></p>
         </div>
         <div id="list-items">
           <p class="list-title">Les questions en France</p>
-          <div class="list-question">
-            <a href="#" data-href="">
-              <div class="item">
-                <p class="item-title">Le numérique apporte t-il véritablement une solution dans les déplacement quotidien</p>
-                <p class="item-mention">12 réponse</p>
+          <div class="list-question" data-prototype="<a href='#' data-href='__id__' data-object='__object__'>
+              <div class='item'>
+                <p class='item-title'>__lib__</p>
+                <p class='item-mention'>__count__ réponses</p>
               </div>
-            </a>
-            <a href="#" data-href="">
-              <div class="item">
-                <p class="item-title">Le numérique apporte t-il véritablement une solution dans les déplacement quotidien</p>
-                <p class="item-mention">12 réponse</p>
-              </div>
-            </a>
+            </a>">
           </div>
           <p class="list-title">Les articles en France</p>
           <div class="list-article">
@@ -48,32 +41,37 @@
           </div>
 
         </div>
-        <div id="show-item" class="panel-right-position">
-          <a href="#" data-href="">
-            <p class="show-title">Le numérique apporte t-il une solution dans les déplacements quotidien ?</p>
+        <div id="show-item" class="panel-right-position"
+          data-prototype="<a href='#'>
+            <p class='show-title'>__title__</p>
           </a>
-          <div class="show-body">
-            <div class="show-top-info">
-              <p class="author">Margot</p>
-              <p class="author-info">19ans - Bordeaux</p>
+          <div class='show-body'>
+            <div class='show-top-info'>
+              <p class='author'>__author__</p>
+              <p class='author-info'>__dt_naissance__ ans</p>
             </div>
-            <div class="show-content">
-              <p class="content">Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec</p>
-              <img class="content-resource" src="" alt="">
+            <div class='show-content'>
+              <p class='content'>__content__</p>
+              <img class='content-resource' src='__resource__' alt='__resource_legend__'>
             </div>
-            <div class="show-bottom-info">
-              <p class="country">France</p>
-              <p class="like">125</p>
+            <div class='show-bottom-info'>
+              <p class='country'>__country__</p>
+              <p class='like'>__likes__</p>
             </div>
-            <div class="action-figure">
-              <a href="" class="like-button" data-id="" data-like-action></a>
-            </div>
+            <!-- <div class='action-figure __is_liked__'>
+              <a href='__like_path__' class='like-button' data-id='__id__' data-like-action></a>
+            </div> -->
           </div>
-          <a href="#" data-href="">
-            <div class="banner-bottom">
-              <p>Lire la suite</p>
-            </div>
-          </a>
+          <div class='banner-bottom'>
+            <a href='__show_path__'>
+              Lire la suite
+            </a>
+            <a href='#' data-href>
+              Retour
+            </a>
+          </div>">
+
+
         </div>
       </div>
     </div>

@@ -1019,10 +1019,17 @@ body#ono_map_homepage {
         right: 0;
         width: 100%;
         text-align: center;
-        padding: 10px 0;
         color: white;
         text-transform: uppercase;
-        background-color: #85BD64; }
+        background-color: #85BD64;
+        display: inline-block;
+        display: flex; }
+        body#ono_map_homepage #sidebarRight .sidebar-body #show-item .banner-bottom a {
+          flex: 1;
+          border-right: 1px solid white;
+          padding: 10px 0;
+          color: white;
+          flex: 1; }
     body#ono_map_homepage #sidebarRight .banner-top {
       height: 25px;
       background-color: #85bd64;

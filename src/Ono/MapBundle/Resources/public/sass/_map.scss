@@ -165,10 +165,18 @@ body#ono_map_homepage {
           right: 0;
           width: 100%;
           text-align: center;
-          padding: 10px 0;
           color: white;
           text-transform: uppercase;
           background-color: #85BD64;
+          display: inline-block;
+          display:flex;
+          a {
+            flex: 1;
+            border-right: 1px solid white;
+            padding: 10px 0;
+            color: white;
+            flex: 1; 
+          }
         }
       }
     }
