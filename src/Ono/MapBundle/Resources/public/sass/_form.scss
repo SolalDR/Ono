@@ -1,7 +1,40 @@
+.wrapper-form {
+  width: 80%;
+  margin: 20px auto;
+
+  h3 {
+    text-align: center;
+  }
+
+  .well {
+    background-color: transparent;
+    border: none;
+
+    .form-control {
+      width: 60%;
+    }
+
+    .form-group {
+      margin: 0 auto;
+    }
+    button#response_log_save {
+      width: 60%;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: $dark-grey;
+      color: white;
+    }
+    #response_log_resource .form-group {
+      margin: 10px 0px;
+    }
+  }
+}
+
 .dynamic-form-group {
   margin: 0 15px;
   & > div {
     .form-group {
+
 
     }
   }

@@ -322,11 +322,9 @@ likeManage = {
     content.innerHTML = response.nbLike;
     button.href = response.nextRoute;
 
-    console.log(response);
     if(response.liking){
-      if(!button.parentNode.className.match("liked")){
-        button.parentNode.className += " liked";
-      }
+      console.log("Like");
+      button.parentNode.className += " liked";
     } else {
       console.log("Unlike");
       button.parentNode.className = button.parentNode.className.replace("liked", "");
@@ -743,3 +741,7 @@ filter.init();
 XHRformAuto.init();
 themeGestion.init();
 tagManage.init();
+InterfaceH.init({
+      focusWay: "background",
+      tutorialGuide : true
+    });

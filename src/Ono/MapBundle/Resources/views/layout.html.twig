@@ -3,7 +3,10 @@
 
 {# STYLESHEETS #}
 {% block stylesheets %}
-{% stylesheets  filter='cssrewrite' 'bundles/onomap/css/style.css' %}
+{% stylesheets  filter='cssrewrite'
+  'bundles/onomap/css/font-awesome.min.css'
+  'bundles/onomap/css/style.css'
+%}
   <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 {% endstylesheets %}
 {% endblock %}
@@ -27,6 +30,7 @@
   {% javascripts
   'bundles/onomap/js/config.js'
   'bundles/onomap/js/loaderManage.js'
+  "bundles/onomap/js/interfaceHelper.js"
   'bundles/onomap/js/main.js'
   "bundles/onomap/js/form.js"
    %}

@@ -12,7 +12,8 @@
           </li>
         </a>
 
-        <a href="#" id="theme-list-container-open" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}">
+        <a href="#" id="theme-list-container-open" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}"
+        data-help="Ici vous pouvez filtrer les résultats en fonction <br> e nos 26 thèmes (5 filtres maximum)">
           <li style="background-image:url({{ asset("asset/img/icone/themes.svg") }})">
             <p>Thèmes</p>
           </li>
@@ -88,7 +89,7 @@
   </a>
 
   <a href="#" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
-    <li style="background-image:url({{ asset("asset/img/icone/profil.svg") }})">
+    <li style="background-image:url({{ asset("asset/img/icone/user.svg") }})">
       <p>Profil</p>
     </li>
   </a>

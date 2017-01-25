@@ -3,9 +3,9 @@
 
 {% block body %}
   {% block bodyContent %}{{ parent() }}
-    <div id="redirect-map" class='shadow'>
-      <p><a href="{{ path('ono_map_homepage')}}"> Revenir à la carte </a></p>
-    </div>
+    <a href="{{ path('ono_map_homepage')}}"> <div id="redirect-map" class='shadow'>
+      <p>Revenir à la carte </p>
+    </div> </a>
 
     <div id='question-container'>
     <div id="question-info" class='shadow'>
@@ -21,19 +21,13 @@
               {% for tag in article.tags %}
                   <div class="tag">
                     <p class="tag-content {% if tag.usedCount > 1 %}tag-content-manage{% endif %}" data-id="{{ tag.id }}">{{ tag.libTag }}</p>
-                    <p>
-                      {{ tag.usedCount }}
-                    </p>
                   </div>
               {% endfor %}
             </div>
         </div>
 
         <h1>{{ article.title }}</h1>
-        <p> Il y a (nombre de réponses) réponses </p>
     </div>
-
-    <h3> Meilleure réponse à cette question </h3>
 
     <div id="question-content" class='shadow'>
         <div id="question-img">
@@ -62,8 +56,8 @@
           <div class="profil">
               <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
               <p class="profil-description">
-                <span>{{ article.user.firstname }}</span>
-                <br/> {{ article.dtcreation |date("d/m/y")}}
+                Auteur : <span>{{ article.user.firstname }}</span>
+                <br/>Article publié le : {{ article.dtcreation |date("d/m/y")}}
               </p>
           </div>
 
