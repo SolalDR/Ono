@@ -33,53 +33,35 @@ class MapController extends Controller
     //Action affichant la page d'accueil avec la carte
     public function indexAction(Request $request, $ids = null)
     {
-      //On affiche u formulaire
-      $response = new ResponseQ;
 
-      if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $response->updateUser($user);
-        $form = $this->get('form.factory')->create(ResponseLogType::class, $response);
-      } else {
-        $form = $this->get('form.factory')->create(ResponseType::class, $response);
-      }
-
-      //Initialisation
       $manager = $this->getDoctrine()->getManager();
       $questionRepo = $manager->getRepository("OnoMapBundle:Question");
       $responseRepo = $manager->getRepository("OnoMapBundle:Response");
-      $serializer = $this->get('serializer');
-      $encoder = new JsonEncoder();
-      $normalizer = new ObjectNormalizer();
+      $articleRepo = $manager->getRepository("OnoMapBundle:Article");
+      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
+      $themesActive = $request->getSession()->get("themes");
 
 
-      //On récupère les questions et les réponses
-      if($request->getSession()->get("questions")){
-        $questions = $request->getSession()->get("questions");
+      if(count($themesActive)>0){
+        $questions = $questionRepo->getQuestionsWithThemes($themesActive);
+        $articles = $articleRepo->getArticlesWithThemes($themesActive);
+      //Sinon on ne fait pas de distinction
       } else {
         $questions = $questionRepo->findAll();
+        $articles = $articleRepo->findAll();
       }
 
-      //On Récupère tout les thèmes
-      $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themes = $themRepo->findAll();
 
-      //On prépare le json
-      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
-      $normalizer->setCircularReferenceHandler(function ($responses) {
-          return $responses->getId();
-      });
-      $serializer = new Serializer(array($normalizer), array($encoder));
-      $json = $serializer->serialize($questions, 'json');
-
+      $json = $this->manageJson($articles, $questions, $responseRepo);
       $request->getSession()->set("questions", $questions);
-      //On retourne le tout
+
       return $this->render('OnoMapBundle:Map:index.html.twig', array(
         "json" =>$json,
-        "themes" => $themes,
-        "form" => $form->createView()
+        "themes" => $themes
       ));
     }
+
 
     //Action mettant à jour la page d'accueil à l'aide d'une XHR et d'un retour en JSON
     public function updateAction(Request $request)
@@ -90,6 +72,7 @@ class MapController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $questionRepo = $manager->getRepository("OnoMapBundle:Question");
         $responseRepo = $manager->getRepository("OnoMapBundle:Response");
+        $articleRepo = $manager->getRepository("OnoMapBundle:Article");
 
         //Traitement des filtres
         $filters = (array) json_decode($request->request->get("json"));
@@ -97,10 +80,13 @@ class MapController extends Controller
         //Si on a des thèmes à filtrer on utilise cette méthode
         if(count($filters["themes"])>0){
           $questions = $questionRepo->getQuestionsWithThemes($filters["themes"]);
+          $articles = $articleRepo->getArticlesWithThemes($filters["themes"]);
         //Sinon on ne fait pas de distinction
         } else {
           $questions = $questionRepo->findAll();
+          $articles = $articleRepo->findAll();
         }
+
         $responses= $responseRepo->findAll();
         for($i=0; $i<count($questions); $i++){
           if(count($questions[$i]->getResponses())<1){
@@ -108,15 +94,9 @@ class MapController extends Controller
           }
         }
 
-        //Prepare json
-        $serializer = $this->get('serializer');
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setCircularReferenceHandler(function ($responses) {
-            return $responses->getId();
-        });
-        $serializer = new Serializer(array($normalizer), array($encoder));
-        $json = $serializer->serialize($questions, 'json');
+        $json = $this->manageJson($articles, $questions, $responseRepo);
+        $request->getSession()->set("questions", $questions);
+
 
         $request->getSession()->set("questions", $questions);
         $request->getSession()->set("themes", $filters["themes"]);
@@ -127,7 +107,7 @@ class MapController extends Controller
       }
 
 
-      return new Response("Error");
+      return new Response("Error : Request not XHR argument");
     }
 
     public function menuAction($route){
@@ -141,9 +121,70 @@ class MapController extends Controller
       ));
     }
 
+
+    ////////////////////////////////////////////
+    //
+    //  JSON + FILEREADER + CIRCULARHANDLER
+    //
+    ///////////////////////////////////////////
+
+    private function manageJson($articles, $questions, $responseRepo){
+      $circularHandler= $responseRepo->findBy(array("question"=>$questions[0]));
+      $articles = $this->deleteArticlesFiles($articles);
+      $questions = $this->deleteResponsesFiles($questions);
+      $json1 = $this->getJsonFor($questions, $circularHandler);
+      $json2 = $this->getJsonFor($articles, $articles);
+      $json= '{"articles": '.$json2.', "questions": '.$json1.'}';
+      return $json;
+    }
+
+    private function deleteArticlesFiles($articles){
+      if($articles)
+      $articlesResult = [];
+      for($i=0; $i<count($articles); $i++){
+        $resources = $articles[$i]->getResources();
+        for($j=0; $j<count($resources); $j++){
+          $resources[$j]->setFile(null);
+        }
+      }
+      return $articles;
+    }
+
+    private function deleteResponsesFiles($questions){
+
+      for($i=0; $i<count($questions); $i++){
+        $responses = $questions[$i]->getResponses();
+        for($j=0; $j<count($responses); $j++){
+          $resource = $responses[$j]->getResource();
+          if($resource){
+            $resource->setFile(null);
+          }
+        }
+      }
+
+      return $questions;
+    }
+
+    private function getJsonFor($object, $normalizerRef=null){
+      $serializer = $this->get('serializer');
+      $encoder = new JsonEncoder();
+      $normalizer = new ObjectNormalizer();
+      if($normalizerRef){
+        $normalizer->setCircularReferenceHandler(function ($normalizerRef) {
+            return $normalizerRef->getId();
+        });
+      }
+      $serializer = new Serializer(array($normalizer), array($encoder));
+      $json = $serializer->serialize($object, 'json');
+      return $json;
+    }
+
+
+
     /////////////////////////////////
     //          LANGUAGE
     /////////////////////////////////
+
 
     public function changeLanguageAction($cdLang)
     {

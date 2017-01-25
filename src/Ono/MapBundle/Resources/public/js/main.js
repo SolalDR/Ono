@@ -585,36 +585,6 @@ filter = {
 }
 
 
-
-///////////////////////////////////////////////////////
-//
-//          Gestion du menu burger
-//
-///////////////////////////////////////////////////////
-
-
-burgerGestion = {
-  initEvent:function(){
-    burgerGestion.burger.addEventListener("click", function(){
-      toggleClassSidebarOpen(burgerGestion.container, "sidebar-open", "sidebar-close");
-    }, false)
-  },
-  initSidebarSize: function(){
-    setToWindowHeight(burgerGestion.container);
-    window.addEventListener("resize", function(){
-      setToWindowHeight(burgerGestion.container);
-    }, false)
-  },
-  init:function(query){
-    burgerGestion.container = document.querySelector(query);
-    if(burgerGestion.container) {
-      burgerGestion.burger = burgerGestion.container.getElementsByClassName("burger-button")[0];
-      burgerGestion.initSidebarSize();
-      burgerGestion.initEvent();
-    }
-  }
-}
-
 ///////////////////////////////////////////////////////
 //
 //          DISPLAY THEME PANNEL
@@ -646,9 +616,6 @@ themeGestion = {
 //
 ///////////////////////////////////////////////////////
 
-// Dépendance :
-// - isElement();
-// - createElement();
 
 //Envoie une mise à jour
 function sendMAJ(response){
@@ -733,9 +700,6 @@ Message.prototype.run = function () {
 
 
 
-
-// burgerGestion.init("#sidebarLeft")
-burgerGestion.init("#sidebarRight")
 likeManage.init();
 filter.init();
 XHRformAuto.init();

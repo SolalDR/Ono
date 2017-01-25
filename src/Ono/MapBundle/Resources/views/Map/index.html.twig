@@ -7,58 +7,62 @@
   {% block bodyContent %}{{ parent() }}
 
     <!-- Sidebar Right -->
-    <div id="sidebarRight" class="sidebar-right sidebar-close">
-      <div class="burger-button slide-button"></div>
-      <div class="sidebar-content">
-
-        <!-- Liste des questions -->
-        <div id="sidebarQuestionsList" class="state-fixe sidebar-panel sidebar-panel-position-left">
-          <div class="marge">
-            <p class="title">Deux questions trouvées ici !</p>
-            <ul></ul>
-          </div>
+    <div id="sidebarRight" class="sidebar-close">
+      <div class="banner-top">
+        <a href="#" class="sidebar-close-button"></a>
+      </div>
+      <div class="sidebar-body list-state">
+        <div class="sidebar-header">
+          <p class="sidebar-title"></p>
         </div>
+        <div id="list-items">
+          <p class="list-title">Les questions en France</p>
+          <div class="list-question" data-prototype="<a href='#' data-href='__id__' data-object='__object__'>
+              <div class='item'>
+                <p class='item-title'>__lib__</p>
+                <p class='item-mention comment'>__count__ réponses</p>
+              </div>
+            </a>">
+          </div>
+          <p class="list-title">Les articles en France</p>
+          <div class="list-article"data-prototype="<a href='#' data-href='__id__' data-object='__object__'>
+              <div class='item'>
+                <p class='item-title'>__lib__</p>
+                <p class='item-mention likes'>__count__ likes</p>
+              </div>
+            </a>">
+          </div>
 
-        <!-- Vue d'une question -->
-        <div id="sidebarQuestionView" class="state-fixe sidebar-panel sidebar-panel-position-center">
-          <div class="themes no-marge">
-            <ul id="response-list-themes-container">
-              <li>Thème1</li>
-              <li>Thème2</li>
-              <li>Thème3</li>
-            </ul>
-          </div>
-          <div class="article marge">
-            <h2 id="response-title">Title</h2>
-            <span id="comebackQuestionsList" class="button-style" style="display:inline-block;">Retour aux questions</span>
-            <p id="response-author">Solal Dussout-Revel</p>
-            <p id="response-date-creation">07/11/2021</p>
-            <p id="response-date-naissance">07/11/2021</p>
-            <p id="response-country">Pays</p>
-            <p id="response-content">Contenu</p>
-            <p id=""></p>
-          </div>
-          <span id="goFormView" class="marge button-style">Ajouter une réponse</span>
-          <div class="other-responses marge">
-            <p class="title">D'autres au même endroit</p>
-            <ul>
-            </ul>
-          </div>
         </div>
-
-        <!-- Panneau formulaire -->
-        <div id="sidebarFormContainer" class="state-fixe sidebar-panel sidebar-panel-position-right">
-          <span id="comebackQuestionView" class="button-style no-marge">Retour à la réponse</span>
-          <div class="form-add marge">
-            <p id="response-title-form" class="title"></p>
-            {{ form_start(form, { 'attr': {
-              'action': absolute_url(path("ono_map_homepage")) ~ "response/add/0",
-              "data-xhrpost" : "true",
-              "class" : "marge-top"
-            }} ) }}
-
-            {{ form_rest(form) }}
+        <div id="show-item" class="panel-right-position"
+          data-prototype="<p class='show-title'>__title__</p>
+          <div class='show-body'>
+            <div class='show-top-info'>
+              <p class='author'>__author__</p>
+              <p class='author-info'>__dt_naissance__ ans</p>
+            </div>
+            <div class='show-content'>
+              <p class='content'>__content__</p>
+              <img class='content-resource' src='__resource__' alt='__resource_legend__'>
+            </div>
+            <div class='show-bottom-info'>
+              <p class='country'>__country__</p>
+              <p class='like'>__likes__</p>
+            </div>
+            <!-- <div class='action-figure __is_liked__'>
+              <a href='__like_path__' class='like-button' data-id='__id__' data-like-action></a>
+            </div> -->
           </div>
+          <div class='banner-bottom'>
+            <a href='__show_path__'>
+              Lire la suite
+            </a>
+            <a href='#' data-href>
+              Retour
+            </a>
+          </div>">
+
+
         </div>
       </div>
     </div>

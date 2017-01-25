@@ -73,11 +73,13 @@ class ResponseController extends Controller
           $form = $this->get('form.factory')->create(ResponseType::class, $response);
         }
 
+        
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
           $manager = $this->getDoctrine()->getManager();
 
           $manager->persist($response);
           $question->addResponse($response);
+
 
           $manager->flush();
           return $this->redirectToRoute('ono_map_response_view', array('id' => $response->getId()));
