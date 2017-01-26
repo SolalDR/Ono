@@ -12,7 +12,7 @@
 }
 
 #helperBox.background {
-  outline: 5000px solid rgba(0,0,0,.2);
+  outline: 5000px solid rgba(0,0,0,.4);
 }
 #helperBox.border {
   outline: 3px solid #63d168;
@@ -164,18 +164,19 @@
   opacity: 1;
   display: block;
   animation-name: tutorial-fadein;
+  padding: 20px 10px;
   animation-duration: 1.5s;
   animation-iteration-count: 1;
   /*background-color: rgba(92, 92, 92, 0.71);
   background-color: rgba(21, 126, 74, 0.66);*/
-  background-color: rgba(0,0,10,.9);
+  background-color: $hover-grey;
 }
 
 #tutorialActions h2 {
-  color: #67c96b;
+  color: white;
   font-size: 20px;
   font-family: sans-serif;
-  text-align: left;
+  text-align: center;
   font-weight: 100;
   padding-left: 25px;
   padding-top: 20px;
@@ -193,6 +194,9 @@
   width: 15px;
   height: 15px;
   display: inline-block;
+  filter: grayscale(100%)
+          brightness(200%);
+
 }
 
 .awesom {
@@ -202,9 +206,9 @@
 .helper-button {
   background-color: rgba(99, 209, 104, 0.67);
   color: white;
-  padding: 15px 25px;
+  padding: 25px;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   border: 0px solid grey;
   margin: 25px;
   border: 0;
@@ -214,7 +218,7 @@
   cursor: pointer;
   font-family: sans-serif;
   font-weight: 100;
-  font-size: .7em;
+  font-size: .8em;
   text-align: center;
   -webkit-transition: .3s;
   -o-transition: .3s;
@@ -231,17 +235,18 @@
   position: absolute;
   z-index: 999;
   margin: 0px;
-  padding: 0px;
   font-family: sans-serif;
   font-weight: 100;
-  font-size: 0.9em;
-  padding: 10px;
-  color: #63d168;
+  font-size: 1.1em;
+  padding: 20px;
+  color: white;
   animation-name: helper-fadein;
   animation-duration: .5s;
   opacity: 1;
   animation-iteration-count: 1;
-  background-color: rgba(0,0,10,.6);
+  background-color: $hover-grey;
+  line-height: 20px;
+  font-family: $font;
 
   /*background-color: white;
   border: 2px solid #63d168;

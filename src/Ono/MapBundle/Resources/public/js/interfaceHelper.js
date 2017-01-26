@@ -309,7 +309,7 @@ InterfaceH = {
     tutorialActions.id = "tutorialActions";
 
     var title = document.createElement("h2");
-    title.innerHTML = "Besoin d'aide ?";
+    title.innerHTML = "Besoin d'aide ?<br>On vous explique tout !";
 
     var close = document.createElement("i");
     close.id = "closeTutorialActions";
@@ -320,15 +320,19 @@ InterfaceH = {
     startTutorial.className = "helper-button";
     startTutorial.innerHTML = "Commencer le tutoriel";
 
-    var startHelp = document.createElement("a");
-    startHelp.href = "#";
-    startHelp.className = "helper-button";
-    startHelp.innerHTML = "Consulter l'aide";
+    if(InterfaceH.config.interface.helpConsult){
+      var startHelp = document.createElement("a");
+      startHelp.href = "#";
+      startHelp.className = "helper-button";
+      startHelp.innerHTML = "Consulter l'aide";
+    }
 
     tutorialActions.appendChild(title);
     tutorialActions.appendChild(close);
     tutorialActions.appendChild(startTutorial);
-    tutorialActions.appendChild(startHelp);
+    if(InterfaceH.config.interface.helpConsult){
+      tutorialActions.appendChild(startHelp);
+    }
     tutorialContainer.appendChild(tutorialActions);
 
     document.body.appendChild(tutorialContainer);
@@ -405,6 +409,10 @@ InterfaceH = {
     }
     if(config.tutorialGuide){
       InterfaceH.config.interface.tutorialGuide = true;
+    }
+
+    if(config.helpConsult){
+      InterfaceH.config.interface.helpConsult = config.helpConsult;
     }
 
     //Récupère les élements concerné

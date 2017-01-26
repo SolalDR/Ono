@@ -707,5 +707,6 @@ themeGestion.init();
 tagManage.init();
 InterfaceH.init({
       focusWay: "background",
-      tutorialGuide : true
+      tutorialGuide : true,
+      helpConsult : false
     });

@@ -10,7 +10,7 @@ body#ono_map_homepage {
     width: 400px;
     position: absolute;
     top: 0;
-    right: -400px;
+    right: 0px;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.90);
     color: black;
@@ -20,10 +20,10 @@ body#ono_map_homepage {
     font-weight: 100;
     @include transition(.5s);
     &.sidebar-open {
-      @include transform(translateX(-100%) translateZ(0));
+      @include transform(translateX(0%) translateZ(0));
     }
     &.sidebar-close {
-      @include transform(translateX(0) translateZ(0));
+      @include transform(translateX(100%) translateZ(0));
     }
     .sidebar-body {
       height: 100%;
