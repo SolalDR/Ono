@@ -67,18 +67,21 @@
 
 </header>
 
-<div id="theme-list-container" class="sidebar-close">
-  <span class="cross" id="theme-list-container-close"></span>
-  <p class="notice">Sélectionnez les thèmes</p>
-  <ul class="theme-list">
-    {% for theme in themes %}
+<div class="scroll-hide">
+  <div id="theme-list-container" class="sidebar-close">
+    <span class="cross" id="theme-list-container-close"></span>
+    <p class="notice">Sélectionnez les thèmes</p>
+    <ul class="theme-list">
+      {% for theme in themes %}
 
-    <li class="filter-theme {% if theme.id in app.session.get("themes") %}active{% endif %}" data-id="{{theme.id}}">
-      <span>{{ theme.libTheme }}</span>
-    </li>
-    {% endfor %}
-  </ul>
+      <li class="filter-theme {% if theme.id in app.session.get("themes") %}active{% endif %}" data-id="{{theme.id}}">
+        <span>{{ theme.libTheme }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
+
 
 <div id="headerComplementMenu" class="hidden">
 

@@ -480,74 +480,77 @@ input[type=range] {
         font-size: 0.8em;
         font-family: sans-serif; }
 
-#theme-list-container {
-  position: fixed;
-  left: 110px;
-  width: 25%;
-  min-width: 350px;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  top: 0px;
-  color: white;
-  font-family: inherit;
-  font-weight: 100;
-  z-index: 1;
-  -webkit-transition: 0.4s;
-  -o-transition: 0.4s;
-  transition: 0.4s; }
-  #theme-list-container.sidebar-open {
-    display: block;
-    -webkit-transform: translateX(0) translateZ(0);
-    /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
-    -ms-transform: translateX(0) translateZ(0);
-    /* IE 9 */
-    -o-transform: translateX(0) translateZ(0);
-    transform: translateX(0) translateZ(0);
-    /* IE 10, Fx 16+, Op 12.1+ */ }
-  #theme-list-container.sidebar-close {
-    display: block;
-    -webkit-transform: translateX(-100%) translateZ(0);
-    /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
-    -ms-transform: translateX(-100%) translateZ(0);
-    /* IE 9 */
-    -o-transform: translateX(-100%) translateZ(0);
-    transform: translateX(-100%) translateZ(0);
-    /* IE 10, Fx 16+, Op 12.1+ */ }
-  #theme-list-container #theme-list-container-close {
-    display: inline-block;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    width: 15px;
-    height: 15px;
-    background-image: url(../../onomap/img/logo/cancel.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    cursor: pointer;
-    filter: invert(1); }
-  #theme-list-container .notice {
-    text-align: center;
-    font-size: 1.3em;
-    padding: 40px 10px; }
-    #theme-list-container .notice strong {
-      font-weight: 600; }
-  #theme-list-container .theme-list .filter-theme {
-    height: 3.2vh;
-    padding-top: 1.2vh;
-    padding-left: 10%;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    cursor: pointer; }
-    #theme-list-container .theme-list .filter-theme:hover, #theme-list-container .theme-list .filter-theme.active {
-      background-color: rgba(70, 70, 70, 0.9);
-      font-weight: bolder;
-      border-left: 2px solid #94D376;
-      color: white; }
-    #theme-list-container .theme-list .filter-theme span {
-      font-size: .9em;
-      width: calc(100% - 40px); }
+.scroll-hide {
+  overflow: hidden; }
+  .scroll-hide #theme-list-container {
+    overflow: scroll;
+    position: fixed;
+    left: 110px;
+    width: 25%;
+    min-width: 350px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0px;
+    color: white;
+    font-family: inherit;
+    font-weight: 100;
+    z-index: 1;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s; }
+    .scroll-hide #theme-list-container.sidebar-open {
+      display: block;
+      -webkit-transform: translateX(0) translateZ(0);
+      /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+      -ms-transform: translateX(0) translateZ(0);
+      /* IE 9 */
+      -o-transform: translateX(0) translateZ(0);
+      transform: translateX(0) translateZ(0);
+      /* IE 10, Fx 16+, Op 12.1+ */ }
+    .scroll-hide #theme-list-container.sidebar-close {
+      display: block;
+      -webkit-transform: translateX(-100%) translateZ(0);
+      /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+      -ms-transform: translateX(-100%) translateZ(0);
+      /* IE 9 */
+      -o-transform: translateX(-100%) translateZ(0);
+      transform: translateX(-100%) translateZ(0);
+      /* IE 10, Fx 16+, Op 12.1+ */ }
+    .scroll-hide #theme-list-container #theme-list-container-close {
+      display: inline-block;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      width: 15px;
+      height: 15px;
+      background-image: url(../../onomap/img/logo/cancel.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+      filter: invert(1); }
+    .scroll-hide #theme-list-container .notice {
+      text-align: center;
+      font-size: 1.3em;
+      padding: 40px 10px; }
+      .scroll-hide #theme-list-container .notice strong {
+        font-weight: 600; }
+    .scroll-hide #theme-list-container .theme-list .filter-theme {
+      height: 3.2vh;
+      padding-top: 1.2vh;
+      padding-left: 10%;
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+      cursor: pointer; }
+      .scroll-hide #theme-list-container .theme-list .filter-theme:hover, .scroll-hide #theme-list-container .theme-list .filter-theme.active {
+        background-color: rgba(70, 70, 70, 0.9);
+        font-weight: bolder;
+        border-left: 2px solid #94D376;
+        color: white; }
+      .scroll-hide #theme-list-container .theme-list .filter-theme span {
+        font-size: .9em;
+        width: calc(100% - 40px); }
 
 #headerComplementMenu {
   position: absolute;

@@ -111,7 +111,10 @@
 
 }
 
+.scroll-hide {
+  overflow: hidden;
   #theme-list-container {
+    overflow: scroll;
     position: fixed;
     left: 110px;
     width: 25%;
@@ -173,6 +176,8 @@
       }
     }
   }
+}
+
 
 
 #headerComplementMenu {

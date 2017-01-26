@@ -4,7 +4,7 @@
 {% block body %}
   {% block bodyContent %}{{ parent() }}
     <div class="unlogged-page">
-      <h1>Vous devez vous logger pour continuer</h1>
+      <h1>Vous devez vous connecter pour continuer</h1>
       <a href="{{ path("fos_user_security_login") }}">Connectez vous</a>
       <a href="{{ path("fos_user_registration_register") }}">Inscrivez vous</a>
     </div>

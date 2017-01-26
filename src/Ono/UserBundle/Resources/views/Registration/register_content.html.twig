@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <p id="sign-in">
-  Déja un compte ?<br> <a href="{{ path("fos_user_security_login") }}">Connecter vous !</a>
+  Déja un compte ?<br> <a href="{{ path("fos_user_security_login") }}">Connectez-vous !</a>
 </p>
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}

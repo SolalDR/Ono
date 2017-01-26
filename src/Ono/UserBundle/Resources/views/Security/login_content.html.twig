@@ -14,11 +14,11 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     {% endif %}
     <div class="textfieldContainer">
-      <label for="username">{{ 'security.login.username'|trans }}</label>
+      <label for="username">Nom d'utilisateur</label>
       <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
     </div>
     <div class="textfieldContainer">
-      <label for="password">{{ 'security.login.password'|trans }}</label>
+      <label for="password">Mot de passe</label>
       <input type="password" id="password" name="_password" required="required" />
     </div>
     <div class="checkboxContainer">
