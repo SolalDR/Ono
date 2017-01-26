@@ -204,6 +204,7 @@ ono_admin_list_question:
     path:   /admin/question/list
     defaults:
         _controller: OnoMapBundle:Question:index
+        activeThemes: false
 
 #edit question
 ono_admin_edit_question:

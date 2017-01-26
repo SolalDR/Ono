@@ -37,23 +37,11 @@ class AdminController extends Controller
 
       $questions = $questionRepo->findAll();
       $themes = $themesRepo->findAll();
-      $responses= $responseRepo->findBy(array("question"=>$questions[0]));
-
-
-      $encoder = new JsonEncoder();
-      $normalizer = new ObjectNormalizer();
-
-      $normalizer->setCircularReferenceHandler(function ($responses) {
-          return $responses->getId();
-      });
-      $serializer = new Serializer(array($normalizer), array($encoder));
-      $json = $serializer->serialize($questions, 'json');
 
 
       return $this->render('OnoMapBundle:Admin:index.html.twig', array(
         "questions" => $questions,
-        "themes" => $themes,
-        "json" =>$json
+        "themes" => $themes
       ));
     }
 
