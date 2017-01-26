@@ -5,8 +5,7 @@
   {% block bodyContent %}{{ parent() }}
 
     <div id="show-action">
-      <div class="banner">
-
+      <div class="banner" style="background-image:url({{ vich_uploader_asset(article.resources[0], 'file') }})">
       </div>
       <div class="show-body">
         <p class="country">{{ article.country.libCountry }}</p>

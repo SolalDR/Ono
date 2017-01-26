@@ -3,10 +3,14 @@
 
   .banner {
     background-color: #2D2E2F;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     width: calc(100% - 110px);
     height: 300px;
     position: absolute;
     top: 0;
+    filter: brightness(50%);
   }
   .show-body {
     max-width: 980px;

@@ -4,121 +4,42 @@
 {% block body %}
   {% block bodyContent %}{{ parent() }}
 
-  <div id="redirect-map" class='shadow'>
-    <p><a href="{{ path('ono_map_homepage')}}"> Revenir à la carte </a></p>
-  </div>
-
-  <div id='question-container'>
-    <div id="question-info" class='shadow'>
-      <div id="tags-container">
-            {% for theme in themes %}
-              {% if theme.id in app.session.get("themes") %}
-              <div class="tag">
-                <p>{{ theme.libTheme }}</p>
-              </div>
-              {% endif %}
-            {% endfor %}
+      <div id="show-action">
+        <div class="banner" style="background-image:url({{ vich_uploader_asset(response.resource, 'file') }})">
         </div>
-
-        <h1>{{ response.question.libQuestion }}</h1>
-        <p> Il y a (nombre de réponses) réponses </p>
-    </div>
-
-    <h3> Meilleure réponse à cette question </h3>
-
-    <div id="question-content" class='shadow'>
-        <div id="question-img">
-            <!-- <img src="{{ asset("asset/img/logo.svg") }}"/> Image/Vidéo de l'article -->
-
-            <div class="info">
-                <h4> {{ response.country.libCountry }} </h4>
-                <p>{{ response.nbLikes }}</p>
-                {{ response|isliking }}
-
-                {% if response|isliking == true %}
-                <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">
-                  <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />
-                </a>
-                {% else %}
-                <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">
-                  <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
-                </a>
-                {% endif %}            </div>
-        </div>
-
-        <div id="question-text">
-
-          <!-- Le {{ response.dtcreation|date("j/m/y") }} par {{ response.author }} -->
-
-          <div class="profil">
-              <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
-              <p class="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
+        <div class="show-body">
+          <p class="country">{{ response.country.libCountry }}</p>
+          <a class="back-list" href="{{ path("ono_map_question_index") }}">Retour à la liste des questions</a>
+          <div class="show-header">
+            <h1 class="show-title">{{ response.question.libQuestion }}</h1>
+            <ul class="themes">
+              {% for theme in response.question.themes %}
+                <li>{{ theme.libTheme }}</li>
+              {% endfor %}
+            </ul>
+            <a href="{{ path("ono_map_response_add", {"id":response.question.id }) }}" class="add" data-help="Vous pouvez cliquez ici pour participer à l'enrichissement du contenu de la plateforme" style="background-image: url({{ asset("asset/img/icone/add.svg") }});"><span>Proposer une réponse</span></a>
           </div>
-
-          <div class="question-answer">
-            <p> {{response.content | raw}} </p>
-          </div>
-
-        </div>
-
-    </div>
-
-
-    <div id="add-response" class='shadow'>
-      <a href='{{ path("ono_map_response_add", {"id": response.question.id})}}'>Renseignez votre réponse </a>
-    </div>
-
-  </div>
-
-  <div id='more'>
-      <h3> Consulter d'autre réponses à cette question </h3>
-      <div class='answer shadow'>
-
-        <div class='answer-img'>
-          <!-- <img src="{{ asset("asset/img/logo.svg") }}"/> Image/Vidéo de l'article -->
-
-            <div class='info'>
-              <h4> {{ response.country.libCountry }} </h4>
-              <p>{{ response.nbLikes }}</p>
-
-              {{ response|isliking }}
-              {% if response|isliking == true %}
-              <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}">
-                <img src="{{asset('bundles/onomap/img/favorite-check.png')}}" alt="favorite-uncheck" />
-              </a>
-              {% else %}
-              <a href="{{ path("ono_map_response_like", {"id": response.id }) }}">
-                <img src="{{asset('bundles/onomap/img/favorite-uncheck.png')}}" alt="favorite-check"/>
-              </a>
-              {% endif %}
-
+          <div class="show-content">
+            <div class="content">
+              {{ response.content |raw }}
             </div>
 
-        </div>
-
-        <div class='answer-content'>
-          <div class="profil">
-              <!-- <img src="#" class="profil-pic" alt='profil-picture'/> -->
-              <p class="profil-description"><span>{{ response.author }}</span><br/> {{ response.dtnaissance |date("d/m/y")}}</p>
+            <div class="show-resources">
+              <img src="{{ vich_uploader_asset(response.resource, 'file') }}" alt="">
+            </div>
+            <div class="footer-content">
+              <p class="country">{{ response.country.libCountry }}</p>
+              <p class="likes" data-id="{{ response.id }}" data-like-content>{{ response.nbLikes }}</p>
+            </div>
           </div>
-
-          <div class="question-answer">
-            <p> {{response.content | raw}} </p>
-            <a href="{{ path("ono_map_response_view",{"id":response.id}) }}" ><span>Lire plus...</span></a></figcaption>
+          <div class="action-figure {% if response|isliking %}liked{% endif %}">
+            {% if response|isliking %}
+              <a href="{{ path("ono_map_response_unlike", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+            {% else %}
+            <a href="{{ path("ono_map_response_like", {"id": response.id }) }}" class="like-button" data-id="{{ response.id }}" data-like-action></a>
+            {% endif %}
           </div>
         </div>
-
-      </div>
-
-      <div id='carrousel'>
-        <a href="" alt=""> <div class="circle"></div> </a>
-        <a href="" alt=""> <div class="circle"></div> </a>
-        <a href="" alt=""> <div class="circle"></div> </a>
-        <a href="" alt=""> <div class="circle"></div> </a>
-
-  </div>
-
-
   </body>
   {% endblock %}
 {% endblock %}
