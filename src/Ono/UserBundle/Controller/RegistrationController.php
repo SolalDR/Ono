@@ -40,6 +40,8 @@ class RegistrationController extends BaseController
       if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
         /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
+        $session = $request->getSession();
+
         /** @var $userManager UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
         /** @var $dispatcher EventDispatcherInterface */
