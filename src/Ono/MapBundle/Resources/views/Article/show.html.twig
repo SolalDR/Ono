@@ -5,7 +5,7 @@
   {% block bodyContent %}{{ parent() }}
 
     <div id="show-action">
-      <div class="banner" style="background-image:url({{ vich_uploader_asset(article.resources[0], 'file') }})">
+      <div class="banner" {% if article.resources|length %}style="background-image:url({{ vich_uploader_asset(article.resources[0], 'file') }})"{% endif %}>
       </div>
       <div class="show-body">
         <p class="country">{{ article.country.libCountry }}</p>
@@ -23,10 +23,11 @@
           <div class="content">
             {{ article.content |raw }}
           </div>
-
+          {% if article.resources|length %}
           <div class="show-resources">
             <img src="{{ vich_uploader_asset(article.resources[0], 'file') }}" alt="">
           </div>
+          {% endif %}
           <div class="footer-content">
             <p class="country">{{ article.country.libCountry }}</p>
             <p class="likes" data-id="{{ article.id }}" data-like-content>{{ article.nbLikes }}</p>

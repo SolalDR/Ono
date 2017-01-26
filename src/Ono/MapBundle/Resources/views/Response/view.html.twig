@@ -5,7 +5,7 @@
   {% block bodyContent %}{{ parent() }}
 
       <div id="show-action">
-        <div class="banner" style="background-image:url({{ vich_uploader_asset(response.resource, 'file') }})">
+        <div class="banner" {% if response.resource %}style="background-image:url({{ vich_uploader_asset(response.resource, 'file') }})" {% endif %}>
         </div>
         <div class="show-body">
           <p class="country">{{ response.country.libCountry }}</p>
@@ -23,10 +23,11 @@
             <div class="content">
               {{ response.content |raw }}
             </div>
-
+            {% if response.resource %}
             <div class="show-resources">
               <img src="{{ vich_uploader_asset(response.resource, 'file') }}" alt="">
             </div>
+            {% endif %}
             <div class="footer-content">
               <p class="country">{{ response.country.libCountry }}</p>
               <p class="likes" data-id="{{ response.id }}" data-like-content>{{ response.nbLikes }}</p>
