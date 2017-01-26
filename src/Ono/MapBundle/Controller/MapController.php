@@ -121,11 +121,19 @@ class MapController extends Controller
     ///////////////////////////////////////////
 
     private function manageJson($articles, $questions, $responseRepo){
-      $circularHandler= $responseRepo->findBy(array("question"=>$questions[0]));
-      $articles = $this->deleteArticlesFiles($articles);
-      $questions = $this->deleteResponsesFiles($questions);
-      $json1 = $this->getJsonFor($questions, $circularHandler);
-      $json2 = $this->getJsonFor($articles, $articles);
+      if($questions){
+        $circularHandler= $responseRepo->findBy(array("question"=>$questions[0]));
+        $questions = $this->deleteResponsesFiles($questions);
+        $json1 = $this->getJsonFor($questions, $circularHandler);
+      } else {
+        $json1 = "{}";
+      }
+      if($articles){
+        $articles = $this->deleteArticlesFiles($articles);
+        $json2 = $this->getJsonFor($articles, $articles);
+      } else {
+        $json2 = "{}";
+      }
       $json= '{"articles": '.$json2.', "questions": '.$json1.'}';
       return $json;
     }
