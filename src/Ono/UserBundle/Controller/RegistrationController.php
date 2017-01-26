@@ -85,6 +85,8 @@ class RegistrationController extends BaseController
             }
         }
 
+        $session->set("loggedVisit", true);
+
         return $this->render('OnoUserBundle:Registration:register.html.twig', array(
             'form' => $form->createView(),
         ));

@@ -56,6 +56,8 @@ class SecurityController extends BaseController
                   ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
                   : null;
 
+              $session->set("loggedVisit", true);
+
               return $this->renderLogin(array(
                   'last_username' => $lastUsername,
                   'error' => $error,

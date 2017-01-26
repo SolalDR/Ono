@@ -729,14 +729,18 @@ input[type=range] {
     text-align: center;
     margin: 20px auto;
     font-family: 'Roboto',cursive; }
+    .main-block .columns::after {
+      content: "";
+      display: block;
+      clear: both; }
     .main-block .columns figure {
-      padding-bottom: 10px;
-      display: inline-block;
+      padding-bottom: 30px;
       column-break-inside: avoid;
+      break-inside: avoid;
+      page-break-inside: avoid;
       text-align: left;
       min-width: 300px;
-      width: 25px;
-      margin-bottom: 30px; }
+      width: 25px; }
       .main-block .columns figure .column-container {
         border: 1px solid #DDD;
         background-color: #fbfbfb;

@@ -41,6 +41,11 @@ class MapController extends Controller
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themesActive = $request->getSession()->get("themes");
 
+      $isFirst = $request->getSession()->get("loggedVisit");
+      if(!$isFirst){
+        return $this->redirectToRoute("fos_user_security_login");
+      }
+
 
       if(count($themesActive)>0){
         $questions = $questionRepo->getQuestionsWithThemes($themesActive);
