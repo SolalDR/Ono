@@ -145,6 +145,9 @@
       font-weight: 100;
       position: relative;
       z-index: 3;
+      outline-offset: 0;
+      outline-width: 0;
+      background-color: transparent;
       -webkit-transition: .1s ease-in;
       -moz-transition: .1s ease-in;
       -o-transition: .1s ease-in;
