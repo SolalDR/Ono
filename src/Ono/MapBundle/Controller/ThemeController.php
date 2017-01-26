@@ -15,6 +15,26 @@ use Ono\MapBundle\Form\ThemeType;
 class ThemeController extends Controller
 {
 
+  public function updateSessionAction(Request $request) {
+    if ($request->request->get('xhr')) {
+
+      //Traitement du filtre des thèmes
+      $filters = (array) json_decode($request->request->get("json"));
+      $request->getSession()->set("themes", $filters["themes"]);
+
+      $route = $this->getRefererRoute($request);
+      switch($route) {
+        case "ono_map_homepage":
+          return $this->redirectToRoute("ono_map_update_homepage");
+          break;
+        default:
+          return new Response("Cette route ne match pas !", 500);
+      }
+      return new Response("Pas de route !", 500);
+    }
+    return new Response("Error : Request not XHR argument");
+  }
+
   public function addAction(Request $request){
     $manager = $this->getDoctrine()->getManager();
     $theme = new Theme;
@@ -83,5 +103,19 @@ class ThemeController extends Controller
         'pathDelete' => "ono_admin_delete_theme",
         'form'   => $form->createView()
       ));
+  }
+
+  private function getRefererRoute(Request $request)
+  {
+
+      //look for the referer route
+      $referer = $request->headers->get('referer');
+      $lastPath = substr($referer, strpos($referer, $request->getBaseUrl()));
+      $lastPath = str_replace($request->getBaseUrl(), '', $lastPath);
+
+      $matcher = $this->get('router')->getMatcher();
+      $parameters = $matcher->match($lastPath);
+      $route = $parameters['_route'];
+      return $route;
   }
 }

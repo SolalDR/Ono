@@ -66,48 +66,40 @@ class MapController extends Controller
     //Action mettant à jour la page d'accueil à l'aide d'une XHR et d'un retour en JSON
     public function updateAction(Request $request)
     {
-      //On vérifie que la requête soit XHR
-      if($request->request->get("xhr")){
-        //Initialisation
-        $manager = $this->getDoctrine()->getManager();
-        $questionRepo = $manager->getRepository("OnoMapBundle:Question");
-        $responseRepo = $manager->getRepository("OnoMapBundle:Response");
-        $articleRepo = $manager->getRepository("OnoMapBundle:Article");
-
-        //Traitement des filtres
-        $filters = (array) json_decode($request->request->get("json"));
-
-        //Si on a des thèmes à filtrer on utilise cette méthode
-        if(count($filters["themes"])>0){
-          $questions = $questionRepo->getQuestionsWithThemes($filters["themes"]);
-          $articles = $articleRepo->getArticlesWithThemes($filters["themes"]);
-        //Sinon on ne fait pas de distinction
-        } else {
-          $questions = $questionRepo->findAll();
-          $articles = $articleRepo->findAll();
-        }
-
-        $responses= $responseRepo->findAll();
-        for($i=0; $i<count($questions); $i++){
-          if(count($questions[$i]->getResponses())<1){
-            array_splice($questions, $i, 1);
-          }
-        }
-
-        $json = $this->manageJson($articles, $questions, $responseRepo);
-        $request->getSession()->set("questions", $questions);
+      //Initialisation
+      $manager = $this->getDoctrine()->getManager();
+      $questionRepo = $manager->getRepository("OnoMapBundle:Question");
+      $responseRepo = $manager->getRepository("OnoMapBundle:Response");
+      $articleRepo = $manager->getRepository("OnoMapBundle:Article");
+      $themesActive = $request->getSession()->get("themes");
 
 
-        $request->getSession()->set("questions", $questions);
-        $request->getSession()->set("themes", $filters["themes"]);
-
-        //Return response
-        return new Response($json);
-
+      if(count($themesActive)>0){
+      //Si on a des thèmes à filtrer on utilise cette méthode
+        $questions = $questionRepo->getQuestionsWithThemes($themesActive);
+        $articles = $articleRepo->getArticlesWithThemes($themesActive);
+      //Sinon on ne fait pas de distinction
+      } else {
+        $questions = $questionRepo->findAll();
+        $articles = $articleRepo->findAll();
       }
 
+      $responses= $responseRepo->findAll();
+      for($i=0; $i<count($questions); $i++){
+        if(count($questions[$i]->getResponses())<1){
+          array_splice($questions, $i, 1);
+        }
+      }
 
-      return new Response("Error : Request not XHR argument");
+      $json = $this->manageJson($articles, $questions, $responseRepo);
+      $request->getSession()->set("questions", $questions);
+
+
+      $request->getSession()->set("questions", $questions);
+
+      //Return response
+      return new Response($json);
+
     }
 
     public function menuAction($route){

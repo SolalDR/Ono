@@ -4,7 +4,7 @@ ono_map_homepage:
         _controller: OnoMapBundle:Map:index
 
 ono_map_update_homepage:
-    path:     /update
+    path:     /update/map
     defaults:
         _controller: OnoMapBundle:Map:update
 
@@ -137,6 +137,14 @@ ono_map_question_index:
     requirements:
         id: \d+
 
+#########
+#  THEMES
+#########
+
+ono_map_update_session_themes:
+    path:     /update
+    defaults:
+        _controller: OnoMapBundle:Theme:updateSession
 
 ###############################################################
 #                            ADMIN
