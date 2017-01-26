@@ -9,43 +9,36 @@
 
       </div>
       <div class="show-body">
-        <p class="country">France</p>
-        <a href="#">Voir la liste des questions posées dans ce pays</a>
+        <p class="country">{{ article.country.libCountry }}</p>
+        <a class="back-list" href="{{ path("ono_map_article_index") }}">Retour à la liste des articles</a>
         <div class="show-header">
-          <h1 class="show-title">Le numérique apporte une solution dans les déplacements quotidiens.</h1>
+          <h1 class="show-title">{{ article.title }}</h1>
           <ul class="themes">
-            <li>Alimentation</li>
-            <li>Alimentation</li>
-            <li>Alimentation</li>
-            <li>Alimentation</li>
+            {% for theme in article.themes %}
+              <li>{{ theme.libTheme }}</li>
+            {% endfor %}
           </ul>
-          <a href="#" class="add"></a>
+          <a href="#" class="add" data-help="Vous pouvez cliquez ici pour participer à l'enrichissement du contenu de la plateforme" style="background-image: url({{ asset("asset/img/icone/add.svg") }});"><span>Proposer un article</span></a>
         </div>
         <div class="show-content">
-          <h2>Sous titre</h2>
           <div class="content">
-            <article class="">
-              Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele
-              ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele
-              ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra necUt aliquam nisl at est pretium viverra. Sed id
-              rcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele
-              ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec
-            </article>
-            <article class="">
-              Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele
-              ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele
-              ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra necUt aliquam nisl at est pretium viverra. Sed id
-              rcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu.Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec vel nisi  consectetur adipiscing elit. Sed vel ipsum sodales, dignissim eros eu. Sed id arcu et ante ele
-              ifend viverra nec vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec  vel nisi  consectetur sed id arcu et ante eleifend viverra nec vel nisi  consectetur. Ut aliquam nisl at est pretium viverra. Sed id arcu et ante eleifend viverra nec
-            </article>
+            {{ article.content |raw }}
           </div>
+
           <div class="show-resources">
-            <img src="http://www.w3schools.com/css/trolltunga.jpg" alt="">
+            <img src="{{ vich_uploader_asset(article.resources[0], 'file') }}" alt="">
           </div>
           <div class="footer-content">
-            <p class="country">France</p>
-            <p class="likes">125 <img src="../img/heart-grey.png" alt=""></p>
+            <p class="country">{{ article.country.libCountry }}</p>
+            <p class="likes" data-id="{{ article.id }}" data-like-content>{{ article.nbLikes }}</p>
           </div>
+        </div>
+        <div class="action-figure {% if article|isliking %}liked{% endif %}">
+          {% if article|isliking %}
+            <a href="{{ path("ono_map_article_unlike", {"id": article.id }) }}" class="like-button" data-id="{{ article.id }}" data-like-action></a>
+          {% else %}
+          <a href="{{ path("ono_map_article_like", {"id": article.id }) }}" class="like-button" data-id="{{ article.id }}" data-like-action></a>
+          {% endif %}
         </div>
       </div>
       <!-- <div class="">

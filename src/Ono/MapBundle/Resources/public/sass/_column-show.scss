@@ -9,29 +9,31 @@
     top: 0;
   }
   .show-body {
-    padding: 20px 30px;
     max-width: 980px;
     margin: 0px auto;
     position: relative;
-    padding-bottom: 50px;
+    padding: 0;
+    margin-bottom: 100px;
+    padding-top: 30px;
+
+    a.back-list {
+      color: white;
+      filter: brightness(70%);
+      font-weight: 100;
+      font-size: 0.8em;
+    }
     .country {
       color: white;
       font-size: 1.4em;
       font-weight: 100;
       padding: 10px 0px;
     }
-    a{
-      color: white;
-      filter: brightness(70%);
-      font-weight: 100;
-      font-size: 0.8em;
-    }
     .show-header {
       background-color: white;
       padding: 20px 40px 10px;
       margin: 20px 0px;
       box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
-
+      position: relative;
       h1 {
         color: $blue-green;
         font-size: 1.4em;
@@ -52,10 +54,36 @@
         font-weight: 100;
         font-size: 0.9em;
       }
+      a.add {
+        position: absolute;
+        width: 60px;
+        right: 0;
+        height: 100%;
+        background-color: #85BD6A;
+        top: 0;
+        background-position: calc(100% - 20px) center;
+        background-repeat: no-repeat;
+        background-size: 20px;
+        overflow: hidden;
+        @include transition(.5s);
+        span {
+          right: 60px;
+          position: absolute;
+          display: block;
+          width: 150px;
+          top: 50%;
+          color: white;
+          font-weight: 100;
+          @include transform(translateY(-50%));
+        }
+        &:hover{
+          width: 260px;
+        }
+      }
     }
     .show-content {
       background-color: white;
-      padding: 20px 60px;
+      padding: 20px 40px;
       box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
       article {
         line-height: 1.5;
@@ -100,6 +128,17 @@
           padding-right: 25px;
         }
       }
+    }
+
+    &:hover,
+    .liked {
+        border-bottom: 1px solid $blue;
+
+        .action-figure {
+            .like-button {
+                @include transform(rotateX(0));
+            }
+        }
     }
   }
 
