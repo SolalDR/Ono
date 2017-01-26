@@ -53,6 +53,7 @@ app/config/parameters*
 # Sass-cache
 /src/Ono/MapBundle/Resources/public/.sass-cache/
 /src/Ono/MapBundle/Resources/public/.sass-cache/*
+/src/Ono/MapBundle/Resources/public/css/style.css.map
 
 /.DS_Store
 .DS_Store
