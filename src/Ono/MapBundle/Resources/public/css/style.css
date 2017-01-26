@@ -1339,13 +1339,14 @@ body#ono_map_homepage {
   margin-bottom: 20px; }
 
 .container-confirmed {
-  background-color: rgba(40, 140, 156, 0.6);
-  color: white;
+  background-color: white;
+  color: black;
   width: 50%;
   margin: auto;
   padding: 40px;
   font-weight: 100;
-  text-align: center; }
+  text-align: center;
+  box-shadow: 2px 5px 15px #3b3b3b; }
   .container-confirmed #notice {
     font-family: sans-serif;
     margin-bottom: 30px;

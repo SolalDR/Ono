@@ -2,7 +2,7 @@
 
 {% block fos_user_content %}
 <div class="container-confirmed">
-  <p id="notice">{{ 'Félicitation pour votre inscription'|trans({'%username%': user.username}) }}</p>
+  <p id="notice">{{ 'Félicitations pour votre inscription'|trans({'%username%': user.username}) }}</p>
   {% if targetUrl %}
   <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
   {% endif %}
