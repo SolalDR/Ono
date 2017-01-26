@@ -20,6 +20,14 @@
   box-shadow: $content;
 }
 
+@mixin mainBoxShadow($color){
+  -webkit-box-shadow: 2px 2px 15px $color;
+  -moz-box-shadow: 2px 2px 15px  $color;
+  -ms-box-shadow: 2px 2px 15px  $color;
+  -o-box-shadow: 2px 2px 15px  $color;
+  box-shadow: 2px 2px 15px  $color;
+}
+
 @mixin flex() {
   display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
   display: -ms-flexbox;  /* TWEENER - IE 10 */

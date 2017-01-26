@@ -178,8 +178,13 @@
   font-family: sans-serif;
   text-align: center;
   font-weight: 100;
-  padding-left: 25px;
   padding-top: 20px;
+  span {
+    display: block;
+    font-size: 15px;
+    margin-top: 10px;
+    color: #CCC;
+  }
 }
 
 #closeTutorialActions{
@@ -212,7 +217,6 @@
   border: 0px solid grey;
   margin: 25px;
   border: 0;
-  width: 35vh;
   display: block;
   text-decoration: none;
   cursor: pointer;

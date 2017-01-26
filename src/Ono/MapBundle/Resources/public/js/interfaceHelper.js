@@ -309,7 +309,7 @@ InterfaceH = {
     tutorialActions.id = "tutorialActions";
 
     var title = document.createElement("h2");
-    title.innerHTML = "Besoin d'aide ?<br>On vous explique tout !";
+    title.innerHTML = "Besoin d'aide ?<span>On vous explique tout !</span>";
 
     var close = document.createElement("i");
     close.id = "closeTutorialActions";
