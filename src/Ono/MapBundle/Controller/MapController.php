@@ -55,11 +55,17 @@ class MapController extends Controller
         $questions = $questionRepo->findAll();
         $articles = $articleRepo->findAll();
       }
+      if(!isset($questions) || !count($questions)){
+        $questions = $questionRepo->findAll();
+      }
+      if(!isset($articles) || !count($articles)){
+        $articles = $articleRepo->findAll();
+      }
+
 
       $themes = $themRepo->findAll();
-
       $json = $this->manageJson($articles, $questions, $responseRepo);
-      $request->getSession()->set("questions", $questions);
+
 
       return $this->render('OnoMapBundle:Map:index.html.twig', array(
         "json" =>$json,
@@ -88,6 +94,13 @@ class MapController extends Controller
         $questions = $questionRepo->findAll();
         $articles = $articleRepo->findAll();
       }
+      if(!isset($questions) || !count($questions)){
+        $questions = $questionRepo->findAll();
+      }
+      if(!isset($articles) || !count($articles)){
+        $articles = $articleRepo->findAll();
+      }
+
 
       $responses= $responseRepo->findAll();
       for($i=0; $i<count($questions); $i++){
@@ -97,10 +110,6 @@ class MapController extends Controller
       }
 
       $json = $this->manageJson($articles, $questions, $responseRepo);
-      $request->getSession()->set("questions", $questions);
-
-
-      $request->getSession()->set("questions", $questions);
 
       //Return response
       return new Response($json);
