@@ -154,13 +154,14 @@ class MapController extends Controller
 
     private function deleteArticlesFiles($articles){
       if($articles)
-      $articlesResult = [];
       for($i=0; $i<count($articles); $i++){
-        $resources = $articles[$i]->getResources();
-        for($j=0; $j<count($resources); $j++){
-          $resources[$j]->setFile(null);
-        }
+        $articles[$i]->temporyDeleteResource();
+        // for($j=0; $j<count($resources); $j++){
+        //   $resources[$j]->setFile(null);
+        // }
       }
+      // dump($articles);
+      // exit;
       return $articles;
     }
 

@@ -451,6 +451,11 @@ class Article
         return $this;
     }
 
+
+    public function temporyDeleteResource(){
+      $this->resources = [];
+    }
+
     /**
      * Remove resource
      *
