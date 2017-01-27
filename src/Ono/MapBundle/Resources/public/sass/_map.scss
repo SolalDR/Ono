@@ -131,6 +131,8 @@ body#ono_map_homepage {
             }
           }
           .show-content {
+            max-height: 300px;
+            overflow: hidden;
             .content {
               padding: 15px;
               margin-top: 10px;

@@ -1187,12 +1187,15 @@ body#ono_map_homepage {
         body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-top-info .author-info {
           margin-top: 2px;
           color: #85bd64; }
-        body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-content .content {
-          padding: 15px;
-          margin-top: 10px; }
-        body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-content .content-resource {
-          width: 100%;
-          max-height: 300px; }
+        body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-content {
+          max-height: 300px;
+          overflow: hidden; }
+          body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-content .content {
+            padding: 15px;
+            margin-top: 10px; }
+          body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-content .content-resource {
+            width: 100%;
+            max-height: 300px; }
         body#ono_map_homepage #sidebarRight .sidebar-body #show-item .show-body .show-bottom-info {
           margin: 20px 0;
           height: 25px; }
