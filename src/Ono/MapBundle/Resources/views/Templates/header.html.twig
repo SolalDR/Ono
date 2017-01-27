@@ -7,19 +7,19 @@
 
       <ul class="nav-body">
         <a href="{{ path("ono_map_homepage") }}" class="item-nav{% if app.request.get('_route') == 'ono_map_homepage' %} active{% endif %}">
-          <li style="background-image:url({{ asset("asset/img/icone/carte.svg") }})" data-help="Vous êtes ici, cliquez sur ce bouton<br> pour revenir à la map à tout moment">
+          <li style="background-image:url({{ asset("asset/img/icone/carte.svg") }})" data-help="Vous êtes ici, cliquez sur ce bouton<br> pour revenir à la carte à tout moment">
             <p>Carte</p>
           </li>
         </a>
 
         <a href="#" id="theme-list-container-open" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}">
-          <li style="background-image:url({{ asset("asset/img/icone/themes.svg") }})" data-help="Ici vous pouvez filtrer les résultats en fonction<br>de nos 26 thèmes (5 filtres maximum)">
+          <li style="background-image:url({{ asset("asset/img/icone/themes.svg") }})" data-help="Ici, vous pouvez filtrer les résultats en fonction<br>de nos 26 thèmes (5 filtres maximum)">
             <p>Thèmes</p>
           </li>
         </a>
 
         <a href="{{ path("ono_map_question_index") }}" class="item-nav{% if "question" in app.request.get('_route') or "response" in app.request.get('_route') %} active{% endif %}">
-          <li style="background-image:url({{ asset("asset/img/icone/questions.svg") }})" data-help="L'ensemble des réponses publiés par la communauté sont consultables en cliquant ici">
+          <li style="background-image:url({{ asset("asset/img/icone/questions.svg") }})" data-help="L'ensemble des réponses publiées par la communauté sont consultables en cliquant ici">
             <p>Questions</p>
           </li>
         </a>
@@ -31,13 +31,13 @@
         </a>
 
         <a href="{{ path("ono_favoris_user") }}" class="item-nav{% if "favoris" in app.request.get('_route') %} active{% endif %}">
-          <li style="background-image:url({{ asset("asset/img/icone/favoris.svg") }})" data-help="Si vous êtes connecté,<br> retrouvez ici toutes vos réponses et articles favoris">
+          <li style="background-image:url({{ asset("asset/img/icone/favoris.svg") }})" data-help="Si vous êtes connecté,<br> retrouvez ici toutes vos réponses et vos articles favoris">
             <p>Favoris</p>
           </li>
         </a>
 
         <a href="#" id="headerComplementButton" class="item-nav{% if app.request.get('_route') == 'ono_map_themes' %} active{% endif %}">
-          <li style="background-image:url({{ asset("asset/img/icone/add.svg") }})" data-help="Ce n'est pas finit !<br> En cliquant ici, vous pourrez accéder aux réglages, à votre profil,<br> mais aussi à des informations concernant la plateforme, l'équipe etc... :)">
+          <li style="background-image:url({{ asset("asset/img/icone/add.svg") }})" data-help="Ce n'est pas fini !<br> En cliquant ici, vous pourrez accéder aux réglages, à votre profil,<br> mais aussi à des informations concernant la plateforme, l'équipe etc... :)">
             <p>Plus</p>
           </li>
         </a>
