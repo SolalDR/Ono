@@ -553,7 +553,7 @@ input[type=range] {
         width: calc(100% - 40px); }
 
 #headerComplementMenu {
-  position: absolute;
+  position: fixed;
   left: 110px;
   bottom: 0px;
   width: 110px;

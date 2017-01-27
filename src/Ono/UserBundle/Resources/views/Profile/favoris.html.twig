@@ -11,7 +11,7 @@
         <!-- Réponse aimée -->
         <div class="main-block">
           <div class="main-block-header">
-            <h1>Les Réponses que vous avez aimées</h1>
+            <h1>Les réponses que vous avez aimées</h1>
             <p class="count">{{ responses|length }} résultats</p>
           </div>
           <div class="columns">
@@ -28,7 +28,7 @@
 
                 <div class="colum-content">
                   <h2> {{ response.question.libQuestion }} </h2>
-                  <p>{{ response.content |raw }}</p>
+                  <p>{{ response.content|raw|striptags|slice(0, 400) }}</p>
                 </div>
                 <div class="column-footer">
                   <p class="info">{{ response.country.libCountry }}</p>
@@ -52,7 +52,7 @@
 
         <div class="main-block">
           <div class="main-block-header">
-            <h1>Les articles que vous avez aimées</h1>
+            <h1>Les articles que vous avez aimés</h1>
             <p class="count">{{ articles|length }} résultats</p>
           </div>
           <div class="columns">
@@ -75,7 +75,7 @@
                   <p>
                     {{ article.description }}
                   </p>
-                  <p>{{ article.content |raw }}</p>
+                  <p>{{ article.content|raw|striptags|slice(0, 400) }}</p>
                 </div>
                 <div class="column-footer">
                   <p class="info">{{ article.country.libCountry }}</p>
