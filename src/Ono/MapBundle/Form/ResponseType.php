@@ -46,9 +46,6 @@ class ResponseType extends AbstractType
               'choice_label' => 'libLanguageFr',
               'multiple'     => false,
             ))
-            ->add('resource', ResourceType::class, array(
-              "required" => false
-            ))
             ->add('save',       SubmitType::class)
         ;
     }

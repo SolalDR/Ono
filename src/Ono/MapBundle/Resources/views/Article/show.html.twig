@@ -17,17 +17,17 @@
               <li>{{ theme.libTheme }}</li>
             {% endfor %}
           </ul>
-          <a href="#" class="add" data-help="Vous pouvez cliquez ici pour participer à l'enrichissement du contenu de la plateforme" style="background-image: url({{ asset("asset/img/icone/add.svg") }});"><span>Proposer un article</span></a>
+          <a href="{{ path("ono_map_article_add") }}" class="add" data-help="Vous pouvez cliquez ici pour participer à l'enrichissement du contenu de la plateforme" style="background-image: url({{ asset("asset/img/icone/add.svg") }});"><span>Proposer un article</span></a>
         </div>
         <div class="show-content">
-          <div class="content">
-            {{ article.content |raw }}
-          </div>
           {% if article.resources|length %}
           <div class="show-resources">
             <img src="{{ vich_uploader_asset(article.resources[0], 'file') }}" alt="">
           </div>
           {% endif %}
+          <div class="content">
+            {{ article.content |raw }}
+          </div>
           <div class="footer-content">
             <p class="country">{{ article.country.libCountry }}</p>
             <p class="likes" data-id="{{ article.id }}" data-like-content>{{ article.nbLikes }}</p>
