@@ -385,6 +385,18 @@ input[type=range] {
     #alerts-container .alert-container.alert-status-error {
       background-color: #bb3030; }
 
+@font-face {
+  font-family: "Roboto";
+  src: url(../fonts/Roboto/Roboto-Regular.ttf); }
+@font-face {
+  font-family: "Roboto Thin";
+  src: url(../fonts/Roboto/Roboto-Thin.ttf); }
+@font-face {
+  font-family: "Roboto Bold";
+  src: url(../fonts/Roboto/Roboto-Bold.ttf); }
+@font-face {
+  font-family: "Roboto Italic";
+  src: url(../fonts/Roboto/Roboto-Italic.ttf); }
 #sidebarLeft.sidebar-left {
   display: block;
   z-index: 999;
@@ -772,12 +784,14 @@ input[type=range] {
             margin: 10px;
             font-size: 15px;
             font-weight: 100;
-            color: #222; }
+            color: #222;
+            word-break: break-all; }
           .main-block .columns figure .column-container .colum-content h2 {
             font-size: 20px;
             color: #377b84;
             text-align: left;
-            padding: 5px; }
+            padding: 5px;
+            word-break: break-all; }
             .main-block .columns figure .column-container .colum-content h2::after {
               content: "";
               display: block;
@@ -947,7 +961,9 @@ input[type=range] {
         color: #377b84;
         font-size: 1.4em;
         padding: 10px 0px;
-        font-weight: 400; }
+        font-weight: 400;
+        word-break: break-all;
+        padding-right: 2em; }
       #show-action .show-body .show-header ul {
         padding: 8px 0px; }
       #show-action .show-body .show-header li {
@@ -2248,7 +2264,7 @@ body#ono_favoris_user {
   content: "?";
   display: inline-block;
   color: white;
-  margin: 10px 13px;
+  margin: 7px 13px;
   font-size: 25px;
   font-weight: 100;
   font-family: sans-serif;

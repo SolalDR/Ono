@@ -28,7 +28,7 @@
 
                 <div class="colum-content">
                   <h2> {{ response.question.libQuestion }} </h2>
-                  <p>{{ response.content|raw|striptags|slice(0, 400) }}</p>
+                  <p>{{ response.content|striptags|slice(0, 400)|raw }}</p>
                 </div>
                 <div class="column-footer">
                   <p class="info">{{ response.country.libCountry }}</p>
@@ -75,7 +75,7 @@
                   <p>
                     {{ article.description }}
                   </p>
-                  <p>{{ article.content|raw|striptags|slice(0, 400) }}</p>
+                  <p>{{ article.content|striptags|slice(0, 400)|raw }}</p>
                 </div>
                 <div class="column-footer">
                   <p class="info">{{ article.country.libCountry }}</p>
