@@ -6,11 +6,51 @@
 
   {
     "libQuestion":"Question numéro 2 de plus de 20 caractère",
-    "cdThemes":["pvr", "soc"]
+    "cdThemes":["pvr"]
   },
 
   {
     "libQuestion":"Question numéro 3 de plus de 20 caractère",
+    "cdThemes": ["soc"]
+  },
+
+  {
+    "libQuestion":"Question numéro 4 de plus de 20 caractère",
+    "cdThemes": ["ali", "pvr"]
+  },
+
+  {
+    "libQuestion":"Question numéro 5 de plus de 20 caractère",
+    "cdThemes": ["ali", "soc"]
+  },
+
+  {
+    "libQuestion":"Question numéro 6 de plus de 20 caractère",
+    "cdThemes": ["pvr", "soc"]
+  },
+
+  {
+    "libQuestion":"Question numéro 7 de plus de 20 caractère",
+    "cdThemes": ["ali", "pvr", "soc"]
+  },
+
+  {
+    "libQuestion":"Question numéro 8 de plus de 20 caractère",
+    "cdThemes": ["ali", "pvr", "soc", "com"]
+  },
+
+  {
+    "libQuestion":"Question numéro 9 de plus de 20 caractère",
     "cdThemes": ["com"]
+  },
+
+  {
+    "libQuestion":"Question numéro 10 de plus de 20 caractère",
+    "cdThemes": ["num"]
+  },
+
+  {
+    "libQuestion":"Question numéro 11 de plus de 20 caractère",
+    "cdThemes": ["ali", "pvr", "soc", "com", "num"]
   }
 ]

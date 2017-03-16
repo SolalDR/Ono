@@ -73,7 +73,7 @@ class ResponseController extends Controller
           $form = $this->get('form.factory')->create(ResponseType::class, $response);
         }
 
-        
+
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
           $manager = $this->getDoctrine()->getManager();
 

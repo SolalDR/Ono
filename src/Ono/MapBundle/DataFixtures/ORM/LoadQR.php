@@ -45,8 +45,8 @@ class LoadQR extends AbstractFixture implements OrderedFixtureInterface
       // On la persiste
       $manager->persist($question);
 
-      for ($j=0; $j < 3; $j++) {
-          $k = 3*$i + $j;
+      for ($j=0; $j < 2; $j++) {
+          $k = 2*$i + $j;
           // Création d'une réponse associée à la question (avec paramètres)
           $response = new Response();
           $response->setContent($resp_tab[$k]["content"]);
@@ -59,7 +59,7 @@ class LoadQR extends AbstractFixture implements OrderedFixtureInterface
 
           $language = $l_repo->findOneBy(array("cdLanguage" => $resp_tab[$k]["cdLanguage"]));
           $response->setLanguage($language);
-          
+
           // Relation Q-R côté réponse
           $response->setQuestion($question);
           $manager->persist($response);

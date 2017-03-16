@@ -195,8 +195,7 @@ body#ono_map_homepage {
       height: 25px;
       background-color: #85bd64;
       position: absolute;
-      right: 0;
-      width: calc(100% + 3px);
+      width: 100%;
       z-index: 2;
       .sidebar-close-button {
         position: absolute;

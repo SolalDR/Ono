@@ -10,7 +10,8 @@ function initMap() {
     },
     scrollwheel:false,
     draggable: true,
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    disableDoubleClickZoom: true
   });
   mapGestion.init();
 }

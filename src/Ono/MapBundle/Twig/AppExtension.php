@@ -27,7 +27,6 @@ class AppExtension extends \Twig_Extension
       $user = $this->container->get('security.token_storage')->getToken()->getUser();
       if($user instanceof User){
         if($object instanceof Response){
-          dump($user);
           if($user->isLiking($object)){
             return true;
           }

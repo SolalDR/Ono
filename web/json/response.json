@@ -17,15 +17,7 @@
     "cdCountry":"fra",
     "cdLanguage" : "fr"
   },
-  {
-    "content":"Ceci est une réponse à la question numéro 1. Réponse numéro 3",
-    "dtcreation":"2011-01-01 00:00:00",
-    "dtnaissance":"1999-06-03",
-    "author":"Q1R3",
-    "published":"1",
-    "cdCountry":"fra",
-    "cdLanguage" : "fr"
-  },
+
   {
     "content":"Ceci est une réponse à la question numéro 2. Réponse numéro 1",
     "dtcreation":"2011-01-01 00:00:00",
@@ -33,7 +25,7 @@
     "author":"Q2R1",
     "published":"1",
     "cdCountry":"esp",
-    "cdLanguage" : "fr"
+    "cdLanguage" : "es"
   },
   {
     "content":"Ceci est une réponse à la question numéro 2. Réponse numéro 2",
@@ -42,17 +34,9 @@
     "author":"Q2R2",
     "published":"1",
     "cdCountry":"esp",
-    "cdLanguage" : "fr"
+    "cdLanguage" : "es"
   },
-  {
-    "content":"Ceci est une réponse à la question numéro 2. Réponse numéro 3",
-    "dtcreation":"2011-01-01 00:00:00",
-    "dtnaissance":"1999-06-03",
-    "author":"Q2R3",
-    "published":"1",
-    "cdCountry":"esp",
-    "cdLanguage" : "fr"
-  },
+
   {
     "content":"Ceci est une réponse à la question numéro 3. Réponse numéro 1",
     "dtcreation":"2011-01-01 00:00:00",
@@ -60,7 +44,7 @@
     "author":"Q3R1",
     "published":"1",
     "cdCountry":"ita",
-    "cdLanguage" : "fr"
+    "cdLanguage" : "it"
   },
   {
     "content":"Ceci est une réponse à la question numéro 3. Réponse numéro 2",
@@ -69,15 +53,158 @@
     "author":"Q3R2",
     "published":"1",
     "cdCountry":"ita",
-    "cdLanguage" : "fr"
+    "cdLanguage" : "it"
   },
+
   {
-    "content":"Ceci est une réponse à la question numéro 3. Réponse numéro 3",
+    "content":"Ceci est une réponse à la question numéro 4. Réponse numéro 1",
     "dtcreation":"2011-01-01 00:00:00",
     "dtnaissance":"1999-06-03",
-    "author":"Q3R3",
+    "author":"Q4R1",
     "published":"1",
-    "cdCountry":"ita",
-    "cdLanguage" : "fr"
+    "cdCountry":"sau",
+    "cdLanguage" : "ar"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 4. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q4R2",
+    "published":"1",
+    "cdCountry":"sau",
+    "cdLanguage" : "ar"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 5. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q5R1",
+    "published":"1",
+    "cdCountry":"aus",
+    "cdLanguage" : "en"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 5. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q5R2",
+    "published":"1",
+    "cdCountry":"aus",
+    "cdLanguage" : "en"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 6. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q6R1",
+    "published":"1",
+    "cdCountry":"vnm",
+    "cdLanguage" : "vi"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 6. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q6R2",
+    "published":"1",
+    "cdCountry":"vnm",
+    "cdLanguage" : "vi"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 7. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q7R1",
+    "published":"1",
+    "cdCountry":"rus",
+    "cdLanguage" : "ru"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 7. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q7R2",
+    "published":"1",
+    "cdCountry":"rus",
+    "cdLanguage" : "ru"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 8. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q8R1",
+    "published":"1",
+    "cdCountry":"gbr",
+    "cdLanguage" : "en"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 8. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q8R2",
+    "published":"1",
+    "cdCountry":"gbr",
+    "cdLanguage" : "en"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 9. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q9R1",
+    "published":"1",
+    "cdCountry":"svk",
+    "cdLanguage" : "sk"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 9. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q9R2",
+    "published":"1",
+    "cdCountry":"svk",
+    "cdLanguage" : "sk"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 10. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q10R1",
+    "published":"1",
+    "cdCountry":"tha",
+    "cdLanguage" : "th"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 10. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q10R2",
+    "published":"1",
+    "cdCountry":"tha",
+    "cdLanguage" : "th"
+  },
+
+  {
+    "content":"Ceci est une réponse à la question numéro 11. Réponse numéro 1",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q11R1",
+    "published":"1",
+    "cdCountry":"bra",
+    "cdLanguage" : "pt"
+  },
+  {
+    "content":"Ceci est une réponse à la question numéro 11. Réponse numéro 2",
+    "dtcreation":"2011-01-01 00:00:00",
+    "dtnaissance":"1999-06-03",
+    "author":"Q11R2",
+    "published":"1",
+    "cdCountry":"bra",
+    "cdLanguage" : "pt"
   }
 ]
