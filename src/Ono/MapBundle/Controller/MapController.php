@@ -41,7 +41,8 @@ class MapController extends Controller
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
       $themesActive = $request->getSession()->get("themes");
 
-      if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+      $isFirst = $request->getSession()->get("loggedVisit");
+      if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_USER') && !$isFirst){
         return $this->redirectToRoute("fos_user_security_login");
       }
 
