@@ -38,7 +38,6 @@ class ResponseController extends Controller
       $manager = $this->getDoctrine()->getManager();
       $repoReponse = $manager->getRepository("OnoMapBundle:Response");
       $themRepo = $manager->getRepository("OnoMapBundle:Theme");
-      dump($numId);
       $response = $repoReponse->find($numId);
       if($response === null){
         throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
