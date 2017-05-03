@@ -14,6 +14,7 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 use Ono\MapBundle\Entity\Article;
 use Ono\MapBundle\Entity\Tag;
+use Ono\MapBundle\Entity\Resource;
 use Ono\UserBundle\Entity\User;
 use Ono\MapBundle\Form\ArticleType;
 
@@ -53,14 +54,25 @@ class ArticleController extends Controller
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
+    $tagRepo = $manager->getRepository("OnoMapBundle:Tag");
 
     $article = $repoArticle->find($numId);
     if(isset($numTag)){
-      $articles = $repoArticle->getFromTag($numTag);
-      if (count($articles)>1){
+      $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+      $tag = $tagRepo->find($numTag);
+      $articles = $tag->getArticles();
+      $articles = $articles->toArray();
+
+      foreach ($articles as $key => $value) {
+        if($value == $article) {
+          array_splice($articles, $key, 1);
+        }
+      }
+      if (count($articles)>0){
         $article = $articles[floor(rand(0, count($articles)-1))];
       }
     }
+
 
     if($article === null){
       throw new NotFoundHttpException("La réponse à afficher n'existe pas.");
@@ -185,7 +197,7 @@ class ArticleController extends Controller
             $manager->flush();
           }
           if($request->isXmlHttpRequest()){
-            return  new Response($this->getXhrLikesResponse(true, $article->getNbLikes(), $article->getId()));
+            return new Response($this->getXhrLikesResponse(true, $article->getNbLikes(), $article->getId()));
           }
         }
       }
@@ -264,6 +276,63 @@ class ArticleController extends Controller
         'pathDelete' => "ono_admin_delete_article",
         'form'   => $form->createView()
       ));
+  }
+
+  public function popupAction(Request $request){
+    $numArt = (int) $request->attributes->all()["id"];
+    $numTag = (int) $request->attributes->all()["tag"];
+
+    $manager = $this->getDoctrine()->getManager();
+    $repoArticle = $manager->getRepository("OnoMapBundle:Article");
+    $repoTag = $manager->getRepository("OnoMapBundle:Tag");
+
+    $article = $repoArticle->find($numArt);
+    $tag = $repoTag->find($numTag);
+    if($tag){
+      $tagArticles = $tag->getArticles()->toArray();
+      $key = 0;
+      foreach ($tagArticles as $tagArticle) {
+        if ($tagArticle == $article) {
+          array_splice($tagArticles, $key, 1);
+        }
+        $key++;
+      }
+
+      if(count($tagArticles) != 0) {
+        shuffle($tagArticles);
+        $articles = [];
+        if(count($tagArticles) < 3) {
+          $articles = $tagArticles;
+        } else {
+          $articles = [$tagArticles[0], $tagArticles[1], $tagArticles[2]];
+        }
+      }
+      if($request->isXmlHttpRequest()){
+        return new Response($this->getPopupResponse($tag->getLibTag(), $tag->getIndefinition(), $articles));
+      }
+    }
+    return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
+  }
+
+  private function getPopupResponse($libTag, $indefinition, $articles) {
+    $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+    $arts = [];
+    for($i = 0 ; $i < count($articles) ; $i++) {
+      $arts[$i]["link"] = $this->generateUrl('ono_map_article_view', array("id" => $articles[$i]->getId()));
+      $arts[$i]["title"] = $articles[$i]->getTitle();
+      $resources = $articles[$i]->getResources();
+      if(count($resources) != 0) {
+        $arts[$i]["image"] = $helper->asset($resources[0], 'file', 'Ono\\MapBundle\\Entity\\Resource');
+      } else {
+        $arts[$i]["image"] = null;
+      }
+    }
+
+    $render = [];
+    $render["libTag"] = $libTag;
+    $render["indefinition"] = $indefinition;
+    $render["articles"] = $arts;
+    return json_encode($render);
   }
 
   private function getXhrLikesResponse($isLiking, $nbLikes, $id){

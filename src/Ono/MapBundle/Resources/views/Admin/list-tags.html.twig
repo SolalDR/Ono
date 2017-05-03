@@ -17,6 +17,9 @@
           Libellé
         </th>
         <th>
+          Indéfinition
+        </th>
+        <th>
           UsedCount
         </th>
       </tr>
@@ -29,9 +32,13 @@
         </td>
         <td>
           {{ tag.libTag }}
+        </td>
         <td>
+          {{ tag.indefinition|slice(0, 50) }}{% if tag.indefinition|length > 50 %}...{% endif %}
+        </td>
         <td>
           {{ tag.usedCount }}
+        </td>
         <td>
           <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_tag", {"id" : tag.id}) }}">Editer</a>
         </td>

@@ -30,6 +30,11 @@ body#ono_map_homepage {
       width: 100%;
       position: relative;
       overflow: hidden;
+
+      .tag-container {
+        display: none;
+      }
+
       #list-items, #show-item {
         padding: 10px;
         height: calc(100vh - 120px);

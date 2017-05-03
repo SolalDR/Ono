@@ -368,6 +368,141 @@ likeManage = {
 
 ///////////////////////////////////////////////////////
 //
+//                  XHR POPUP OBJECT
+//
+//   gère les test et requête xhr pour les popus de tags
+//
+///////////////////////////////////////////////////////
+
+popupManage = {
+
+  updateContent: function(response){
+    response = JSON.parse(response);
+    console.log(response);
+    var modalContent = document.getElementById("modal-content");
+
+    modalContent.innerHTML = "";
+
+    var libTag = document.createElement("h1");
+    libTag.innerHTML = response.libTag;
+    modalContent.append(libTag);
+
+    var indefinition = document.createElement("p");
+    indefinition.innerHTML = response.indefinition || "À indéfinir";
+    modalContent.append(indefinition);
+
+    var articlesContainer = document.createElement("div");
+    articlesContainer.className = "articles-container";
+
+    for (var i = 0 ; i < response.articles.length ; i++) {
+      console.log(response.articles[i]);
+      var articleContainer = document.createElement("div");
+      articleContainer.className = "article-container";
+      var link = document.createElement("a");
+      var image = document.createElement("img");
+      var articleTitle = document.createElement("p");
+
+      link.href = response.articles[i].link;
+      image.src = response.articles[i].image || "http://placehold.it/250x150?text=Pas+d'image";
+      image.alt = response.articles[i].title;
+      articleTitle.innerHTML = response.articles[i].title;
+      link.append(image);
+      articleContainer.append(link);
+      articleContainer.append(articleTitle);
+      articlesContainer.append(articleContainer);
+    }
+
+    modalContent.append(articlesContainer);
+    popupModal.display();
+
+  },
+
+  initEvent : function(el){
+    var self = this;
+    el.addEventListener("click", function(e){
+
+      self.currentAction = {};
+      self.currentAction.request = new Request({
+        url : this.href,
+        method: "GET",
+        callback : self.updateContent
+      }).send();
+
+      console.log(self.currentAction);
+
+      self.currentAction.el = this;
+
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }, false)
+  },
+
+  initEvents:function(){
+    for(i=0; i<this.buttons.length; i++){
+      this.initEvent(this.buttons[i])
+    }
+  },
+
+  init:function(){
+    this.buttons = document.querySelectorAll("[data-popup-action]");
+    if(this.buttons.length){
+      this.initEvents();
+    }
+  }
+}
+
+///////////////////////////////////////////////////////
+//
+//      Popup Modal
+//
+///////////////////////////////////////////////////////
+
+
+popupModal = {
+
+  display:function(){
+    this.modal.className = this.modal.className.replace("hidden", "visible");
+  },
+
+  hide:function(){
+    this.modal.className = this.modal.className.replace("visible", "hidden");
+  },
+
+  initEvents:function(){
+    var self = this;
+
+    this.close.addEventListener("click", function(e){
+      e.preventDefault();
+      self.hide();
+      return false;
+    }, false);
+
+    console.log("close done");
+    window.onclick = function(event) {
+      if (event.target == self.modal) {
+        self.hide();
+      }
+    }
+    console.log("close black done");
+  },
+  init:function(){
+    this.modal = document.getElementById('tag-modal');
+    this.close = document.getElementsByClassName("close-modal")[0];
+    if(this.modal && this.close){
+      if(!this.modal.className.match(/(?:visible|hidden)/)){
+        this.modal.className+= " hidden";
+      }
+      this.initEvents();
+    }
+  }
+}
+
+popupModal.init();
+
+
+///////////////////////////////////////////////////////
+//
 //      headerComplement
 //
 ///////////////////////////////////////////////////////
@@ -416,7 +551,7 @@ headerComplement.init();
 //
 //
 //
-//   gère les test et requête xhr pour like & dislike
+//   Gère la création des liens sur les tags dans des articles
 //
 ///////////////////////////////////////////////////////
 
@@ -432,24 +567,27 @@ tagManage = {
   },
   run:function(){
     var regStr, link, str;
-    var regPunctu = "\(\[\\<\\>\\.\\s\\,\\&\]\)" //On récupère les " . , & < > "
+    var regPunctu = "\(\[\\<\\>\\.\\s\\;\\,\\&\]\)" //On récupère les " . ; , & < > "
     for(i=0; i<tagManage.tags.length; i++){
 
       regStr = new RegExp(regPunctu+tagManage.tags[i].lib+regPunctu, "g");
       link = tagManage.prototype.replace(/(.+?)\d+$/, "$1"+tagManage.tags[i].id)
-      str = tagManage.content.innerHTML
-      str = str.replace(regStr, '$1<a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a>$2')
+      str = tagManage.content.innerHTML || tagManage.content.textContent;
+      console.log(str);
+      str = str.replace(regStr, '$1<a class="link-tag" href="'+link+'" data-popup-action>'+tagManage.tags[i].lib+'</a>$2')
       tagManage.content.innerHTML = str;
       console.log(str);
-      console.log(regStr, '<a class="link-tag" href="'+link+'">'+tagManage.tags[i].lib+'</a>');
+      console.log(regStr, '<a class="link-tag" href="'+link+'" data-popup-action>'+tagManage.tags[i].lib+'</a>');
     }
   },
   init:function(){
     //On influe sur ce tag car tout les tags ne seront pas traité par le script
-    tagManage.tagsEl = document.getElementsByClassName("tag-content-manage");
+    tagManage.tagsEl = document.getElementsByClassName("tag-content");
     tagManage.content = document.getElementById("tagManageContent");
     if(tagManage.content && tagManage.tagsEl){
-      tagManage.prototype = tagManage.content.getAttribute("data-prototypetag")
+      console.log("ready to run");
+      console.log(tagManage.content);
+      tagManage.prototype = tagManage.content.getAttribute("data-prototypetag");
       tagManage.hydrateObject();
       tagManage.run();
     }
@@ -705,6 +843,7 @@ filter.init();
 XHRformAuto.init();
 themeGestion.init();
 tagManage.init();
+popupManage.init();
 InterfaceH.init({
       focusWay: "background",
       tutorialGuide : true,

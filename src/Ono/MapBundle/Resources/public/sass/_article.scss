@@ -3,6 +3,12 @@
 
 }
 
+#ono_map_article_view, #ono_map_article_view_from_tag {
+  #tags-container {
+    display: none;
+  }
+}
+
 #ono_map_article_view {
     background-color: #F1F1F1;
 
@@ -327,4 +333,5 @@
     .shadow {
         box-shadow: 0 3px 5px $light-grey;
     }
+
 }

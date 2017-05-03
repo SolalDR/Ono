@@ -36,12 +36,13 @@
         </div>
         <div id="show-item" class="panel-right-position"
           data-prototype="<p class='show-title'>__title__</p>
+          <div class='tag-container'>__tag__</div>
           <div class='show-body'>
             <div class='show-top-info'>
               <p class='author'>__author__</p>
               <p class='author-info'>__dt_naissance__ ans</p>
             </div>
-            <div class='show-content'>
+            <div class='show-content' __articleattr__>
               <p class='content'>__content__</p>
               <img class='content-resource' src='__resource__' alt='__resource_legend__'>
             </div>
@@ -71,6 +72,14 @@
       <div id="map"></div>
     </section>
 
+    <div class="modal" id="tag-modal">
+      <div class="modal-box">
+        <span class="close-modal">&times;</span>
+        <div id="modal-content">
+        </div>
+      </div>
+    </div>
+
   {% endblock %}
 
 {% endblock %}
@@ -83,8 +92,8 @@
   'bundles/onomap/js/config.js'
   'bundles/onomap/js/loaderManage.js'
   "bundles/onomap/js/interfaceHelper.js"
-  'bundles/onomap/js/main.js'
   'bundles/onomap/js/mapping.js'
+  'bundles/onomap/js/main.js'
    %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
   {% endjavascripts %}

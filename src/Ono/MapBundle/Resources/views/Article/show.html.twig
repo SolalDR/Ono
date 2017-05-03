@@ -19,13 +19,29 @@
           </ul>
           <a href="{{ path("ono_map_article_add") }}" class="add" data-help="Vous pouvez cliquez ici pour participer à l'enrichissement du contenu de la plateforme" style="background-image: url({{ asset("asset/img/icone/add.svg") }});"><span>Proposer un article</span></a>
         </div>
+        <div id="tags-container">
+            {% for theme in themes %}
+              {% if theme.id in app.session.get("themes") %}
+              <div class="tag">
+                <p>{{ theme.libTheme }}</p>
+              </div>
+              {% endif %}
+            {% endfor %}
+            <div>
+              {% for tag in article.tags %}
+                <div class="tag">
+                  <p class="tag-content" data-id="{{ tag.id }}">{{ tag.libTag }}</p>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
         <div class="show-content">
           {% if article.resources|length %}
           <div class="show-resources">
             <img src="{{ vich_uploader_asset(article.resources[0], 'file') }}" alt="">
           </div>
           {% endif %}
-          <div class="content">
+          <div class="content" id="tagManageContent" data-prototypeTag="{{ path("ono_map_article_popup", {"id": article.id, "tag":"0"}) }}">
             {{ article.content |raw }}
           </div>
           <div class="footer-content">
@@ -52,6 +68,13 @@
         </div>
       </div> -->
 
+    </div>
+    <div class="modal" id="tag-modal">
+      <div class="modal-box">
+        <span class="close-modal">&times;</span>
+        <div id="modal-content">
+        </div>
+      </div>
     </div>
   </body>
   {% endblock %}

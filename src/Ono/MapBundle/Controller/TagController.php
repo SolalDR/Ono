@@ -38,7 +38,7 @@ class TagController extends Controller
         $manager->persist($tag);
         $manager->flush();
         $request->getSession()->getFlashBag()->add('notice', 'Tag bien modifié.');
-        return $this->redirectToRoute("ono_admin_list_country");
+        return $this->redirectToRoute("ono_admin_list_tags");
       }
       return $this->render('OnoMapBundle:Admin:edit-tag.html.twig', array(
         "form" => $form->createView(),

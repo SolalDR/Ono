@@ -37,6 +37,9 @@ function ProtoGen(args){
   if(args.datas){
     this.datas = args.datas;
   }
+  if(args.tags){
+    this.tags = args.tags;
+  }
   if(args.onclick){
     this.events.onclick = args.onclick;
   }
@@ -47,8 +50,23 @@ function ProtoGen(args){
 ProtoGen.prototype.gen = function(){
   var output = this.prototype;
   var datas = this.datas;
+  var tags = this.tags;
   for( data in datas ){
     output = output.replace(data, datas[data])
+  }
+  if (tags) {
+    console.log(tags);
+    var tagsOutput = "";
+    for(var i=0; i < tags.length; i++){
+      var tagPrototype = "<p class='tag-content' data-id='__idtag__'>__libtag__</p>";
+      tagPrototype = tagPrototype.replace("__idtag__", tags[i].id);
+      tagPrototype = tagPrototype.replace("__libtag__", tags[i].libTag);
+      tagsOutput += tagPrototype;
+    }
+    console.log(tagsOutput);
+    output = output.replace("__tag__", tagsOutput);
+  } else {
+    output = output.replace("__tag__", "");
   }
   this.result = toHtml(output);
   this.html = output;
@@ -153,6 +171,7 @@ mapSidebarGestion = {
       }
     }
     if(question && response){
+      object.articleattr = "";
       object.title = question.libQuestion;
       object.author = response.author;
       object.dtNaissance = response.dtnaissance.timestamp;
@@ -180,6 +199,8 @@ mapSidebarGestion = {
       }
     }
     if(article){
+      object.articleattr = "id='tagManageContent' data-prototypeTag='"+config.articleShowPath.replace(/show\/(\d)$/, article.id)+"/popup/0'",
+      object.tags = article.tags;
       object.title = article.title;
       object.author = "";
       object.dtNaissance = "";
@@ -311,6 +332,7 @@ mapSidebarGestion = {
     var proto = new ProtoGen({
       parent : this.show,
       datas: {
+          __articleattr__: object.articleattr,
           __id__: object.id,
           __title__: object.title,
           __author__ : object.author,
@@ -323,9 +345,12 @@ mapSidebarGestion = {
           __is_liked__: "",
           __like_path__: object.likePath,
           __show_path__ : object.showPath
-        }
+        },
+      tags : object.tags
     });
     this.show.innerHTML = proto.html;
+    tagManage.init();
+    popupManage.init();
     this.initShowEvent();
   },
 

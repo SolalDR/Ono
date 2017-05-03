@@ -32,7 +32,7 @@ class Tag
     /**
      * @var string
      *
-     * @ORM\Column(name="indefinition", type="text", nullable=true)
+     * @ORM\Column(name="indefinition", type="text")
      * @Assert\Length(min=50, minMessage="La longueur de l'indéfinition doit être au minimum de 50 caractères !")
      */
     private $indefinition;
@@ -49,14 +49,6 @@ class Tag
      * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
      */
     private $articles;
-
-    /**
-    * Constructor
-    */
-    public function __construct()
-    {
-      $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -149,6 +141,13 @@ class Tag
     public function getIndefinition()
     {
         return $this->indefinition;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

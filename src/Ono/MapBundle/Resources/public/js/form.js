@@ -188,7 +188,7 @@ dynamicTag = {
     buttonSupp.className= "btn supp-tag";
     buttonSupp.innerHTML = "Supprimer";
     buttonSupp.setAttribute("data-id", id);
-    input.setAttribute("required", "requires")
+    input.setAttribute("required", "required");
     input.className = "tag-control";
     input.name="article[tags]["+id+"][libTag]";
     formGroup.className = "tag-group";

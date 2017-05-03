@@ -117,6 +117,13 @@ ono_map_article_unlike:
     requirements:
         id: \d+
 
+ono_map_article_popup:
+    path:     /article/{id}/popup/{tag}
+    defaults:
+        _controller: OnoMapBundle:Article:popup
+    requirements:
+        id: \d+
+        tag: \d+
 
 ############
 #  QUESTION
