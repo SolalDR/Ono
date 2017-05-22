@@ -248,7 +248,7 @@ class ArticleController extends Controller
       // $resources = $manager->getRepository('OnoMapBundle:Resource');
 
       if (null === $article) {
-        throw new NotFoundHttpException("Le pays d'id ".$numId." n'existe pas.");
+        throw new NotFoundHttpException("L'article d'id ".$numId." n'existe pas.");
       }
 
       // On crée un formulaire vide, qui ne contiendra que le champ CSRF
@@ -279,16 +279,26 @@ class ArticleController extends Controller
   }
 
   public function popupAction(Request $request){
+    // On récupère les paramètres de route
     $numArt = (int) $request->attributes->all()["id"];
     $numTag = (int) $request->attributes->all()["tag"];
 
+    // On prépare le lien pour ajouter une indéfinition
+    $indefPersoLink = $this->generateUrl('ono_map_indefinition_add', array(
+      "article_id" => $numArt,
+      "tag_id" => $numTag
+    ));
+
+    // On récupère les repositories nécessaires
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
     $repoTag = $manager->getRepository("OnoMapBundle:Tag");
 
+    // On récupère les entités correspondantes
     $article = $repoArticle->find($numArt);
     $tag = $repoTag->find($numTag);
     if($tag){
+      // On récupère tous les articles du tag en question sauf celui en cours
       $tagArticles = $tag->getArticles()->toArray();
       $key = 0;
       foreach ($tagArticles as $tagArticle) {
@@ -298,24 +308,40 @@ class ArticleController extends Controller
         $key++;
       }
 
-      if(count($tagArticles) != 0) {
+      // Randomisation & si moins de 3, on prend tous les articles, sinon les 3 premiers
+      $articles = [];
+      if(count($tagArticles) > 0) {
         shuffle($tagArticles);
-        $articles = [];
         if(count($tagArticles) < 3) {
           $articles = $tagArticles;
         } else {
           $articles = [$tagArticles[0], $tagArticles[1], $tagArticles[2]];
         }
       }
+
+      $indefinitions = [];
+      $tagIndefs = $tag->getIndefinitions()->toArray();
+      if(count($tagIndefs) > 0) {
+        shuffle($tagIndefs);
+        foreach ($tagIndefs as $tagIndef) {
+          $indefinitions[] = [
+            "content" => $tagIndef->getContent(),
+            "author" => $tagIndef->getAuthor()
+          ];
+        }
+      }
+
       if($request->isXmlHttpRequest()){
-        return new Response($this->getPopupResponse($tag->getLibTag(), $tag->getIndefinition(), $articles));
+        // REPONSE XHR
+        return new Response($this->getPopupResponse($tag->getLibTag(), $indefinitions, $indefPersoLink, $articles));
       }
     }
     return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
   }
 
-  private function getPopupResponse($libTag, $indefinition, $articles) {
+  private function getPopupResponse($libTag, $indefinitions, $indefPersoLink, $articles) {
     $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+    // Pour chaque article, on récupère le titre, l'image et le lien
     $arts = [];
     for($i = 0 ; $i < count($articles) ; $i++) {
       $arts[$i]["link"] = $this->generateUrl('ono_map_article_view', array("id" => $articles[$i]->getId()));
@@ -328,9 +354,11 @@ class ArticleController extends Controller
       }
     }
 
+    // On hydrate le tableau qui sera encodé en JSON pour la réponse XHR
     $render = [];
     $render["libTag"] = $libTag;
-    $render["indefinition"] = $indefinition;
+    $render["indefinitions"] = $indefinitions;
+    $render["indefPersoLink"] = $indefPersoLink;
     $render["articles"] = $arts;
     return json_encode($render);
   }

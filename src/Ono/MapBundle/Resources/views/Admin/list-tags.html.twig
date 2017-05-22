@@ -17,9 +17,6 @@
           Libellé
         </th>
         <th>
-          Indéfinition
-        </th>
-        <th>
           UsedCount
         </th>
       </tr>
@@ -32,9 +29,6 @@
         </td>
         <td>
           {{ tag.libTag }}
-        </td>
-        <td>
-          {{ tag.indefinition|slice(0, 50) }}{% if tag.indefinition|length > 50 %}...{% endif %}
         </td>
         <td>
           {{ tag.usedCount }}

@@ -21,31 +21,125 @@
 
 .modal-box {
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
+  margin: 10% auto;
   border: 1px solid #888;
   width: 60%;
+  position: relative;
+
+  .banner-top {
+    height: 25px;
+    background-color: #85bd64;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    .sidebar-close-button {
+      position: absolute;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: #b35741;
+      border-radius: 100%;
+      margin-top: 5px;
+      margin-left: 7.5px;
+
+      &:hover {
+        background-color: #7d321f;
+      }
+    }
+  }
 
   #modal-content {
+    margin-top: 42px;
+
+    .libtag-container {
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 20px;
+
+      .libtag {
+        color: #85bd64;
+      }
+    }
+
+    .indefinitions-container {
+      text-align: center;
+
+      #indef-carousel {
+        text-align: initial;
+      }
+
+      .add-indef-btn {
+        width: 15em;
+        font-size: 18px;
+        text-align: center;
+        height: 1em;
+        padding: .5em 0;
+        margin: 20px auto 0;
+        background-color: #85bd64;
+        transition: .3s linear;
+        color: white;
+        display: inline-block;
+        &:hover {
+          background-color: #72a255;
+        }
+      }
+    }
+    .no-indef, .no-article {
+      text-align: center;
+      border: 1px solid #85bd64;
+      width: 60%;
+      margin: auto;
+      height: 4em;
+      line-height: 4em;
+    }
+
+    .no-article {
+      margin: 1em auto;
+    }
+
+
+    .indef-container {
+      height: calc(12em + 5px);
+      overflow-y: auto;
+    }
+
+    .indef-author {
+      font-weight: bold;
+      font-style: italic;
+    }
+
+
     .articles-container {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       justify-content: center;
 
-      .article-container {
+      .article-item {
         margin: 1.5em;
         text-align: center;
-        border: 1px solid black;
+        border: 1px solid #85bd64;
+        transition: .3s linear;
+          &:hover {
+            border: 1px solid #72a255;
+            color: #66924c;
+          }
 
-        img {
-          max-height: 10em;
-          max-width: 20em;
+          img {
+            max-height: 10em;
+            max-width: 20em;
+          }
+
+          .article-title  {
+            margin: 10px auto;
+            color: #72a255;
+          }
         }
       }
     }
   }
-}
 
 .close-modal {
   color: #aaa;

@@ -1,0 +1,55 @@
+
+{% extends "OnoMapBundle:Admin:layout.html.twig" %}
+
+{% block body %}
+
+<div class="mainContent">
+  <h1>Liste des Indéfinitions</h1>
+  <a class="button-style bg-blue" href="{{ path('ono_admin_add_indefinition') }}">Ajouter une Indéfinition</a>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Id
+        </th>
+        <th>
+          Tag
+        </th>
+        <th>
+          Contenu
+        </th>
+        <th>
+          Author
+        </th>
+        <th>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for indefinition in indefinitions %}
+        <tr>
+          <td>
+            {{ indefinition.id }}
+          </td>
+          <td>
+            {{ indefinition.tag.libTag }}
+          </td>
+          <td>
+            {{ indefinition.content }}
+          </td>
+          <td>
+            {{ indefinition.author }}
+          </td>
+          <td>
+            <a class="button-style bg-green no-marge" href="{{ path("ono_admin_edit_indefinition", {"id": indefinition.id }) }}">Edit</a>
+          </td>
+          <td>
+            <a class="button-style bg-red no-marge" href="{{ path("ono_admin_delete_indefinition", {"id": indefinition.id }) }}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

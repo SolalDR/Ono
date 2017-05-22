@@ -153,6 +153,18 @@ ono_map_update_session_themes:
     defaults:
         _controller: OnoMapBundle:Theme:updateSession
 
+################
+#  INDEFINITIONS
+################
+
+ono_map_indefinition_add:
+    path:     /article/{article_id}/tags/{tag_id}/indefinitions/add
+    defaults:
+        _controller: OnoMapBundle:Indefinition:add
+    requirements:
+        article_id: \d+
+        tag_id: \d+
+
 ###############################################################
 #                            ADMIN
 ###############################################################
@@ -434,5 +446,37 @@ ono_admin_delete_tag:
     path:   /admin/tag/delete/{id}
     defaults:
         _controller: OnoMapBundle:Tag:delete
+    requirements:
+        id: \d+
+
+#####################
+#  ADMIN Indefs
+#####################
+
+#ajouter indef
+ono_admin_add_indefinition:
+    path:   /admin/indefinition/add
+    defaults:
+        _controller: OnoMapBundle:Admin:addIndefinition
+
+#list des indef
+ono_admin_list_indefinitions:
+    path:   /admin/indefinition/list
+    defaults:
+        _controller: OnoMapBundle:Admin:listIndefinition
+
+#edit indef
+ono_admin_edit_indefinition:
+    path:   /admin/indefinition/edit/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:editIndefinition
+    requirements:
+        id: \d+
+
+#delete indef
+ono_admin_delete_indefinition:
+    path:   /admin/indefinition/delete/{id}
+    defaults:
+        _controller: OnoMapBundle:Admin:deleteIndefinition
     requirements:
         id: \d+

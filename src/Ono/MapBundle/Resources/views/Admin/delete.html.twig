@@ -6,9 +6,14 @@
 {% block body %}
 
   <div class="mainContent">
+  {% if indefContent is defined %}
+    <p class="confirm">Etes-vous certain de vouloir supprimer l'indéfinition suivante du tag "{{ title }}" ?</p>
+    <p>{{ indefContent }}</p>
+  {% else %}
     <p class="confirm">
       Etes-vous certain de vouloir supprimer "{{ title }}" ?
     </p>
+  {% endif %}
 
     {# On met l'id de l'annonce dans la route de l'action du formulaire #}
     <form action="{{ path(pathDelete, {'id': object.id}) }}" method="post">

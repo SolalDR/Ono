@@ -30,14 +30,6 @@ class Tag
     private $libTag;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="indefinition", type="text", nullable=true)
-     * @Assert\Length(min=50, minMessage="La longueur de l'indéfinition doit être au minimum de 50 caractères !")
-     */
-    private $indefinition;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="usedCount", type="integer")
@@ -51,11 +43,17 @@ class Tag
     private $articles;
 
     /**
+     * @ORM\OneToMany(targetEntity="Ono\MapBundle\Entity\Indefinition", mappedBy="tag")
+     */
+    private $indefinitions;
+
+    /**
     * Constructor
     */
     public function __construct()
     {
       $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+      $this->indefinitions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -124,31 +122,7 @@ class Tag
     public function decrementUsedCount()
     {
       $count = $this->getUsedCount();
-      return $this->setUsedCount($count+1);
-    }
-
-    /**
-     * Set indefinition
-     *
-     * @param string $indefinition
-     *
-     * @return Tag
-     */
-    public function setIndefinition($indefinition)
-    {
-        $this->indefinition = $indefinition;
-
-        return $this;
-    }
-
-    /**
-     * Get indefinition
-     *
-     * @return string
-     */
-    public function getIndefinition()
-    {
-        return $this->indefinition;
+      return $this->setUsedCount($count-1);
     }
 
     /**
@@ -183,5 +157,39 @@ class Tag
     public function getArticles()
     {
         return $this->articles;
+    }
+
+    /**
+     * Add indefinition
+     *
+     * @param \Ono\MapBundle\Entity\Indefinition $indefinition
+     *
+     * @return Tag
+     */
+    public function addIndefinition(\Ono\MapBundle\Entity\Indefinition $indefinition)
+    {
+        $this->indefinitions[] = $indefinition;
+
+        return $this;
+    }
+
+    /**
+     * Remove indefinition
+     *
+     * @param \Ono\MapBundle\Entity\Indefinition $indefinition
+     */
+    public function removeIndefinition(\Ono\MapBundle\Entity\Indefinition $indefinition)
+    {
+        $this->indefinitions->removeElement($indefinition);
+    }
+
+    /**
+     * Get indefinitions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIndefinitions()
+    {
+        return $this->indefinitions;
     }
 }

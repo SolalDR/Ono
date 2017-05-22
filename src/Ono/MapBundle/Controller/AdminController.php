@@ -14,9 +14,12 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Ono\MapBundle\Entity\Response as ResponseQ;
 use Ono\MapBundle\Entity\Question;
 use Ono\MapBundle\Entity\Theme;
+use Ono\MapBundle\Entity\Indefinition;
 
 use Ono\MapBundle\Form\ResponseType;
 use Ono\MapBundle\Form\ResponseAdminType;
+use Ono\MapBundle\Form\IndefinitionType;
+use Ono\MapBundle\Form\IndefinitionAdminType;
 use Ono\MapBundle\Form\QuestionType;
 
 use Symfony\Component\Serializer\Serializer;
@@ -222,4 +225,95 @@ class AdminController extends Controller
             'form'   => $form->createView()
           ));
       }
+
+      ////////////////////////////////////
+      //        Indefinition
+      ///////////////////////////////////
+
+      public function addIndefinitionAction(Request $request){
+        $manager = $this->getDoctrine()->getManager();
+        $indefinition = new Indefinition;
+
+        $form = $this->get('form.factory')->create(IndefinitionAdminType::class, $indefinition);
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+          $user = $this->container->get('security.token_storage')->getToken()->getUser();
+          $indefinition->setUser($user);
+          $manager->persist($indefinition);
+          $manager->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Indéfinition bien enregistrée.');
+
+          return $this->redirectToRoute("ono_admin_list_indefinitions");
+        }
+        return $this->render('OnoMapBundle:Admin:add-indefinition.html.twig', array(
+          "form" => $form->createView()
+        ));
+      }
+
+      public function listIndefinitionAction(){
+        $manager = $this->getDoctrine()->getManager();
+        $indefinitions = $manager->getRepository("OnoMapBundle:Indefinition")->findAll();
+
+        return $this->render('OnoMapBundle:Admin:list-indefinition.html.twig', array(
+          "indefinitions" => $indefinitions
+        ));
+      }
+
+      public function editIndefinitionAction(Request $request){
+        $numId = (int) $request->attributes->all()["id"];
+
+          $manager = $this->getDoctrine()->getManager();
+          $indefinition = $manager->getRepository("OnoMapBundle:Indefinition")->find($numId);
+
+          $form = $this->get('form.factory')->create(IndefinitionType::class, $indefinition);
+          if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $manager->persist($indefinition);
+            $manager->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Indéfinition bien modifiée.');
+
+            return $this->redirectToRoute("ono_admin_list_indefinitions");
+          }
+
+          return $this->render('OnoMapBundle:Admin:edit-indefinition.html.twig', array(
+            "form" => $form->createView(),
+            "indefinition" => $indefinition
+          ));
+        }
+
+        public function deleteIndefinitionAction(Request $request)
+        {
+          $numId = (int) $request->attributes->all()["id"];
+
+            $manager = $this->getDoctrine()->getManager();
+
+            // On récupère l'annonce $numId
+            $indefinition = $manager->getRepository('OnoMapBundle:Indefinition')->find($numId);
+
+            if (null === $indefinition) {
+              throw new NotFoundHttpException("L'indéfinition d'id ".$numId." n'existe pas.");
+            }
+
+            // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+            // Cela permet de protéger la suppression d'annonce contre cette faille
+            $form = $this->createFormBuilder()->getForm();
+
+            if ($form->handleRequest($request)->isValid()) {
+              $manager->remove($indefinition);
+              $manager->flush();
+
+              $request->getSession()->getFlashBag()->add('info', "L'indéfinition a bien été supprimée.");
+
+              return $this->redirect($this->generateUrl('ono_admin_list_indefinitions'));
+            }
+
+            // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+            return $this->render('OnoMapBundle:Admin:delete.html.twig', array(
+              'object' => $indefinition,
+              'title' => $indefinition->getTag()->getLibTag(),
+              'indefContent' => $indefinition->getContent(),
+              'pathDelete' => "ono_admin_delete_indefinition",
+              'form'   => $form->createView()
+            ));
+        }
 }

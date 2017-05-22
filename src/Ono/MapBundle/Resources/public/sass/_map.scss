@@ -211,6 +211,10 @@ body#ono_map_homepage {
         border-radius: 100%;
         margin-top: 5px;
         margin-left: 7.5px;
+
+        &:hover {
+          background-color: #7d321f;
+        }
       }
     }
 

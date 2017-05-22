@@ -377,44 +377,86 @@ likeManage = {
 popupManage = {
 
   updateContent: function(response){
+    // Récupération de la réponse XHR
     response = JSON.parse(response);
-    console.log(response);
-    var modalContent = document.getElementById("modal-content");
 
+    // Debug
+    console.log(response);
+
+    // On vide le contenu du modal
+    var modalContent = document.getElementById("modal-content");
     modalContent.innerHTML = "";
 
-    var libTag = document.createElement("h1");
-    libTag.innerHTML = response.libTag;
-    modalContent.append(libTag);
+    // On récupère le prototype du modal
+    var popupPrototype = modalContent.getAttribute("data-prototype");
 
-    var indefinition = document.createElement("p");
-    indefinition.innerHTML = response.indefinition || "À indéfinir";
-    modalContent.append(indefinition);
+    // On récupère nos attributs dans la réponse XHR
+    var libTag = response.libTag;
+    var indefinitions = response.indefinitions;
+    var indefPersoLink = response.indefPersoLink;
+    var articles = response.articles;
 
-    var articlesContainer = document.createElement("div");
-    articlesContainer.className = "articles-container";
+    // On insère le libTag dans le prototype
+    popupPrototype = popupPrototype.replace(/__libtag__/, libTag);
 
-    for (var i = 0 ; i < response.articles.length ; i++) {
-      console.log(response.articles[i]);
-      var articleContainer = document.createElement("div");
-      articleContainer.className = "article-container";
-      var link = document.createElement("a");
-      var image = document.createElement("img");
-      var articleTitle = document.createElement("p");
+    var hasCarousel;
+    // On crée notre carousel d'indéfinitions s'il y en a
+    if (indefinitions.length == 0) {
+      hasCarousel = false;
+      popupPrototype = popupPrototype.replace(/__indefinitions__/, "<p class='no-indef'>Ce tag reste à indéfinir...</p>");
+    } else {
+      hasCarousel = true;
+      var carouselEl = document.createElement("div");
+      carouselEl.classList = "carousel";
+      carouselEl.setAttribute("id", "indef-carousel");
+      var carouselItemPrototype = "<div class='item-carousel __active__' data-animation='scrollRight'><div class='indef-container'><p class='indef-content'>__content__</p></div><p class='indef-author'>__author__</p>";
 
-      link.href = response.articles[i].link;
-      image.src = response.articles[i].image || "http://placehold.it/250x150?text=Pas+d'image";
-      image.alt = response.articles[i].title;
-      articleTitle.innerHTML = response.articles[i].title;
-      link.append(image);
-      articleContainer.append(link);
-      articleContainer.append(articleTitle);
-      articlesContainer.append(articleContainer);
+      for (i = 0 ; i < indefinitions.length ; i++) {
+        var carouselItem = carouselItemPrototype;
+        carouselItem = carouselItem.replace(/__content__/, indefinitions[i].content);
+        carouselItem = carouselItem.replace(/__author__/, ("- " + indefinitions[i].author));
+        if (i == 0) {
+          carouselItem = carouselItem.replace(/__active__/, "active");
+        } else {
+          carouselItem = carouselItem.replace(/__active__/, "");
+        }
+        carouselEl.innerHTML += carouselItem;
+      }
+      popupPrototype = popupPrototype.replace(/__indefinitions__/, carouselEl.outerHTML);
     }
 
-    modalContent.append(articlesContainer);
-    popupModal.display();
+    // On ajoute le href du lien "Proposer votre indéfinition"
+    popupPrototype = popupPrototype.replace(/__indefPersoLink__/, indefPersoLink);
 
+    // On crée notre conteneur d'articles
+    var articlesContainer = document.createElement("div");
+    articlesContainer.classList = "articles-container";
+    if (articles.length == 0) {
+      articlesContainer.innerHTML = "<p class='no-article'>Pas d'autre article comportant ce tag</p>";
+    } else {
+      var articleItemPrototype = "<a href='__link__' class='article-item'><div><img src=\"__image__\" alt='__title__'><p class='article-title'>__title__</p></div></a>";
+      for (i = 0 ; i < articles.length ; i++) {
+        var articleItem = articleItemPrototype;
+        articleItem = articleItem.replace(/__link__/g, articles[i].link);
+        var imageSrc = articles[i].image || "http://placehold.it/250x150?text=Pas+d'image";
+        articleItem = articleItem.replace(/__image__/, imageSrc);
+        var articleTitle = articles[i].title.length > 30 ? articles[i].title.substring(0, 30) + "..." : articles[i].title
+        articleItem = articleItem.replace(/__title__/g, articleTitle);
+        articlesContainer.innerHTML += articleItem;
+      }
+    }
+    popupPrototype = popupPrototype.replace(/__articles__/, articlesContainer.outerHTML);
+
+    modalContent.innerHTML += popupPrototype;
+    if(hasCarousel) {
+      var carousel = new Carousel(document.querySelector("#indef-carousel"), {
+        displayArrowSelectors: true,
+        displayButtonSelectors: false,
+        stopOnMouseOver: true,
+      });
+      carousel.launch();
+    }
+    popupModal.display();
   },
 
   initEvent : function(el){
@@ -478,13 +520,11 @@ popupModal = {
       return false;
     }, false);
 
-    console.log("close done");
     window.onclick = function(event) {
       if (event.target == self.modal) {
         self.hide();
       }
     }
-    console.log("close black done");
   },
   init:function(){
     this.modal = document.getElementById('tag-modal');

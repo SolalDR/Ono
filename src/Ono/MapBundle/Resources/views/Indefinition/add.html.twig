@@ -1,0 +1,29 @@
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Indéfinition{% endblock %}
+
+{# STYLESHEETS #}
+{% block stylesheets %}
+{% stylesheets  filter='cssrewrite'
+  'bundles/onomap/css/bootstrap.min.css'
+  'bundles/onomap/css/style.css'
+%}
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+  <div class="wrapper-form">
+    <h1>Tag : {{ tag.libTag }}</h1>
+
+    <h3>Proposez votre indéfinition ci-dessous</h3>
+
+    <div class="well">
+      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+      {{ form_errors(form) }}
+      {{ form_rest(form) }}
+    </div>
+  </div>
+
+  {% endblock %}
+{% endblock %}
