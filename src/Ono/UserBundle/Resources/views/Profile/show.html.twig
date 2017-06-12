@@ -30,7 +30,7 @@
             {% image '@OnoUserBundle/Resources/public/img/personne.png' %}
             <img class="icons" src="{{ asset_url }}" alt="nom">
             {% endimage %}
-            <p>{{ user.firstName }} {{ user.name }}</p>
+            <p>{{ user.firstname ? user.firstname : "<span class='no-value'>Non renseigné</span>"|striptags }} {{ user.name ? user.name : "<span class='no-value'>Non renseigné</span>"|striptags }}</p>
           </div>
           <div class="top-part-content">
             {% image '@OnoUserBundle/Resources/public/img/adressemail.png' %}
@@ -45,20 +45,13 @@
             {% image '@OnoUserBundle/Resources/public/img/localisation.png' %}
             <img class="icons" src="{{ asset_url }}" alt="pays">
             {% endimage %}
-            {% if user.country %}
-              <p>{{ user.country.libCountry }},</p>
-                {% if user.language.libLanguageFr %}
-              <p> {{ user.language.libLanguageFr }}</p>
-                {% endif %}</p>
-            {% endif %}
+            <p>{{ user.country ? user.country.libCountry : "<span class='no-value'>Non renseigné</span>"|striptags }}, {{ user.language ? user.language.libLanguageFr : "<span class='no-value'>Non renseigné</span>"|striptags }}</p>
           </div>
           <div class="top-part-content">
             {% image '@OnoUserBundle/Resources/public/img/anniversaire.png' %}
             <img class="icons" src="{{ asset_url }}" alt="date">
             {% endimage %}
-            {% if user.dtnaissance %}
-              <p>{{ user.dtnaissance|date("j/m/y") }}</p>
-            {% endif %}
+            <p>{{ user.dtnaissance ? user.dtnaissance|date("d/m/Y") : "<span class='no-value'>Non renseigné</span>"|striptags }}</p>
           </div>
         </div>
       </div>
