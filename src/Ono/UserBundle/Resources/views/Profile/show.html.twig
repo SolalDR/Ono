@@ -6,39 +6,94 @@
   {% block bodyContent %}{{ parent() }}
     {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
-    <div class="fos_user_user_show">
-        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-        {% if user.country %}
-        <p>Pays : {{ user.country.libCountry }}</p>
-        {% endif %}
-        {% if user.language.libLanguageFr %}
-        <p>Langue : {{ user.language.libLanguageFr }}</p>
-        {% endif %}
-        {% if user.dtnaissance %}
-        <p>Date de naissance : {{ user.dtnaissance.timestamp }}</p>
-        {% endif %}
-        <div class="response">
-          <h2>Responses</h2>
-          {% for response in user.responses %}
-            <p>
-              Question : {{ response.question.libQuestion }}<br>
-              Date : {{ response.dtcreation|date("j/m/y") }}<br>
-              Contenu : {{ response.content }}<br>
-            </p>
-          {% endfor %}
+    <div class="fos_user_user_show" id="top">
+      <div id="infos">
+        <div class="top-part" id="left-part">
+          <div class="top-part-content">
+            <p id="username">{{ user.username }}</p>
+            {% image '@OnoUserBundle/Resources/public/img/edit.png' %}
+              <img class="buttons" src="{{ asset_url }}" alt="edit" id="edit-btn">
+            {% endimage %}
+            {% image '@OnoUserBundle/Resources/public/img/supprimer.png' %}
+              <img class="buttons" src="{{ asset_url }}" alt="supp" id="supp-btn">
+            {% endimage %}
+          </div>
+          <div class="top-part-content">
+            <p>{{ user.description ? user.description : "<span class='no-value'>Non renseigné</span>"|striptags }}</p>
+          </div>
         </div>
-        <div class="response">
-          <h2>Responses aimées</h2>
-          {% for response in user.responsesLiked %}
-            <p>
-              Question : {{ response.question.libQuestion }}<br>
-              Date : {{ response.dtcreation|date("j/m/y") }}<br>
-              Contenu : {{ response.content }}<br>
-            </p>
-          {% endfor %}
+      </div>
+
+      <div id="perso-infos">
+        <div class="top-part" id="middle-part">
+          <div class="top-part-content">
+            {% image '@OnoUserBundle/Resources/public/img/personne.png' %}
+            <img class="icons" src="{{ asset_url }}" alt="nom">
+            {% endimage %}
+            <p>{{ user.firstName }} {{ user.name }}</p>
+          </div>
+          <div class="top-part-content">
+            {% image '@OnoUserBundle/Resources/public/img/adressemail.png' %}
+            <img class="icons" src="{{ asset_url }}" alt="mail">
+            {% endimage %}
+            <p>{{ user.email }}</p>
+          </div>
         </div>
+
+        <div class="top-part" id="right-part">
+          <div class="top-part-content">
+            {% image '@OnoUserBundle/Resources/public/img/localisation.png' %}
+            <img class="icons" src="{{ asset_url }}" alt="pays">
+            {% endimage %}
+            {% if user.country %}
+              <p>{{ user.country.libCountry }},</p>
+                {% if user.language.libLanguageFr %}
+              <p> {{ user.language.libLanguageFr }}</p>
+                {% endif %}</p>
+            {% endif %}
+          </div>
+          <div class="top-part-content">
+            {% image '@OnoUserBundle/Resources/public/img/anniversaire.png' %}
+            <img class="icons" src="{{ asset_url }}" alt="date">
+            {% endimage %}
+            {% if user.dtnaissance %}
+              <p>{{ user.dtnaissance|date("j/m/y") }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
+
+
+    {% if user.responses is not empty %}
+      <h2>Questions</h2>
+      <div class="carousel-questions">
+        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
+          {% for response in user.responses %}
+            <div class="gallery-cell">
+              {{ response.question.libQuestion }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    <br>
+
+    {% if user.indefinitions is not empty %}
+      <h2>Indéfinitions</h2>
+      <div class="carousel-questions">
+        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
+          {% for indefinition in user.indefinitions %}
+            <div class="gallery-cell">
+              {{ indefinition.tag.libTag }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+
     {% endblock fos_user_content %}
   {% endblock %}
 {% endblock %}
