@@ -48,7 +48,7 @@ class Indefinition
     private $tag;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ono\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Ono\UserBundle\Entity\User", inversedBy="indefinitions")
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
@@ -135,6 +135,18 @@ class Indefinition
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function updateUser(\Ono\UserBundle\Entity\User $user = null){
+      if($user){
+        $this->user = $user;
+      } elseif($this->user) {
+        $user = $this->user;
+      } else {
+        return false;
+      }
+      $this->author = ($user->getFirstname().' '.$user->getName());
+      return true;
     }
 
     /**

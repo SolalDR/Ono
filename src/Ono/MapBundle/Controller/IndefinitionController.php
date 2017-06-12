@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Ono\MapBundle\Entity\Indefinition;
 use Ono\MapBundle\Form\IndefinitionType;
+use Ono\MapBundle\Form\IndefinitionLogType;
 
 
 class IndefinitionController extends Controller
@@ -15,18 +16,28 @@ class IndefinitionController extends Controller
   {
     if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
       $user = $this->container->get('security.token_storage')->getToken()->getUser();
+      $userName = $user->getName();
+      $userFirstname = $user->getFirstname();
+      $hasName = false;
+      if (($userName && trim($userName) != "") || ($userFirstname && trim($userFirstname) != "")) {
+        $hasName = true;
+      }
     }
 
     $manager = $this->getDoctrine()->getManager();
     $indefinition = new Indefinition;
-    $form = $this->get('form.factory')->create(IndefinitionType::class, $indefinition);
-
+    if (isset($user) && $hasName) {
+      $indefinition->updateUser($user);
+      $form = $this->get('form.factory')->create(IndefinitionLogType::class, $indefinition);
+    } else {
+      $form = $this->get('form.factory')->create(IndefinitionType::class, $indefinition);
+    }
     $tagId = (int) $request->attributes->all()["tag_id"];
     $tagRepo = $manager->getRepository("OnoMapBundle:Tag");
     $tag = $tagRepo->find($tagId);
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      if(isset($user)) {
+      if(isset($user) && $hasName) {
         $indefinition->setUser($user);
       }
       $indefinition->setTag($tag);

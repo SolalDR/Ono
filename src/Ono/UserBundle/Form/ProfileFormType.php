@@ -24,7 +24,8 @@ class ProfileFormType extends AbstractType
 
       $builder
       ->add('name',       TextType::class, array(
-        "label"=>"Nom"
+        "label"=>"Nom",
+        "required" => false
       ))
       ->add('firstname',  TextType::class, array(
         'label'=>"Prénom"

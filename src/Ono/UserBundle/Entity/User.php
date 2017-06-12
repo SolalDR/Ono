@@ -93,6 +93,12 @@ class User extends BaseUser
     private $articlesLiked;
 
     /**
+     * @ORM\OneToMany(targetEntity="Ono\MapBundle\Entity\Indefinition", mappedBy="user")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $indefinitions;
+
+    /**
      * Set country
      *
      * @param \Ono\MapBundle\Entity\Country $country
@@ -349,5 +355,39 @@ class User extends BaseUser
     public function getArticlesLiked()
     {
         return $this->articlesLiked;
+    }
+
+    /**
+     * Add indefinition
+     *
+     * @param \Ono\MapBundle\Entity\Indefinition $indefinition
+     *
+     * @return User
+     */
+    public function addIndefinition(\Ono\MapBundle\Entity\Indefinition $indefinition)
+    {
+        $this->indefinitions[] = $indefinition;
+
+        return $this;
+    }
+
+    /**
+     * Remove indefinition
+     *
+     * @param \Ono\MapBundle\Entity\Indefinition $indefinition
+     */
+    public function removeIndefinition(\Ono\MapBundle\Entity\Indefinition $indefinition)
+    {
+        $this->indefinitions->removeElement($indefinition);
+    }
+
+    /**
+     * Get indefinitions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIndefinitions()
+    {
+        return $this->indefinitions;
     }
 }
