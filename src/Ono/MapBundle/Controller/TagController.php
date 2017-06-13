@@ -10,6 +10,20 @@ use Ono\MapBundle\Form\TagType;
 
 class TagController extends Controller
 {
+  public function viewAction(Request $request) {
+    $numId = $request->attributes->all()["id"];
+    $manager = $this->getDoctrine()->getManager();
+    $tag = $manager->getRepository("OnoMapBundle:Tag")->find($numId);
+    if ($tag) {
+      $themes = $manager->getRepository("OnoMapBundle:Theme")->findAll();
+      return $this->render('OnoMapBundle:Tag:view.html.twig', array(
+        "tag" => $tag,
+        "themes" => $themes
+      ));
+    }
+    return $this->redirectToRoute("ono_map_homepage");
+
+  }
 
   public function addAction(Request $request)
   {
@@ -79,7 +93,7 @@ class TagController extends Controller
       ));
   }
 
-  public function indexAction()
+  public function indexAdminAction()
   {
     $manager = $this->getDoctrine()->getManager();
     $tags = $manager->getRepository("OnoMapBundle:Tag")->findAll();

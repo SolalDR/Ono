@@ -3125,4 +3125,15 @@ body#fos_user_profile_show .carousel-questions {
   text-decoration: none;
   cursor: pointer; }
 
+body#ono_map_tag_view span#tag {
+  color: #85bd6a;
+  font-weight: bold; }
+body#ono_map_tag_view .author {
+  background-color: #85bd6a;
+  color: white;
+  font-style: italic;
+  font-size: 1.7em;
+  text-align: center;
+  padding: 0.5em 0; }
+
 /*# sourceMappingURL=style.css.map */

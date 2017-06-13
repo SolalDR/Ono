@@ -165,6 +165,18 @@ ono_map_indefinition_add:
         article_id: \d+
         tag_id: \d+
 
+################
+#  TAGS
+################
+
+ono_map_tag_view:
+    path:     /tag/view/{id}
+    defaults:
+        _controller: OnoMapBundle:Tag:view
+    requirements:
+        id: \d+
+
+
 ###############################################################
 #                            ADMIN
 ###############################################################

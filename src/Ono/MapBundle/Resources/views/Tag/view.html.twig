@@ -1,0 +1,31 @@
+{% extends "OnoMapBundle::layout.html.twig" %}
+{% block title %}{{ parent() }} Tag {{ tag.libTag }}{% endblock %}
+
+{% block body %}
+  {% block bodyContent %}{{ parent() }}
+
+    <div class="main-block">
+      <div class="main-block-header">
+        <h1>Les indéfinitions correspondant au tag <span id="tag">{{ tag.libTag }}</span></h1>
+        <p class="count">{{ tag.indefinitions|length }} résultats</p>
+      </div>
+      <div class="columns">
+        {% for indefinition in tag.indefinitions %}
+        <figure>
+          <div class=column-container>
+            <div class="author">
+              <p>Selon {{ indefinition.author }}</p>
+            </div>
+            <div class="colum-content">
+              <p>{{ indefinition.content |raw }}</p>
+            </div>
+          </div>
+        </figure>
+
+        {% endfor %}
+      </div>
+    </div>
+
+
+  {% endblock %}
+{% endblock %}

@@ -1,0 +1,14 @@
+body#ono_map_tag_view {
+  span#tag{
+    color:$green;
+    font-weight: bold;
+  }
+  .author {
+    background-color: $green;
+    color:white;
+    font-style: italic;
+    font-size: 1.7em;
+    text-align: center;
+    padding:0.5em 0;
+  }
+}
