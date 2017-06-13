@@ -165,17 +165,35 @@ ono_map_indefinition_add:
         article_id: \d+
         tag_id: \d+
 
+ono_map_indefinition_edit:
+    path:     /article/{article_id}/tags/{tag_id}/indefinitions/edit/{id}
+    defaults:
+      _controller: OnoMapBundle:Indefinition:edit
+      requirements:
+        article_id: \d+
+        tag_id: \d+
+        id: \d+
+
+ono_map_indefinition_delete:
+    path:     /article/{article_id}/tags/{tag_id}/indefinitions/delete/{id}
+    defaults:
+      _controller: OnoMapBundle:Indefinition:delete
+      requirements:
+        article_id: \d+
+        tag_id: \d+
+        id: \d+
+
 ################
 #  TAGS
 ################
 
 ono_map_tag_view:
-    path:     /tag/view/{id}
+    path:      /article/{article_id}/tags/{id}/show
     defaults:
         _controller: OnoMapBundle:Tag:view
-    requirements:
-        id: \d+
-
+        requirements:
+          article_id: \d+
+          id: \d+
 
 ###############################################################
 #                            ADMIN

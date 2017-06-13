@@ -149,6 +149,15 @@ class Indefinition
       return true;
     }
 
+    public function testUser(\Ono\UserBundle\Entity\User $user = null) {
+      if($user && $this->user) {
+        if ($user === $this->user) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     /**
      * Set author
      *

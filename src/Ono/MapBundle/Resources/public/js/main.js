@@ -409,12 +409,22 @@ popupManage = {
       var carouselEl = document.createElement("div");
       carouselEl.classList = "carousel";
       carouselEl.setAttribute("id", "indef-carousel");
-      var carouselItemPrototype = "<div class='item-carousel __active__' data-animation='scrollRight'><div class='indef-container'><p class='indef-content'>__content__</p></div><p class='indef-author'>__author__</p>";
+      var carouselItemPrototype = "<div class='item-carousel __active__' data-animation='scrollRight'><div class='indef-container'><p class='indef-content'>__content__</p></div>__btns__<p class='indef-author'>__author__</p>";
 
       for (i = 0 ; i < indefinitions.length ; i++) {
         var carouselItem = carouselItemPrototype;
         carouselItem = carouselItem.replace(/__content__/, indefinitions[i].content);
         carouselItem = carouselItem.replace(/__author__/, ("- " + indefinitions[i].author));
+        if (indefinitions[i].indefEditLink) {
+          editIndefLink = indefinitions[i].indefEditLink
+          deleteIndefLink = editIndefLink.replace(/edit/, "delete");
+          // console.log("Edit link : "+editIndefLink);
+          // console.log("Delete link : "+deleteIndefLink);
+          var indefBtns = "<p class='indef-btns'><a href='"+editIndefLink+"'>Editer</a> - <a href='"+deleteIndefLink+"'>Supprimer</a></p>";
+          carouselItem = carouselItem.replace(/__btns__/, indefBtns);
+        } else {
+          carouselItem = carouselItem.replace(/__btns__/, "");
+        }
         if (i == 0) {
           carouselItem = carouselItem.replace(/__active__/, "active");
         } else {

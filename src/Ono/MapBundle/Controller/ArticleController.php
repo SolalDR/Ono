@@ -279,6 +279,10 @@ class ArticleController extends Controller
   }
 
   public function popupAction(Request $request){
+    if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+      $user = $this->get('security.token_storage')->getToken()->getUser();
+    }
+
     // On récupère les paramètres de route
     $numArt = (int) $request->attributes->all()["id"];
     $numTag = (int) $request->attributes->all()["tag"];
@@ -324,9 +328,19 @@ class ArticleController extends Controller
       if(count($tagIndefs) > 0) {
         shuffle($tagIndefs);
         foreach ($tagIndefs as $tagIndef) {
+          if (isset($user) && $user === $tagIndef->getUser()) {
+            $indefEditLink = $this->generateUrl('ono_map_indefinition_edit', array(
+              "article_id" => $numArt,
+              "tag_id" => $numTag,
+              "id" => $tagIndef->getId()
+            ));
+          } else {
+            $indefEditLink = null;
+          }
           $indefinitions[] = [
             "content" => $tagIndef->getContent(),
-            "author" => $tagIndef->getAuthor()
+            "author" => $tagIndef->getAuthor(),
+            "indefEditLink" => $indefEditLink
           ];
         }
       }
