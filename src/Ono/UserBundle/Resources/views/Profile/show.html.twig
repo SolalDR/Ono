@@ -79,7 +79,8 @@
         <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
           {% for indefinition in user.indefinitions %}
             <div class="gallery-cell">
-              {{ indefinition.tag.libTag }}
+              <p>{{ indefinition.tag.libTag }}</p><br>
+              <p class="desc">{{ indefinition.content[:20]}}...</p>
             </div>
           {% endfor %}
         </div>

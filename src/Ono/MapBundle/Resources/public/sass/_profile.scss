@@ -44,7 +44,7 @@ body#fos_user_profile_show {
   #top {
     height:32vh;
     background-color: $blue;
-    margin-bottom: 3em;
+    margin-bottom: 1.5em;
     color:white;
     display: flex;
     flex-direction: row;
@@ -101,7 +101,7 @@ body#fos_user_profile_show {
 
   }
   .carousel-questions{
-      margin:1em auto 0;
+      margin:2em auto;
 
       * {
         -webkit-box-sizing: border-box;
@@ -110,21 +110,28 @@ body#fos_user_profile_show {
 
       .gallery {
         background-color: transparent;
+        margin:auto;
       }
 
       .gallery-cell {
         text-align: center;
-        width: 15vw;
+        width: 20vw;
         height: 150px;
         margin:0 2em;
         background: transparent;
-        border:1px solid rgba(0, 0, 0, 0.08);
         -moz-box-shadow: 1px 1px 10px 1px #cfcfcf;
         -webkit-box-shadow: 1px 1px 10px 1px #cfcfcf;
         -o-box-shadow: 1px 1px 10px 1px #cfcfcf;
         box-shadow: 1px 1px 10px 1px #cfcfcf;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding:4em;
         color:$green;
         counter-increment: gallery-cell;
+        .desc {
+          color:black;
+        }
       }
 
       .flickity-enabled {
@@ -135,7 +142,6 @@ body#fos_user_profile_show {
 
     .flickity-viewport {
       overflow: hidden;
-      position: relative;
       height: 100%;
     }
 
