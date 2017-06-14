@@ -16,9 +16,9 @@
                   <img class="buttons" src="{{ asset_url }}" alt="edit" id="edit-btn">
                 {% endimage %}
               </a>
-            {% image '@OnoUserBundle/Resources/public/img/supprimer.png' %}
+            <!-- {% image '@OnoUserBundle/Resources/public/img/supprimer.png' %}
               <img class="buttons" src="{{ asset_url }}" alt="supp" id="supp-btn">
-            {% endimage %}
+            {% endimage %} -->
           </div>
           <div class="top-part-content">
             <p>{{ user.description ? user.description : "<span class='no-value'>Non renseigné</span>"|striptags }}</p>
@@ -88,6 +88,7 @@
                 <div class="bouton-carousel" id="edit">
                   <p> Editer </p>
                 </div>
+                <br>
                 <div class="bouton-carousel" id="supp">
                   <p> Supprimer </p>
                 </div>

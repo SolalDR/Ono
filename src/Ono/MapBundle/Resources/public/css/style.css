@@ -2320,14 +2320,15 @@ body#fos_user_profile_show .carousel-questions {
     margin: auto;
     display: block; }
   body#fos_user_profile_show .carousel-questions #bouton-container {
+    width: 70%;
     margin: 0.7em auto 0;
     display: flex;
-    flex-direction: row;
-    position: absolute;
-    bottom: 4px;
+    justify-content: space-around;
+    flex-wrap: wrap;
     -webkit-transition: 0.4s;
     -o-transition: 0.4s;
-    transition: 0.4s; }
+    transition: 0.4s;
+    padding-bottom: 1em; }
     body#fos_user_profile_show .carousel-questions #bouton-container .bouton-carousel {
       padding: 0.4em 0.8em;
       color: white;
@@ -2338,15 +2339,16 @@ body#fos_user_profile_show .carousel-questions {
       -o-transition: 0.3s;
       transition: 0.3s;
       border: 1px solid #85bd6a;
-      margin-left: 3.3em;
-      font-size: 0.8em; }
+      font-size: 0.8em;
+      margin-top: 0.3em; }
       body#fos_user_profile_show .carousel-questions #bouton-container .bouton-carousel:hover {
         color: #85bd6a;
         background-color: white; }
   body#fos_user_profile_show .carousel-questions .gallery-cell {
     text-align: center;
     width: 25vw;
-    height: 150px;
+    min-height: 23vh;
+    height: auto;
     margin: 0 2em;
     background: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -2357,12 +2359,12 @@ body#fos_user_profile_show .carousel-questions {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 3em;
     color: #85bd6a;
     counter-increment: gallery-cell; }
     body#fos_user_profile_show .carousel-questions .gallery-cell .desc {
       color: black; }
     body#fos_user_profile_show .carousel-questions .gallery-cell #title {
+      padding-top: 1.5em;
       text-transform: uppercase; }
   body#fos_user_profile_show .carousel-questions .flickity-enabled {
     position: relative; }
