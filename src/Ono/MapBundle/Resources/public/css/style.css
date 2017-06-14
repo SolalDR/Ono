@@ -2362,10 +2362,14 @@ body#fos_user_profile_show .carousel-questions {
     color: #85bd6a;
     counter-increment: gallery-cell; }
     body#fos_user_profile_show .carousel-questions .gallery-cell .desc {
-      color: black; }
+      color: black;
+      padding: 1em;
+      word-break: break-all; }
     body#fos_user_profile_show .carousel-questions .gallery-cell #title {
       padding-top: 1.5em;
       text-transform: uppercase; }
+    body#fos_user_profile_show .carousel-questions .gallery-cell[data-linkproto] {
+      cursor: pointer; }
   body#fos_user_profile_show .carousel-questions .flickity-enabled {
     position: relative; }
   body#fos_user_profile_show .carousel-questions .flickity-enabled:focus {
@@ -3113,13 +3117,26 @@ body#fos_user_profile_show .carousel-questions {
         text-align: center;
         height: 1em;
         padding: .5em 0;
-        margin: 20px auto 0;
+        margin: 20px 1em 0;
         background-color: #85bd64;
         transition: .3s linear;
         color: white;
         display: inline-block; }
         .modal-box #modal-content .indefinitions-container .add-indef-btn:hover {
           background-color: #72a255; }
+      .modal-box #modal-content .indefinitions-container .see-more-btn {
+        width: 15em;
+        font-size: 18px;
+        text-align: center;
+        height: 1em;
+        padding: .5em 0;
+        margin: 20px 1em 0;
+        background-color: #377b84;
+        transition: .3s linear;
+        color: white;
+        display: inline-block; }
+        .modal-box #modal-content .indefinitions-container .see-more-btn:hover {
+          background-color: #2d676f; }
     .modal-box #modal-content .no-indef, .modal-box #modal-content .no-article {
       text-align: center;
       border: 1px solid #85bd64;

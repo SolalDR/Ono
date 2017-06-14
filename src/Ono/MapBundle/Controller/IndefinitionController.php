@@ -45,9 +45,7 @@ class IndefinitionController extends Controller
       $manager->flush();
       $request->getSession()->getFlashBag()->add('notice', 'Indéfinition bien enregistrée.');
       $articleId = (int) $request->attributes->all()["article_id"];
-      $articleRepo = $manager->getRepository("OnoMapBundle:Article");
-      $article = $articleRepo->find($articleId);
-      return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $article->getId(), "id" => $tagId));
+      return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $articleId, "id" => $tagId));
     }
 
     $themRepo = $manager->getRepository("OnoMapBundle:Theme");
@@ -102,7 +100,7 @@ class IndefinitionController extends Controller
     $indefinition = $manager->getRepository("OnoMapBundle:Indefinition")->find($numId);
     if (!$indefinition) {
       if ($fromProfile) {
-        return $this->redirectToRoute("fos_user_profile_show");
+        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
       } else {
         return $this->redirectToRoute("ono_map_tag_view", array("art_id" => $numArt, "id" => $numId));
       }
@@ -114,7 +112,7 @@ class IndefinitionController extends Controller
           $form = $this->get('form.factory')->create(IndefinitionLogType::class, $indefinition);
         } else {
           if ($fromProfile) {
-            return $this->redirectToRoute("fos_user_profile_show");
+            return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
           } else {
             return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numId));
           }
@@ -124,7 +122,7 @@ class IndefinitionController extends Controller
       }
     } else {
       if ($fromProfile) {
-        return $this->redirectToRoute("fos_user_profile_show");
+        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
       } else {
         return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numId));
       }
@@ -137,7 +135,7 @@ class IndefinitionController extends Controller
       $request->getSession()->getFlashBag()->add('notice', 'Indéfinition bien modifiée.');
 
       if ($fromProfile) {
-        return $this->redirectToRoute("fos_user_profile_show");
+        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
       } else {
         return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numId));
       }
@@ -190,7 +188,7 @@ class IndefinitionController extends Controller
       $indefinition = $manager->getRepository("OnoMapBundle:Indefinition")->find($numId);
       if (!$indefinition) {
         if ($fromProfile) {
-          return $this->redirectToRoute("fos_user_profile_show");
+          return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
         } else {
           return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numTag));
         }
@@ -198,7 +196,7 @@ class IndefinitionController extends Controller
 
       if (!$user || $user !== $indefinition->getUser()) {
         if ($fromProfile) {
-          return $this->redirectToRoute("fos_user_profile_show");
+          return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
         } else {
           return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numTag));
         }
@@ -215,7 +213,7 @@ class IndefinitionController extends Controller
         $request->getSession()->getFlashBag()->add('info', "L'indéfinition a bien été supprimée.");
 
         if ($fromProfile) {
-          return $this->redirectToRoute("fos_user_profile_show");
+          return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
         } else {
           return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numTag));
         }

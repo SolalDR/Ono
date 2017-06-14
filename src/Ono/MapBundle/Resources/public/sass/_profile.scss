@@ -167,10 +167,16 @@ body#fos_user_profile_show {
 
         .desc {
           color:black;
+          padding: 1em;
+          word-break: break-all;
         }
         #title{
           padding-top:1.5em;
           text-transform: uppercase;
+        }
+
+        &[data-linkproto] {
+          cursor: pointer;
         }
       }
 

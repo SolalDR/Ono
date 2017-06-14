@@ -72,7 +72,6 @@ class MapController extends Controller
       ));
     }
 
-
     //Action mettant à jour la page d'accueil à l'aide d'une XHR et d'un retour en JSON
     public function updateAction(Request $request)
     {

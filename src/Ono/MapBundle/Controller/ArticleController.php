@@ -293,7 +293,7 @@ class ArticleController extends Controller
       "tag_id" => $numTag
     ));
 
-    $tagViewLink = $this->generateUrl('ono_map_tag_view', array(
+    $seeMoreLink = $this->generateUrl('ono_map_tag_view', array(
       "article_id" => $numArt,
       "id" => $numTag
     ));
@@ -352,13 +352,13 @@ class ArticleController extends Controller
 
       if($request->isXmlHttpRequest()){
         // REPONSE XHR
-        return new Response($this->getPopupResponse($tag->getLibTag(), $indefinitions, $indefPersoLink, $articles));
+        return new Response($this->getPopupResponse($tag->getLibTag(), $indefinitions, $indefPersoLink, $seeMoreLink, $articles));
       }
     }
     return $this->redirectToRoute('ono_map_article_view', array('id' => $article->getId()));
   }
 
-  private function getPopupResponse($libTag, $indefinitions, $indefPersoLink, $articles) {
+  private function getPopupResponse($libTag, $indefinitions, $indefPersoLink, $seeMoreLink, $articles) {
     $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
     // Pour chaque article, on récupère le titre, l'image et le lien
     $arts = [];
@@ -378,6 +378,7 @@ class ArticleController extends Controller
     $render["libTag"] = $libTag;
     $render["indefinitions"] = $indefinitions;
     $render["indefPersoLink"] = $indefPersoLink;
+    $render["seeMoreLink"] = $seeMoreLink;
     $render["articles"] = $arts;
     return json_encode($render);
   }

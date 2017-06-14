@@ -76,13 +76,29 @@
         text-align: center;
         height: 1em;
         padding: .5em 0;
-        margin: 20px auto 0;
+        margin: 20px 1em 0;
         background-color: #85bd64;
         transition: .3s linear;
         color: white;
         display: inline-block;
         &:hover {
           background-color: #72a255;
+        }
+      }
+
+      .see-more-btn {
+        width: 15em;
+        font-size: 18px;
+        text-align: center;
+        height: 1em;
+        padding: .5em 0;
+        margin: 20px 1em 0;
+        background-color: #377b84;
+        transition: .3s linear;
+        color: white;
+        display: inline-block;
+        &:hover {
+          background-color: #2d676f;
         }
       }
     }

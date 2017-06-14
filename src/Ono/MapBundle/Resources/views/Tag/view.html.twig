@@ -5,11 +5,16 @@
   {% block bodyContent %}{{ parent() }}
 
     <div class="main-block">
-      <a class="back-list" href="{{ path("ono_map_article_view", {"id": numArt}) }}">Retour à l'article</a>
+      {% if numArt != 0 %}
+        <a class="back-list" href="{{ path("ono_map_article_view", {"id": numArt}) }}">Retour à l'article</a>
+      {% elseif is_granted('ROLE_USER') %}
+        <a class="back-list" href="{{ path("fos_user_profile_show") }}">Retour au profil</a>
+      {% endif %}
       <div class="main-block-header">
         <h1>Les indéfinitions correspondant au tag <span id="tag">{{ tag.libTag }}</span></h1>
         <p class="count">{{ tag.indefinitions|length }} résultats</p>
       </div>
+      <p><a class="back-list" href="{{ path("ono_map_indefinition_add", {"article_id": 0, "tag_id": tag.id}) }}">Nouvelle indéfinition</a></p>
       <div class="columns">
         {% for indefinition in tag.indefinitions %}
         <figure>
@@ -20,15 +25,20 @@
             <div class="colum-content">
               <p>{{ indefinition.content |raw }}</p>
             </div>
-<!-- need to check if author = current_user -->
+          {% if is_granted("ROLE_USER") and indefinition.user and app.user == indefinition.user %}
             <div id="bouton-container">
-              <div class="bouton-carousel" id="edit">
-                <p> Editer </p>
-              </div>
-              <div class="bouton-carousel" id="supp">
-                <p> Supprimer </p>
-              </div>
+              <a class="bouton-carousel" id="edit" href="{{ path("ono_map_indefinition_edit", {"article_id": 0, "tag_id": indefinition.tag.id, "id": indefinition.id}) }}">
+                <div>
+                  <p> Editer </p>
+                </div>
+              </a>
+              <a class="bouton-carousel" id="supp" href="{{ path("ono_map_indefinition_delete", {"article_id": 0, "tag_id": indefinition.tag.id, "id": indefinition.id}) }}">
+                <div>
+                  <p> Supprimer </p>
+                </div>
+              </a>
             </div>
+          {% endif %}
           </div>
         </figure>
 
@@ -53,15 +63,20 @@
             <div class="colum-content">
               <p>{{ article.content |raw }}</p>
             </div>
-<!-- need to check if author = current_user -->
             <div id="bouton-container">
-              <div class="bouton-carousel" id="edit">
-                <p> Editer </p>
+              <a class="bouton-carousel" id="read" href="{{ path("ono_map_article_view", {"id": article.id}) }}">
+                <div>
+                  <p> Lire l'article </p>
+                </div>
+              </a>
+              {% if is_granted("ROLE_USER") and article.user and app.user == article.user %}
+                <a class="bouton-carousel" id="edit" href="{{ path("ono_map_article_edit", {"id": article.id}) }}">
+                  <div>
+                    <p> Editer </p>
+                  </div>
+                </a>
+              {% endif %}
               </div>
-              <div class="bouton-carousel" id="supp">
-                <p> Supprimer </p>
-              </div>
-            </div>
           </div>
         </figure>
 

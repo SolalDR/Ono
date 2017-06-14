@@ -65,8 +65,15 @@
       <div class="carousel-questions">
         <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
           {% for response in user.responses %}
-            <div class="gallery-cell">
-              {{ response.question.libQuestion }}
+            <div class="gallery-cell" data-linkproto="{{ path("ono_map_response_view", {"id": response.id}) }}">
+              <p id="title">{{ response.question.libQuestion }}</p>
+              <p class="desc">
+                {% if response.content|striptags|raw|length > 50 %}
+                {{ response.content|striptags[:50]|raw }}...
+                {% else %}
+                {{ response.content|striptags|raw }}
+                {% endif %}
+              </p>
             </div>
           {% endfor %}
         </div>
@@ -78,27 +85,35 @@
     {% if user.indefinitions is not empty %}
       <h2>Indéfinitions</h2>
       <div class="carousel-questions">
-        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }' >
+        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
           {% for indefinition in user.indefinitions %}
-            <div class="gallery-cell">
-              <p id="title">{{ indefinition.tag.libTag }}</p><br>
-              <p class="desc">{{ indefinition.content[:50]}}...</p>
-              <br>
+            <div class="gallery-cell" data-linkproto="{{ path("ono_map_tag_view", {"article_id": 0, "id": indefinition.tag.id}) }}">
+              <p id="title">{{ indefinition.tag.libTag }}</p>
+              <p class="desc">
+                {% if indefinition.content|striptags|raw|length > 50 %}
+                {{ indefinition.content|striptags[:50]|raw }}...
+                {% else %}
+                {{ indefinition.content|striptags|raw }}
+                {% endif %}
+              </p>
               <div id="bouton-container">
-                <div class="bouton-carousel" id="edit">
-                  <p> Editer </p>
-                </div>
+                <a href="{{ path("ono_map_indefinition_edit", {"article_id": 0, "tag_id": indefinition.tag.id, "id": indefinition.id }) }}">
+                  <div class="bouton-carousel" id="edit">
+                    <p> Editer </p>
+                  </div>
+                </a>
                 <br>
-                <div class="bouton-carousel" id="supp">
-                  <p> Supprimer </p>
-                </div>
+                <a href="{{ path("ono_map_indefinition_delete", {"article_id": 0, "tag_id": indefinition.tag.id, "id": indefinition.id }) }}">
+                  <div class="bouton-carousel" id="supp">
+                    <p>Supprimer</p>
+                  </div>
+                </a>
               </div>
             </div>
-
           {% endfor %}
         </div>
       </div>
-    {% endif %}
+      {% endif %}
 
 
     {% endblock fos_user_content %}

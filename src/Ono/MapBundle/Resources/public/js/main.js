@@ -394,6 +394,7 @@ popupManage = {
     var libTag = response.libTag;
     var indefinitions = response.indefinitions;
     var indefPersoLink = response.indefPersoLink;
+    var seeMoreLink = response.seeMoreLink;
     var articles = response.articles;
 
     // On insère le libTag dans le prototype
@@ -437,6 +438,9 @@ popupManage = {
 
     // On ajoute le href du lien "Proposer votre indéfinition"
     popupPrototype = popupPrototype.replace(/__indefPersoLink__/, indefPersoLink);
+
+    // On ajoute le href du lien "Voir plus"
+    popupPrototype = popupPrototype.replace(/__seeMoreLink__/, seeMoreLink);
 
     // On crée notre conteneur d'articles
     var articlesContainer = document.createElement("div");
