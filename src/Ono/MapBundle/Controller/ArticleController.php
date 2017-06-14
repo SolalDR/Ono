@@ -293,6 +293,11 @@ class ArticleController extends Controller
       "tag_id" => $numTag
     ));
 
+    $tagViewLink = $this->generateUrl('ono_map_tag_view', array(
+      "article_id" => $numArt,
+      "tag_id" => $numTag
+    ));
+
     // On récupère les repositories nécessaires
     $manager = $this->getDoctrine()->getManager();
     $repoArticle = $manager->getRepository("OnoMapBundle:Article");
