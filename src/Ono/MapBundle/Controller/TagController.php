@@ -93,7 +93,7 @@ class TagController extends Controller
       ));
   }
 
-  public function indexAdminAction()
+  public function indexAction()
   {
     $manager = $this->getDoctrine()->getManager();
     $tags = $manager->getRepository("OnoMapBundle:Tag")->findAll();
