@@ -12,13 +12,15 @@ class TagController extends Controller
 {
   public function viewAction(Request $request) {
     $numId = $request->attributes->all()["id"];
+    $numArt = $request->attributes->all()['article_id'];
     $manager = $this->getDoctrine()->getManager();
     $tag = $manager->getRepository("OnoMapBundle:Tag")->find($numId);
     if ($tag) {
       $themes = $manager->getRepository("OnoMapBundle:Theme")->findAll();
       return $this->render('OnoMapBundle:Tag:view.html.twig', array(
         "tag" => $tag,
-        "themes" => $themes
+        "themes" => $themes,
+        "numArt" => $numArt
       ));
     }
     return $this->redirectToRoute("ono_map_homepage");

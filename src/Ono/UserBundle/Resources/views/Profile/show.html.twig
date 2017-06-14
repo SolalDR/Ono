@@ -11,12 +11,14 @@
         <div class="top-part" id="left-part">
           <div class="top-part-content">
             <p id="username">{{ user.username }}</p>
-            {% image '@OnoUserBundle/Resources/public/img/edit.png' %}
-              <img class="buttons" src="{{ asset_url }}" alt="edit" id="edit-btn">
-            {% endimage %}
-            {% image '@OnoUserBundle/Resources/public/img/supprimer.png' %}
+              <a href="{{ path('fos_user_profile_edit') }}">
+                {% image '@OnoUserBundle/Resources/public/img/edit.png' %}
+                  <img class="buttons" src="{{ asset_url }}" alt="edit" id="edit-btn">
+                {% endimage %}
+              </a>
+            <!-- {% image '@OnoUserBundle/Resources/public/img/supprimer.png' %}
               <img class="buttons" src="{{ asset_url }}" alt="supp" id="supp-btn">
-            {% endimage %}
+            {% endimage %} -->
           </div>
           <div class="top-part-content">
             <p>{{ user.description ? user.description : "<span class='no-value'>Non renseigné</span>"|striptags }}</p>
@@ -76,12 +78,23 @@
     {% if user.indefinitions is not empty %}
       <h2>Indéfinitions</h2>
       <div class="carousel-questions">
-        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
+        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }' >
           {% for indefinition in user.indefinitions %}
             <div class="gallery-cell">
-              <p>{{ indefinition.tag.libTag }}</p><br>
-              <p class="desc">{{ indefinition.content[:20]}}...</p>
+              <p id="title">{{ indefinition.tag.libTag }}</p><br>
+              <p class="desc">{{ indefinition.content[:50]}}...</p>
+              <br>
+              <div id="bouton-container">
+                <div class="bouton-carousel" id="edit">
+                  <p> Editer </p>
+                </div>
+                <br>
+                <div class="bouton-carousel" id="supp">
+                  <p> Supprimer </p>
+                </div>
+              </div>
             </div>
+
           {% endfor %}
         </div>
       </div>
