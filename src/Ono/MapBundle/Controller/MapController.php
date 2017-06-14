@@ -143,6 +143,7 @@ class MapController extends Controller
       }
       if($articles){
         $articles = $this->deleteArticlesFiles($articles);
+        $articles = $this->deleteIndefs($articles);
         $json2 = $this->getJsonFor($articles, $articles);
       } else {
         $json2 = "{}";
@@ -161,6 +162,13 @@ class MapController extends Controller
       }
       // dump($articles);
       // exit;
+      return $articles;
+    }
+
+    private function deleteIndefs($articles) {
+      for($i=0; $i<count($articles); $i++){
+        $articles[$i]->temporyDeleteTagsIndefs();
+      }
       return $articles;
     }
 

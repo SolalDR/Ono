@@ -456,6 +456,16 @@ class Article
       $this->resources = [];
     }
 
+    public function temporyDeleteTagsIndefs() {
+      $nbTags = count($this->tags);
+      for ($i = 0 ; $i < $nbTags ; $i++) {
+        $this->tags[$i] = [
+          "id" => $this->tags[$i]->getId(),
+          "libTag" => $this->tags[$i]->getLibTag()
+        ];
+      }
+    }
+
     /**
      * Remove resource
      *

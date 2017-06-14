@@ -768,7 +768,6 @@ filter = {
     filter.ageControl = document.getElementById("rangeAgeActive");
     filter.initFilterThemeActive();
     filter.initEvent();
-    console.log(filter.filterThemeActive);
   }
 }
 

@@ -295,7 +295,7 @@ class ArticleController extends Controller
 
     $tagViewLink = $this->generateUrl('ono_map_tag_view', array(
       "article_id" => $numArt,
-      "tag_id" => $numTag
+      "id" => $numTag
     ));
 
     // On récupère les repositories nécessaires
