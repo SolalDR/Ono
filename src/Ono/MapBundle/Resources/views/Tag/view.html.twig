@@ -5,6 +5,7 @@
   {% block bodyContent %}{{ parent() }}
 
     <div class="main-block">
+      <a class="back-list" href="{{ path("ono_map_article_view", {"id": numArt}) }}">Retour à l'article</a>
       <div class="main-block-header">
         <h1>Les indéfinitions correspondant au tag <span id="tag">{{ tag.libTag }}</span></h1>
         <p class="count">{{ tag.indefinitions|length }} résultats</p>
@@ -18,6 +19,39 @@
             </div>
             <div class="colum-content">
               <p>{{ indefinition.content |raw }}</p>
+            </div>
+<!-- need to check if author = current_user -->
+            <div id="bouton-container">
+              <div class="bouton-carousel" id="edit">
+                <p> Editer </p>
+              </div>
+              <div class="bouton-carousel" id="supp">
+                <p> Supprimer </p>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ARTICLES -->
+
+    <div class="main-block">
+      <div class="main-block-header">
+        <h1>Les articles correspondant au tag <span id="tag">{{ tag.libTag }}</span></h1>
+        <p class="count">{{ tag.articles|length }} résultats</p>
+      </div>
+      <div class="columns">
+        {% for article in tag.articles %}
+        <figure>
+          <div class=column-container>
+            <div class="author">
+              <p>Selon {{ article.user.firstname ~ " " ~ article.user.name }}</p>
+            </div>
+            <div class="colum-content">
+              <p>{{ article.content |raw }}</p>
             </div>
 <!-- need to check if author = current_user -->
             <div id="bouton-container">
