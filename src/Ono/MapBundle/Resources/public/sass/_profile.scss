@@ -56,6 +56,9 @@ body#fos_user_profile_show {
       .top-part-content{
         display: flex;
         vertical-align: middle;
+        a {
+          display: inherit;
+        }
         img {
           margin: 0 0.7em;
           align-self: center;
@@ -111,14 +114,45 @@ body#fos_user_profile_show {
       .gallery {
         background-color: transparent;
         margin:auto;
+        display: block;
+      }
+
+      #bouton-container {
+        margin: 0.7em auto 0;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        bottom:4px;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+
+        .bouton-carousel {
+          padding:0.4em 0.8em;
+          color:white;
+          background-color: $green;
+          border-radius: 6px;
+          cursor:pointer;
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          border:1px solid $green;
+          margin-left:3.3em;
+          font-size: 0.8em;
+          &:hover{
+            color:$green;
+            background-color: white;
+          }
+        }
       }
 
       .gallery-cell {
         text-align: center;
-        width: 20vw;
+        width: 25vw;
         height: 150px;
         margin:0 2em;
         background: transparent;
+        border:1px solid rgba(0,0,0,0.1);
         -moz-box-shadow: 1px 1px 10px 1px #cfcfcf;
         -webkit-box-shadow: 1px 1px 10px 1px #cfcfcf;
         -o-box-shadow: 1px 1px 10px 1px #cfcfcf;
@@ -126,13 +160,19 @@ body#fos_user_profile_show {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        padding:4em;
+        padding:3em;
         color:$green;
         counter-increment: gallery-cell;
+
         .desc {
           color:black;
         }
+        #title{
+          text-transform: uppercase;
+        }
       }
+
+
 
       .flickity-enabled {
         position: relative;
@@ -146,7 +186,7 @@ body#fos_user_profile_show {
     }
 
     .flickity-slider {
-      position: absolute;
+      position: relative;
       width: 100%;
       height: 100%;
     }

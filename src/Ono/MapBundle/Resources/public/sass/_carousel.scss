@@ -31,6 +31,7 @@
 
   }
   .carousel .leftSelector {
+    cursor: pointer;
     width: 10%;
     height: 100%;
     left: 0;
@@ -41,6 +42,7 @@
     background-color: black;
     background-color: rgba(0, 0, 0, 0.5);
     background-image: url(../img/left.png);
+    filter:invert(100%);
     background-size: 30%;
     background-position: center;
     background-repeat: no-repeat;
@@ -50,6 +52,7 @@
       background-color: rgba(0, 0, 0, 0.75);
     }
   .carousel .rightSelector {
+    cursor: pointer;
     width: 10%;
     height: 100%;
     right: 0;
@@ -60,6 +63,7 @@
     background-color: black;
     background-color: rgba(0, 0, 0, 0.5);
     background-image: url(../img/right.png);
+    filter:invert(100%);
     background-size: 30%;
     background-position: center;
     background-repeat: no-repeat;
@@ -67,6 +71,7 @@
     .carousel .rightSelector:hover {
       background-color: black;
       background-color: rgba(0, 0, 0, 0.75);
+      filter:invert(98%);
     }
   .carousel:hover .button_selector {
     opacity: 1; }

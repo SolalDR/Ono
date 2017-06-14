@@ -7,13 +7,13 @@ ono_promote_user:
         id: \d+
 
 
-#promouvoir utilisateur
+#voir utilisateur
 ono_view_user:
     path:     /profile
     defaults: { _controller: OnoUserBundle:User:show }
 
 
-#promouvoir utilisateur
+#edit utilisateur
 ono_edit_user:
     path:     /profile/edit
     defaults: { _controller: OnoUserBundle:User:edit }
