@@ -63,8 +63,9 @@ class MapController extends Controller
 
 
       $themes = $themRepo->findAll();
-      $json = $this->manageJson($articles, $questions, $responseRepo);
 
+
+      $json = $this->manageJson($articles, $questions, $responseRepo);
 
       return $this->render('OnoMapBundle:Map:index.html.twig', array(
         "json" =>$json,
@@ -152,12 +153,14 @@ class MapController extends Controller
     }
 
     private function deleteArticlesFiles($articles){
-      if($articles)
-      for($i=0; $i<count($articles); $i++){
-        $articles[$i]->temporyDeleteResource();
-        // for($j=0; $j<count($resources); $j++){
-        //   $resources[$j]->setFile(null);
-        // }
+      if($articles) {
+        for($i=0; $i<count($articles); $i++){
+          $articles[$i]->temporyDeleteResource();
+          $articles[$i]->temporyDeleteUser();
+          // for($j=0; $j<count($resources); $j++){
+          //   $resources[$j]->setFile(null);
+          // }
+        }
       }
       // dump($articles);
       // exit;
@@ -176,10 +179,8 @@ class MapController extends Controller
       for($i=0; $i<count($questions); $i++){
         $responses = $questions[$i]->getResponses();
         for($j=0; $j<count($responses); $j++){
-          $resource = $responses[$j]->getResource();
-          if($resource){
-            $resource->setFile(null);
-          }
+          $responses[$j]->temporyDeleteResource();
+          $responses[$j]->temporyDeleteUser();
         }
       }
 

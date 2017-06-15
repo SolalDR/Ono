@@ -456,6 +456,10 @@ class Article
       $this->resources = [];
     }
 
+    public function temporyDeleteUser(){
+      $this->user = null;
+    }
+
     public function temporyDeleteTagsIndefs() {
       $nbTags = count($this->tags);
       for ($i = 0 ; $i < $nbTags ; $i++) {

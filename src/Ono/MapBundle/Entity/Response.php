@@ -410,4 +410,12 @@ class Response
     {
         return $this->resource;
     }
+
+    public function temporyDeleteResource(){
+      $this->resource = null;
+    }
+
+    public function temporyDeleteUser(){
+      $this->user = null;
+    }
 }
