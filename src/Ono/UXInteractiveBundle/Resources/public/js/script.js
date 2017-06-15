@@ -584,7 +584,7 @@ soundBg = new THREE.Audio( listener );
 audioBg = new THREE.AudioLoader();
 
 //Load a soundBg and set it as the Audio object's buffer
-audioBg.load( '../asset/audio/ambient.wav', function( buffer ) {
+audioBg.load( '../asset/audio/ambient.mp3', function( buffer ) {
 	soundBg.setBuffer( buffer );
 	soundBg.setLoop(true);
 	soundBg.setVolume(0.2);

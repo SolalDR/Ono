@@ -102,7 +102,7 @@ class IndefinitionController extends Controller
       if ($fromProfile) {
         return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
       } else {
-        return $this->redirectToRoute("ono_map_tag_view", array("art_id" => $numArt, "id" => $numId));
+        return $this->redirectToRoute("ono_map_tag_view", array("art_id" => $numArt, "id" => $numTag));
       }
     }
 
@@ -114,7 +114,7 @@ class IndefinitionController extends Controller
           if ($fromProfile) {
             return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
           } else {
-            return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numId));
+            return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numTag));
           }
         }
       } else {
@@ -124,7 +124,7 @@ class IndefinitionController extends Controller
       if ($fromProfile) {
         return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
       } else {
-        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numId));
+        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numTag));
       }
     }
 
@@ -137,7 +137,7 @@ class IndefinitionController extends Controller
       if ($fromProfile) {
         return $this->redirectToRoute("ono_map_tag_view", array("article_id" => 0, "id" => $numTag));
       } else {
-        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numId));
+        return $this->redirectToRoute("ono_map_tag_view", array("article_id" => $numArt, "id" => $numTag));
       }
     }
 

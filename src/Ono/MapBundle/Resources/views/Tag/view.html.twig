@@ -14,7 +14,7 @@
         <h1>Les indéfinitions correspondant au tag <span id="tag">{{ tag.libTag }}</span></h1>
         <p class="count">{{ tag.indefinitions|length }} résultats</p>
       </div>
-      <p><a class="back-list" href="{{ path("ono_map_indefinition_add", {"article_id": 0, "tag_id": tag.id}) }}">Nouvelle indéfinition</a></p>
+      <p><a class="back-list" href="{{ path("ono_map_indefinition_add", {"article_id": numArt, "tag_id": tag.id}) }}">Nouvelle indéfinition</a></p>
       <div class="columns">
         {% for indefinition in tag.indefinitions %}
         <figure>
@@ -27,12 +27,12 @@
             </div>
           {% if is_granted("ROLE_USER") and indefinition.user and app.user == indefinition.user %}
             <div id="bouton-container">
-              <a class="bouton-carousel" id="edit" href="{{ path("ono_map_indefinition_edit", {"article_id": 0, "tag_id": indefinition.tag.id, "id": indefinition.id}) }}">
+              <a class="bouton-carousel" id="edit" href="{{ path("ono_map_indefinition_edit", {"article_id": numArt, "tag_id": indefinition.tag.id, "id": indefinition.id}) }}">
                 <div>
                   <p> Editer </p>
                 </div>
               </a>
-              <a class="bouton-carousel" id="supp" href="{{ path("ono_map_indefinition_delete", {"article_id": 0, "tag_id": indefinition.tag.id, "id": indefinition.id}) }}">
+              <a class="bouton-carousel" id="supp" href="{{ path("ono_map_indefinition_delete", {"article_id": numArt, "tag_id": indefinition.tag.id, "id": indefinition.id}) }}">
                 <div>
                   <p> Supprimer </p>
                 </div>
