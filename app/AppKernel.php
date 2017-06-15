@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new \Aws\Symfony\AwsBundle(),
+            new Ono\UXInteractiveBundle\OnoUXInteractiveBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

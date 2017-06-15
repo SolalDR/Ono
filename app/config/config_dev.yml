@@ -35,6 +35,7 @@ assetic:
     bundles:
         - OnoMapBundle
         - OnoUserBundle
+        - OnoUXInteractiveBundle
         - IvoryCKEditorBundle
 
 

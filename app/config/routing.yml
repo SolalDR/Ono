@@ -1,3 +1,7 @@
+ono_ux_interactive:
+    resource: "@OnoUXInteractiveBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ono_map:
     resource: "@OnoMapBundle/Resources/config/routing.yml"
     prefix:   /
@@ -22,7 +26,7 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
-# Override security controller 
+# Override security controller
 fos_user_security_login:
     path:      /login
     defaults:  { _controller: OnoUserBundle:Security:login }

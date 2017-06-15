@@ -1,0 +1,3 @@
+ono_ux_interactive_homepage:
+    path:     /uxinteractive
+    defaults: { _controller: OnoUXInteractiveBundle:Default:index }

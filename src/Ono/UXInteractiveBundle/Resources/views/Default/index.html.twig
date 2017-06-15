@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ono - UX Interactive</title>
+
+    {% stylesheets  filter='cssrewrite'
+      'bundles/onouxinteractive/css/style.css'
+    %}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+
+    {% javascripts 'bundles/onouxinteractive/js/FactProgress.js' %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+  </head>
+  <body>
+    <div class="navigation">
+      <img src="{{ asset("asset/img/logo.png") }}" alt="Ono expérience interactive" id="logo">
+      <a id="plateform-link" href="{{ path("ono_map_homepage") }}" class="hidden">Visiter la plateforme</a>
+    </div>
+    <div id="loader" class="visible">
+      <div class="container">
+        <p class="little">Pendant votre chargement...</p>
+        <p class="count"></p>
+        <p class="lib"></p>
+      </div>
+    </div>
+    <div class="sound-manage">
+      <button id="cut-sound" class="sound"></button>
+      <div class="container">
+        <div class="range-slider">
+          <input id="range-volume" type="range" orient="vertical" min="0" max="100"/>
+          <div class="range-slider__bar"></div>
+          <div class="range-slider__thumb"></div>
+        </div>
+      </div>
+    </div>
+    <div id="onoStoriesPopin" class="popin hidden">
+      <div class="container">
+        <button id="close-popin"></button>
+        <div class="center">
+          <div class="title"></div>
+          <p class="country"></p>
+          <canvas id="soundCanvas" width="200" height="70"></canvas>
+          <div class="content"></div>
+          <div class="data-visualisation"></div>
+          <div class="audio-controll">
+            <div class="restart" id="restart-voice-btn"></div>
+            <div class="player" id="start-voice-btn"></div>
+            <div class="stop" id="stop-voice-btn"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% javascripts
+    'bundles/onouxinteractive/js/three.min.js'
+    'bundles/onouxinteractive/js/OnoHistory.js'
+    'bundles/onouxinteractive/js/DynamicSpell.js'
+    'bundles/onouxinteractive/js/OrbitControls.js'
+    'bundles/onouxinteractive/js/BezierEasing.js'
+    'bundles/onouxinteractive/js/data.js'
+    'bundles/onouxinteractive/js/CircleProgress.js'
+    'bundles/onouxinteractive/js/script.js'
+    %}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+    {% endjavascripts %}
+  </body>
+</html>
