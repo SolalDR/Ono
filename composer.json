@@ -35,7 +35,8 @@
         "egeloen/ckeditor-bundle": "^4.0",
         "vich/uploader-bundle": "^1.4",
         "knplabs/knp-gaufrette-bundle": "~0.3",
-        "aws/aws-sdk-php-symfony": "^1.2"
+        "aws/aws-sdk-php-symfony": "^1.2",
+        "knplabs/gaufrette": "^0.3.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
