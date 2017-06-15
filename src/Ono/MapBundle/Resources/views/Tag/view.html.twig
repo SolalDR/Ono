@@ -58,10 +58,14 @@
         <figure>
           <div class=column-container>
             <div class="author">
-              <p>Selon {{ article.user.firstname ~ " " ~ article.user.name }}</p>
+              <p>{{ article.title }}</p>
             </div>
             <div class="colum-content">
-              <p>{{ article.content |raw }}</p>
+              {% if article.content|striptags|raw|length > 200 %}
+              <p>{{ article.content|striptags[:200]|raw }}...</p>
+              {% else %}
+              <p>{{ article.content|striptags|raw }}</p>
+              {% endif %}
             </div>
             <div id="bouton-container">
               <a class="bouton-carousel" id="read" href="{{ path("ono_map_article_view", {"id": article.id}) }}">
